@@ -611,7 +611,7 @@ $modal-content-fallback-border-color:          #999 !default;
 $modal-backdrop-bg:           #000 !default;
 //** Modal backdrop opacity
 $modal-backdrop-opacity:      .5 !default;
-//** Modal header border color
+//** Modal header-general border color
 $modal-header-border-color:   #e5e5e5 !default;
 //** Modal footer border color
 $modal-footer-border-color:   $modal-header-border-color !default;
@@ -864,7 +864,7 @@ $blockquote-small-color:      $gray-light !default;
 $blockquote-font-size:        ($font-size-base * 1.25) !default;
 //** Blockquote border color
 $blockquote-border-color:     $gray-lighter !default;
-//** Page header border color
+//** Page header-general border color
 $page-header-border-color:    $gray-lighter !default;
 //** Width of horizontal description list titles
 $dl-horizontal-offset:        $component-offset-horizontal !default;

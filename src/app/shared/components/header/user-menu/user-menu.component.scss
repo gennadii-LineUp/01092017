@@ -1,4 +1,4 @@
-@import "../../../../assets/sass/_variables.scss";
+@import "../../../../../assets/sass/variables";
 
 .toolbar {
   text-align: center;
@@ -20,7 +20,7 @@
   .sprite {
     width: 60px;
     height: 60px;
-    background-image: url('../../../../assets/img/toolbar.png');
+    background-image: url('../../../../../assets/img/toolbar.png');
     background-repeat: no-repeat;
     display: block;
     margin: 0 auto;
