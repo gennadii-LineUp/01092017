@@ -1,0 +1,22 @@
+@import "../../../../assets/sass/_variables.scss";
+
+
+.authorisation-page {
+  text-align: center;
+  &__caption{
+    color: $content;
+    padding: 25px 0;
+    font-size: 1.551rem;
+    font-family: $raleM;
+    a {
+      color: $blue;
+      font-family: $raleSM;
+      padding-left: 10px;
+    }
+  }
+  .blue-button {
+    max-width: 360px;
+    width: 100%;
+    margin-top: 22px;
+  }
+}

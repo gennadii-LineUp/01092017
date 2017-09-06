@@ -1,0 +1,148 @@
+header {
+  border-bottom: 1px solid $line;
+}
+
+.unaut-header {
+  color: $footer;
+  font-size: 1.4rem;
+  font-family: $raleR;
+  .col-md-2 {
+    display: flex;
+    align-items: center;
+  }
+  .nav-left {
+    padding-left: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    a {
+      color: $footer;
+      padding: 35px 0;
+      &:hover,
+      &:focus {
+        color: $blue;
+      }
+      &:nth-child(7) {
+        padding-left: 25px;
+      }
+    }
+  }
+}
+
+.aut-header {
+  color: $footer;
+  font-size: 1.4rem;
+  font-family: $raleR;
+  a {
+    display: inline-block;
+    white-space: nowrap;
+  }
+  .nav-center {
+    display: flex;
+    justify-content: space-between;
+    a {
+      color: $footer;
+      padding: 45px 0 0;
+      &:hover,
+      &:focus {
+        color: $blue;
+      }
+    }
+  }
+  &__logo {
+    a {
+      padding: 40px 0 30px;
+    }
+  }
+  &__user {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    .logo {
+      height: 35px;
+      width: 35px;
+      display: inline-block;
+      border-radius: 50%;
+      margin-right: 10%;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+  .toolbar {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    > div {
+      display: flex;
+      justify-content: space-around;
+    }
+    a {
+      color: $content;
+      transition: .2s all ease;
+      &:hover,
+      &:focus {
+        color: $orange;
+        transition: .2s all ease;
+      }
+    }
+    .sprite {
+      width: 60px;
+      height: 60px;
+      background-image: url('./assets/img/toolbar.png');
+      background-repeat: no-repeat;
+      display: block;
+      margin: 0 auto;
+    }
+    .sprite-icon-notif {
+      .sprite {
+        background-position: -10px -10px;
+      }
+      &:hover {
+        .sprite {
+          opacity: 1;
+          background-position: -90px -10px;
+        }
+      }
+    }
+    .sprite-icon-user {
+      .sprite {
+        background-position: -650px -10px;
+      }
+      &:hover {
+        .sprite {
+          background-position: -730px -10px;
+        }
+      }
+    }
+    .sprite-icon-services {
+      .sprite {
+        background-position: -490px -10px;
+      }
+      &:hover {
+        .sprite {
+          background-position: -570px -10px;
+        }
+      }
+    }
+    .sprite-icon-param {
+      .sprite {
+        background-position: -330px -10px;
+      }
+      &:hover {
+        .sprite {
+          background-position: -410px -10px;
+        }
+      }
+    }
+    .sprite-icon-operation{
+      .sprite {
+        background-position: -170px -10px;
+      }
+      &:hover {
+        .sprite {
+          background-position: -250px -10px;
+        }
+      }
+    }
+  }
+}

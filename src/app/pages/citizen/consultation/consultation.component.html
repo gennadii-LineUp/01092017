@@ -1,0 +1,93 @@
+<main class="gray-bg-citizen coin-bg">
+  <section class="consult-sold">
+    <div class="container">
+      <h3>Consultation Solde</h3>
+      <div class="row">
+        <div class="col-md-4 ml-md-auto mr-md-auto consult-sold__wrapper">
+          <div class="consult-sold__header">Chose account</div>
+          <div class="accordionWrapper">
+            <div class="accordionItem open">
+              <div class="consult-user accordionItemHeading">
+                <div class="logo" style="background-image: url('../img/user.png')"></div>
+                <div>
+                  <div>Lex Luthor</div>
+                  <div>Email: <a href="mailto:lexluthor@gmail.com">lexluthor@gmail.com</a></div>
+                </div>
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </div>
+              <div class="accordionItemContent ">
+                <button class="orange-button blue-button">Send a request</button>
+              </div>
+            </div>
+            <div class="accordionItem close-item">
+              <div class="consult-user accordionItemHeading">
+                <div class="logo" style="background-image: url('../img/user.png')"></div>
+                <div>
+                  <div>Lex Luthor</div>
+                  <div>Email: <a href="mailto:lexluthor@gmail.com">lexluthor@gmail.com</a></div>
+                </div>
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </div>
+              <div class="accordionItemContent ">
+                <button class="orange-button blue-button">Send a request</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="consult-sold-history">
+    <div class="container">
+      <h3>Consultation Solde</h3>
+      <div class="row">
+        <div class="col-md-4 ml-md-auto mr-md-auto wrapper">
+          <div class="little-title">Latest transactions</div>
+          <div class="consult-sold-history__user">
+            <div>
+              <div class="logo" style="background-image: url('../img/user.png')"></div>
+              <div>
+                <div>Lex Luthor</div>
+                <div class="card-data"><span>****</span><span>****</span><span>****</span><span>1212</span></div>
+              </div>
+            </div>
+            <div class="balance"><b>1200.25</b> USD</div>
+          </div>
+          <div class="little-title history">History</div>
+          <div class="history-item">
+            <div><span>11.12.2017</span><span>11:12</span></div>
+            <div>
+              <div class="card-data"><span>****</span><span>****</span><span>****</span><span>1212</span></div>
+              <div class="balance"><b>919.25</b> USD</div>
+            </div>
+          </div>
+          <div class="history-item">
+            <div><span>11.12.2017</span><span>11:12</span></div>
+            <div>
+              <div class="card-data"><span>****</span><span>****</span><span>****</span><span>1212</span></div>
+              <div class="balance"><b>919.25</b> USD</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  var accItem = document.getElementsByClassName('accordionItem');
+  var accHD = document.getElementsByClassName('accordionItemHeading');
+  for (let i = 0; i < accHD.length; i++) {
+    accHD[i].addEventListener('click', toggleItem, false);
+  }
+  function toggleItem() {
+    var itemClass = this.parentNode.className;
+    for (let i = 0; i < accItem.length; i++) {
+      accItem[i].className = 'accordionItem close-item';
+    }
+    if (itemClass == 'accordionItem close-item') {
+      this.parentNode.className = 'accordionItem open';
+    }
+  }
+</script>

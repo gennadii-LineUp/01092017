@@ -1,0 +1,60 @@
+@import "../../../../assets/sass/_variables.scss";
+
+
+.main-slider {
+  padding: 60px 0 145px;
+  background-color: #fff;
+  &__content {
+    h2 {
+      color: $blue;
+      font-size: 4.3rem;
+      line-height: 50px;
+      font-family: $raleBlack;
+      + div {
+        color: $grayText;
+        font-size: 1.6rem;
+        font-family: $raleR;
+        line-height: 24px;
+        margin: 40px 0;
+      }
+    }
+  }
+  &__footer {
+    color: $footer;
+    font-size: 1.6rem;
+    span {
+      padding: 0 10px 0 30px;
+    }
+    a {
+      color: $blue;
+      font-family: $raleBold;
+      font-size: 1.8rem;
+      text-decoration: underline;
+    }
+  }
+}
+.main-intro {
+  padding: 45px 0;
+  border-top: 1px solid $line;
+  background-color: $lightBg;
+  &__item {
+    text-align: center;
+    max-width: 226px;
+    min-height: 280px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    h3 {
+      font-size: 1.8rem;
+      font-family: $raleSM;
+    }
+    div {
+      color: $grayText;
+      font-size: 1.6rem;
+      line-height: 20px;
+      font-family: $raleR;
+    }
+  }
+}

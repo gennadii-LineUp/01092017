@@ -1,0 +1,220 @@
+@import "../../../assets/sass/_variables.scss";
+
+
+.transfers-to-bank {
+  margin-bottom: 60px;
+  .col {
+    padding: 0;
+    background-color: #fff;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  &__header {
+    color: $content;
+    font-size: 1.4rem;
+    font-family: $sf;
+    padding: 15px 0 4px 20px;
+    border-bottom: 2px solid $coin;
+  }
+  h4 {
+    color: #3c3c3c;
+    font-size: 1.6rem;
+    font-family: $raleM;
+    margin-bottom: 2px;
+  }
+  form {
+    display: flex;
+    padding: 17px 20px 7px 20px;
+    > div {
+      display: inline-block;
+      width: calc(33.333333333% - 20px);
+      &:not(:last-child) {
+        margin-right: 30px;
+      }
+    }
+    .floating-block {
+      margin-bottom: 15px;
+      .floating-input input {
+        padding-left: 0;
+        font-family: $raleR;
+        font-size: 1.4rem;
+        height: 40px;
+        min-height: 40px;
+        line-height: 40px;
+      }
+    }
+  }
+  .blue-button {
+    display: block;
+    margin: 0 auto 20px;
+    min-width: 335px;
+    height: 55px;
+  }
+}
+
+.consult-sold {
+  &__wrapper {
+    padding: 0 !important;
+    font-size: 1.4rem;
+    color: $mainText;
+    background-color: #fff;
+    margin-bottom: 60px;
+  }
+  &__header {
+    color: $mainText;
+    font-size: 1.4rem;
+    font-family: $sf;
+    padding: 17px 21px 3px 21px;
+    border-bottom: 2px solid $lightGrayBg;
+  }
+  .accordionWrapper {
+    .accordionItem {
+      border-bottom: 2px solid $lightGrayBg;
+      &:last-child {
+        border-bottom: none;
+      }
+      &.close-item {
+        max-height: 65px;
+      }
+      &.open {
+        .accordionItemHeading {
+          i {
+            transform: rotate(90deg);
+            transition: .2s all ease;
+          }
+        }
+      }
+    }
+    .accordionItemHeading {
+      height: 65px;
+      border-bottom: none;
+      > div:not(.logo) {
+        min-width: 78%;
+        flex-basis: 78%;
+        display: flex;
+        flex-direction: column;
+        align-items: right;
+        > div {
+          font-size: 1.6rem;
+          line-height: 23px;
+        }
+      }
+    }
+    .accordionItemContent {
+      padding: 5px 20px 6px;
+      .blue-button {
+        width: 100%;
+        height: 55px;
+        line-height: 55px;
+        font-size: 1.8rem;
+      }
+    }
+  }
+}
+
+.consult-user {
+  color: $mainText;
+  font-size: 1.6rem;
+  font-family: $raleSM;
+  .logo {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin-right: 15px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+  a {
+    font-size: 1.4rem;
+    color: #bababa;
+    font-family: $raleM;
+    &:hover,
+    &:focus {
+      color: #bababa;
+    }
+  }
+  i {
+    color: #f6a100;
+    font-size: 3rem;
+    transition: .2s all ease;
+  }
+}
+
+.consult-sold-history {
+  margin-bottom: 60px;
+  .wrapper {
+    padding: 0;
+    background-color: #fff;
+  }
+  &__user {
+    padding: 8px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid $lightGrayBg;
+    font-family: $raleSM;
+    font-size: 1.4rem;
+    color: $mainText;
+    > div {
+      display: flex;
+      align-items: center;
+    }
+    .logo {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      margin-right: 15px;
+    }
+  }
+  .balance {
+    color: #2c2c2c;
+    font-size: 1.4rem;
+    font-family: $raleM;
+    b {
+      color: #0095fd;
+      font-family: $sf;
+      font-size: 1.8rem;
+      padding-right: 10px;
+    }
+  }
+  .card-data {
+    display: flex;
+    span {
+      color: #aaaaaa;
+      height: 20px;
+      font-size: 1.4rem;
+      font-family: $raleM;
+      padding-right: 10px;
+      &:not(:last-child) {
+        line-height: 30px;
+      }
+    }
+  }
+  .little-title.history {
+    color: #8a8a8a;
+    border-bottom: 1px solid $lightGrayBg;
+  }
+  .history-item {
+    margin-left: 20px;
+    padding: 10px 20px 10px 0;
+    border-bottom: 1px solid $lightGrayBg;
+    font-family: $sf;
+    font-size: 1.2rem;
+    color: #3f3f3f;
+    > div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .balance {
+      b {
+        color: #ec964a;
+        padding-right: 5px;
+      }
+    }
+  }
+}

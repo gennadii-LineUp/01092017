@@ -1,0 +1,47 @@
+@import "../../../../assets/sass/_variables.scss";
+
+
+.about-us {
+  padding: 20px 0;
+  color: $mainText;
+  background-color: $lightGrayBg;
+  &__content.col {
+    font-size: 1.4rem;
+    padding: 10px 0 30px;
+    max-width: 685px;
+    background-color: #fff;
+    margin: 0 auto;
+    > div {
+      padding: 0 70px 0;
+      &:last-child {
+        border-top: 1px solid $lightGrayBg;
+      }
+    }
+    h3 {
+      font-size: 1.8rem;
+      font-family: $raleSM;
+      padding: 20px 0;
+      text-align: center;
+    }
+    p {
+      color: $content;
+      font-family: $raleR;
+    }
+    b {
+      font-family: $raleSM;
+    }
+  }
+  &__links {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    a {
+      font-family: $raleBold;
+      color: $blue;
+      &:hover,
+      &:focus {
+        color: $blue;
+      }
+    }
+  }
+}
