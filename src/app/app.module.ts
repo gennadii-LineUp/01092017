@@ -6,12 +6,13 @@ import { AlertModule } from 'ngx-bootstrap';
 import { AppComponent } from './pages/index-page/app.component';
 import {PagesModule} from './pages/pages.module';
 import {AppRoutingModule} from './services/routing.module';
+import {AuthGuard} from './guards/auth-guards.service';
+import {ErrorMessageHandlerService} from './services/error-message-handler.service';
+import {BackendService} from './services/backend.service';
 
 
 @NgModule({
-  declarations: [
-
-  ],
+  declarations: [],
   imports: [
     AlertModule.forRoot(),
     BrowserModule,
@@ -21,7 +22,10 @@ import {AppRoutingModule} from './services/routing.module';
     PagesModule
 
   ],
-  providers: [],
+  providers: [
+    AuthGuard,
+    ErrorMessageHandlerService, BackendService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

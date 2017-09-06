@@ -7,11 +7,6 @@
 @import "assets/sass/_variables.scss";
 
 
-// Common
-@import "assets/sass/_header.scss";
-@import "assets/sass/_footer.scss";
-
-
 a {
   white-space: nowrap;
 }
@@ -63,6 +58,7 @@ footer {
     font-family: $sf;
   }
 }
+
 
 .little-title {
   color: $mainText;
