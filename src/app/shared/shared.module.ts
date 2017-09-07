@@ -16,6 +16,7 @@ import {RefundPolicyComponent} from './components/refund-policy/refund-policy.co
 import { HeaderAgentComponent } from './components/header/header-agent/header-agent.component';
 import { HeaderCitizenComponent } from './components/header/header-citizen/header-citizen.component';
 import { HeaderCustomerComponent } from './components/header/header-customer/header-customer.component';
+import { NavbarForDeleteComponent } from './components/navbar-for-delete/navbar-for-delete.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { HeaderCustomerComponent } from './components/header/header-customer/hea
     PrivacyPolicyComponent,
     CancellationComponent,
     RefundPolicyComponent,
+    NavbarForDeleteComponent,
 
   ],
   exports: [
@@ -46,6 +48,7 @@ import { HeaderCustomerComponent } from './components/header/header-customer/hea
     PrivacyPolicyComponent,
     CancellationComponent,
     RefundPolicyComponent,
+    NavbarForDeleteComponent
   ],
   providers: [
 

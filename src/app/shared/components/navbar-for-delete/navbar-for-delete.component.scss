@@ -1,0 +1,21 @@
+/* MENU FOR DELETE */
+div.menu-for-delete{
+  position: fixed;
+  top: 5px;
+  left: 15px;
+}
+
+div.menu-for-delete p{
+  margin-top: 2px;
+}
+
+div.menu-for-delete button {
+  background: orange;
+  color: black !important;
+  border: none;
+  margin: 4px 0 0 4px;
+}
+.active-menu{
+  border: 4px solid #71dac0;
+}
+/* end of MENU FOR DELETE */
