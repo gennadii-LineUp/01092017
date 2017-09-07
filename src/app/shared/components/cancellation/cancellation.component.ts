@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './cancellation.component.html',
   styleUrls: ['./cancellation.component.scss']
 })
-export class GeneralCancellationComponent implements OnInit {
+export class CancellationComponent implements OnInit {
 
   constructor() { }
 

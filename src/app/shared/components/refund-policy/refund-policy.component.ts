@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './refund-policy.component.html',
   styleUrls: ['./refund-policy.component.scss']
 })
-export class GeneralRefundPolicyComponent implements OnInit {
+export class RefundPolicyComponent implements OnInit {
 
   constructor() { }
 

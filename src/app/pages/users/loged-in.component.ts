@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthGuard} from '../../guards/auth-guards.service';
 
 @Component({
@@ -6,7 +6,7 @@ import {AuthGuard} from '../../guards/auth-guards.service';
   templateUrl: './loged-in.component.html',
   styleUrls: ['./loged-in.component.scss']
 })
-export class LogedInComponent implements OnInit {
+export class LogedInComponent implements OnInit, OnDestroy {
 
   showProfileData = false;
 
@@ -15,6 +15,10 @@ export class LogedInComponent implements OnInit {
 
   ngOnInit() {
     this.verifyUserRole();
+  }
+  ngOnDestroy() {
+    localStorage.clear();
+    console.log('LS cleared');
   }
 
   public verifyUserRole() {
