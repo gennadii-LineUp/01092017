@@ -12,10 +12,8 @@ import { AgentServicesComponent } from './users/agent/services/services.componen
 import { LoginStartPageComponent } from './login/start-page/start-page.component';
 import {SharedModule} from '../shared/shared.module';
 import { GeneralAuthorisationComponent } from './general/authorisation/authorisation.component';
-import { GeneralCreateAccountComponent } from './general/create-account/create-account.component';
 import { LogedInComponent } from './users/loged-in.component';
 import {GeneralAboutUsPageComponent} from './general/general-about-us-page.component';
-import {UserAboutUsPageComponent} from './users/user-about-us-page.component';
 import {GeneralFaqPageComponent} from './general/general-faq-page.component';
 import {GeneralPrivacyPageComponent} from './general/general-privacy-page.component';
 import {GeneralTermsPageComponent} from './general/general-terms-page.component';
@@ -26,11 +24,39 @@ import {UserFaqPageComponent} from './users/user-faq-page.component';
 import {UserPrivacyPageComponent} from './users/user-privacy-page.component';
 import {UserTermsPageComponent} from './users/user-terms-page.component';
 import { AgentComponent } from './users/agent/agent.component';
-import {AgentServicesPageComponent} from './users/agent/agent-services-page.component';
-import {AgentNotificationsPageComponent} from './users/agent/agent-notifications-page.component';
-import {AgentOperationsPageComponent} from './users/agent/agent-operations-page.component';
-import {AgentParametersPageComponent} from './users/agent/agent-parameters-page.component';
-import {AgentSettingsPageComponent} from './users/agent/agent-settings-page.component';
+import {UserAboutUsPageComponent} from './users/user-about-us-page.component';
+import {AgentAboutUsPageComponent} from './users/agent/menu-top/agent-about-us-page.component';
+import {AgentCancellationRefundPageComponent} from './users/agent/menu-top/agent-cancellation-refund-page.component';
+import {AgentFaqPageComponent} from './users/agent/menu-top/agent-faq-page.component';
+import {AgentPrivacyPageComponent} from './users/agent/menu-top/agent-privacy-page.component';
+import {AgentTermsPageComponent} from './users/agent/menu-top/agent-terms-page.component';
+import {CitizenComponent} from './users/citizen/citizen.component';
+import {CitizenAboutUsPageComponent} from './users/citizen/menu-top/citizen-about-us-page.component';
+import {CitizenCancellationRefundPageComponent} from './users/citizen/menu-top/citizen-cancellation-refund-page.component';
+import {CitizenFaqPageComponent} from './users/citizen/menu-top/citizen-faq-page.component';
+import {CitizenPrivacyPageComponent} from './users/citizen/menu-top/citizen-privacy-page.component';
+import {CitizenTermsPageComponent} from './users/citizen/menu-top/citizen-terms-page.component';
+import { COperationsPageComponent } from './users/citizen/menu-user/c-operations-page/c-operations-page.component';
+import { CNotificationsPageComponent } from './users/citizen/menu-user/c-notifications-page/c-notifications-page.component';
+import { CParametersPageComponent } from './users/citizen/menu-user/c-parameters-page/c-parameters-page.component';
+import { CServicesPageComponent } from './users/citizen/menu-user/c-services-page/c-services-page.component';
+import { CSettingsPageComponent } from './users/citizen/menu-user/c-settings-page/c-settings-page.component';
+import { ASettingsPageComponent } from './users/agent/menu-user/a-settings-page/a-settings-page.component';
+import { AServicesPageComponent } from './users/agent/menu-user/a-services-page/a-services-page.component';
+import { AParametersPageComponent } from './users/agent/menu-user/a-parameters-page/a-parameters-page.component';
+import { ANotificationsPageComponent } from './users/agent/menu-user/a-notifications-page/a-notifications-page.component';
+import { AOperationsPageComponent } from './users/agent/menu-user/a-operations-page/a-operations-page.component';
+import { CustomerComponent } from './users/customer/customer.component';
+import {CustomerAboutUsPageComponent} from './users/customer/menu-top/customer-about-us-page.component';
+import {CustomerCancellationRefundPageComponent} from './users/customer/menu-top/customer-cancellation-refund-page.component';
+import {CustomerFaqPageComponent} from './users/customer/menu-top/customer-faq-page.component';
+import {CustomerPrivacyPageComponent} from './users/customer/menu-top/customer-privacy-page.component';
+import {CustomerTermsPageComponent} from './users/customer/menu-top/customer-terms-page.component';
+import { CustOperationsPageComponent } from './users/customer/menu-user/cust-operations-page/cust-operations-page.component';
+import { CustNotificationsPageComponent } from './users/customer/menu-user/cust-notifications-page/cust-notifications-page.component';
+import { CustParametersPageComponent } from './users/customer/menu-user/cust-parameters-page/cust-parameters-page.component';
+import { CustSettingsPageComponent } from './users/customer/menu-user/cust-settings-page/cust-settings-page.component';
+import { CustServicesPageComponent } from './users/customer/menu-user/cust-services-page/cust-services-page.component';
 
 
 @NgModule({
@@ -44,14 +70,24 @@ import {AgentSettingsPageComponent} from './users/agent/agent-settings-page.comp
     AgentServicesComponent,
     LoginStartPageComponent,
     GeneralAuthorisationComponent,
-    GeneralCreateAccountComponent,
     LogedInComponent,
     GeneralAboutUsPageComponent, GeneralFaqPageComponent, GeneralPrivacyPageComponent, GeneralTermsPageComponent,
     GeneralCancellationPageComponent, GeneralRefundPageComponent,
     UserAboutUsPageComponent, UserCancellationRefundPageComponent, UserFaqPageComponent, UserPrivacyPageComponent,
     UserTermsPageComponent,
-    AgentComponent, AgentServicesPageComponent, AgentNotificationsPageComponent, AgentOperationsPageComponent,
-    AgentParametersPageComponent, AgentSettingsPageComponent
+    AgentComponent,
+    ASettingsPageComponent, AServicesPageComponent, AParametersPageComponent, ANotificationsPageComponent, AOperationsPageComponent,
+    AgentAboutUsPageComponent, AgentCancellationRefundPageComponent, AgentFaqPageComponent, AgentPrivacyPageComponent,
+    AgentTermsPageComponent,
+    CitizenComponent,
+    CitizenAboutUsPageComponent, CitizenCancellationRefundPageComponent, CitizenFaqPageComponent, CitizenPrivacyPageComponent,
+    CitizenTermsPageComponent,
+    COperationsPageComponent, CNotificationsPageComponent, CParametersPageComponent, CServicesPageComponent, CSettingsPageComponent,
+    CustomerComponent, CustomerTermsPageComponent,
+    CustomerAboutUsPageComponent, CustomerCancellationRefundPageComponent, CustomerFaqPageComponent, CustomerPrivacyPageComponent,
+    CustOperationsPageComponent, CustNotificationsPageComponent, CustParametersPageComponent, CustSettingsPageComponent,
+    CustServicesPageComponent,
+
   ],
   imports: [
     CommonModule,
@@ -69,14 +105,23 @@ import {AgentSettingsPageComponent} from './users/agent/agent-settings-page.comp
     AgentServicesComponent,
     LoginStartPageComponent,
     GeneralAuthorisationComponent,
-    GeneralCreateAccountComponent,
     LogedInComponent,
     GeneralAboutUsPageComponent, GeneralFaqPageComponent, GeneralPrivacyPageComponent, GeneralTermsPageComponent,
     GeneralCancellationPageComponent, GeneralRefundPageComponent,
     UserAboutUsPageComponent, UserCancellationRefundPageComponent, UserFaqPageComponent, UserPrivacyPageComponent,
     UserTermsPageComponent,
-    AgentComponent, AgentServicesPageComponent, AgentNotificationsPageComponent, AgentOperationsPageComponent,
-    AgentParametersPageComponent, AgentSettingsPageComponent
+    AgentComponent,
+    ASettingsPageComponent, AServicesPageComponent, AParametersPageComponent, ANotificationsPageComponent, AOperationsPageComponent,
+    AgentAboutUsPageComponent, AgentCancellationRefundPageComponent, AgentFaqPageComponent, AgentPrivacyPageComponent,
+    AgentTermsPageComponent,
+    CitizenComponent,
+    CitizenAboutUsPageComponent, CitizenCancellationRefundPageComponent, CitizenFaqPageComponent, CitizenPrivacyPageComponent,
+    CitizenTermsPageComponent,
+    COperationsPageComponent, CNotificationsPageComponent, CParametersPageComponent, CServicesPageComponent, CSettingsPageComponent,
+    CustomerComponent, CustomerTermsPageComponent,
+    CustomerAboutUsPageComponent, CustomerCancellationRefundPageComponent, CustomerFaqPageComponent, CustomerPrivacyPageComponent,
+    CustOperationsPageComponent, CustNotificationsPageComponent, CustParametersPageComponent, CustSettingsPageComponent,
+    CustServicesPageComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

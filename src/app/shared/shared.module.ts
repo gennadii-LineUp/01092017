@@ -14,6 +14,8 @@ import {PrivacyPolicyComponent} from './components/privacy-policy/privacy-policy
 import {CancellationComponent} from './components/cancellation/cancellation.component';
 import {RefundPolicyComponent} from './components/refund-policy/refund-policy.component';
 import { HeaderAgentComponent } from './components/header/header-agent/header-agent.component';
+import { HeaderCitizenComponent } from './components/header/header-citizen/header-citizen.component';
+import { HeaderCustomerComponent } from './components/header/header-customer/header-customer.component';
 
 
 @NgModule({
@@ -21,7 +23,7 @@ import { HeaderAgentComponent } from './components/header/header-agent/header-ag
     CommonModule, BrowserModule, FormsModule, AppRoutingModule,
   ],
   declarations: [
-    HeaderGeneralComponent,
+    HeaderGeneralComponent, HeaderAgentComponent, HeaderCitizenComponent, HeaderCustomerComponent,
     FooterComponent,
     UserMenuComponent,
     HeaderLogedInComponent,
@@ -31,11 +33,10 @@ import { HeaderAgentComponent } from './components/header/header-agent/header-ag
     PrivacyPolicyComponent,
     CancellationComponent,
     RefundPolicyComponent,
-    HeaderAgentComponent,
 
   ],
   exports: [
-    HeaderGeneralComponent,
+    HeaderGeneralComponent, HeaderAgentComponent, HeaderCitizenComponent, HeaderCustomerComponent,
     FooterComponent,
     UserMenuComponent,
     HeaderLogedInComponent,

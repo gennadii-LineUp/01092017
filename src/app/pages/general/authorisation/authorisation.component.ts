@@ -22,7 +22,7 @@ export class GeneralAuthorisationComponent implements OnInit {
     localStorage.clear();
     localStorage.setItem('token', 'token');
     console.log(localStorage);
-    this.router.navigate(['/profile']);
+    this.router.navigate(['/customer/services']);
   }
 
 }
