@@ -15,6 +15,12 @@ import {GeneralRefundPageComponent} from '../pages/general/general-refund-page.c
 import {UserFaqPageComponent} from '../pages/users/user-faq-page.component';
 import {UserPrivacyPageComponent} from '../pages/users/user-privacy-page.component';
 import {UserTermsPageComponent} from '../pages/users/user-terms-page.component';
+import {AgentComponent} from '../pages/users/agent/agent.component';
+import {AgentServicesPageComponent} from '../pages/users/agent/agent-services-page.component';
+import {AgentNotificationsPageComponent} from '../pages/users/agent/agent-notifications-page.component';
+import {AgentOperationsPageComponent} from '../pages/users/agent/agent-operations-page.component';
+import {AgentParametersPageComponent} from '../pages/users/agent/agent-parameters-page.component';
+import {AgentSettingsPageComponent} from '../pages/users/agent/agent-settings-page.component';
 
 
 const routes: Routes = [
@@ -35,10 +41,41 @@ const routes: Routes = [
       { path: 'terms-conditions', component: UserTermsPageComponent },
       { path: 'faq', component: UserFaqPageComponent },
       { path: 'privacy-policy', component: UserPrivacyPageComponent },
-      { path: 'cancellation-refund', component: UserCancellationRefundPageComponent }
+      { path: 'cancellation-refund', component: UserCancellationRefundPageComponent },
+      { path: 'agent', component: AgentComponent, // canActivate: [AgentGuard],
+        children: [
+          { path: 'services', component: AgentServicesPageComponent },
+          { path: 'notifications', component: AgentNotificationsPageComponent },
+          { path: 'operations', component: AgentOperationsPageComponent },
+          { path: 'parameters', component: AgentParametersPageComponent },
+          { path: 'settings', component: AgentSettingsPageComponent },
+        ]
+      }
 
     ]
   },
+
+  { path: 'agent', component: LogedInComponent, // canActivate: [AuthGuard],
+    children: [
+      // { path: '', component: AdminAccueilContentComponent },
+      { path: 'about-us', component: UserAboutUsPageComponent },
+      { path: 'terms-conditions', component: UserTermsPageComponent },
+      { path: 'faq', component: UserFaqPageComponent },
+      { path: 'privacy-policy', component: UserPrivacyPageComponent },
+      { path: 'cancellation-refund', component: UserCancellationRefundPageComponent },
+      { path: 'agent', component: AgentComponent, // canActivate: [AgentGuard],
+        children: [
+          { path: 'services', component: AgentServicesPageComponent },
+          { path: 'notifications', component: AgentNotificationsPageComponent },
+          { path: 'operations', component: AgentOperationsPageComponent },
+          { path: 'parameters', component: AgentParametersPageComponent },
+          { path: 'settings', component: AgentSettingsPageComponent },
+        ]
+      }
+
+    ]
+  },
+
 
   { path: '**', component: LoginStartPageComponent }
 ];

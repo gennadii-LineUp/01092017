@@ -13,6 +13,7 @@ import {FaqComponent} from './components/faq/faq.component';
 import {PrivacyPolicyComponent} from './components/privacy-policy/privacy-policy.component';
 import {CancellationComponent} from './components/cancellation/cancellation.component';
 import {RefundPolicyComponent} from './components/refund-policy/refund-policy.component';
+import { HeaderAgentComponent } from './components/header/header-agent/header-agent.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import {RefundPolicyComponent} from './components/refund-policy/refund-policy.co
     PrivacyPolicyComponent,
     CancellationComponent,
     RefundPolicyComponent,
+    HeaderAgentComponent,
 
   ],
   exports: [

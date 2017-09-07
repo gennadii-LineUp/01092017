@@ -3,8 +3,9 @@ import {AuthGuard} from '../../guards/auth-guards.service';
 
 @Component({
   selector: 'app-loged-in',
-  templateUrl: './loged-in.component.html',
-  styleUrls: ['./loged-in.component.scss']
+  template: `<app-header-loged-in></app-header-loged-in>
+              <router-outlet></router-outlet>`,
+  styles: [``]
 })
 export class LogedInComponent implements OnInit, OnDestroy {
 

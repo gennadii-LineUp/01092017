@@ -25,6 +25,12 @@ import {GeneralRefundPageComponent} from './general/general-refund-page.componen
 import {UserFaqPageComponent} from './users/user-faq-page.component';
 import {UserPrivacyPageComponent} from './users/user-privacy-page.component';
 import {UserTermsPageComponent} from './users/user-terms-page.component';
+import { AgentComponent } from './users/agent/agent.component';
+import {AgentServicesPageComponent} from './users/agent/agent-services-page.component';
+import {AgentNotificationsPageComponent} from './users/agent/agent-notifications-page.component';
+import {AgentOperationsPageComponent} from './users/agent/agent-operations-page.component';
+import {AgentParametersPageComponent} from './users/agent/agent-parameters-page.component';
+import {AgentSettingsPageComponent} from './users/agent/agent-settings-page.component';
 
 
 @NgModule({
@@ -43,7 +49,9 @@ import {UserTermsPageComponent} from './users/user-terms-page.component';
     GeneralAboutUsPageComponent, GeneralFaqPageComponent, GeneralPrivacyPageComponent, GeneralTermsPageComponent,
     GeneralCancellationPageComponent, GeneralRefundPageComponent,
     UserAboutUsPageComponent, UserCancellationRefundPageComponent, UserFaqPageComponent, UserPrivacyPageComponent,
-    UserTermsPageComponent
+    UserTermsPageComponent,
+    AgentComponent, AgentServicesPageComponent, AgentNotificationsPageComponent, AgentOperationsPageComponent,
+    AgentParametersPageComponent, AgentSettingsPageComponent
   ],
   imports: [
     CommonModule,
@@ -66,7 +74,9 @@ import {UserTermsPageComponent} from './users/user-terms-page.component';
     GeneralAboutUsPageComponent, GeneralFaqPageComponent, GeneralPrivacyPageComponent, GeneralTermsPageComponent,
     GeneralCancellationPageComponent, GeneralRefundPageComponent,
     UserAboutUsPageComponent, UserCancellationRefundPageComponent, UserFaqPageComponent, UserPrivacyPageComponent,
-    UserTermsPageComponent
+    UserTermsPageComponent,
+    AgentComponent, AgentServicesPageComponent, AgentNotificationsPageComponent, AgentOperationsPageComponent,
+    AgentParametersPageComponent, AgentSettingsPageComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
