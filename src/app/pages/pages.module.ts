@@ -7,7 +7,6 @@ import { GeneralRegistrationComponent } from './general/registration/registratio
 import { SitizenConsultationComponent } from './citizen/consultation/consultation.component';
 import { SitizenAboutComponent } from './citizen/about/about.component';
 import { SitizenTransferComponent } from './citizen/transfer/transfer.component';
-import { AgentServicesComponent } from './agent/services/services.component';
 import { LoginStartPageComponent } from './login/start-page/start-page.component';
 import {SharedModule} from '../shared/shared.module';
 import { GeneralAuthorisationComponent } from './general/authorisation/authorisation.component';
@@ -59,7 +58,6 @@ import { CustServicesPageComponent } from './customer/menu-user/cust-services-pa
     SitizenConsultationComponent,
     SitizenAboutComponent,
     SitizenTransferComponent,
-    AgentServicesComponent,
     LoginStartPageComponent,
     GeneralAuthorisationComponent,
     GeneralAboutUsPageComponent, GeneralFaqPageComponent, GeneralPrivacyPageComponent, GeneralTermsPageComponent,
@@ -90,7 +88,6 @@ import { CustServicesPageComponent } from './customer/menu-user/cust-services-pa
     SitizenConsultationComponent,
     SitizenAboutComponent,
     SitizenTransferComponent,
-    AgentServicesComponent,
     LoginStartPageComponent,
     GeneralAuthorisationComponent,
     GeneralAboutUsPageComponent, GeneralFaqPageComponent, GeneralPrivacyPageComponent, GeneralTermsPageComponent,
