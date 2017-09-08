@@ -1,11 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-header-users',
-  templateUrl: './header-users.component.html',
+  selector: 'app-header-all-users',
+  templateUrl: './header-all-users.component.html',
   styleUrls: ['../header.component.scss']
 })
-export class HeaderUsersComponent implements OnInit {
+export class HeaderAllUsersComponent implements OnInit {
 
   @Input() userRole: string;
 
