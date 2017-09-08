@@ -1,0 +1,72 @@
+<main class="gray-bg-citizen coin-bg">
+  <section class="transfers-to-bank">
+    <div class="container">
+      <h3>Virements vers Banque</h3>
+      <div class="row">
+        <div class="col">
+          <div class="transfers-to-bank__header">
+            Saisie ordre de virement format SICA-UEMOA
+          </div>
+          <form>
+            <div>
+              <h4>Référence de l’opération</h4>
+              <div class="floating-block border-hover">
+                <div class="floating-input">
+                  <input type="text" name="operationReference" id="operationReference" placeholder="Type here" required>
+                  <div class="clean-input" onclick="operationReference.value = ''"></div>
+                </div>
+              </div>
+              <h4>Compte</h4>
+              <div class="floating-block border-hover">
+                <div class="floating-input">
+                  <input type="text" name="Account" id="Account" placeholder="Type here" required>
+                  <div class="clean-input" onclick="Account.value = ''"></div>
+                </div>
+              </div>
+              <h4>Nom du client destinataire</h4>
+              <div class="floating-block border-hover">
+                <div class="floating-input">
+                  <input type="text" name="recipient" id="recipient" placeholder="Type here" required>
+                  <div class="clean-input" onclick="recipient.value = ''"></div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <h4>Banque</h4>
+              <div class="floating-block border-hover">
+                <div class="floating-input">
+                  <input type="text" name="Bank" id="Bank" placeholder="Type here" required>
+                  <div class="clean-input" onclick="Bank.value = ''"></div>
+                </div>
+              </div>
+              <h4>Clé RIB</h4>
+              <div class="floating-block border-hover">
+                <div class="floating-input">
+                  <input type="text" name="RIB" id="RIB" placeholder="Type here" required>
+                  <div class="clean-input" onclick="RIB.value = ''"></div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <h4>Guichet</h4>
+              <div class="floating-block border-hover">
+                <div class="floating-input">
+                  <input type="text" name="Counter" id="Counter" placeholder="Type here" required>
+                  <div class="clean-input" onclick="Counter.value = ''"></div>
+                </div>
+              </div>
+              <h4>Montant du virement</h4>
+              <div class="floating-block border-hover">
+                <div class="floating-input">
+                  <input type="text" name="Amount" id="Amount" placeholder="Type here" required>
+                  <div class="clean-input" onclick="Amount.value = ''"></div>
+                </div>
+              </div>
+            </div>
+          </form>
+          <button class="blue-button orange-button">Valider l’ordre</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

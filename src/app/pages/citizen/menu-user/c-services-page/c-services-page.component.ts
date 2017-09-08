@@ -1,15 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-c-services-page',
-  templateUrl: './c-services-page.component.html',
-  styleUrls: ['./c-services-page.component.scss']
+  selector: 'app-citizen-services-page',
+  template: `<app-services-items-cust-citiz></app-services-items-cust-citiz>`,
+  styles: [``]
 })
-export class CServicesPageComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-}
+export class CServicesPageComponent { }
