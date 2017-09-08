@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-agent-services-transfer-dargent-page',
-  template: `<h2>agent-services-transfer-dargent</h2>`,
+  template: `<app-services-transfer-dargent></app-services-transfer-dargent>`,
   styles: [``]
 })
 export class AServicesTransferDargentPageComponent { }

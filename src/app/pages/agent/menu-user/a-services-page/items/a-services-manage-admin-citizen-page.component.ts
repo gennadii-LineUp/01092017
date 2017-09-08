@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-agent-services-manage-admin-citizen-page',
-  template: `<h2>agent-services-manage-admin-citizen</h2>`,
+  template: `<app-services-manage-admin-citizen></app-services-manage-admin-citizen>`,
   styles: [``]
 })
 export class AServicesManageAdminCitizenPageComponent { }

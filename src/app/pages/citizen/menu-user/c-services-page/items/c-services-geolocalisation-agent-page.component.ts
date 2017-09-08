@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-citizen-services-geolocalisation-agent-page',
-  template: `<h2>citizen-services-geolocalisation-agent-page</h2>`,
+  template: `<app-services-geolocalisation-agent></app-services-geolocalisation-agent>`,
   styles: [``]
 })
 export class CServicesGeolocalisationAgentPageComponent { }

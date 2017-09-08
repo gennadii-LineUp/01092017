@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-services-items-cust-citiz',
@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ServicesCustCitizComponent implements OnInit {
 
+  @Input() userRole: string;
+
   constructor() { }
 
   ngOnInit() {
+    console.log(this.userRole);
   }
 
 }

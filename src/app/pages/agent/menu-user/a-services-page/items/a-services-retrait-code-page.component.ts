@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-agent-services-retrait-code-page',
-  template: `<h2>agent-services-retrait-code</h2>`,
+  template: `<app-services-retrait-code></app-services-retrait-code>`,
   styles: [``]
 })
 export class AServicesRetraitCodePageComponent { }

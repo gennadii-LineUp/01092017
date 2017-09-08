@@ -20,6 +20,16 @@ import { NavbarForDeleteComponent } from './components/navbar-for-delete/navbar-
 import { VirementsVersBanqueComponent } from './components/services/virements-vers-banque/virements-vers-banque.component';
 import { ServicesAgentComponent } from './components/services/services/services-agent/services-agent.component';
 import { ServicesCustCitizComponent } from './components/services/services/services-cust-citiz/services-cust-citiz.component';
+import { ConsultationSoldeComponent } from './components/services/consultation-solde/consultation-solde.component';
+import { DepotCitizenComponent } from './components/services/depot-citizen/depot-citizen.component';
+import { DepotClientComponent } from './components/services/depot-client/depot-client.component';
+import { RetraitCodeComponent } from './components/services/retrait-code/retrait-code.component';
+import { ManageAdminCitizenComponent } from './components/services/manage-admin-citizen/manage-admin-citizen.component';
+import { TransferDargentComponent } from './components/services/transfer-dargent/transfer-dargent.component';
+import { TransferCompteComponent } from './components/services/transfer-compte/transfer-compte.component';
+import { ConsultationOperationsComponent } from './components/services/consultation-operations/consultation-operations.component';
+import { GeolocalisationAgentComponent } from './components/services/geolocalisation-agent/geolocalisation-agent.component';
+import { BankToWalletComponent } from './components/services/bank-to-wallet/bank-to-wallet.component';
 
 
 @NgModule({
@@ -38,9 +48,10 @@ import { ServicesCustCitizComponent } from './components/services/services/servi
     CancellationComponent,
     RefundPolicyComponent,
     NavbarForDeleteComponent,
-    VirementsVersBanqueComponent,
-    ServicesAgentComponent,
-    ServicesCustCitizComponent,
+    ServicesAgentComponent, ServicesCustCitizComponent,
+    ConsultationSoldeComponent, DepotCitizenComponent, DepotClientComponent, RetraitCodeComponent,
+    ManageAdminCitizenComponent, TransferDargentComponent, TransferCompteComponent, ConsultationOperationsComponent,
+    GeolocalisationAgentComponent, BankToWalletComponent, VirementsVersBanqueComponent,
 
   ],
   exports: [
@@ -55,9 +66,10 @@ import { ServicesCustCitizComponent } from './components/services/services/servi
     CancellationComponent,
     RefundPolicyComponent,
     NavbarForDeleteComponent,
-    VirementsVersBanqueComponent,
-    ServicesAgentComponent,
-    ServicesCustCitizComponent,
+    ServicesAgentComponent, ServicesCustCitizComponent,
+    ConsultationSoldeComponent, DepotCitizenComponent, DepotClientComponent, RetraitCodeComponent,
+    ManageAdminCitizenComponent, TransferDargentComponent, TransferCompteComponent, ConsultationOperationsComponent,
+    GeolocalisationAgentComponent, BankToWalletComponent, VirementsVersBanqueComponent,
   ],
   providers: [
 
