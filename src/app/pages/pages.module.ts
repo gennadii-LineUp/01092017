@@ -4,9 +4,6 @@ import {FormsModule} from '@angular/forms';
 import {AppComponent} from './index-page/app.component';
 import {AppRoutingModule} from '../services/routing.module';
 import { GeneralRegistrationComponent } from './general/registration/registration.component';
-import { SitizenConsultationComponent } from './citizen/consultation/consultation.component';
-import { SitizenAboutComponent } from './citizen/about/about.component';
-import { SitizenTransferComponent } from './citizen/transfer/transfer.component';
 import { LoginStartPageComponent } from './login/start-page/start-page.component';
 import {SharedModule} from '../shared/shared.module';
 import { GeneralAuthorisationComponent } from './general/authorisation/authorisation.component';
@@ -80,9 +77,6 @@ import {CustServicesVirementsVersBankPageComponent} from './customer/menu-user/c
   declarations: [
     AppComponent,
     GeneralRegistrationComponent,
-    SitizenConsultationComponent,
-    SitizenAboutComponent,
-    SitizenTransferComponent,
     LoginStartPageComponent,
     GeneralAuthorisationComponent,
     GeneralAboutUsPageComponent, GeneralFaqPageComponent, GeneralPrivacyPageComponent, GeneralTermsPageComponent,
@@ -120,9 +114,6 @@ import {CustServicesVirementsVersBankPageComponent} from './customer/menu-user/c
   exports: [
     AppComponent,
     GeneralRegistrationComponent,
-    SitizenConsultationComponent,
-    SitizenAboutComponent,
-    SitizenTransferComponent,
     LoginStartPageComponent,
     GeneralAuthorisationComponent,
     GeneralAboutUsPageComponent, GeneralFaqPageComponent, GeneralPrivacyPageComponent, GeneralTermsPageComponent,

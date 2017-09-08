@@ -13,7 +13,7 @@ import {FaqComponent} from './components/menu-top/faq/faq.component';
 import {PrivacyPolicyComponent} from './components/menu-top/privacy-policy/privacy-policy.component';
 import {CancellationComponent} from './components/menu-top/cancellation/cancellation.component';
 import {RefundPolicyComponent} from './components/menu-top/refund-policy/refund-policy.component';
-import { HeaderAgentComponent } from './components/header/header-agent/header-agent.component';
+import { HeaderUsersComponent } from './components/header/header-users/header-users.component';
 import { HeaderCitizenComponent } from './components/header/header-citizen/header-citizen.component';
 import { HeaderCustomerComponent } from './components/header/header-customer/header-customer.component';
 import { NavbarForDeleteComponent } from './components/navbar-for-delete/navbar-for-delete.component';
@@ -37,7 +37,7 @@ import { BankToWalletComponent } from './components/services/bank-to-wallet/bank
     CommonModule, BrowserModule, FormsModule, AppRoutingModule,
   ],
   declarations: [
-    HeaderGeneralComponent, HeaderAgentComponent, HeaderCitizenComponent, HeaderCustomerComponent,
+    HeaderGeneralComponent, HeaderUsersComponent, HeaderCitizenComponent, HeaderCustomerComponent,
     FooterComponent,
     UserMenuComponent,
     HeaderLogedInComponent,
@@ -55,7 +55,7 @@ import { BankToWalletComponent } from './components/services/bank-to-wallet/bank
 
   ],
   exports: [
-    HeaderGeneralComponent, HeaderAgentComponent, HeaderCitizenComponent, HeaderCustomerComponent,
+    HeaderGeneralComponent, HeaderUsersComponent, HeaderCitizenComponent, HeaderCustomerComponent,
     FooterComponent,
     UserMenuComponent,
     HeaderLogedInComponent,

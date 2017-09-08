@@ -66,6 +66,7 @@ import {CustServicesGeolocalisationAgentPageComponent} from '../pages/customer/m
 import {CustServicesTransferComptePageComponent} from '../pages/customer/menu-user/cust-services-page/items/cust-services-transfer-compte-page.component';
 import {CustServicesTransferDargentPageComponent} from '../pages/customer/menu-user/cust-services-page/items/cust-services-transfer-dargent-page.component';
 import {CustServicesVirementsVersBankPageComponent} from '../pages/customer/menu-user/cust-services-page/items/cust-services-virements-vers-bank-page.component';
+import {ANotificationsPageComponent} from '../pages/agent/menu-user/a-notifications-page/a-notifications-page.component';
 
 
 const routes: Routes = [
@@ -99,6 +100,7 @@ const routes: Routes = [
             { path: 'services/geolocalisation-agent', component: AServicesGeolocalisationAgentPageComponent },
             { path: 'services/virements-vers-bank', component: AServicesVirementsVersBankPageComponent },
             { path: 'services/bank-to-wallet', component: AServicesBankToWalletPageComponent },
+        { path: 'notifications', component: ANotificationsPageComponent },
         { path: 'operations', component: AOperationsPageComponent },
         { path: 'parameters', component: AParametersPageComponent },
         { path: 'settings', component: ASettingsPageComponent },
