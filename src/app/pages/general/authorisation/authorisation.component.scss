@@ -3,17 +3,7 @@
 
 .authorisation-page {
   text-align: center;
-  &__caption{
-    color: $content;
-    padding: 25px 0;
-    font-size: 1.551rem;
-    font-family: $raleM;
-    a {
-      color: $blue;
-      font-family: $raleSM;
-      padding-left: 10px;
-    }
-  }
+  /* Caption in style.scss*/
   .blue-button {
     max-width: 360px;
     width: 100%;

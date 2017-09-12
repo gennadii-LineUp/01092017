@@ -9,10 +9,10 @@ header {
   color: $footer;
   font-size: 1.4rem;
   font-family: $raleR;
+  background-color: #fff;
   .col-md-2 {
     display: flex;
     align-items: center;
-    margin-top: 25px;
   }
   .nav-left {
     padding-left: 10%;
@@ -213,6 +213,7 @@ header {
     .sprite {
       background-position: -10px -10px;
     }
+    &.user-menu-active,
     &:hover {
       .sprite {
         opacity: 1;
@@ -224,6 +225,7 @@ header {
     .sprite {
       background-position: -650px -10px;
     }
+    &.user-menu-active,
     &:hover {
       .sprite {
         background-position: -730px -10px;
@@ -234,6 +236,7 @@ header {
     .sprite {
       background-position: -490px -10px;
     }
+    &.user-menu-active,
     &:hover {
       .sprite {
         background-position: -570px -10px;
@@ -244,6 +247,7 @@ header {
     .sprite {
       background-position: -330px -10px;
     }
+    &.user-menu-active,
     &:hover {
       .sprite {
         background-position: -410px -10px;
@@ -254,6 +258,7 @@ header {
     .sprite {
       background-position: -170px -10px;
     }
+    &.user-menu-active,
     &:hover {
       .sprite {
         background-position: -250px -10px;

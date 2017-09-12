@@ -20,12 +20,14 @@
     h3 {
       font-size: 1.8rem;
       font-family: $raleSM;
-      padding: 20px 0;
+      padding: 15px 0;
       text-align: center;
     }
     p {
       color: $content;
       font-family: $raleR;
+      line-height: 20px;
+      margin-bottom: 24px;
     }
     b {
       font-family: $raleSM;
@@ -35,6 +37,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    line-height: 20px;
     a {
       font-family: $raleBold;
       color: $blue;
