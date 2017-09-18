@@ -4,6 +4,14 @@
       <div class="row">
         <div class="col-md-8 ml-md-auto mr-md-auto services__wrapper">
           <div class="services__own">
+            <div class="services__item withdrawal" [routerLink]="['/'+userRole+'/services/virements-multiples']">
+              <div class="services__icon"></div>
+              <div>Virements multiples</div>
+            </div>
+            <div class="services__item manage" [routerLink]="['/'+userRole+'/services/paiements']">
+              <div class="services__icon"></div>
+              <div>Paiements de masses recus </div>
+            </div>
             <div class="services__item transfer" [routerLink]="['/'+userRole+'/services/transfer-dargent']">
               <div class="services__icon"></div>
               <div>Transfert d’Argent </div>
@@ -19,18 +27,6 @@
             <div class="services__item list" [routerLink]="['/'+userRole+'/services/consultation-operations']">
               <div class="services__icon"></div>
               <div>Consultation Operations </div>
-            </div>
-            <div class="services__item geo" [routerLink]="['/'+userRole+'/services/geolocalisation-agent']">
-              <div class="services__icon"></div>
-              <div>Geolocalisation agent </div>
-            </div>
-            <div class="services__item coin" [routerLink]="['/'+userRole+'/services/virements-vers-bank']">
-              <div class="services__icon"></div>
-              <div>Virements vers Banque </div>
-            </div>
-            <div class="services__item cards" [routerLink]="['/'+userRole+'/services/bank-to-wallet']">
-              <div class="services__icon"></div>
-              <div>Bank to Wallet</div>
             </div>
           </div>
         </div>

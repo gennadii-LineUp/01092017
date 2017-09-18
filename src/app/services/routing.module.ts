@@ -62,10 +62,10 @@ import {CustServicesPageComponent} from '../pages/customer/menu-user/cust-servic
 import {CustServicesBankToWalletPageComponent} from '../pages/customer/menu-user/cust-services-page/items/cust-services-bank-to-wallet-page.component';
 import {CustServicesConsultationSoldePageComponent} from '../pages/customer/menu-user/cust-services-page/items/cust-services-consultation-solde-page.component';
 import {CustServicesConsultationOperationsPageComponent} from '../pages/customer/menu-user/cust-services-page/items/cust-services-consultation-operations-page.component';
-import {CustServicesGeolocalisationAgentPageComponent} from '../pages/customer/menu-user/cust-services-page/items/cust-services-geolocalisation-agent-page.component';
 import {CustServicesTransferComptePageComponent} from '../pages/customer/menu-user/cust-services-page/items/cust-services-transfer-compte-page.component';
 import {CustServicesTransferDargentPageComponent} from '../pages/customer/menu-user/cust-services-page/items/cust-services-transfer-dargent-page.component';
-import {CustServicesVirementsVersBankPageComponent} from '../pages/customer/menu-user/cust-services-page/items/cust-services-virements-vers-bank-page.component';
+import {CustServicesVirementsMultiplesPageComponent} from '../pages/customer/menu-user/cust-services-page/items/cust-services-virements-multiples-page.component';
+import {CustServicesPaiementsPageComponent} from '../pages/customer/menu-user/cust-services-page/items/cust-services-paiements.component';
 import {ANotificationsPageComponent} from '../pages/agent/menu-user/a-notifications-page/a-notifications-page.component';
 
 
@@ -141,8 +141,8 @@ const routes: Routes = [
             { path: 'services/transfer-compte', component: CustServicesTransferComptePageComponent },
             { path: 'services/consultation-solde', component: CustServicesConsultationSoldePageComponent },
             { path: 'services/consultation-operations', component: CustServicesConsultationOperationsPageComponent },
-            { path: 'services/geolocalisation-agent', component: CustServicesGeolocalisationAgentPageComponent },
-            { path: 'services/virements-vers-bank', component: CustServicesVirementsVersBankPageComponent },
+            { path: 'services/virements-multiples', component: CustServicesVirementsMultiplesPageComponent },
+            { path: 'services/paiements', component: CustServicesPaiementsPageComponent },
             { path: 'services/bank-to-wallet', component: CustServicesBankToWalletPageComponent },
         { path: 'notifications', component: CustNotificationsPageComponent },
         { path: 'operations', component: CustOperationsPageComponent },

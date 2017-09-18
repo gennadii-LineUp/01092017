@@ -13,7 +13,9 @@ import {CancellationComponent} from './components/menu-top/cancellation/cancella
 import {RefundPolicyComponent} from './components/menu-top/refund-policy/refund-policy.component';
 import { HeaderAllUsersComponent } from './components/header/header-all-users/header-all-users.component';
 import { NavbarForDeleteComponent } from './components/navbar-for-delete/navbar-for-delete.component';
+import { VirementsMultiplesComponent } from './components/services/virements-multiples/virements-multiples.component';
 import { VirementsVersBanqueComponent } from './components/services/virements-vers-banque/virements-vers-banque.component';
+import { PaiementsComponent } from './components/services/paiements/paiements.component';
 import { ServicesAgentComponent } from './components/services/services/services-agent/services-agent.component';
 import { ServicesCustCitizComponent } from './components/services/services/services-cust-citiz/services-cust-citiz.component';
 import { ConsultationSoldeComponent } from './components/services/consultation-solde/consultation-solde.component';
@@ -45,7 +47,8 @@ import { BankToWalletComponent } from './components/services/bank-to-wallet/bank
     ServicesAgentComponent, ServicesCustCitizComponent,
     ConsultationSoldeComponent, DepotCitizenComponent, DepotClientComponent, RetraitCodeComponent,
     ManageAdminCitizenComponent, TransferDargentComponent, TransferCompteComponent, ConsultationOperationsComponent,
-    GeolocalisationAgentComponent, BankToWalletComponent, VirementsVersBanqueComponent,
+    GeolocalisationAgentComponent, BankToWalletComponent, VirementsVersBanqueComponent, VirementsMultiplesComponent,
+    PaiementsComponent,
 
   ],
   exports: [
@@ -61,7 +64,8 @@ import { BankToWalletComponent } from './components/services/bank-to-wallet/bank
     ServicesAgentComponent, ServicesCustCitizComponent,
     ConsultationSoldeComponent, DepotCitizenComponent, DepotClientComponent, RetraitCodeComponent,
     ManageAdminCitizenComponent, TransferDargentComponent, TransferCompteComponent, ConsultationOperationsComponent,
-    GeolocalisationAgentComponent, BankToWalletComponent, VirementsVersBanqueComponent,
+    GeolocalisationAgentComponent, BankToWalletComponent, VirementsVersBanqueComponent,VirementsMultiplesComponent,
+    PaiementsComponent,
   ],
   providers: [
 
