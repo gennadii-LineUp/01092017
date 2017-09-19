@@ -64,7 +64,7 @@ import { BankToWalletComponent } from './components/services/bank-to-wallet/bank
     ServicesAgentComponent, ServicesCustCitizComponent,
     ConsultationSoldeComponent, DepotCitizenComponent, DepotClientComponent, RetraitCodeComponent,
     ManageAdminCitizenComponent, TransferDargentComponent, TransferCompteComponent, ConsultationOperationsComponent,
-    GeolocalisationAgentComponent, BankToWalletComponent, VirementsVersBanqueComponent,VirementsMultiplesComponent,
+    GeolocalisationAgentComponent, BankToWalletComponent, VirementsVersBanqueComponent, VirementsMultiplesComponent,
     PaiementsComponent,
   ],
   providers: [
