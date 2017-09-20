@@ -20,23 +20,29 @@
       </div>
       <div class="row">
         <div class="col col-md-9 ml-md-auto mr-md-auto">
-          <form>
+          <form #user_authorizationForm="ngForm" novalidate>
             <div class="floating-block phone">
               <div class="floating-icon"></div>
               <div class="floating-input">
-                <input type="tel" required>
+                <input type="tel"
+                       #login="ngModel" id="login" name='login' required [(ngModel)]="authorisation.login" />
                 <div class="floating-label">Phone number</div>
               </div>
+
             </div>
             <div class="floating-block pass">
               <div class="floating-icon"></div>
               <div class="floating-input">
-                <input type="password" required>
+                <input type="password"
+                       #password="ngModel" id="password" name='password' required [(ngModel)]="authorisation.password" />
                 <div class="floating-label">Password</div>
               </div>
               <div class="pass-forget">I forgot my password</div>
             </div>
-            <button class="orange-button blue-button" (click)="loginFunction()" [routerLink]="['/profile']">Log In</button>
+            <button class="orange-button blue-button"
+                    (click)="loginFunction()"
+                    [routerLink]="['/profile']"
+                    type="submit" [disabled]="!user_authorizationForm.form.valid">Log In</button>
           </form>
         </div>
       </div>

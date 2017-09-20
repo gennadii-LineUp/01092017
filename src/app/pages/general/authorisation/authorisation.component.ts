@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {LoginService} from '../../../services/login.service';
 import {ErrorMessageHandlerService} from '../../../services/error-message-handler.service';
+import {AuthorisationClass} from '../../../models/authorisation-class';
 
 @Component({
   selector: 'app-authorisation',
@@ -10,6 +11,8 @@ import {ErrorMessageHandlerService} from '../../../services/error-message-handle
   providers: [LoginService]
 })
 export class GeneralAuthorisationComponent implements OnInit {
+  authorisation = new AuthorisationClass('', '');
+
 
   constructor(public loginService: LoginService,
               public errorMessageHandlerService: ErrorMessageHandlerService,

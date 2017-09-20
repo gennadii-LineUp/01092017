@@ -343,6 +343,12 @@ input[type=radio]:checked + label:after {
   }
 }
 
+button[disabled] {
+  background-color: $disabled;
+  &:hover {
+    background-color: $disabled;
+  }
+}
 
 .checkbox-wrapper {
   display: flex;
