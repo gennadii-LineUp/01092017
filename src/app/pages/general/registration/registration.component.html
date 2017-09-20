@@ -14,41 +14,49 @@
     <div class="container">
       <div class="row">
         <div class="col col-md-9 ml-md-auto mr-md-auto">
-          <form>
+          <form #user_registrationForm="ngForm" novalidate>
             <div class="wrapper-half-input">
               <div class="floating-block border-hover user">
                 <div class="floating-icon"></div>
                 <div class="floating-input">
-                  <input type="text" name="firstName" id="firstName" placeholder="First name" required>
-                  <div class="clean-input" onclick="firstName.value = ''"></div>
+                  <!--<input type="tel"-->
+                         <!--#phone="ngModel" id="phone" name='phone' required [(ngModel)]="registration.phone" />-->
+
+                  <input type="text" placeholder="First name" required
+                         #firstName="ngModel" id="firstName" name='firstName' [(ngModel)]="registration.firstName" />
+                  <div class="clean-input" (click)="regFirstNameClear()"></div>
                 </div>
               </div>
               <div class="floating-block border-hover">
                 <div class="floating-input">
-                  <input type="text" name="lastName" id="lastName" placeholder="Last name" required>
-                  <div class="clean-input" onclick="lastName.value = ''"></div>
+                  <input type="text" placeholder="Last name" required
+                         #lastName="ngModel" id="lastName" name='lastName' [(ngModel)]="registration.lastName" />
+                  <div class="clean-input" (click)="regLastNameClear()"></div>
                 </div>
               </div>
             </div>
             <div class="floating-block border-hover phone">
               <div class="floating-icon"></div>
               <div class="floating-input">
-                <input type="text" name="phone" id="phone" placeholder="Phone number" required>
-                <div class="clean-input" onclick="phone.value = ''"></div>
+                <input type="text" placeholder="Phone number" required
+                       #phone="ngModel" id="phone" name='phone' [(ngModel)]="registration.phone" />
+                <div class="clean-input" (click)="regPhoneClear()"></div>
               </div>
             </div>
             <div class="floating-block border-hover mail">
               <div class="floating-icon"></div>
               <div class="floating-input">
-                <input type="email"  name="mail"  id="mail" placeholder="Email address" required>
-                <div class="clean-input" onclick="mail.value = ''"></div>
+                <input type="email" placeholder="Email address" required email
+                       #email="ngModel" id="email" name='email' [(ngModel)]="registration.email" />
+                <div class="clean-input" (click)="regMailClear()"></div>
               </div>
             </div>
             <div class="floating-block border-hover pass">
               <div class="floating-icon"></div>
               <div class="floating-input">
-                <input  type="password" placeholder="Password" name="password" id="password" required>
-                <div class="clean-input" onclick="password.value = ''"></div>
+                <input  type="password" placeholder="Password" required
+                        #password="ngModel" id="password" name='password' [(ngModel)]="registration.password" />
+                <div class="clean-input" (click)="regPswClear()"></div>
               </div>
               <div class="pass-forget" onclick="if(password.type=='text'){password.type='password'; this.innerHTML = 'Show'} else {password.type='text';  this.innerHTML = 'Hide'}">Show</div>
             </div>
@@ -60,11 +68,15 @@
                 <label for="checkbox"></label>
               </div>
               <p onclick="checkbox.checked = !checkbox.checked">
-                Pushing button below, you agree with <a href="javascript:void(0);">Terms</a> and
-                <a href="javascript:void(0);">Conditions</a> and for your personal data processing.
+                Pushing button below, you agree with
+                <a href="javascript:void(0);" [routerLink]="['/terms-conditions']">Terms and Conditions</a>
+                and for your personal data processing.
               </p>
             </div>
-            <button class="orange-button blue-button">Create account</button>
+            <button class="orange-button blue-button"
+                    (click)="registrationSubmitFunction()"
+                    type="submit"
+                    [disabled]="!user_registrationForm.form.valid">Create account</button>
             <div class="authorisation-page__caption">
               Also you can create account using  <a href="javascript:void(0);">Facebook</a>
             </div>

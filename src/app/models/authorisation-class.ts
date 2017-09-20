@@ -1,11 +1,11 @@
 export class AuthorisationClass {
-  login: string;
+  phone: string;
   password: string;
 
-  constructor( login: string,
+  constructor( phone: string,
                password: string) {
 
-    this.login = login;
+    this.phone = phone;
     this.password = password;
   }
 }

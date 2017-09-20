@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {RegistrationClass} from '../../../models/registration-class';
 
 @Component({
   selector: 'app-registration',
@@ -6,10 +7,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./registration.component.scss']
 })
 export class GeneralRegistrationComponent implements OnInit {
+  registration = new RegistrationClass('', '', '', '', '', '');
+
 
   constructor() { }
 
   ngOnInit() {
   }
+
+  public registrationSubmitFunction() {
+    console.log(this.registration);
+  }
+
+  public regFirstNameClear() {this.registration.firstName = ''; }
+  public regLastNameClear() {this.registration.lastName = ''; }
+  public regPhoneClear() {this.registration.phone = ''; }
+  public regMailClear() {this.registration.email = ''; }
+  public regPswClear() {this.registration.password = ''; }
+
 
 }
