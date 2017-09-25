@@ -499,6 +499,46 @@ input[type=checkbox]:checked + label:after {
   }
 }
 
+
+.block__header {
+  font-size: 14px;
+  border-bottom: 1px solid #e7e7e9;
+  padding: 17px 0 9px 21px;
+  font-family: $sf;
+}
+
+.consult-user {
+  height: 65px;
+  border-bottom: 2px solid #e7e7e9;
+  color: #161616;
+  font-family: RalewayMedium,sans-serif;
+  padding: 0 20px;
+  transition: all .4s ease;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  >div.text {
+    font-size: 1.6rem;
+    line-height: 23px;
+  }
+  span {
+    font-size: 1.4rem;
+    color: #bababa;
+    font-family: RalewayMedium,sans-serif;
+  }
+  i {
+    color: #f6a100;
+    font-size: 3rem;
+    transition: all .2s ease;
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+  }
+}
+
 ///////////////////////////////////////////////////////////////////////
 //   _sitizen.scss:
 ///////////////////////////////////////////////////////////////////////
@@ -593,11 +633,11 @@ input[type=checkbox]:checked + label:after {
     height: 65px;
     border-bottom: none;
     > div:not(.logo) {
-      min-width: 78%;
-      flex-basis: 78%;
-      display: flex;
-      flex-direction: column;
-      align-items: right;
+      //min-width: 78%;
+      //flex-basis: 78%;
+      //display: flex;
+      //flex-direction: column;
+      //align-items: right;
       > div {
         font-size: 1.6rem;
         line-height: 23px;
@@ -611,6 +651,35 @@ input[type=checkbox]:checked + label:after {
       height: 55px;
       line-height: 55px;
       font-size: 1.8rem;
+    }
+  }
+  .accordionItem {
+    overflow: hidden;
+    transition: .4s all ease;
+    &.close-item:last-child {
+      .accordionItemHeading {
+        border-bottom: none;
+        transition: .2s all ease;
+      }
+    }
+    &.close-item {
+      max-height: 50px;
+      transition: .4s all ease;
+    }
+    &.open {
+      max-height: 300px;
+      transition: .4s all ease;
+      + .accordionItemHeading {
+        border-top: 2px solid $line;
+      }
+      .accordionItemHeading {
+        .toggleHeading {
+          i {
+            transition: .2s all ease;
+            transform: rotate(90deg);
+          }
+        }
+      }
     }
   }
 }

@@ -1,9 +1,59 @@
 <main class="gray-bg-citizen coin-bg">
-  <section class="consult-sold">
-    <div class="container">
-      <h3>Transfer d'argent</h3>
-
-    </div>
-  </section>
+    <section class="dargent">
+        <div class="container">
+            <h3>Transfer d'argent</h3>
+            <div class="row">
+                <div class="col-sm-6 col-md-4">
+                    <div class="dargent__wrapper">
+                        <div class="block__header">Chose your account</div>
+                        <div class="consult-user active">
+                            <div class="logo" style="background-image: url('/assets/img/user.png')"></div>
+                            <div>
+                                <div>Lex Luthor</div>
+                                <div>Email: <span>lexluthor@gmail.com</span></div>
+                            </div>
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </div>
+                        <div class="consult-user">
+                            <div class="logo" style="background-image: url('/assets/img/user.png')"></div>
+                            <div>
+                                <div>Lex Luthor</div>
+                                <div>Email: <span>lexluthor@gmail.com</span></div>
+                            </div>
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+                <!--Show this block for answer-->
+                <div class="col-sm-6 col-md-4">
+                    <div class="dargent__wrapper">
+                        <div class="block__header">Insert receiver’s information</div>
+                        <div class="content">
+                            <h4>Phone number</h4>
+                            <div class="floating-block border-hover">
+                                <div class="floating-input">
+                                    <input id="phone" name="phone" placeholder="Type here" required="" type="text">
+                                    <div class="clean-input" onclick="phone.value = ''"></div>
+                                </div>
+                            </div>
+                            <span class="help">
+                                      It seems we don’t have this number in the citizen database. <b>New account will be created.</b>
+                                    </span>
+                            <h4>Amount</h4>
+                            <div class="floating-block border-hover">
+                                <div class="floating-input">
+                                    <input id="amount" name="amount" placeholder="Amount" required="" type="text"
+                                           value="00.00">
+                                    <div class="clean-input" onclick="amount.value = ''"></div>
+                                </div>
+                                <div class="currency">Usd</div>
+                            </div>
+                            <button class="orange-button blue-button">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 </main>
