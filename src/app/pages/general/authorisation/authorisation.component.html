@@ -40,9 +40,10 @@
               <div class="pass-forget">I forgot my password</div>
             </div>
             <button class="orange-button blue-button"
+                    [disabled]="!user_authorizationForm.form.valid"
                     (click)="loginFunction()"
                     [routerLink]="['/profile']"
-                    type="submit" [disabled]="!user_authorizationForm.form.valid">Log In</button>
+                    type="submit" >Log In</button>
           </form>
         </div>
       </div>

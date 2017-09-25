@@ -67,6 +67,9 @@ import {CustServicesTransferDargentPageComponent} from '../pages/customer/menu-u
 import {CustServicesVirementsMultiplesPageComponent} from '../pages/customer/menu-user/cust-services-page/items/cust-services-virements-multiples-page.component';
 import {CustServicesPaiementsPageComponent} from '../pages/customer/menu-user/cust-services-page/items/cust-services-paiements.component';
 import {ANotificationsPageComponent} from '../pages/agent/menu-user/a-notifications-page/a-notifications-page.component';
+import {AgentProfilePageComponent} from '../pages/agent/menu-top/agent-profile-page.component';
+import {CitizenProfilePageComponent} from '../pages/citizen/menu-top/citizen-profile-page.component';
+import {CustomerProfilePageComponent} from '../pages/customer/menu-top/customer-profile-page.component';
 
 
 const routes: Routes = [
@@ -87,6 +90,7 @@ const routes: Routes = [
       { path: 'faq', component: AgentFaqPageComponent },
       { path: 'privacy-policy', component: AgentPrivacyPageComponent },
       { path: 'cancellation-refund', component: AgentCancellationRefundPageComponent },
+      { path: 'profile', component: AgentProfilePageComponent },
         { path: 'services', component: AgentServicesPageComponent },
             { path: 'services/depot-citizen', component: AServicesDepotCitizenPageComponent },
             { path: 'services/depot-client', component: AServicesDepotClientPageComponent },
@@ -113,6 +117,7 @@ const routes: Routes = [
       { path: 'faq', component: CitizenFaqPageComponent },
       { path: 'privacy-policy', component: CitizenPrivacyPageComponent },
       { path: 'cancellation-refund', component: CitizenCancellationRefundPageComponent },
+      { path: 'profile', component: CitizenProfilePageComponent },
         { path: 'services', component: CServicesPageComponent },
             /////menu-user-->services://///////////////////////
             { path: 'services/transfer-dargent', component: CServicesTransferDargentPageComponent },
@@ -135,6 +140,7 @@ const routes: Routes = [
       { path: 'faq', component: CustomerFaqPageComponent },
       { path: 'privacy-policy', component: CustomerPrivacyPageComponent },
       { path: 'cancellation-refund', component: CustomerCancellationRefundPageComponent },
+      { path: 'profile', component: CustomerProfilePageComponent },
         { path: 'services', component: CustServicesPageComponent },
             /////menu-user-->services://///////////////////////
             { path: 'services/transfer-dargent', component: CustServicesTransferDargentPageComponent },
