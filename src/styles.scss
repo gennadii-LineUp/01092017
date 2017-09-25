@@ -1,10 +1,8 @@
 @import '~bootstrap/dist/css/bootstrap.css';
 @import "assets/bootstrap-sass/variables";
-
 @import "assets/sass/_reset.scss";
 @import "assets/sass/_fonts.scss";
 @import "assets/sass/_variables.scss";
-
 
 a {
   white-space: nowrap;
@@ -14,6 +12,7 @@ a:focus,
 a:hover {
   text-decoration: none !important;
 }
+
 // For footer at bottom of page
 
 html {
@@ -58,7 +57,6 @@ footer {
   }
 }
 
-
 .little-title {
   color: $mainText;
   font-size: 1.4rem;
@@ -70,7 +68,7 @@ footer {
 .orange-button {
   color: #fff;
   min-height: 50px;
-  line-height: 60px;
+  line-height: 50px;
   min-width: 165px;
   font-size: 1.6rem;
   font-family: $raleSM;
@@ -215,6 +213,20 @@ footer {
     font-size: 1.2rem;
     cursor: pointer;
   }
+  .orange-angle {
+    margin-bottom: 0;
+    top: 0;
+    right: 0;
+    height: 50px;
+    width: 50px;
+    color: $orange;
+    font-size: 35px;
+    text-align: right;
+    line-height: 50px;
+    cursor: pointer;
+    position: absolute;
+    z-index: 1;
+  }
   &.border-hover {
     .clean-input {
       display: none;
@@ -258,6 +270,41 @@ footer {
   }
 }
 
+.right-drop {
+  top: -8px;
+  right: -398px;
+  position: absolute;
+  width: 375px;
+  &__item {
+    min-height: 60px;
+    border-bottom: 2px solid $line;
+    background-color: #f7f7ff;
+    font-family: $raleSM;
+    font-size: 1.6rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    span {
+      display: block;
+      color: #bababa;
+      font-size: 14px;
+      font-family: $sf;
+      padding-top: 7px;
+      i {
+        padding-right: 10px;
+      }
+    }
+    &:hover {
+      background-color: #fff;
+    }
+    .logo {
+      width: 45px;
+      height: 45px;
+      margin: 0 18px;
+    }
+  }
+}
+
 .gray-bg-citizen {
   background-color: $coin;
   &.coin-bg {
@@ -278,14 +325,16 @@ footer {
 input[type=radio] {
   visibility: hidden;
 }
+
 input[type=radio]:checked + label:after {
   opacity: 1;
 }
+
 .onoffswitch {
   position: relative;
   width: 35px;
-  -webkit-user-select:none;
-  -moz-user-select:none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
   -ms-user-select: none;
   display: inline-block;
   &-checkbox {
@@ -318,13 +367,16 @@ input[type=radio]:checked + label:after {
     }
   }
 }
+
 .onoffswitch-checkbox:checked + .onoffswitch-label {
   background-color: #3FA7F4;
 }
+
 .onoffswitch-checkbox:checked + .onoffswitch-label,
 .onoffswitch-checkbox:checked + .onoffswitch-label:before {
   border-color: #3FA7F4;
 }
+
 .onoffswitch-checkbox:checked + .onoffswitch-label:before {
   right: 0px;
 }
@@ -415,6 +467,7 @@ button[disabled] {
 input[type=checkbox] {
   visibility: hidden;
 }
+
 input[type=checkbox]:checked + label:after {
   opacity: 1;
 }
@@ -668,6 +721,7 @@ input[type=checkbox]:checked + label:after {
     }
   }
 }
+
 ///////////////////////////////////////////////////////////////////////
 //   _sitizen.scss   END
 ///////////////////////////////////////////////////////////////////////

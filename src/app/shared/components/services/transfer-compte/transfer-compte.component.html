@@ -1,9 +1,141 @@
 <main class="gray-bg-citizen coin-bg">
-  <section class="consult-sold">
-    <div class="container">
-      <h3>Transfer compte</h3>
+    <section class="compte">
+        <div class="container">
+            <!-- First page-->
+            <h3>Transfert Сompte à Compte</h3>
+            <div class="row">
+                <div class="col-sm-8 col-md-4 ml-auto mr-auto">
+                    <div class="compte__wrapper compte__select">
+                        <h2>Select paiement</h2>
+                        <button class="orange-button blue-button">Standart</button>
+                        <button class="orange-button blue-button">Paiement Marchand</button>
+                        <button class="orange-button blue-button">Paiement Facture</button>
+                    </div>
+                </div>
+            </div>
+            <!-- END First page-->
 
-    </div>
-  </section>
+            <!-- Second page-->
+            <h3>Transfert Сompte à Compte (Paiement Facture)</h3>
+            <div class="row">
+                <div class="col-sm-8 col-md-4 ml-auto mr-auto">
+                    <div class="compte__wrapper compte__facture">
+                        <div class="header">Insert paiement facture</div>
+                        <div class="content">
+                            <h4>Type paiement facture</h4>
+                            <div class="floating-block border-hover">
+                                <div class="floating-input">
+                                    <input id="" name="" placeholder="placeholder" required="" type="text">
+                                </div>
+                            </div>
+                            <button class="orange-button blue-button">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END Second page-->
 
+            <!-- Third page-->
+            <h3>Transfert Сompte à Compte (Paiement Marchand)</h3>
+            <div class="row">
+                <div class="col-sm-8 col-md-4 ml-auto mr-auto">
+                    <div class="compte__wrapper compte__marchand">
+                        <div class="header">Insert customer’s information</div>
+                        <div class="content">
+                            <h4>Select customer’s account</h4>
+                            <div class="floating-block border-hover">
+                                <!--Need to hide this item when input empty, when input have value show angle, onclick angle show right drop -->
+                                <div class="orange-angle" style="display: block;"><i class="fa fa-angle-right" aria-hidden="true"></i></div>
+                                <div class="floating-input">
+                                    <input id="" name="" placeholder="placeholder" required="" type="text">
+                                </div>
+                                <!--Right drop for show-->
+                                <div class="right-drop" style="display: block;">
+                                    <div class="right-drop__item">
+                                        <div class="logo" style="background-image: url('/assets/img/user.png')"></div>
+                                        <div>
+                                            Clark Kenwood
+                                            <span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>
+                                        </div>
+                                    </div>
+                                    <div class="right-drop__item">
+                                        <div class="logo" style="background-image: url('/assets/img/user.png')"></div>
+                                        <div>
+                                            Clark Kenwood
+                                            <span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>
+                                        </div>
+                                    </div>
+                                    <div class="right-drop__item">
+                                        <div class="logo" style="background-image: url('/assets/img/user.png')"></div>
+                                        <div>
+                                            Clark Kenwood
+                                            <span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="orange-button blue-button">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END Third page-->
+
+            <!-- Fourth page-->
+            <h3>Transfert Сompte à Compte (Standart)</h3>
+            <div class="row">
+                <div class="col-sm-8 col-md-4 ml-auto mr-auto">
+                    <div class="compte__wrapper compte__marchand">
+                        <div class="header">Insert customer’s information</div>
+                        <div class="content">
+                            <h4>Select customer’s account</h4>
+                            <div class="floating-block border-hover">
+                                <!--Need to hide this item when input empty, when input have value show angle, onclick angle show right drop -->
+                                <div class="orange-angle" style="display: block;"><i class="fa fa-angle-right" aria-hidden="true"></i></div>
+                                <div class="floating-input">
+                                    <input id="" name="" placeholder="placeholder" required="" type="text">
+                                </div>
+                                <!--Right drop for show-->
+                                <div class="right-drop" style="display: block;">
+                                    <div class="right-drop__item">
+                                        <div class="logo" style="background-image: url('/assets/img/user.png')"></div>
+                                        <div>
+                                            Clark Kenwood
+                                            <span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>
+                                        </div>
+                                    </div>
+                                    <div class="right-drop__item">
+                                        <div class="logo" style="background-image: url('/assets/img/user.png')"></div>
+                                        <div>
+                                            Clark Kenwood
+                                            <span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>
+                                        </div>
+                                    </div>
+                                    <div class="right-drop__item">
+                                        <div class="logo" style="background-image: url('/assets/img/user.png')"></div>
+                                        <div>
+                                            Clark Kenwood
+                                            <span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="compte__amount">
+                                <h4>Amount</h4>
+                                <div class="floating-block border-hover">
+                                    <div class="floating-input">
+                                        <input id="amount" name="amount" placeholder="Amount" required="" type="text">
+                                        <div class="clean-input" onclick="amount.value = ''"></div>
+                                    </div>
+                                    <div class="currency">Usd</div>
+                                </div>
+                            </div>
+                            <button class="orange-button blue-button">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END Fourth page-->
+        </div>
+    </section>
 </main>
