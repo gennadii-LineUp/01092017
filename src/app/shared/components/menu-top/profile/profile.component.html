@@ -43,7 +43,7 @@
             </div>
           </div>
           <div class="accordionWrapper">
-            <div class="accordionItem close-item" (click)="accordionToggleItemFunction($event);$event.stopPropagation()">
+            <div class="accordionItem close-item" (click)="commonServices.accordionToggleItemFunction($event);$event.stopPropagation()">
               <div class="accordionItemHeading">
                 <span>Password</span>
                 <div class="toggleHeading">
@@ -83,7 +83,7 @@
                 <label class="onoffswitch-label" for="myonoffswitch"></label>
               </div>
             </div>
-            <div class="accordionItem close-item" (click)="accordionToggleItemFunction($event); $event.stopPropagation()">
+            <div class="accordionItem close-item" (click)="commonServices.accordionToggleItemFunction($event); $event.stopPropagation()">
               <div class="accordionItemHeading">
                 <span>Currency <span>USD</span></span>
                 <div class="toggleHeading">
