@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {CommonServices} from '../../../../services/common.service';
 
 @Component({
   selector: 'app-services-consultation-solde',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class ConsultationSoldeComponent implements OnInit {
   showRequestResult = false;
 
-  constructor() { }
+  constructor(public commonServices: CommonServices) { }
 
   ngOnInit() {
   }

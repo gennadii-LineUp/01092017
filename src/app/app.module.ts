@@ -9,6 +9,7 @@ import {AppRoutingModule} from './services/routing.module';
 import {AuthGuard} from './guards/auth-guards.service';
 import {ErrorMessageHandlerService} from './services/error-message-handler.service';
 import {BackendService} from './services/backend.service';
+import {CommonServices} from './services/common.service';
 
 
 @NgModule({
@@ -24,7 +25,7 @@ import {BackendService} from './services/backend.service';
   ],
   providers: [
     AuthGuard,
-    ErrorMessageHandlerService, BackendService
+    ErrorMessageHandlerService, BackendService, CommonServices
   ],
   bootstrap: [AppComponent]
 })

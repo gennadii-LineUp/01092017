@@ -6,7 +6,7 @@
         <div class="col-md-4 ml-md-auto mr-md-auto consult-sold__wrapper">
           <div class="consult-sold__header">Chose account</div>
           <div class="accordionWrapper">
-            <div class="accordionItem open">
+            <div class="accordionItem close-item" (click)="commonServices.accordionToggleItemFunction($event); $event.stopPropagation()">
               <div class="consult-user accordionItemHeading">
                 <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
                 <div>
@@ -15,12 +15,12 @@
                 </div>
                 <i class="fa fa-angle-right" aria-hidden="true"></i>
               </div>
-              <div class="accordionItemContent ">
+              <div class="accordionItemContent" (click)="$event.stopImmediatePropagation()">
                 <button class="orange-button blue-button" (click)="showRequestResultFunction()">Send a request</button>
               </div>
             </div>
 
-            <div class="accordionItem close-item">
+            <div class="accordionItem close-item" (click)="commonServices.accordionToggleItemFunction($event); $event.stopPropagation()">
               <div class="consult-user accordionItemHeading">
                 <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
                 <div>
@@ -29,7 +29,7 @@
                 </div>
                 <i class="fa fa-angle-right" aria-hidden="true"></i>
               </div>
-              <div class="accordionItemContent ">
+              <div class="accordionItemContent" (click)="$event.stopImmediatePropagation()">
                 <button class="orange-button blue-button" (click)="showRequestResultFunction()">Send a request</button>
               </div>
             </div>
@@ -79,18 +79,18 @@
 </main>
 
 <script>
-  var accItem = document.getElementsByClassName('accordionItem');
-  var accHD = document.getElementsByClassName('accordionItemHeading');
-  for (var i = 0; i < accHD.length; i++) {
-    accHD[i].addEventListener('click', toggleItem, false);
-  }
-  function toggleItem() {
-    var itemClass = this.parentNode.className;
-    for (var i = 0; i < accItem.length; i++) {
-      accItem[i].className = 'accordionItem close-item';
-    }
-    if (itemClass == 'accordionItem close-item') {
-      this.parentNode.className = 'accordionItem open';
-    }
-  }
+//  var accItem = document.getElementsByClassName('accordionItem');
+//  var accHD = document.getElementsByClassName('accordionItemHeading');
+//  for (var i = 0; i < accHD.length; i++) {
+//    accHD[i].addEventListener('click', toggleItem, false);
+//  }
+//  function toggleItem() {
+//    var itemClass = this.parentNode.className;
+//    for (var i = 0; i < accItem.length; i++) {
+//      accItem[i].className = 'accordionItem close-item';
+//    }
+//    if (itemClass == 'accordionItem close-item') {
+//      this.parentNode.className = 'accordionItem open';
+//    }
+//  }
 </script>
