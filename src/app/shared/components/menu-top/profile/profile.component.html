@@ -1,0 +1,124 @@
+<main class="gray-bg-citizen">
+  <section class="profile">
+    <div class="container">
+      <h3>Your profile</h3>
+      <div class="row">
+        <div class="col">
+          <div class="profile__info">
+            <div class="profile__logo">
+              <div class="logo" style="background-image: url('../../../../../assets/img/user.png')">
+                <div class="profile__logo-add"></div>
+              </div>
+              <div class="profile__info-type">Profile: <span>Customer</span></div>
+            </div>
+            <div>
+              <div class="floating-block border-hover">
+                <div class="floating-desc">Name:</div>
+                <div class="floating-input">
+                  <input type="text" placeholder="Ari" name="name" id="name" required>
+                </div>
+                <div class="pass-forget">Edit</div>
+              </div>
+              <div class="floating-block border-hover">
+                <div class="floating-desc">Surname:</div>
+                <div class="floating-input">
+                  <input type="text" placeholder="Stark" name="surname" id="surname" required>
+                </div>
+                <div class="pass-forget">Edit</div>
+              </div>
+              <div class="floating-block border-hover">
+                <div class="floating-desc">E-mail:</div>
+                <div class="floating-input">
+                  <input type="email" placeholder="jsiijsjis" name="mail" id="mail" required>
+                </div>
+                <div class="pass-forget">Edit</div>
+              </div>
+              <div class="floating-block border-hover">
+                <div class="floating-desc">Phone:</div>
+                <div class="floating-input">
+                  <input type="tel" placeholder="10101010" name="tel" id="tel" required>
+                </div>
+                <div class="pass-forget">Edit</div>
+              </div>
+            </div>
+          </div>
+          <div class="accordionWrapper">
+            <div class="accordionItem close-item" (click)="accordionToggleItemFunction($event);$event.stopPropagation()">
+              <div class="accordionItemHeading">
+                <span>Password</span>
+                <div class="toggleHeading">
+                  <span>Change</span>
+                  <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div class="accordionItemContent change-password"  (click)="$event.stopImmediatePropagation()">
+                <div class="change-password__inputs">
+                  <div class="floating-block border-hover">
+                    <div class="floating-desc">Old password:</div>
+                    <div class="floating-input">
+                      <input type="password" name="oldPassword" id="oldPassword" required>
+                    </div>
+                  </div>
+                  <div class="floating-block border-hover">
+                    <div class="floating-desc">New password:</div>
+                    <div class="floating-input">
+                      <input type="password" name="newPassword" id="newPassword" required>
+                    </div>
+                  </div>
+                  <div class="floating-block border-hover">
+                    <div class="floating-desc">Repeat new password:</div>
+                    <div class="floating-input">
+                      <input type="password" name="newPassword2" id="newPassword2" required>
+                    </div>
+                  </div>
+                </div>
+                <div>Save</div>
+              </div>
+            </div>
+            <div class="accordionItemHeading">
+              <span>Notification</span>
+              <div class="onoffswitch">
+                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox"
+                       id="myonoffswitch">
+                <label class="onoffswitch-label" for="myonoffswitch"></label>
+              </div>
+            </div>
+            <div class="accordionItem close-item" (click)="accordionToggleItemFunction($event); $event.stopPropagation()">
+              <div class="accordionItemHeading">
+                <span>Currency <span>USD</span></span>
+                <div class="toggleHeading">
+                  Change
+                  <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div class="accordionItemContent"  (click)="$event.stopImmediatePropagation()">
+                <div class="radio-wrapper">
+                  <span>Olololo</span>
+                  <div class="checkbox">
+                    <input type="radio" name="Currency" id="Currency" required/>
+                    <label for="Currency"></label>
+                  </div>
+                </div>
+                <div class="radio-wrapper">
+                  <span>Olololo</span>
+                  <div class="checkbox">
+                    <input type="radio" name="Currency" id="Currency2" required/>
+                    <label for="Currency2"></label>
+                  </div>
+                </div>
+                <div class="radio-wrapper">
+                  <span>Olololo</span>
+                  <div class="checkbox">
+                    <input type="radio" name="Currency" id="Currency3" required/>
+                    <label for="Currency3"></label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="profile__logout">Log Out</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

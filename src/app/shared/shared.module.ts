@@ -28,6 +28,7 @@ import { TransferCompteComponent } from './components/services/transfer-compte/t
 import { ConsultationOperationsComponent } from './components/services/consultation-operations/consultation-operations.component';
 import { GeolocalisationAgentComponent } from './components/services/geolocalisation-agent/geolocalisation-agent.component';
 import { BankToWalletComponent } from './components/services/bank-to-wallet/bank-to-wallet.component';
+import { ProfileComponent } from './components/menu-top/profile/profile.component';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { BankToWalletComponent } from './components/services/bank-to-wallet/bank
     ManageAdminCitizenComponent, TransferDargentComponent, TransferCompteComponent, ConsultationOperationsComponent,
     GeolocalisationAgentComponent, BankToWalletComponent, VirementsVersBanqueComponent, VirementsMultiplesComponent,
     PaiementsComponent,
+    ProfileComponent,
 
   ],
   exports: [
@@ -66,6 +68,7 @@ import { BankToWalletComponent } from './components/services/bank-to-wallet/bank
     ManageAdminCitizenComponent, TransferDargentComponent, TransferCompteComponent, ConsultationOperationsComponent,
     GeolocalisationAgentComponent, BankToWalletComponent, VirementsVersBanqueComponent, VirementsMultiplesComponent,
     PaiementsComponent,
+    ProfileComponent
   ],
   providers: [
 
