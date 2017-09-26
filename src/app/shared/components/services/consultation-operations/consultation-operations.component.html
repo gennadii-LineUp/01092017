@@ -1,9 +1,74 @@
 <main class="gray-bg-citizen coin-bg">
-  <section class="consult-sold">
-    <div class="container">
-      <h3>Consultation operations</h3>
+    <section class="consult-oper">
+        <div class="container">
+            <h3>Consultation operations</h3>
+            <div class="row">
+                <div class="col-md-6 col-lg-4 consult-oper__wrapper">
+                    <div class="consult-oper__header">Chose account</div>
+                    <div class="accordionWrapper">
+                        <div class="accordionItem close-item"
+                             (click)="commonServices.accordionToggleItemFunction($event); $event.stopPropagation()">
+                            <div class="consult-user accordionItemHeading">
+                                <div class="logo"
+                                     style="background-image: url('../../../../../assets/img/user.png')"></div>
+                                <div>
+                                    <div>Lex Luthor</div>
+                                    <div>Email: <span class="mail">lexluthor@gmail.com</span></div>
+                                </div>
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            </div>
+                            <div class="accordionItemContent" (click)="$event.stopImmediatePropagation()">
+                                <button class="orange-button blue-button" (click)="showRequestResultFunction()">Send a
+                                    request
+                                </button>
+                            </div>
+                        </div>
+                        <!--////-->
+                        <div class="accordionItem close-item"
+                             (click)="commonServices.accordionToggleItemFunction($event); $event.stopPropagation()">
+                            <div class="consult-user accordionItemHeading">
+                                <div class="logo"
+                                     style="background-image: url('../../../../../assets/img/user.png')"></div>
+                                <div>
+                                    <div>Lex Luthor</div>
+                                    <div>Email: <span class="mail">lexluthor@gmail.com</span></div>
+                                </div>
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            </div>
+                            <div class="accordionItemContent" (click)="$event.stopImmediatePropagation()">
+                                <button class="orange-button blue-button" (click)="showRequestResultFunction()">Send a
+                                    request
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    </div>
-  </section>
+                <div class="col-md-6 col-lg-4 consult-sold-history">
+                    <div class="little-title">Latest transactions</div>
+                    <div class="consult__item">
+                        <div>
+                            <span>Receiver: <span class="name">Clark Kent</span></span>
+                            <span class="profit">+123.49<span class="curr">USD</span></span>
+                        </div>
+                        <div>
+                            <span>11.12.2017</span>
+                            <span>11:12</span>
+                        </div>
+                    </div>
+                    <div class="consult__item">
+                        <div>
+                            <span>Receiver: <span class="name">Clark Kent</span></span>
+                            <span class="lesion">-123.49<span class="curr">USD</span></span>
+                        </div>
+                        <div>
+                            <span>11.12.2017</span>
+                            <span>11:12</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 </main>

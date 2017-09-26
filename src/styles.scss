@@ -34,8 +34,8 @@ body {
 }
 
 main {
-  overflow: overlay;
-  min-height: calc(100vh - 350px);
+  /*overflow: overlay;
+  min-height: calc(100vh - 350px);*/
 }
 
 footer {
@@ -594,23 +594,6 @@ input[type=checkbox]:checked + label:after {
   }
 }
 
-.consult-sold {
-  &__wrapper {
-    padding: 0 !important;
-    font-size: 1.4rem;
-    color: $mainText;
-    background-color: #fff;
-    margin-bottom: 60px;
-  }
-  &__header {
-    color: $mainText;
-    font-size: 1.4rem;
-    font-family: $sf;
-    padding: 17px 21px 3px 21px;
-    border-bottom: 2px solid $lightGrayBg;
-  }
-}
-
 .accordionWrapper {
   .accordionItem {
     border-bottom: 2px solid $lightGrayBg;
@@ -684,6 +667,141 @@ input[type=checkbox]:checked + label:after {
   }
 }
 
+.accordionWrapper {
+  .accordionItemHeading {
+    color: #161616;
+    font-family: $raleM;
+    font-size: 1.4rem;
+    padding: 0 20px;
+    height: 50px;
+    line-height: 50px;
+    transition: .4s all ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    span > span {
+      color: #636363;
+      padding-left: 10px;
+    }
+    .toggleHeading {
+      color: $blueBright;
+      font-size: 1.2rem;
+      font-family: $raleSM;
+      transition: .2s all ease;
+      padding-right: 20px;
+      position: relative;
+      i {
+        font-size: 2.5rem;
+        position: absolute;
+        right: 0;
+        top: 13px;
+        transition: .2s all ease;
+      }
+    }
+  }
+  .accordionItemContent {
+    transition: .4s all ease;
+    &.change-password {
+      padding: 0 20px 20px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      .floating-block {
+        align-items: center;
+        margin-bottom: 0;
+      }
+      .change-password__inputs {
+        color: #161616;
+        font-size: 1.4rem;
+        font-family: $raleM;
+        + div {
+          color: $blueBright;
+          font-size: 1.2rem;
+          min-width: 45px;
+          font-family: $raleSM;
+          text-align: center;
+          height: 40px;
+          line-height: 55px;
+          cursor: pointer;
+        }
+        input {
+          padding-left: 0 !important;
+        }
+        .floating-desc {
+          min-width: 170px;
+        }
+      }
+    }
+    .radio-wrapper {
+      width: 100%;
+      margin-left: 25px;
+      color: #636363;
+      font-size: 1.4rem;
+      font-family: $raleM;
+      height: 45px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      border-bottom: 2px solid $line;
+      &:last-child {
+        border-bottom: none;
+        transition: .2s all ease;
+      }
+      .checkbox {
+        border: none;
+        position: absolute;
+        right: 0;
+        width: 100%;
+        margin-right: 0;
+        height: 45px;
+        label {
+          width: 100%;
+          height: 45px;
+          &:after {
+            right: 0;
+            left: auto;
+            top: 20px;
+            width: 19px;
+            height: 10px;
+          }
+        }
+      }
+    }
+  }
+
+  .accordionItem {
+    overflow: hidden;
+    transition: .4s all ease;
+    &.close-item:last-child {
+      .accordionItemHeading {
+        border-bottom: none;
+        transition: .2s all ease;
+      }
+    }
+    &.close-item {
+      max-height: 50px;
+      transition: .4s all ease;
+    }
+    &.open {
+      max-height: 300px;
+      transition: .4s all ease;
+      + .accordionItemHeading {
+        border-top: 2px solid $line;
+      }
+      .accordionItemHeading {
+        .toggleHeading {
+          i {
+            transition: .2s all ease;
+            transform: rotate(90deg);
+          }
+        }
+      }
+    }
+  }
+}
+
 .consult-user {
   color: $mainText;
   font-size: 1.6rem;
@@ -697,7 +815,7 @@ input[type=checkbox]:checked + label:after {
     background-position: center;
     background-size: cover;
   }
-  a {
+  .mail {
     font-size: 1.4rem;
     color: #bababa;
     font-family: $raleM;
@@ -710,84 +828,6 @@ input[type=checkbox]:checked + label:after {
     color: #f6a100;
     font-size: 3rem;
     transition: .2s all ease;
-  }
-}
-
-.consult-sold-history {
-  margin-bottom: 60px;
-  .wrapper {
-    padding: 0;
-    background-color: #fff;
-  }
-  &__user {
-    padding: 8px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 2px solid $lightGrayBg;
-    font-family: $raleSM;
-    font-size: 1.4rem;
-    color: $mainText;
-    > div {
-      display: flex;
-      align-items: center;
-    }
-    .logo {
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
-      margin-right: 15px;
-    }
-  }
-  .balance {
-    color: #2c2c2c;
-    font-size: 1.4rem;
-    font-family: $raleM;
-    b {
-      color: #0095fd;
-      font-family: $sf;
-      font-size: 1.8rem;
-      padding-right: 10px;
-    }
-  }
-  .card-data {
-    display: flex;
-    span {
-      color: #aaaaaa;
-      height: 20px;
-      font-size: 1.4rem;
-      font-family: $raleM;
-      padding-right: 10px;
-      &:not(:last-child) {
-        line-height: 30px;
-      }
-    }
-  }
-  .little-title.history {
-    color: #8a8a8a;
-    border-bottom: 1px solid $lightGrayBg;
-  }
-  .history-item {
-    margin-left: 20px;
-    padding: 10px 20px 10px 0;
-    border-bottom: 1px solid $lightGrayBg;
-    font-family: $sf;
-    font-size: 1.2rem;
-    color: #3f3f3f;
-    > div {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .balance {
-      b {
-        color: #ec964a;
-        padding-right: 5px;
-      }
-    }
   }
 }
 
