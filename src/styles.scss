@@ -834,6 +834,198 @@ input[type=checkbox]:checked + label:after {
   }
 }
 
+.consult-sold-history {
+  margin-bottom: 60px;
+  .wrapper {
+    padding: 0;
+    background-color: #fff;
+  }
+  &__user {
+    padding: 8px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid $lightGrayBg;
+    font-family: $raleSM;
+    font-size: 1.4rem;
+    color: $mainText;
+    > div {
+      display: flex;
+      align-items: center;
+    }
+    .logo {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      margin-right: 15px;
+    }
+  }
+  .balance {
+    color: #2c2c2c;
+    font-size: 1.4rem;
+    font-family: $raleM;
+    b {
+      color: #0095fd;
+      font-family: $sf;
+      font-size: 1.8rem;
+      padding-right: 10px;
+    }
+  }
+  .card-data {
+    display: flex;
+    span {
+      color: #aaaaaa;
+      height: 20px;
+      font-size: 1.4rem;
+      font-family: $raleM;
+      padding-right: 10px;
+      &:not(:last-child) {
+        line-height: 30px;
+      }
+    }
+  }
+  .little-title.history {
+    color: #8a8a8a;
+    border-bottom: 1px solid $lightGrayBg;
+  }
+  .history-item {
+    margin-left: 20px;
+    padding: 10px 20px 10px 0;
+    border-bottom: 1px solid $lightGrayBg;
+    font-family: $sf;
+    font-size: 1.2rem;
+    color: #3f3f3f;
+    > div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .balance {
+      b {
+        color: #ec964a;
+        padding-right: 5px;
+      }
+    }
+  }
+}
+
+
+.search-wrapper {
+  font-size: 1.6rem;
+  padding: 10px;
+  background-color: #cdcdcd;
+  input {
+    height: 32px;
+    line-height: 32px;
+    width: 100%;
+    font-size: 1.6rem;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: none;
+    padding-left: 15px;
+    &::-webkit-input-placeholder {
+      color: #a8a8a8;
+      text-align: center;
+      font-size: 1.6rem;
+      background-image: url('/assets/img/icon-search.png');
+      background-repeat: no-repeat;
+      background-position: 37% 50%;
+    }
+    &::-moz-placeholder {
+      color: #a8a8a8;
+      text-align: center;
+      font-size: 1.6rem;
+      background-image: url('/assets/img/icon-search.png');
+      background-repeat: no-repeat;
+      background-position: 37% 50%;
+    }
+    &:-moz-placeholder {
+      color: #a8a8a8;
+      text-align: center;
+      font-size: 1.6rem;
+      background-image: url('/assets/img/icon-search.png');
+      background-repeat: no-repeat;
+      background-position: 37% 50%;
+    }
+    &:-ms-input-placeholder {
+      color: #a8a8a8;
+      text-align: center;
+      font-size: 1.6rem;
+      background-image: url('/assets/img/icon-search.png');
+      background-repeat: no-repeat;
+      background-position: 37% 50%;
+    }
+    &:focus .caption {
+      display: none;
+    }
+  }
+}
+
+.search__user {
+  min-height: 60px;
+  margin-left: 20px;
+  padding-right: 20px;
+  border-bottom: 1px solid $line;
+  display: flex;
+  color: #2c2c2c;
+  font-family: $raleSM;
+  font-size: 1.4rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  align-items: center;
+  justify-content: space-between;
+  &:hover,
+  &.active {
+    .circle-check {
+      background-color: #00a1ff;
+    }
+  }
+  .logo {
+    display: block;
+    float: left;
+    margin-right: 5px;
+    + div {
+      float: left;
+    }
+  }
+  img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+  .tel {
+    color: #afafaf;
+    font-size: 1.2rem;
+    font-family: $sf;
+  }
+  i {
+    color: #414141;
+    font-size: 1.6rem;
+    padding-right: 5px;
+  }
+  .money {
+    color: #ec964a;
+    font-family: $sf;
+    font-size: 1.478rem;
+    span {
+      color: #aaa;
+      font-size: 1.166rem;
+      text-transform: uppercase;
+      font-family: $raleM;
+      padding-left: 5px;
+    }
+  }
+  .cancel {
+    color: #ff0000;
+    font-size: 1.4rem;
+    font-family: $raleSM;
+    cursor: pointer;
+  }
+}
 ///////////////////////////////////////////////////////////////////////
 //   _sitizen.scss   END
 ///////////////////////////////////////////////////////////////////////
