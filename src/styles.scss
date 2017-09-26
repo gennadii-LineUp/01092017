@@ -34,6 +34,8 @@ body {
 }
 
 main {
+  min-height: 300px;
+  padding-bottom: 20px;
   /*overflow: overlay;
   min-height: calc(100vh - 350px);*/
 }
@@ -502,7 +504,7 @@ input[type=checkbox]:checked + label:after {
 
 .block__header {
   font-size: 14px;
-  border-bottom: 1px solid #e7e7e9;
+  border-bottom: 2px solid $lightGrayBg;
   padding: 17px 0 9px 21px;
   font-family: $sf;
 }
@@ -669,6 +671,7 @@ input[type=checkbox]:checked + label:after {
 
 .accordionWrapper {
   .accordionItemHeading {
+    border-bottom: 2px solid $line;
     color: #161616;
     font-family: $raleM;
     font-size: 1.4rem;

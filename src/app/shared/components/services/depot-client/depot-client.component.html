@@ -1,8 +1,42 @@
 <main class="gray-bg-citizen coin-bg">
-  <section class="consult-sold">
+  <section class="depot-client">
     <div class="container">
       <h3>Depot client</h3>
-
+      <div class="row">
+        <div class="col-md-6 col-lg-4">
+          <div class="block__header">Deposant</div>
+            <div class="user">
+              <div>
+                <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
+                <div>
+                  <div>Lex Luthor</div>
+                  <div class="card-data"><span>****</span><span>****</span><span>****</span><span>1212</span></div>
+                </div>
+              </div>
+            </div>
+          <div class="info">
+            Phone: <span>+ 3120 59 659 56</span><br />
+            Email: <span>peterparker@gmail.com</span>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="block__header">
+            <div>Client <span>Clark Kent</span></div>
+            <div class="blue-angle">Change</div>
+          </div>
+          <div class="depot-client__amount">
+            <h3>Amount</h3>
+            <div class="floating-block border-hover">
+              <div class="floating-input">
+                <input id="amount" name="amount" placeholder="Type here" required="" type="text">
+                <div class="clean-input" onclick="amount.value = ''"></div>
+              </div>
+              <div class="currency">Usd</div>
+            </div>
+            <button class="orange-button blue-button">Send</button>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
