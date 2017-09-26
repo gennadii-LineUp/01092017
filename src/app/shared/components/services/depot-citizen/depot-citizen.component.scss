@@ -1,1 +1,92 @@
 @import "../../../../../assets/sass/variables";
+
+.depot-sitizen {
+  h3 {
+    text-align: left;
+    font-size: 1.6rem;
+    font-family: $raleSM;
+    padding: 0;
+  }
+  .blue-button__wrapper {
+    background-color: #fff;
+    .blue-button {
+      width: 100%;
+      max-width: 335px;
+      display: block;
+      min-height: 55px;
+      line-height: 55px;
+      margin: 0 auto 20px;
+    }
+  }
+  .help {
+    font-size: 12px;
+    line-height: 18px;
+    span {
+      color: #bababa;
+    }
+  }
+  .row {
+    justify-content: center;
+    > div {
+      padding: 0;
+      background-color: #fff;
+    }
+  }
+  .block__header {
+    display: flex;
+    justify-content: space-between;
+     span {
+       color: #636363;
+       font-family: $raleL;
+       padding-left: 10px;
+     }
+  }
+  .amount {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .content {
+    padding: 18px;
+    &.search {
+      padding: 18px 0;
+    }
+    .floating-block input {
+      padding-left: 0;
+    }
+    .blue-button {
+      width: 100%;
+    }
+    .new-acc {
+      padding: 15px 0;
+      text-align: center;
+      color: #a1a1a1;
+      font-size: 14px;
+      font-family: $raleM;
+      line-height: 25px;
+      border-top: 2px solid $lightGrayBg;
+      .create {
+        color: #0095fd;
+      }
+      > span {
+        display: block;
+        margin: 0 auto;
+        max-width: 250px;
+      }
+    }
+    .amount-wrapper {
+      .currency {
+        color: #c2c2c2;
+        font-size: 1.4rem;
+        font-family: $raleSM;
+        margin-left: 10px;
+        line-height: 35px;
+        text-transform: uppercase;
+        border-bottom: 2px solid #e6e5e5;
+      }
+      .floating-block {
+        align-items: flex-end;
+      }
+    }
+  }
+}
