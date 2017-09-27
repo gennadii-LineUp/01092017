@@ -11,5 +11,4 @@ export class DepotCitizenComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

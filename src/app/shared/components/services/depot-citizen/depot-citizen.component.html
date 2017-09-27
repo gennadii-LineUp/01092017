@@ -11,9 +11,34 @@
           <div class="content">
             <h3>Select citizen’s account</h3>
             <div class="floating-block border-hover">
+              <!--Need to hide this item when input empty, when input have value: show angle, onclick angle show right drop -->
+              <div class="orange-angle" style="display: block;"><i class="fa fa-angle-right" aria-hidden="true"></i></div>
               <div class="floating-input">
                 <input id="firstname" name="firstname" placeholder="Type here" required="" type="text">
-                <div class="clean-input" onclick="firstname.value = ''"></div>
+              </div>
+              <!--Right drop for show-->
+              <div class="right-drop" style="display: block;">
+                <div class="right-drop__item">
+                  <div class="logo" style="background-image: url('/assets/img/user.png')"></div>
+                  <div>
+                    Clark Kenwood
+                    <span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>
+                  </div>
+                </div>
+                <div class="right-drop__item">
+                  <div class="logo" style="background-image: url('/assets/img/user.png')"></div>
+                  <div>
+                    Clark Kenwood
+                    <span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>
+                  </div>
+                </div>
+                <div class="right-drop__item">
+                  <div class="logo" style="background-image: url('/assets/img/user.png')"></div>
+                  <div>
+                    Clark Kenwood
+                    <span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="help">It seems we don’t have this number in the citizen database.
