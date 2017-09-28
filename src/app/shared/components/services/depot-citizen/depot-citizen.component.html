@@ -2,7 +2,9 @@
   <section class="depot-sitizen">
     <div class="container">
       <h3>Depot citizen</h3>
-      <div class="row">
+      <div class="row" style="min-height: 362px">
+
+        <!-- L E F T   B L O C K -->
         <div class="col-md-6 col-lg-4">
           <div class="block__header">
             <div>Insert receiver’s information</div>
@@ -17,7 +19,7 @@
                 <input id="firstname" name="firstname" placeholder="Type here" required="" type="text">
               </div>
               <!--Right drop for show-->
-              <div class="right-drop" style="display: block;">
+              <div *ngIf="false" class="right-drop" style="display: block;">
                 <div class="right-drop__item">
                   <div class="logo" style="background-image: url('/assets/img/user.png')"></div>
                   <div>
@@ -41,41 +43,114 @@
                 </div>
               </div>
             </div>
-            <div class="help">It seems we don’t have this number in the citizen database.
+            <div *ngIf="createNewReceiver" class="help">It seems we don’t have this number in the citizen database.
               <span>New account will be created.</span>
             </div>
+
+            <div *ngIf="receiverExist" class="content search">
+              <div class="search__user">
+                <div>
+                  <span class="logo" style="background-image: url('/assets/img/user.png')"></span>
+                  <div>
+                    <div>Elizabeth Swann</div>
+                    <span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>121 (360) 985-15</span>
+                  </div>
+                </div>
+                <div class="circle-check"></div>
+              </div>
+              <div class="search__user active">
+                <div>
+                  <span class="logo" style="background-image: url('/assets/img/user.png')"></span>
+                  <div>
+                    <div>Elizabeth Swann</div>
+                    <span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>121 (360) 985-15</span>
+                  </div>
+                </div>
+                <div class="circle-check"></div>
+              </div>
+              <div class="new-acc">
+                  <span>
+                    The citizen’s account you’re looking for is not in the system?
+                    <span class="create" (click)="createNewReceiverMode()">Create it now.</span>
+                  </span>
+              </div>
+            </div>
+
+            <div *ngIf="createNewReceiver" class="content amount">
+              <div class="amount-wrapper">
+                <h3>Amount</h3>
+                <div class="floating-block border-hover">
+                  <div class="floating-input">
+                    <input id="amount" name="amount" placeholder="Type here" required="" type="text">
+                    <div class="clean-input" onclick="amount.value = ''"></div>
+                  </div>
+                  <div class="currency">Usd</div>
+                </div>
+              </div>
+              <div class="button-wrapper">
+                <button class="orange-button blue-button">Send</button>
+              </div>
+            </div>
+
           </div>
         </div>
+
+
+        <!-- R I G H T   B L O C K -->
         <div class="col-md-12 col-lg-4">
           <div class="block__header">
-            <span>New</span>
-            <div class="blue-angle">Change</div>
+            <span>{{receiverStatus}}</span>
+            <!--<span>New</span>-->
+            <div class="blue-angle" style="padding-bottom: 1px" (click)="clearSearch()">Change</div>
           </div>
-          <div class="content">
-            <h3>Firstname</h3>
-            <div class="floating-block border-hover">
-              <div class="floating-input">
-                <input id="firstname" name="firstname" placeholder="Type here" required="" type="text">
+
+          <div *ngIf="receiverExist" class="content amount">
+            <div class="amount-wrapper" style="margin-top: 70px">
+              <h3>Amount</h3>
+              <div class="floating-block border-hover">
+                <div class="floating-input">
+                  <input id="amount" name="amount" placeholder="Type here" required="" type="text">
+                  <div class="clean-input" onclick="amount.value = ''"></div>
+                </div>
+                <div class="currency">Usd</div>
               </div>
             </div>
-            <h3>Lastname</h3>
-            <div class="floating-block border-hover">
-              <div class="floating-input">
-                <input id="lastname" name="lastname" placeholder="Type here" required="" type="text">
-                <div class="clean-input" onclick="lastname.value = ''"></div>
-              </div>
-            </div>
-            <h3>ID</h3>
-            <div class="floating-block border-hover">
-              <div class="floating-input">
-                <input id="id" name="id" placeholder="Type here" required="" type="text">
-                <div class="clean-input" onclick="id.value = ''"></div>
-              </div>
+            <div class="button-wrapper" style="margin-top: 90px">
+              <button class="orange-button blue-button">Send</button>
             </div>
           </div>
+
+          <form *ngIf="createNewReceiver" #agent_depoCitizen_newReceiver="ngForm" novalidate>
+              <div class="content">
+                <h3>Firstname</h3>
+                <div class="floating-block border-hover">
+                  <div class="floating-input">
+                    <input type="text" placeholder="Type here"
+                           #firstName="ngModel" id="firstName" name='firstName' required [(ngModel)]="newReceiver.firstName" />
+                    <div class="clean-input" onclick="firstName.value = ''"></div>
+                  </div>
+                </div>
+                <h3>Lastname</h3>
+                <div class="floating-block border-hover">
+                  <div class="floating-input">
+                    <input type="text" placeholder="Type here"
+                           #lastName="ngModel" id="lastName" name='lastName' required [(ngModel)]="newReceiver.lastName" />
+                    <div class="clean-input" onclick="lastName.value = ''"></div>
+                  </div>
+                </div>
+                <h3>ID</h3>
+                <div class="floating-block border-hover">
+                  <div class="floating-input">
+                    <input type="text" placeholder="Type here"
+                           #id_receiver="ngModel" id="id_receiver" name='id_receiver' required [(ngModel)]="newReceiver.id_receiver" />
+                    <div class="clean-input" onclick="id_receiver.value = ''"></div>
+                  </div>
+                </div>
+              </div>
+          </form>
         </div>
       </div>
-      <div class="row">
+      <div *ngIf="createNewReceiver" class="row">
         <div class="col-md-8 blue-button__wrapper">
           <button class="orange-button blue-button">Send</button>
         </div>
