@@ -2,20 +2,23 @@
     <section class="compte">
         <div class="container">
             <!-- First page-->
+          <div *ngIf="transfer_all">
             <h3>Transfert Сompte à Compte</h3>
             <div class="row">
                 <div class="col-sm-8 col-md-4 ml-auto mr-auto">
                     <div class="compte__wrapper compte__select">
                         <h2>Select paiement</h2>
-                        <button class="orange-button blue-button">Standart</button>
-                        <button class="orange-button blue-button">Paiement Marchand</button>
-                        <button class="orange-button blue-button">Paiement Facture</button>
+                        <button class="orange-button blue-button" (click)="goToStandartTransferFunction()">Standart</button>
+                        <button class="orange-button blue-button" (click)="goToMarchandTransferFunction()">Paiement Marchand</button>
+                        <button class="orange-button blue-button" (click)="goToFactureTransferFunction()">Paiement Facture</button>
                     </div>
                 </div>
             </div>
+          </div>
             <!-- END First page-->
 
             <!-- Second page-->
+          <div *ngIf="transfer_facture">
             <h3>Transfert Сompte à Compte (Paiement Facture)</h3>
             <div class="row">
                 <div class="col-sm-8 col-md-4 ml-auto mr-auto">
@@ -29,13 +32,18 @@
                                 </div>
                             </div>
                             <button class="orange-button blue-button">Send</button>
+                          <div class="orange-angle left-angle" style="display: block" (click)="goToAllTransferFunction()">
+                            <i class="fa fa-angle-left fa-3x" aria-hidden="true"></i>
+                          </div>
                         </div>
                     </div>
                 </div>
             </div>
+          </div>
             <!-- END Second page-->
 
             <!-- Third page-->
+          <div *ngIf="transfer_marchand">
             <h3>Transfert Сompte à Compte (Paiement Marchand)</h3>
             <div class="row">
                 <div class="col-sm-8 col-md-4 ml-auto mr-auto">
@@ -75,13 +83,18 @@
                                 </div>
                             </div>
                             <button class="orange-button blue-button">Send</button>
+                            <div class="orange-angle left-angle" style="display: block" (click)="goToAllTransferFunction()">
+                              <i class="fa fa-angle-left fa-3x" aria-hidden="true"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+          </div>
             <!-- END Third page-->
 
             <!-- Fourth page-->
+          <div *ngIf="transfer_standart">
             <h3>Transfert Сompte à Compte (Standart)</h3>
             <div class="row">
                 <div class="col-sm-8 col-md-4 ml-auto mr-auto">
@@ -131,10 +144,14 @@
                                 </div>
                             </div>
                             <button class="orange-button blue-button">Send</button>
+                            <div class="orange-angle left-angle" style="display: block" (click)="goToAllTransferFunction()">
+                              <i class="fa fa-angle-left fa-3x" aria-hidden="true"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+          </div>
             <!-- END Fourth page-->
         </div>
     </section>

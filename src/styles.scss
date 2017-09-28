@@ -272,6 +272,19 @@ footer {
   }
 }
 
+.left-angle {
+  margin-right: 100%;
+  cursor: pointer;
+  margin-top: 10px;
+  font: normal normal normal 14px/1 FontAwesome;
+  i {
+    padding: 0 12px;
+  }
+  &:hover{
+    color: $orange;
+  }
+}
+
 .right-drop {
   top: -8px;
   right: -398px;
