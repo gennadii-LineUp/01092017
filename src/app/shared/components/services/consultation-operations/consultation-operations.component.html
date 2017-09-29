@@ -6,37 +6,19 @@
                 <div class="col-md-6 col-lg-4 consult-oper__wrapper">
                     <div class="consult-oper__header">Chose account</div>
                     <div class="accordionWrapper">
-                        <div class="accordionItem close-item"
+                        <div *ngFor="let operation of userDataGlossary.myAccounts" class="accordionItem close-item"
                              (click)="commonServices.accordionToggleItemFunction($event); $event.stopPropagation()">
                             <div class="consult-user accordionItemHeading">
                                 <div class="logo"
                                      style="background-image: url('../../../../../assets/img/user.png')"></div>
                                 <div>
-                                    <div>Lex Luthor</div>
-                                    <div>Email: <span class="mail">lexluthor@gmail.com</span></div>
+                                    <div>{{operation.firstName}} {{operation.lastName}}</div>
+                                    <div>Email: <span class="mail">{{operation.email}}</span></div>
                                 </div>
                                 <i class="fa fa-angle-right" aria-hidden="true"></i>
                             </div>
                             <div class="accordionItemContent" (click)="$event.stopImmediatePropagation()">
-                                <button class="orange-button blue-button" (click)="showRequestResultFunction()">Send a
-                                    request
-                                </button>
-                            </div>
-                        </div>
-                        <!--////-->
-                        <div class="accordionItem close-item"
-                             (click)="commonServices.accordionToggleItemFunction($event); $event.stopPropagation()">
-                            <div class="consult-user accordionItemHeading">
-                                <div class="logo"
-                                     style="background-image: url('../../../../../assets/img/user.png')"></div>
-                                <div>
-                                    <div>Lex Luthor</div>
-                                    <div>Email: <span class="mail">lexluthor@gmail.com</span></div>
-                                </div>
-                                <i class="fa fa-angle-right" aria-hidden="true"></i>
-                            </div>
-                            <div class="accordionItemContent" (click)="$event.stopImmediatePropagation()">
-                                <button class="orange-button blue-button" (click)="showRequestResultFunction()">Send a
+                                <button class="orange-button blue-button" (click)="showTransactionsFunction()">Send a
                                     request
                                 </button>
                             </div>
@@ -44,7 +26,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6 col-lg-4 consult-sold-history">
+                <div *ngIf="showTransactions" class="col-md-6 col-lg-4 consult-sold-history">
                     <div class="little-title">Latest transactions</div>
                     <div class="consult__item">
                         <div>
