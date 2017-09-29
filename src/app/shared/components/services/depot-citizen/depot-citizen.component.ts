@@ -11,6 +11,13 @@ export class DepotCitizenComponent implements OnInit {
   receiverExist = false;
   createNewReceiver = true;
   receiverStatus = '';
+  receiverToFind = '';
+  amountToReceiver = 10;
+  receivers = [
+    { firstName: 'AAA', lastName: 'Lastname1', phone: '0123 456 789', id: 1 },
+    { firstName: 'BBB', lastName: 'Lastname2', phone: '0123 789 456', id: 2 },
+    { firstName: 'CCC', lastName: 'Lastname3', phone: '0123 222 444', id: 3 }
+  ];
 
   constructor() { }
 
@@ -19,6 +26,9 @@ export class DepotCitizenComponent implements OnInit {
     this.receiverExistMode();
   }
 
+  public submitDepotSitizen() {
+    console.log(this.amountToReceiver + '  to send');
+  }
 
   public receiverExistMode() {
     this.clearSearch();
@@ -30,9 +40,12 @@ export class DepotCitizenComponent implements OnInit {
     this.createNewReceiver = true;
   }
   public clearSearch() {
+    this.amountToReceiver = undefined;
+    // this.receivers = [];
+    this.receiverToFind = '';
     this.newReceiver = new ReceiverClass('', '', '');
-    this.receiverExist = false;
-    this.createNewReceiver = false;
+    // this.receiverExist = false;
+    // this.createNewReceiver = false;
     this.receiverStatus = '';
   }
 }

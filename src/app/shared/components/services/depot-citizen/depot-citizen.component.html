@@ -2,7 +2,9 @@
   <section class="depot-sitizen">
     <div class="container">
       <h3>Depot citizen</h3>
-      <div class="row" style="min-height: 362px">
+
+<!-- E X I S T I N G -->
+      <div *ngIf="receiverExist" class="row" style="min-height: 362px">
 
         <!-- L E F T   B L O C K -->
         <div class="col-md-6 col-lg-4">
@@ -16,26 +18,26 @@
               <!--Need to hide this item when input empty, when input have value: show angle, onclick angle show right drop -->
               <div class="orange-angle" style="display: block;"><i class="fa fa-angle-right" aria-hidden="true"></i></div>
               <div class="floating-input">
-                <input id="firstname" name="firstname" placeholder="Type here" required="" type="text">
+                <input id="firstname1" name="firstname1" placeholder="Type here" required="" type="text" [(ngModel)]="receiverToFind">
               </div>
               <!--Right drop for show-->
               <div *ngIf="false" class="right-drop" style="display: block;">
                 <div class="right-drop__item">
-                  <div class="logo" style="background-image: url('/assets/img/user.png')"></div>
+                  <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
                   <div>
                     Clark Kenwood
                     <span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>
                   </div>
                 </div>
                 <div class="right-drop__item">
-                  <div class="logo" style="background-image: url('/assets/img/user.png')"></div>
+                  <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
                   <div>
                     Clark Kenwood
                     <span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>
                   </div>
                 </div>
                 <div class="right-drop__item">
-                  <div class="logo" style="background-image: url('/assets/img/user.png')"></div>
+                  <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
                   <div>
                     Clark Kenwood
                     <span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>
@@ -43,14 +45,21 @@
                 </div>
               </div>
             </div>
-            <div *ngIf="createNewReceiver" class="help">It seems we don’t have this number in the citizen database.
-              <span>New account will be created.</span>
-            </div>
 
-            <div *ngIf="receiverExist" class="content search">
+            <div *ngIf="receivers.length" class="content search">
               <div class="search__user">
                 <div>
-                  <span class="logo" style="background-image: url('/assets/img/user.png')"></span>
+                  <span class="logo" style="background-image: url('../../../../../assets/img/user.png')"></span>
+                  <div>
+                    <div>Elizabeth Swann</div>
+                    <span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>121 (360) 985-15</span>
+                  </div>
+                </div>
+                <div class="circle-check"></div>
+              </div>
+              <div class="search__user">
+                <div>
+                  <span class="logo" style="background-image: url('../../../../../assets/img/user.png')"></span>
                   <div>
                     <div>Elizabeth Swann</div>
                     <span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>121 (360) 985-15</span>
@@ -60,7 +69,7 @@
               </div>
               <div class="search__user active">
                 <div>
-                  <span class="logo" style="background-image: url('/assets/img/user.png')"></span>
+                  <span class="logo" style="background-image: url('../../../../../assets/img/user.png')"></span>
                   <div>
                     <div>Elizabeth Swann</div>
                     <span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>121 (360) 985-15</span>
@@ -68,27 +77,11 @@
                 </div>
                 <div class="circle-check"></div>
               </div>
-              <div class="new-acc">
+              <div class="new-acc" style="padding-bottom: 0">
                   <span>
                     The citizen’s account you’re looking for is not in the system?
                     <span class="create" (click)="createNewReceiverMode()">Create it now.</span>
                   </span>
-              </div>
-            </div>
-
-            <div *ngIf="createNewReceiver" class="content amount">
-              <div class="amount-wrapper">
-                <h3>Amount</h3>
-                <div class="floating-block border-hover">
-                  <div class="floating-input">
-                    <input id="amount" name="amount" placeholder="Type here" required="" type="text">
-                    <div class="clean-input" onclick="amount.value = ''"></div>
-                  </div>
-                  <div class="currency">Usd</div>
-                </div>
-              </div>
-              <div class="button-wrapper">
-                <button class="orange-button blue-button">Send</button>
               </div>
             </div>
 
@@ -101,63 +94,128 @@
           <div class="block__header">
             <span>{{receiverStatus}}</span>
             <!--<span>New</span>-->
-            <div class="blue-angle" style="padding-bottom: 1px" (click)="clearSearch()">Change</div>
+            <div class="blue-angle" style="padding-bottom: 1px" (click)="receiverExistMode()">Change</div>
           </div>
 
-          <div *ngIf="receiverExist" class="content amount">
-            <div class="amount-wrapper" style="margin-top: 70px">
-              <h3>Amount</h3>
+          <div class="content amount">
+            <form #agent_depoCitizen_existReceiver = "ngForm" novalidate>
+                <div class="amount-wrapper" style="margin-top: 70px">
+                  <h3>Amount</h3>
+                  <div class="floating-block border-hover">
+                    <div class="floating-input">
+                      <input id="amount1" name="amount1" placeholder="Type here" required
+                             type="number" [(ngModel)]="amountToReceiver">
+                      <div class="clean-input" onclick="amount1.value = ''"></div>
+                    </div>
+                    <div class="currency">Usd</div>
+                  </div>
+                </div>
+                <div class="button-wrapper" style="margin-top: 90px">
+                  <button class="orange-button blue-button"
+                          [disabled]="!agent_depoCitizen_existReceiver.form.valid"
+                          (click)="submitDepotSitizen()"
+                          type="submit">Send
+                  </button>
+                </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+
+
+
+
+
+<!-- N E W -->
+      <div *ngIf="createNewReceiver" class="row" style="min-height: 280px">
+
+        <!-- L E F T   B L O C K -->
+        <div class="col-md-6 col-lg-4">
+          <div class="block__header">
+            <div>Insert receiver’s information</div>
+            <div>Citizen</div>
+          </div>
+          <div class="content"  style="padding-bottom: 0">
+            <h3>Select citizen’s account</h3>
+            <div class="floating-block border-hover">
+              <!--Need to hide this item when input empty, when input have value: show angle, onclick angle show right drop -->
+              <div class="orange-angle" style="display: block;"><i class="fa fa-angle-right" aria-hidden="true"></i></div>
+              <div class="floating-input">
+                <input id="firstname2" name="firstname2" placeholder="Type here" required="" type="text" [(ngModel)]="receiverToFind">
+              </div>
+            </div>
+            <div *ngIf="createNewReceiver" class="help">It seems we don’t have this number in the citizen database.
+              <span>New account will be created.</span>
+            </div>
+
+            <div *ngIf="createNewReceiver" class="content amount" style="margin-top: 15px; padding-bottom: 0">
+              <form #agent_depoCitizen_newReceiverAmount = "ngForm" novalidate>
+                  <div class="amount-wrapper">
+                    <h3>Amount</h3>
+                    <div class="floating-block border-hover">
+                      <div class="floating-input">
+                        <input id="amount2" name="amount2" placeholder="Type here" required type="number"
+                               [(ngModel)]="amountToReceiver" />
+                        <div class="clean-input" onclick="amount2.value = ''"></div>
+                      </div>
+                      <div class="currency">Usd</div>
+                    </div>
+                  </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+
+
+        <!-- R I G H T   B L O C K -->
+        <div class="col-md-6 col-lg-4">
+          <div class="block__header">
+            <span>{{receiverStatus}}</span>
+            <!--<span>New</span>-->
+            <div class="blue-angle" style="padding-bottom: 1px" (click)="receiverExistMode()">Change</div>
+          </div>
+
+          <form *ngIf="createNewReceiver" #agent_depoCitizen_newReceiverData = "ngForm" novalidate>
+            <div class="content" style="padding-bottom: 0">
+              <h3>Firstname</h3>
               <div class="floating-block border-hover">
                 <div class="floating-input">
-                  <input id="amount" name="amount" placeholder="Type here" required="" type="text">
-                  <div class="clean-input" onclick="amount.value = ''"></div>
-                </div>
-                <div class="currency">Usd</div>
-              </div>
-            </div>
-            <div class="button-wrapper" style="margin-top: 90px">
-              <button class="orange-button blue-button">Send</button>
-            </div>
-          </div>
-
-          <form *ngIf="createNewReceiver" #agent_depoCitizen_newReceiver="ngForm" novalidate>
-              <div class="content">
-                <h3>Firstname</h3>
-                <div class="floating-block border-hover">
-                  <div class="floating-input">
-                    <input type="text" placeholder="Type here"
-                           #firstName="ngModel" id="firstName" name='firstName' required [(ngModel)]="newReceiver.firstName" />
-                    <div class="clean-input" onclick="firstName.value = ''"></div>
-                  </div>
-                </div>
-                <h3>Lastname</h3>
-                <div class="floating-block border-hover">
-                  <div class="floating-input">
-                    <input type="text" placeholder="Type here"
-                           #lastName="ngModel" id="lastName" name='lastName' required [(ngModel)]="newReceiver.lastName" />
-                    <div class="clean-input" onclick="lastName.value = ''"></div>
-                  </div>
-                </div>
-                <h3>ID</h3>
-                <div class="floating-block border-hover">
-                  <div class="floating-input">
-                    <input type="text" placeholder="Type here"
-                           #id_receiver="ngModel" id="id_receiver" name='id_receiver' required [(ngModel)]="newReceiver.id_receiver" />
-                    <div class="clean-input" onclick="id_receiver.value = ''"></div>
-                  </div>
+                  <input type="text" placeholder="Type here"
+                         #firstName="ngModel" id="firstName" name='firstName' required [(ngModel)]="newReceiver.firstName" />
+                  <div class="clean-input" onclick="firstName.value = ''"></div>
                 </div>
               </div>
+              <h3>Lastname</h3>
+              <div class="floating-block border-hover">
+                <div class="floating-input">
+                  <input type="text" placeholder="Type here"
+                         #lastName="ngModel" id="lastName" name='lastName' required [(ngModel)]="newReceiver.lastName" />
+                  <div class="clean-input" onclick="lastName.value = ''"></div>
+                </div>
+              </div>
+              <h3>ID</h3>
+              <div class="floating-block border-hover">
+                <div class="floating-input">
+                  <input type="text" placeholder="Type here"
+                         #id_receiver="ngModel" id="id_receiver" name='id_receiver' required [(ngModel)]="newReceiver.id_receiver" />
+                  <div class="clean-input" onclick="id_receiver.value = ''"></div>
+                </div>
+              </div>
+            </div>
           </form>
         </div>
       </div>
       <div *ngIf="createNewReceiver" class="row">
         <div class="col-md-8 blue-button__wrapper">
-          <button class="orange-button blue-button">Send</button>
+          <button class="orange-button blue-button"
+                  [disabled]="!(agent_depoCitizen_newReceiverData.form.valid && agent_depoCitizen_newReceiverAmount.form.valid)"
+                  (click)="submitDepotSitizen()"
+                  type="submit">Send
+          </button>
         </div>
       </div>
-
-
-
 
 
 
@@ -180,7 +238,7 @@
             <!--</div>-->
             <!--<div class="search__user">-->
               <!--<div>-->
-                <!--<span class="logo" style="background-image: url('/assets/img/user.png')"></span>-->
+                <!--<span class="logo" style="background-image: url('../../../../../assets/img/user.png')"></span>-->
                 <!--<div>-->
                   <!--<div>Elizabeth Swann</div>-->
                   <!--<span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>121 (360) 985-15</span>-->
@@ -190,7 +248,7 @@
             <!--</div>-->
             <!--<div class="search__user active">-->
               <!--<div>-->
-                <!--<span class="logo" style="background-image: url('/assets/img/user.png')"></span>-->
+                <!--<span class="logo" style="background-image: url('../../../../../assets/img/user.png')"></span>-->
                 <!--<div>-->
                   <!--<div>Elizabeth Swann</div>-->
                   <!--<span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>121 (360) 985-15</span>-->
