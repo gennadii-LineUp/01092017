@@ -7,7 +7,7 @@ import {ReceiverClass} from '../../../../models/receiver-class';
   styleUrls: ['./depot-citizen.component.scss']
 })
 export class DepotCitizenComponent implements OnInit {
-  newReceiver = new ReceiverClass('', '', '');
+  newReceiver = new ReceiverClass('', '', '', '');
   receiverExist = false;
   createNewReceiver = true;
   receiverStatus = '';
@@ -44,7 +44,7 @@ export class DepotCitizenComponent implements OnInit {
     this.amountToReceiver = undefined;
     // this.receivers = [];
     this.receiverToFind = '';
-    this.newReceiver = new ReceiverClass('', '', '');
+    this.newReceiver = new ReceiverClass('', '', '', '');
     this.receiverExist = false;
     this.createNewReceiver = false;
     this.receiverStatus = '';
