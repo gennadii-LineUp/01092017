@@ -15,6 +15,8 @@ export class DepotCitizenComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    // this.createNewReceiverMode();
+    this.receiverExistMode();
   }
 
 
