@@ -98,14 +98,14 @@
           </div>
 
           <div class="content amount">
-            <form #agent_depoCitizen_existReceiver = "ngForm" novalidate>
+            <form #agent_depoCitizen_existReceiver="ngForm" novalidate>
                 <div class="amount-wrapper" style="margin-top: 70px">
                   <h3>Amount</h3>
                   <div class="floating-block border-hover">
                     <div class="floating-input">
                       <input id="amount1" name="amount1" placeholder="Type here" required
                              type="number" [(ngModel)]="amountToReceiver">
-                      <div class="clean-input" onclick="amount1.value = ''"></div>
+                      <div class="clean-input" (click)="clearAmount()"></div>
                     </div>
                     <div class="currency">Usd</div>
                   </div>
@@ -150,14 +150,14 @@
             </div>
 
             <div *ngIf="createNewReceiver" class="content amount" style="margin-top: 15px; padding-bottom: 0">
-              <form #agent_depoCitizen_newReceiverAmount = "ngForm" novalidate>
+              <form #agent_depoCitizen_newReceiverAmount="ngForm" novalidate>
                   <div class="amount-wrapper">
                     <h3>Amount</h3>
                     <div class="floating-block border-hover">
                       <div class="floating-input">
                         <input id="amount2" name="amount2" placeholder="Type here" required type="number"
                                [(ngModel)]="amountToReceiver" />
-                        <div class="clean-input" onclick="amount2.value = ''"></div>
+                        <div class="clean-input" (click)="clearAmount()"></div>
                       </div>
                       <div class="currency">Usd</div>
                     </div>
@@ -177,7 +177,7 @@
             <div class="blue-angle" style="padding-bottom: 1px" (click)="receiverExistMode()">Change</div>
           </div>
 
-          <form *ngIf="createNewReceiver" #agent_depoCitizen_newReceiverData = "ngForm" novalidate>
+          <form *ngIf="createNewReceiver" #agent_depoCitizen_newReceiverData="ngForm" novalidate>
             <div class="content" style="padding-bottom: 0">
               <h3>Firstname</h3>
               <div class="floating-block border-hover">
@@ -210,7 +210,6 @@
       <div *ngIf="createNewReceiver" class="row">
         <div class="col-md-8 blue-button__wrapper">
           <button class="orange-button blue-button"
-                  [disabled]="!(agent_depoCitizen_newReceiverData.form.valid && agent_depoCitizen_newReceiverAmount.form.valid)"
                   (click)="submitDepotSitizen()"
                   type="submit">Send
           </button>

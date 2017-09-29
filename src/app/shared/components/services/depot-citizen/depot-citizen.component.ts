@@ -39,13 +39,14 @@ export class DepotCitizenComponent implements OnInit {
     this.receiverStatus = 'New';
     this.createNewReceiver = true;
   }
+  public clearAmount() {this.amountToReceiver = undefined; }
   public clearSearch() {
     this.amountToReceiver = undefined;
     // this.receivers = [];
     this.receiverToFind = '';
     this.newReceiver = new ReceiverClass('', '', '');
-    // this.receiverExist = false;
-    // this.createNewReceiver = false;
+    this.receiverExist = false;
+    this.createNewReceiver = false;
     this.receiverStatus = '';
   }
 }
