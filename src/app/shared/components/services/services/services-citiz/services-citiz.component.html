@@ -1,0 +1,40 @@
+<main class="gray-bg-citizen">
+  <section class="services agent">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 ml-md-auto mr-md-auto services__wrapper">
+          <div class="services__own">
+            <div class="services__item transfer" [routerLink]="['/citizen/services/transfer-dargent']">
+              <div class="services__icon"></div>
+              <div>Transfert d’Argent </div>
+            </div>
+            <div class="services__item depot" [routerLink]="['/citizen/services/transfer-compte']">
+              <div class="services__icon"></div>
+              <div>Transfert Compte à Compte </div>
+            </div>
+            <div class="services__item user" [routerLink]="['/citizen/services/consultation-solde']">
+              <div class="services__icon"></div>
+              <div>Consultation Solde</div>
+            </div>
+            <div class="services__item list" [routerLink]="['/citizen/services/consultation-operations']">
+              <div class="services__icon"></div>
+              <div>Consultation Operations </div>
+            </div>
+            <div class="services__item geo" [routerLink]="['/citizen/services/geolocalisation-agent']">
+              <div class="services__icon"></div>
+              <div>Geolocalisation agent </div>
+            </div>
+            <div class="services__item coin" [routerLink]="['/citizen/services/virements-vers-bank']">
+              <div class="services__icon"></div>
+              <div>Virements vers Banque </div>
+            </div>
+            <div class="services__item cards" [routerLink]="['/citizen/services/bank-to-wallet']">
+              <div class="services__icon"></div>
+              <div>Bank to Wallet</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

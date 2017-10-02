@@ -11,7 +11,7 @@ import {AuthorisationClass} from '../../../models/authorisation-class';
   providers: [LoginService]
 })
 export class GeneralAuthorisationComponent implements OnInit {
-  authorisation = new AuthorisationClass('', '');
+  authorisation = new AuthorisationClass('773151459', 'wari', 'APP');
 
 
   constructor(public loginService: LoginService,
@@ -24,6 +24,9 @@ export class GeneralAuthorisationComponent implements OnInit {
   public loginFunction() {
     localStorage.clear();
     localStorage.setItem('token', 'token');
+    const newJson = JSON.stringify(this.authorisation);
+
+    console.log(newJson);
     console.log(localStorage);
     this.router.navigate(['/customer/services']);
   }

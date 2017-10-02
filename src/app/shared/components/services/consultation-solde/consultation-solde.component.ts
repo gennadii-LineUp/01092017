@@ -19,7 +19,8 @@ export class ConsultationSoldeComponent implements OnInit {
   }
 
   public showRequestResultFunction() {
-    this.showRequestResult = true;
+    this.showRequestResult = !this.showRequestResult;
   }
+
 
 }
