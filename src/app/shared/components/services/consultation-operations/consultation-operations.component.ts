@@ -17,9 +17,27 @@ export class ConsultationOperationsComponent implements OnInit {
     ngOnInit() {
     }
 
-    public showTransactionsFunction() {
-        this.showTransactions = true;
-        setTimeout(() => { this.colorAmountDependOnValue(); }, 10);
+    public showTransactionsFunction(e: any) {
+      this.closeParentAccordionItem(e);
+
+      this.showTransactions = false;
+      setTimeout(() => { this.showTransactions = true; }, 1000);
+
+      setTimeout(() => { this.colorAmountDependOnValue(); }, 10);
+    }
+
+    public closeParentAccordionItem(e: any) {
+      const accordionItems: NodeListOf<Element> = window.document.querySelectorAll('div.accordionItem');
+      for (let i = 0; i < accordionItems.length; i++) {
+        if (accordionItems[i].className === 'accordionItem close-item send-request') {
+          accordionItems[i].className = 'accordionItem close-item';
+        }
+      }
+
+      const currentAccordionItem = e.currentTarget.parentElement.parentElement;
+      if (currentAccordionItem.className === 'accordionItem open') {
+        currentAccordionItem.className = 'accordionItem close-item send-request';
+      }
     }
 
     public colorAmountDependOnValue() {

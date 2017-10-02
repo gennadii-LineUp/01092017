@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-sm-6 col-md-4">
                     <div class="dargent__wrapper">
-                        <div class="block__header">Chose your account</div>
+                        <div class="block__header">Choose your account</div>
                         <div *ngFor="let myAccount of userDataGlossary.myAccounts" class="consult-user"
                              (click)="fillReceiverInfoFunction(myAccount.account_id, $event); $event.stopPropagation()">
                           <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>

@@ -4,7 +4,7 @@
             <h3>Consultation operations</h3>
             <div class="row">
                 <div class="col-md-6 col-lg-4 consult-oper__wrapper">
-                    <div class="consult-oper__header">Chose account</div>
+                    <div class="consult-oper__header">Choose account</div>
                     <div class="accordionWrapper">
                         <div *ngFor="let operation of userDataGlossary.myAccounts" class="accordionItem close-item"
                              (click)="commonServices.accordionToggleItemFunction($event); $event.stopPropagation()">
@@ -18,7 +18,8 @@
                                 <i class="fa fa-angle-right" aria-hidden="true"></i>
                             </div>
                             <div class="accordionItemContent" (click)="$event.stopImmediatePropagation()">
-                                <button class="orange-button blue-button" (click)="showTransactionsFunction()">
+                                <button class="orange-button blue-button"
+                                        (click)="showTransactionsFunction($event)">
                                   Send a request
                                 </button>
                             </div>

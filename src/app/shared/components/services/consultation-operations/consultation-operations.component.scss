@@ -120,3 +120,37 @@
     font-size: 1.4rem;
   }
 }
+
+.accordionWrapper .accordionItemHeading {
+   border-bottom: none;
+}
+
+.accordionItem {
+  background-color: #f7f7ff;
+  i {
+    display: none;
+  }
+  &.open,
+  &:hover {
+    background-color: #fff;
+    i {
+      display: block;
+    }
+  }
+  &.send-request,
+  &:hover {
+    background-color: #fff;
+    i {
+      display: block;
+    }
+  }
+
+}
+
+.accordionItem close-item send-request{
+  background-color: #fff;
+  i {
+    display: block;
+  }
+}
+
