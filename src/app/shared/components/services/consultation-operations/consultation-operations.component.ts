@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {CommonServices} from '../../../../services/common.service';
 import {UserDataGlossary} from '../../../../models/user-data';
 
@@ -9,7 +9,7 @@ import {UserDataGlossary} from '../../../../models/user-data';
     providers: [UserDataGlossary]
 })
 export class ConsultationOperationsComponent implements OnInit {
-  showTransactions = false;
+    showTransactions = false;
 
     constructor(public commonServices: CommonServices,
                 public userDataGlossary: UserDataGlossary) { }
@@ -19,6 +19,18 @@ export class ConsultationOperationsComponent implements OnInit {
 
     public showTransactionsFunction() {
         this.showTransactions = true;
+        setTimeout(() => { this.colorAmountDependOnValue(); }, 10);
+    }
+
+    public colorAmountDependOnValue() {
+      const amounts = window.document.querySelectorAll('div.consult__item');
+      for (let i = 0; i < amounts.length; i++) {
+          const direction = (<HTMLSpanElement>amounts[i].firstElementChild.lastChild.previousSibling).innerText[0]; // + or -
+          (<HTMLSpanElement>amounts[i].firstElementChild.lastChild.previousSibling).classList.add('profit');
+          if (direction === '-') {
+            (<HTMLSpanElement>amounts[i].firstElementChild.lastChild.previousSibling).classList.add('lesion');
+          }
+      }
     }
 
 }

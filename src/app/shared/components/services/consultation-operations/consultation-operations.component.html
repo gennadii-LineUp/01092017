@@ -18,36 +18,38 @@
                                 <i class="fa fa-angle-right" aria-hidden="true"></i>
                             </div>
                             <div class="accordionItemContent" (click)="$event.stopImmediatePropagation()">
-                                <button class="orange-button blue-button" (click)="showTransactionsFunction()">Send a
-                                    request
+                                <button class="orange-button blue-button" (click)="showTransactionsFunction()">
+                                  Send a request
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
 
+
+
                 <div *ngIf="showTransactions" class="col-md-6 col-lg-4 consult-sold-history">
                     <div class="little-title">Latest transactions</div>
-                    <div class="consult__item">
+                    <div *ngFor="let tr of userDataGlossary.myTransactions" class="consult__item">
                         <div>
-                            <span>Receiver: <span class="name">Clark Kent</span></span>
-                            <span class="profit">+123.49<span class="curr">USD</span></span>
+                            <span>Receiver: <span class="name">{{tr.firstName}} {{tr.lastName}}</span></span>
+                            <span class="profit">{{tr.direction}}{{tr.amount}}<span class="curr">{{tr.currency}}</span></span>
                         </div>
                         <div>
-                            <span>11.12.2017</span>
-                            <span>11:12</span>
-                        </div>
-                    </div>
-                    <div class="consult__item">
-                        <div>
-                            <span>Receiver: <span class="name">Clark Kent</span></span>
-                            <span class="lesion">-123.49<span class="curr">USD</span></span>
-                        </div>
-                        <div>
-                            <span>11.12.2017</span>
-                            <span>11:12</span>
+                            <span>{{tr.date}}</span>
+                            <span>{{tr.tyme}}</span>
                         </div>
                     </div>
+                    <!--<div class="consult__item">-->
+                        <!--<div>-->
+                            <!--<span>Receiver: <span class="name">Clark Kent</span></span>-->
+                            <!--<span class="lesion">-123.49<span class="curr">USD</span></span>-->
+                        <!--</div>-->
+                        <!--<div>-->
+                            <!--<span>11.12.2017</span>-->
+                            <!--<span>11:12</span>-->
+                        <!--</div>-->
+                    <!--</div>-->
                 </div>
             </div>
         </div>
