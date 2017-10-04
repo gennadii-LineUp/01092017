@@ -47,6 +47,8 @@ export class VirementsMultiplesComponent implements OnInit {
     }
   }
 
+  public clearAmount() {this.amount_virementsMultiples = undefined; }
+
   public submitFunction() {
     console.dir(this.selectedReceivers);
     console.log(this.amount_virementsMultiples);
