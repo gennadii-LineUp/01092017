@@ -11,6 +11,13 @@ export class BackendService {
 
   constructor(public http: Http) {}
 
+  public login(url, body): Observable<any>  {
+    const headers: Headers = new Headers();
+    headers.append('Content-Type', 'text/xml');
+
+    return this.http.post(url, body, {headers: headers})
+      .map((res: Response) => <Object[]>res.json());
+  }
 
 
 

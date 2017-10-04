@@ -14,39 +14,21 @@
                                 <div class="search-wrapper">
                                     <input type="text" placeholder="Search">
                                 </div>
-                                <div class="search__user">
+                                <div *ngFor="let receiver of receivers" #{{receiver.id_receiver}} id="{{receiver.id_receiver}}"
+                                     class="search__user" (click)="defineReceiversFunction($event)">
                                     <div>
                                         <span class="logo" style="background-image: url('/assets/img/user.png')"></span>
                                         <div>
-                                            <div>Elizabeth Swann</div>
-                                            <span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>121 (360) 985-15</span>
+                                            <div>{{receiver.firstName}} {{receiver.lastName}}</div>
+                                            <span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>{{receiver.phone}}</span>
                                         </div>
                                     </div>
                                     <div class="circle-check"></div>
                                 </div>
-                                <div class="search__user active">
-                                    <div>
-                                        <span class="logo" style="background-image: url('/assets/img/user.png')"></span>
-                                        <div>
-                                            <div>Elizabeth Swann</div>
-                                            <span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>121 (360) 985-15</span>
-                                        </div>
-                                    </div>
-                                    <div class="circle-check"></div>
-                                </div>
-                                <div class="search__user">
-                                    <div>
-                                        <span class="logo" style="background-image: url('/assets/img/user.png')"></span>
-                                        <div>
-                                            <div>Elizabeth Swann</div>
-                                            <span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>121 (360) 985-15</span>
-                                        </div>
-                                    </div>
-                                    <div class="circle-check"></div>
-                                </div>
+
                                 <div class="virements-multiples__footer">
-                                    <div>Unselect All</div>
-                                    <div>Select All</div>
+                                    <div (click)="unSelectAllReceiversFunction()">Unselect All</div>
+                                    <div style="margin-left: 10%" (click)="selectAllReceiversFunction()">Select All</div>
                                 </div>
                                 <div class="virements-multiples__user">
                                     <div>
@@ -72,7 +54,9 @@
                                     </div>
                                     <div class="currency">Usd</div>
                                 </div>
-                                <button class="orange-button blue-button">Save</button>
+                                <button [disabled]="!selectedReceivers.length"
+                                        class="orange-button blue-button"
+                                        (click)="submitFunction()">Save</button>
                             </div>
                         </div>
                     </div>

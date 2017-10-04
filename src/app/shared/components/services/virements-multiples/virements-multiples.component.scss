@@ -48,7 +48,7 @@
     padding: 0 20px;
     div {
       white-space: nowrap;
-      min-width: 25%;
+      //min-width: 25%;
       flex-basis: 25%;
       cursor: pointer;
       text-align: right;
@@ -128,6 +128,7 @@
     }
     .virements-multiples__footer {
       color: #00a9f2;
+
     }
   }
 }

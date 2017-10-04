@@ -29,6 +29,14 @@ export class GeneralAuthorisationComponent implements OnInit {
     console.log(newJson);
     console.log(localStorage);
     this.router.navigate(['/customer/services']);
+
+
+    // this.loginService.login()
+    //   .subscribe(result => {
+    //         console.log(result);
+    //   }, (err) => {
+    //     console.log(err);
+    //   });
   }
 
 }
