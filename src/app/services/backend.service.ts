@@ -14,6 +14,7 @@ export class BackendService {
   public login(url, body): Observable<any>  {
     const headers: Headers = new Headers();
     headers.append('Content-Type', 'text/xml');
+    headers.append('Access-Control-Allow-Origin', '*');
 
     return this.http.post(url, body, {headers: headers})
       .map((res: Response) => <Object[]>res.json());
