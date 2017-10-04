@@ -30,6 +30,7 @@ import { GeolocalisationAgentComponent } from './components/services/geolocalisa
 import { BankToWalletComponent } from './components/services/bank-to-wallet/bank-to-wallet.component';
 import { ProfileComponent } from './components/menu-top/profile/profile.component';
 import {ServicesCitizComponent} from './components/services/services/services-citiz/services-citiz.component';
+import {OnlyNumberDirective} from './directives/only-number-directive';
 
 
 @NgModule({
@@ -51,7 +52,7 @@ import {ServicesCitizComponent} from './components/services/services/services-ci
     ManageAdminCitizenComponent, TransferDargentComponent, TransferCompteComponent, ConsultationOperationsComponent,
     GeolocalisationAgentComponent, BankToWalletComponent, VirementsVersBanqueComponent, VirementsMultiplesComponent,
     PaiementsComponent,
-    ProfileComponent,
+    ProfileComponent
 
   ],
   exports: [
@@ -69,7 +70,7 @@ import {ServicesCitizComponent} from './components/services/services/services-ci
     ManageAdminCitizenComponent, TransferDargentComponent, TransferCompteComponent, ConsultationOperationsComponent,
     GeolocalisationAgentComponent, BankToWalletComponent, VirementsVersBanqueComponent, VirementsMultiplesComponent,
     PaiementsComponent,
-    ProfileComponent,
+    ProfileComponent
   ],
   providers: [
 

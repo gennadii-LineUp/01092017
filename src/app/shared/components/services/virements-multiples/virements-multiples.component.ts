@@ -7,6 +7,7 @@ import {ReceiverClass} from '../../../../models/receiver-class';
   styleUrls: ['./virements-multiples.component.scss']
 })
 export class VirementsMultiplesComponent implements OnInit {
+  amount_virementsMultiples: number;
   receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15'),
               new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2'),
               new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24')];
@@ -48,6 +49,8 @@ export class VirementsMultiplesComponent implements OnInit {
 
   public submitFunction() {
     console.dir(this.selectedReceivers);
+    console.log(this.amount_virementsMultiples);
   }
+
 
 }

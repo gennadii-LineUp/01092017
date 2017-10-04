@@ -10,10 +10,11 @@ import {AuthGuard} from './guards/auth-guards.service';
 import {ErrorMessageHandlerService} from './services/error-message-handler.service';
 import {BackendService} from './services/backend.service';
 import {CommonServices} from './services/common.service';
+import {OnlyNumberDirective} from './shared/directives/only-number-directive';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [OnlyNumberDirective],
   imports: [
     AlertModule.forRoot(),
     BrowserModule,
