@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ReceiverClass} from '../../../../models/receiver-class';
+import {CommonServices} from '../../../../services/common.service';
 
 @Component({
   selector: 'app-services-depot-citizen',
@@ -12,14 +13,12 @@ export class DepotCitizenComponent implements OnInit {
   createNewReceiver = true;
   receiverStatus = '';
   receiverToFind = '';
-  amountToReceiver = 10;
-  receivers = [
-    { firstName: 'AAA', lastName: 'Lastname1', phone: '0123 456 789', id: 1 },
-    { firstName: 'BBB', lastName: 'Lastname2', phone: '0123 789 456', id: 2 },
-    { firstName: 'CCC', lastName: 'Lastname3', phone: '0123 222 444', id: 3 }
-  ];
+  amount_depotCitizen = 10;
+  receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15'),
+              new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2'),
+              new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24')];
 
-  constructor() { }
+  constructor(public commonServices: CommonServices) { }
 
   ngOnInit() {
     // this.createNewReceiverMode();
@@ -27,21 +26,23 @@ export class DepotCitizenComponent implements OnInit {
   }
 
   public submitDepotSitizen() {
-    console.log(this.amountToReceiver + '  to send');
+    console.log(this.amount_depotCitizen + '  to send');
+    console.dir(this.commonServices.getSelectedReceivers());
   }
 
   public receiverExistMode() {
     this.clearSearch();
     this.receiverExist = true;
+    this.commonServices.unSelectAllReceiversFunction();
   }
   public createNewReceiverMode() {
     this.clearSearch();
     this.receiverStatus = 'New';
     this.createNewReceiver = true;
   }
-  public clearAmount() {this.amountToReceiver = undefined; }
+  public clearAmount() {this.amount_depotCitizen = undefined; }
   public clearSearch() {
-    this.amountToReceiver = undefined;
+    this.amount_depotCitizen = undefined;
     // this.receivers = [];
     this.receiverToFind = '';
     this.newReceiver = new ReceiverClass('', '', '', '');

@@ -47,36 +47,18 @@
             </div>
 
             <div *ngIf="receivers.length" class="content search">
-              <div class="search__user">
+              <div  *ngFor="let receiver of receivers" #{{receiver.id_receiver}} id="{{receiver.id_receiver}}"
+                    class="search__user" (click)="commonServices.defineReceiversFunction($event)">
                 <div>
                   <span class="logo" style="background-image: url('../../../../../assets/img/user.png')"></span>
                   <div>
-                    <div>Elizabeth Swann</div>
-                    <span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>121 (360) 985-15</span>
+                    <div>{{receiver.firstName}} {{receiver.lastName}}</div>
+                    <span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>{{receiver.phone}}</span>
                   </div>
                 </div>
                 <div class="circle-check"></div>
               </div>
-              <div class="search__user">
-                <div>
-                  <span class="logo" style="background-image: url('../../../../../assets/img/user.png')"></span>
-                  <div>
-                    <div>Elizabeth Swann</div>
-                    <span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>121 (360) 985-15</span>
-                  </div>
-                </div>
-                <div class="circle-check"></div>
-              </div>
-              <div class="search__user active">
-                <div>
-                  <span class="logo" style="background-image: url('../../../../../assets/img/user.png')"></span>
-                  <div>
-                    <div>Elizabeth Swann</div>
-                    <span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>121 (360) 985-15</span>
-                  </div>
-                </div>
-                <div class="circle-check"></div>
-              </div>
+
               <div class="new-acc" style="padding-bottom: 0">
                   <span>
                     The citizen’s account you’re looking for is not in the system?
@@ -103,8 +85,14 @@
                   <h3>Amount</h3>
                   <div class="floating-block border-hover">
                     <div class="floating-input">
-                      <input id="amount1" name="amount1" placeholder="Type here" required
-                             type="number" [(ngModel)]="amountToReceiver">
+                      <input id="amount1" name="amount1" placeholder="00.00" required
+                             type="text" [(ngModel)]="amount_depotCitizen"
+                             onkeydown="return ( event.ctrlKey || event.altKey
+                                                                || (47<event.keyCode && event.keyCode<58 && event.shiftKey==false)
+                                                                || (95<event.keyCode && event.keyCode<106)
+                                                                || (event.keyCode===8) || (event.keyCode===9)
+                                                                || (event.keyCode>34 && event.keyCode<40)
+                                                                || (event.keyCode===46) || (event.keyCode===110))"/>
                       <div class="clean-input" (click)="clearAmount()"></div>
                     </div>
                     <div class="currency">Usd</div>
@@ -112,9 +100,10 @@
                 </div>
                 <div class="button-wrapper" style="margin-top: 90px">
                   <button class="orange-button blue-button"
-                          [disabled]="!agent_depoCitizen_existReceiver.form.valid"
-                          (click)="submitDepotSitizen()"
-                          type="submit">Send
+                          [disabled]="!((+amount_depotCitizen >= 0.01)
+                                          && commonServices.getSelectedReceivers().length
+                                          && agent_depoCitizen_existReceiver.form.valid)"
+                          (click)="submitDepotSitizen()">Send
                   </button>
                 </div>
             </form>
@@ -155,8 +144,14 @@
                     <h3>Amount</h3>
                     <div class="floating-block border-hover">
                       <div class="floating-input">
-                        <input id="amount2" name="amount2" placeholder="Type here" required type="number"
-                               [(ngModel)]="amountToReceiver" />
+                        <input id="amount2" name="amount2" placeholder="00.00" required type="text"
+                               [(ngModel)]="amount_depotCitizen"
+                               onkeydown="return ( event.ctrlKey || event.altKey
+                                                                || (47<event.keyCode && event.keyCode<58 && event.shiftKey==false)
+                                                                || (95<event.keyCode && event.keyCode<106)
+                                                                || (event.keyCode===8) || (event.keyCode===9)
+                                                                || (event.keyCode>34 && event.keyCode<40)
+                                                                || (event.keyCode===46) || (event.keyCode===110))"/>
                         <div class="clean-input" (click)="clearAmount()"></div>
                       </div>
                       <div class="currency">Usd</div>
@@ -210,8 +205,8 @@
       <div *ngIf="createNewReceiver" class="row">
         <div class="col-md-8 blue-button__wrapper">
           <button class="orange-button blue-button"
-                  (click)="submitDepotSitizen()"
-                  type="submit">Send
+                  [disabled]="!((+amount_depotCitizen >= 0.01))"
+                  (click)="submitDepotSitizen()">Send
           </button>
         </div>
       </div>

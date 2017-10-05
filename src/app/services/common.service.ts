@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
+import {ReceiverClass} from '../models/receiver-class';
 
 @Injectable()
 export class CommonServices {
+  selectedReceivers = [];
 
   constructor() {}
 
@@ -16,7 +18,7 @@ export class CommonServices {
       accordionItems[i].className = 'accordionItem close-item';
     }
 
-    let currentAccordionItem = e.currentTarget;
+    const currentAccordionItem = e.currentTarget;
     if ((currentClass === 'accordionItem close-item send-request')) {return true; }
     if ((currentClass === 'accordionItem close-item')) {
       currentAccordionItem.classList.remove('close-item');
@@ -26,6 +28,42 @@ export class CommonServices {
     }
   }
 
-// || (currentClass === 'accordionItem close-item send-request')
+
+  public defineReceiversFunction(e: any) {
+    const currentReceiver = e.currentTarget;
+    currentReceiver.classList.toggle('active');
+    this.countSelectedReceiversFunction();
+  }
+
+  public selectAllReceiversFunction() {
+    const allItems: NodeListOf<Element> = window.document.querySelectorAll('div.search__user');
+    for (let i = 0; i < allItems.length; i++) {
+      allItems[i].classList.add('active');
+    }
+    this.countSelectedReceiversFunction();
+  }
+
+  public unSelectAllReceiversFunction() {
+    const allItems: NodeListOf<Element> = window.document.querySelectorAll('div.search__user');
+    for (let i = 0; i < allItems.length; i++) {
+      allItems[i].classList.remove('active');
+    }
+    this.countSelectedReceiversFunction();
+  }
+
+  public countSelectedReceiversFunction() {
+    const allItems: NodeListOf<Element> = window.document.querySelectorAll('div.search__user.active');
+    this.selectedReceivers = [];
+    for (let i = 0; i < allItems.length; i++) {
+      this.selectedReceivers.push(+allItems[i].id);
+    }
+  }
+
+  public getSelectedReceivers(): any {
+    return this.selectedReceivers;
+  }
+  public setSelectedReceivers(value: any) {
+    this.selectedReceivers = value;
+  }
 
 }
