@@ -33,7 +33,7 @@ export class GeneralAuthorisationComponent implements OnInit {
 
     this.loginService.login()
       .subscribe(result => {
-            console.log(result);
+            console.log(result._body);
       }, (err) => {
         console.log(err);
       });

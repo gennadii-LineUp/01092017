@@ -12,12 +12,14 @@ export class BackendService {
   constructor(public http: Http) {}
 
   public login(url, body): Observable<any>  {
-    const headers: Headers = new Headers();
-    headers.append('Content-Type', 'text/xml');
-    headers.append('Access-Control-Allow-Origin', '*');
-
-    return this.http.post(url, body, {headers: headers})
-      .map((res: Response) => <Object[]>res.json());
+    // const headers: Headers = new Headers();
+    // headers.append('Content-Type', 'text/xml');
+    // headers.append('Access-Control-Allow-Origin', 'http://50.116.97.25:8080');
+console.log(115);
+    return this.http.post(url,  body) // , {headers: headers})
+       // .map((res: Response) => {
+       //    return res;
+       // });
   }
 
 
