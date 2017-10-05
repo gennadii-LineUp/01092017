@@ -31,6 +31,7 @@ import { BankToWalletComponent } from './components/services/bank-to-wallet/bank
 import { ProfileComponent } from './components/menu-top/profile/profile.component';
 import {ServicesCitizComponent} from './components/services/services/services-citiz/services-citiz.component';
 import {OnlyNumberDirective} from './directives/only-number-directive';
+import {FormatTextByThreeCharPipe} from './pipes/formatTextByThreeChar.pipe';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import {OnlyNumberDirective} from './directives/only-number-directive';
     ManageAdminCitizenComponent, TransferDargentComponent, TransferCompteComponent, ConsultationOperationsComponent,
     GeolocalisationAgentComponent, BankToWalletComponent, VirementsVersBanqueComponent, VirementsMultiplesComponent,
     PaiementsComponent,
-    ProfileComponent
+    ProfileComponent,
+    FormatTextByThreeCharPipe
 
   ],
   exports: [
@@ -70,7 +72,8 @@ import {OnlyNumberDirective} from './directives/only-number-directive';
     ManageAdminCitizenComponent, TransferDargentComponent, TransferCompteComponent, ConsultationOperationsComponent,
     GeolocalisationAgentComponent, BankToWalletComponent, VirementsVersBanqueComponent, VirementsMultiplesComponent,
     PaiementsComponent,
-    ProfileComponent
+    ProfileComponent,
+    FormatTextByThreeCharPipe
   ],
   providers: [
 
