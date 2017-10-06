@@ -285,6 +285,15 @@ footer {
   }
 }
 
+.errorTextClass {
+  color: #fe2323;
+  font-size: 1.4rem;
+  font-family: "RalewayMedium", sans-serif;
+  //padding: 15px 0;
+  position: absolute;
+  width: 100%;
+}
+
 .right-drop {
   top: -8px;
   right: -398px;

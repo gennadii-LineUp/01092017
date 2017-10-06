@@ -76,7 +76,7 @@ export class CommonServices {
     // remove '>' at the end of last element
     arr[arr.length - 1] = (arr[arr.length - 1]).substring(0, (arr[arr.length - 1]).length - 1 );
 
-    let result = {};
+    const result = {};
     for (let i = 0; i < arr.length; i++) {
         const name = ((arr[i]).split('>'))[0];
         const value = ((((arr[i]).split('<'))[0]).split('>'))[1];

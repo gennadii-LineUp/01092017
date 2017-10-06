@@ -97,9 +97,10 @@ export class ErrorMessageHandlerService {
   }
 
   public getMessageEquivalent(message: string) {
+    console.log('getMessageEquivalent');
+    console.log(message);
     switch (message) {
-      case 'Confirm password failed.': message = 'erreur de confirmation du mot de passe.';  break;
-      case 'This value should not be blank.': message = 'Cette valeur ne doit pas être vide.';  break;
+      case 'UNDEFINED_USER_ERROR': message = 'Wrong username or password!';  break;
       default:
         message;
 
