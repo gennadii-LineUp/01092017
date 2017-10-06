@@ -66,4 +66,22 @@ export class CommonServices {
     this.selectedReceivers = value;
   }
 
+
+  public xmlResponseParcer(response: string): any {
+    const arr = (((response.split('<return>'))[1]).split('</return>'))[0].split('><');
+
+    // remove '<' at the beginning of 1st element
+    arr[0] = (arr[0]).substr(1);
+
+    // remove '>' at the end of last element
+    arr[arr.length - 1] = (arr[arr.length - 1]).substring(0, (arr[arr.length - 1]).length - 1 );
+
+    let result = {};
+    for (let i = 0; i < arr.length; i++) {
+        const name = ((arr[i]).split('>'))[0];
+        const value = ((((arr[i]).split('<'))[0]).split('>'))[1];
+        result[name] = value;
+    }
+    return result;
+  }
 }
