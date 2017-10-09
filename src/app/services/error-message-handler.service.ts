@@ -97,8 +97,6 @@ export class ErrorMessageHandlerService {
   }
 
   public getMessageEquivalent(message: string) {
-    console.log('getMessageEquivalent');
-    console.log(message);
     switch (message) {
       case 'UNDEFINED_USER_ERROR': message = 'Wrong username or password!';  break;
       default:

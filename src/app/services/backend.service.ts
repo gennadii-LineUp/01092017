@@ -15,7 +15,7 @@ export class BackendService {
     // const headers: Headers = new Headers();
     // headers.append('Content-Type', 'text/xml');
     // headers.append('Access-Control-Allow-Origin', 'http://50.116.97.25:8080');
-console.log(20);
+
     return this.http.post(url,  body) // , {headers: headers})
        // .map((res: Response) => {
        //    return res;

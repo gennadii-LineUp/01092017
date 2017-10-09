@@ -19,9 +19,6 @@
               <div class="floating-block border-hover user">
                 <div class="floating-icon"></div>
                 <div class="floating-input">
-                  <!--<input type="tel"-->
-                         <!--#phone="ngModel" id="phone" name='phone' required [(ngModel)]="registration.phone" />-->
-
                   <input type="text" placeholder="First name" required
                          #firstName="ngModel" id="firstName" name='firstName' [(ngModel)]="registration.firstName" />
                   <div class="clean-input" (click)="regFirstNameClear()"></div>
@@ -64,7 +61,9 @@
             <div class="profile-type">Profile: <span>Citizen</span></div>
             <div class="checkbox-wrapper">
               <div class="checkbox">
-                <input type="checkbox" name="checkbox" id="checkbox" required/>
+                <input type="checkbox" name="checkbox" required #checkbox id="checkbox"
+                       [(ngModel)]="registration.agreeTermsAndConditions"/>
+                <!--[value]="periode.booleanValue"-->
                 <label for="checkbox"></label>
               </div>
               <p onclick="checkbox.checked = !checkbox.checked">
@@ -76,7 +75,7 @@
             <button class="orange-button blue-button"
                     (click)="registrationSubmitFunction()"
                     type="submit"
-                    [disabled]="!user_registrationForm.form.valid">Create account</button>
+                    [disabled]="!(user_registrationForm.form.valid && registration.agreeTermsAndConditions)">Create account</button>
             <div class="authorisation-page__caption">
               Also you can create account using  <a href="javascript:void(0);">Facebook</a>
             </div>

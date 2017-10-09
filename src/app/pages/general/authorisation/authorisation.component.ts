@@ -45,7 +45,6 @@ export class GeneralAuthorisationComponent implements OnInit {
             this.router.navigate(['/customer/services']);
             localStorage.setItem('token', response.token);
           } else {
-            console.log('errorMessage');
             this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
           }
 

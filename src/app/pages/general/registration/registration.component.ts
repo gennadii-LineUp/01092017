@@ -7,7 +7,7 @@ import {RegistrationClass} from '../../../models/registration-class';
   styleUrls: ['./registration.component.scss']
 })
 export class GeneralRegistrationComponent implements OnInit {
-  registration = new RegistrationClass('', '', '', '', '', '');
+  registration = new RegistrationClass('', '', '', '', '', 'Citizen', false);
 
 
   constructor() { }

@@ -26,7 +26,6 @@ export class LoginService {
    </soapenv:Body>
    </soapenv:Envelope>`;
 
-    console.log(body);
     return this.backendService.login('http://50.116.97.25:8080/cash-ws/CashWalletServiceWS?wsdl', body);
   }
 
