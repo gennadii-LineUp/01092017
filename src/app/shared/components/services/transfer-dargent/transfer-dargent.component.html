@@ -7,7 +7,7 @@
                     <div class="dargent__wrapper">
                         <div class="block__header">Choose your account</div>
                         <div *ngFor="let myAccount of userDataGlossary.myAccounts" class="consult-user"
-                             (click)="fillReceiverInfoFunction(myAccount.account_id, $event); $event.stopPropagation()">
+                             (click)="fillReceiverInfoFunction(myAccount, $event); $event.stopPropagation()">
                           <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
                           <div>
                             <div>{{myAccount.firstName}} {{myAccount.lastName}}</div>
@@ -40,6 +40,7 @@
                                 <div class="floating-input">
                                     <input id="amount" name="amount" placeholder="00.00" required="" type="text"
                                            [(ngModel)]="amountToReceiver" min="0.01"
+                                           (keyup.enter)='submitTransferDargentFunction()'
                                            onkeydown="return ( event.ctrlKey || event.altKey
                                                                 || (47<event.keyCode && event.keyCode<58 && event.shiftKey==false)
                                                                 || (95<event.keyCode && event.keyCode<106)
@@ -50,9 +51,10 @@
                                 </div>
                                 <div class="currency">Usd</div>
                             </div>
+                            <div *ngIf="errorMessage" class="errorTextClass" style="position: static">{{errorMessage}}</div>
                             <button class="orange-button blue-button"
                                     [disabled]="!(agent_depoClient.form.valid && (+amountToReceiver >= 0.01))"
-                                    (click)="submitDepoClient()"
+                                    (click)="submitTransferDargentFunction()"
                                     type="submit">Send</button>
                           </form>
                         </div>
@@ -61,5 +63,22 @@
             </div>
         </div>
     </section>
+
+  <section *ngIf="successMessage" class="dargent">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 col-md-4">
+          <div class="dargent__wrapper">
+            <div class="block__header"
+                 style="margin-top: 26px; text-align: left; padding: 12px 8px 12px 23%; position: relative; border-bottom: 2px solid orange">
+              <img alt="logo" src="../../../../assets/img/logo.png"
+                   style=" width: 20%; position: absolute; left: 4px; top: 14px;">
+              <span class="successMessage">{{successMessage}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
 </main>

@@ -1,30 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import {ReceiverClass} from '../../../../models/receiver-class';
 import {UserDataGlossary} from '../../../../models/user-data';
+import {W2COrdreRetraitService} from '../../../../services/api/W2COrdreRetrait.service';
+import {CommonServices} from '../../../../services/common.service';
 
 @Component({
   selector: 'app-services-transfer-dargent',
   templateUrl: './transfer-dargent.component.html',
   styleUrls: ['./transfer-dargent.component.scss'],
-  providers: [UserDataGlossary]
+  providers: [UserDataGlossary, W2COrdreRetraitService]
 })
 export class TransferDargentComponent implements OnInit {
-  newReceiver = new ReceiverClass('', '', '', '');
+  myAccount: any;
+  newReceiver = this.userDataGlossary.beneficiaires[0];
   amountToReceiver: number;
   showReceiverInfo = false;
+  successMessage = '';
+  errorMessage = '55';
 
-
-  constructor(public userDataGlossary: UserDataGlossary) { }
+  constructor(public userDataGlossary: UserDataGlossary,
+              public w2COrdreRetraitService: W2COrdreRetraitService,
+              public commonServices: CommonServices) { }
 
   ngOnInit() {
   }
 
 
-  public submitDepoClient() {
-    console.dir(this.newReceiver);
-    console.log(this.amountToReceiver);
-  }
-  public fillReceiverInfoFunction(myAccount_id: number, e: any) {
+  public fillReceiverInfoFunction(myAccount: any, e: any) {
+    this.successMessage = '';
+    this.myAccount = myAccount;
     const allItems: NodeListOf<Element> = window.document.querySelectorAll('div.consult-user');
     for (let i = 0; i < allItems.length; i++) {
       allItems[i].className = 'consult-user';
@@ -32,7 +36,40 @@ export class TransferDargentComponent implements OnInit {
     e.currentTarget.classList.add('active');
 
     this.showReceiverInfo = true;
-    console.log(myAccount_id);
+  }
+
+  public discardReceiverInfoFunction() {
+    const allItems: NodeListOf<Element> = window.document.querySelectorAll('div.consult-user');
+    for (let i = 0; i < allItems.length; i++) {
+      allItems[i].classList.remove('active');
+    }
+  }
+
+
+
+  public submitTransferDargentFunction() {
+    this.successMessage = '';
+    this.errorMessage = '';
+
+    console.log(this.newReceiver);
+    this.w2COrdreRetraitService.transferDargent(this.myAccount.login, this.amountToReceiver, this.newReceiver)
+      .subscribe(result => {
+        console.log(result._body);
+        const response = this.commonServices.xmlResponseParcer( result._body );
+
+        console.dir( response );
+        if (+response.error === 0) {
+          this.showReceiverInfo = false;
+          this.clearSearch();
+          this.successMessage = response.message;
+          this.discardReceiverInfoFunction();
+        } else {
+          // this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
+        }
+
+      }, (err) => {
+        console.log(err);
+      });
   }
 
 
@@ -40,6 +77,8 @@ export class TransferDargentComponent implements OnInit {
   public clearSearch() {
     this.amountToReceiver = undefined;
     this.newReceiver = new ReceiverClass('', '', '', '');
+    this.successMessage = '';
+    this.errorMessage = '';
   }
 
 
