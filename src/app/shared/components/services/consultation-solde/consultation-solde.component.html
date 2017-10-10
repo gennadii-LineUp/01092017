@@ -41,26 +41,29 @@
               <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
               <div>
                 <div>Lex Luthor</div>
-                <!--<div class="card-data"><span>****</span><span>****</span><span>****</span><span>1212</span></div>-->
+                <div class="card-data"><span>****</span><span>****</span><span>****</span><span>1212</span></div>
               </div>
             </div>
             <div class="balance"><b>{{solde | number : '1.2-2'}}</b> USD</div>
           </div>
-          <!--<div class="little-title history">History</div>-->
-          <!--<div class="history-item">-->
-            <!--<div><span>11.12.2017</span><span>11:12</span></div>-->
-            <!--<div>-->
-              <!--<div class="card-data"><span>****</span><span>****</span><span>****</span><span>1212</span></div>-->
-              <!--<div class="balance"><b>919.25</b> USD</div>-->
-            <!--</div>-->
-          <!--</div>-->
-          <!--<div class="history-item">-->
-            <!--<div><span>11.12.2017</span><span>11:12</span></div>-->
-            <!--<div>-->
-              <!--<div class="card-data"><span>****</span><span>****</span><span>****</span><span>1212</span></div>-->
-              <!--<div class="balance"><b>919.25</b> USD</div>-->
-            <!--</div>-->
-          <!--</div>-->
+          <div *ngIf="errorMessagHistory" class="errorTextClass">{{errorMessagHistory}}</div>
+          <p *ngIf="!errorMessagHistory" style="margin: 0; text-align: center"><img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>
+
+          <div *ngIf="showHistorySolde" class="little-title history">History</div>
+          <div *ngIf="showHistorySolde" class="history-item">
+            <div><span>11.12.2017</span><span>11:12</span></div>
+            <div>
+              <div class="card-data"><span>****</span><span>****</span><span>****</span><span>1212</span></div>
+              <div class="balance"><b>919.25</b> USD</div>
+            </div>
+          </div>
+          <div *ngIf="showHistorySolde" class="history-item">
+            <div><span>11.12.2017</span><span>11:12</span></div>
+            <div>
+              <div class="card-data"><span>****</span><span>****</span><span>****</span><span>1212</span></div>
+              <div class="balance"><b>919.25</b> USD</div>
+            </div>
+          </div>
 
           <div class="orange-angle left-angle" style="display: block" (click)="submitSoldeFunction()">
             <i class="fa fa-angle-left fa-3x" aria-hidden="true"></i>

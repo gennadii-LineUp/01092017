@@ -38,7 +38,7 @@ export class GeneralAuthorisationComponent implements OnInit {
 
     this.loginService.login(this.authorisation)
       .subscribe(result => {
-          const response = this.commonServices.xmlResponseParcer( result._body );
+          const response = this.commonServices.xmlResponseParcer_simple( result._body );
 
           console.dir( response );
           if (+response.error === 0) {

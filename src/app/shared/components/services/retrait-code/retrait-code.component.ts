@@ -36,7 +36,7 @@ export class RetraitCodeComponent implements OnInit {
       .subscribe(result => {
         this.loading = false;
         console.log(result._body);
-        const response = this.commonServices.xmlResponseParcer( result._body );
+        const response = this.commonServices.xmlResponseParcer_simple( result._body );
 
         console.dir( response );
         if (+response.error === 0) {

@@ -5,23 +5,39 @@ import {UrlParams} from '../../models/URL_PARAMS';
 
 @Injectable()
 export class W2ISoldeService {
+  token = localStorage.token;
 
   constructor(public backendService: BackendService) {}
 
 
   public getSolde(accountId: number): Observable<any> {
-    const token = localStorage.token;
-
     const body =
       `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:run="http://runtime.services.cash.innov.sn/">
         <soapenv:Header/>
           <soapenv:Body>
             <run:consultationSolde>
-              <sessionId>` + token + `</sessionId>
+              <sessionId>` + this.token + `</sessionId>
               <accountId>3</accountId>
             </run:consultationSolde>
           </soapenv:Body>
       </soapenv:Envelope>`;
+
+    console.log(body);
+    return this.backendService.post(UrlParams.backendUrl, body);
+  }
+
+
+  public getHistorySolde(accountId: number): Observable<any> {
+    const body =
+      `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:run="http://runtime.services.cash.innov.sn/">
+         <soapenv:Header/>
+           <soapenv:Body>
+              <run:getOperationCompte>
+                <sessionId>` + this.token + `</sessionId>
+                <accountId>3</accountId>
+              </run:getOperationCompte>
+            </soapenv:Body>
+        </soapenv:Envelope>`;
 
     console.log(body);
     return this.backendService.post(UrlParams.backendUrl, body);

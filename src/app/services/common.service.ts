@@ -67,7 +67,7 @@ export class CommonServices {
   }
 
 
-  public xmlResponseParcer(response: string): any {
+  public xmlResponseParcer_simple(response: string): any {
     const arr = (((response.split('<return>'))[1]).split('</return>'))[0].split('><');
 
     // remove '<' at the beginning of 1st element
@@ -84,4 +84,34 @@ export class CommonServices {
     }
     return result;
   }
+
+
+  public xmlResponseParcer_complex(response: string): any {
+    const arr = (((response.split('<return>'))[1]).split('</return>'))[0].split('><');
+    // remove '<' at the beginning of 1st element
+    arr[0] = (arr[0]).substr(1);
+
+    // remove '>' at the end of last element
+    arr[arr.length - 1] = (arr[arr.length - 1]).substring(0, (arr[arr.length - 1]).length - 1 );
+
+    const result = {};
+    const field_obj = {};
+
+    for (let i = 0; i < arr.length; i++) {
+      if ((arr[i]).indexOf('</')) {
+        const name = ((arr[i]).split('>'))[0];
+        const value = ((((arr[i]).split('<'))[0]).split('>'))[1];
+        result[name] = value;
+
+      } else {
+        console.log('hello');
+        // const name = ((arr[i]));
+        // const value = i;
+        // result[name] = value;
+      }
+    }
+    console.log(arr);
+    return result;
+  }
+
 }
