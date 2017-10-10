@@ -12,6 +12,7 @@ import {ErrorMessageHandlerService} from '../../../../services/error-message-han
   providers: [UserDataGlossary, W2COrdreRetraitService]
 })
 export class TransferDargentComponent implements OnInit {
+  loading = false;
   myAccount: any;
   newReceiver = this.userDataGlossary.beneficiaires[0];
   amountToReceiver: number;
@@ -53,12 +54,14 @@ export class TransferDargentComponent implements OnInit {
 
 
   public submitTransferDargentFunction() {
+    this.loading = true;
     this.successMessage = '';
     this.errorMessage = '';
 
     console.log(this.newReceiver);
     this.w2COrdreRetraitService.transferDargent(this.myAccount.login, this.amountToReceiver, this.newReceiver)
       .subscribe(result => {
+        this.loading = false;
         console.log(result._body);
         const response = this.commonServices.xmlResponseParcer( result._body );
 
@@ -73,6 +76,7 @@ export class TransferDargentComponent implements OnInit {
         }
 
       }, (err) => {
+        this.loading = false;
         console.log(err);
         this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
       });

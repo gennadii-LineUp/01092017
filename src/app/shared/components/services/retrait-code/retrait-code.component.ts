@@ -11,6 +11,7 @@ import {ErrorMessageHandlerService} from '../../../../services/error-message-han
 })
 export class RetraitCodeComponent implements OnInit {
   successMessage = '';
+  loading = false;
   errorMessage = '';
   retraitCode_valid = false;
   retraitCode_errorMessage = false;
@@ -24,6 +25,7 @@ export class RetraitCodeComponent implements OnInit {
   }
 
   public submitFunction() {
+    this.loading = true;
     // this.retraitCode_valid = !this.retraitCode_valid;
     console.log(this.retraitCode);
 
@@ -32,6 +34,7 @@ export class RetraitCodeComponent implements OnInit {
 
     this.w2CCheckOrdreRetraitService.retraitCode(this.retraitCode)
       .subscribe(result => {
+        this.loading = false;
         console.log(result._body);
         const response = this.commonServices.xmlResponseParcer( result._body );
 
@@ -46,6 +49,7 @@ export class RetraitCodeComponent implements OnInit {
         }
 
       }, (err) => {
+        this.loading = false;
         console.log(err);
         this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
       });
