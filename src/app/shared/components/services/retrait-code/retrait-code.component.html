@@ -12,16 +12,19 @@
             <h3>Insert code</h3>
             <div *ngIf="!retraitCode_valid" class="floating-block border-hover">
               <div class="floating-input">
-                <input placeholder="Code" type="text" [(ngModel)]="amount_retraitCode">
+                <input placeholder="Code" type="text" [(ngModel)]="retraitCode">
                 <div *ngIf="retraitCode_errorMessage" class="caption">The code is not in the system</div>
               </div>
             </div>
             <div *ngIf="retraitCode_valid" class="floating-block border-hover validly">
               <div class="floating-input">
-                <input placeholder="Code" type="text" [(ngModel)]="amount_retraitCode">
+                <input placeholder="Code" type="text" [(ngModel)]="retraitCode" (keyup.enter)='submitFunction()'>
               </div>
             </div>
+            <div *ngIf="errorMessage" class="errorTextClass">{{errorMessage}}</div>
+            <p *ngIf="!errorMessage" style="margin-top: 0; margin-bottom: 0; height: 16px">{{errorMessage}}</p>
             <button class="orange-button blue-button"
+                    [disabled]="!retraitCode" type="submit"
                     (click)="submitFunction()">Send</button>
           </div>
         </div>
@@ -33,7 +36,7 @@
             <div class="info-item">
               <b>Nom</b>
               Clark Kent
-              <div class="code" >{{amount_retraitCode}}</div>
+              <div class="code" >{{retraitCode}}</div>
             </div>
             <div class="info-item"><b>Montant</b>10</div>
             <div class="info-item"><b>Phone</b>+ 14 (123) 154-456-11</div>

@@ -51,7 +51,8 @@
                                 </div>
                                 <div class="currency">Usd</div>
                             </div>
-                            <div *ngIf="errorMessage" class="errorTextClass" style="position: static">{{errorMessage}}</div>
+                            <div *ngIf="errorMessage" class="errorTextClass">{{errorMessage}}</div>
+                            <p *ngIf="!errorMessage" style="margin-top: 0; margin-bottom: 0; height: 16px">{{errorMessage}}</p>
                             <button class="orange-button blue-button"
                                     [disabled]="!(agent_depoClient.form.valid && (+amountToReceiver >= 0.01))"
                                     (click)="submitTransferDargentFunction()"

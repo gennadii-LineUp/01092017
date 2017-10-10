@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {BackendService} from '../backend.service';
 import {ReceiverClass} from '../../models/receiver-class';
+import {UrlParams} from '../../models/URL_PARAMS';
 
 @Injectable()
 export class W2COrdreRetraitService {
@@ -31,7 +32,7 @@ export class W2COrdreRetraitService {
         </soapenv:Envelope>`;
 
     console.log(body);
-    return this.backendService.post('http://50.116.97.25:8080/cash-ws/CashWalletServiceWS?wsdl', body);
+    return this.backendService.post(UrlParams.backendUrl, body);
   }
 
 

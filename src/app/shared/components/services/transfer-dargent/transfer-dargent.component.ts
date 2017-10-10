@@ -3,6 +3,7 @@ import {ReceiverClass} from '../../../../models/receiver-class';
 import {UserDataGlossary} from '../../../../models/user-data';
 import {W2COrdreRetraitService} from '../../../../services/api/W2COrdreRetrait.service';
 import {CommonServices} from '../../../../services/common.service';
+import {ErrorMessageHandlerService} from '../../../../services/error-message-handler.service';
 
 @Component({
   selector: 'app-services-transfer-dargent',
@@ -16,11 +17,12 @@ export class TransferDargentComponent implements OnInit {
   amountToReceiver: number;
   showReceiverInfo = false;
   successMessage = '';
-  errorMessage = '55';
+  errorMessage = '55 4654 654645 64564 645646 6546465 64646 6465465 7878 87878 8787 87878 878 98989 0101 0101 4';
 
   constructor(public userDataGlossary: UserDataGlossary,
               public w2COrdreRetraitService: W2COrdreRetraitService,
-              public commonServices: CommonServices) { }
+              public commonServices: CommonServices,
+              public errorMessageHandlerService: ErrorMessageHandlerService) { }
 
   ngOnInit() {
   }
