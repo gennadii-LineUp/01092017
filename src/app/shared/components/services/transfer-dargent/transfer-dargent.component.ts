@@ -17,7 +17,7 @@ export class TransferDargentComponent implements OnInit {
   amountToReceiver: number;
   showReceiverInfo = false;
   successMessage = '';
-  errorMessage = '55 4654 654645 64564 645646 6546465 64646 6465465 7878 87878 8787 87878 878 98989 0101 0101 4';
+  errorMessage = '';
 
   constructor(public userDataGlossary: UserDataGlossary,
               public w2COrdreRetraitService: W2COrdreRetraitService,
@@ -29,7 +29,9 @@ export class TransferDargentComponent implements OnInit {
 
 
   public fillReceiverInfoFunction(myAccount: any, e: any) {
-    this.successMessage = '';
+    // this.showReceiverInfo = false;
+    this.clearSearch();
+    this.newReceiver = this.userDataGlossary.beneficiaires[0];
     this.myAccount = myAccount;
     const allItems: NodeListOf<Element> = window.document.querySelectorAll('div.consult-user');
     for (let i = 0; i < allItems.length; i++) {
@@ -37,6 +39,7 @@ export class TransferDargentComponent implements OnInit {
     }
     e.currentTarget.classList.add('active');
 
+    // setTimeout(() => { this.showReceiverInfo = true; }, 500);
     this.showReceiverInfo = true;
   }
 
@@ -66,11 +69,12 @@ export class TransferDargentComponent implements OnInit {
           this.successMessage = response.message;
           this.discardReceiverInfoFunction();
         } else {
-          // this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
+          this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
         }
 
       }, (err) => {
         console.log(err);
+        this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
       });
   }
 

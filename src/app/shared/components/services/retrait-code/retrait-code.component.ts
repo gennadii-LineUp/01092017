@@ -42,7 +42,7 @@ export class RetraitCodeComponent implements OnInit {
         //   this.successMessage = response.message;
         //   this.discardReceiverInfoFunction();
         } else {
-          this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
+          this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.errorMessage);
         }
 
       }, (err) => {

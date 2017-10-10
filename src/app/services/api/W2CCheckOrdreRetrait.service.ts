@@ -23,7 +23,7 @@ export class W2CCheckOrdreRetraitService {
           </soapenv:Body>
       </soapenv:Envelope>`;
 
-    console.log(body);
+     console.log(body);
     return this.backendService.post(UrlParams.backendUrl, body);
   }
 
