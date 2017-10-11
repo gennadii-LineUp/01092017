@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {BackendService} from '../backend.service';
 import {AuthorisationClass} from '../../models/authorisation-class';
+import {UrlParams} from '../../models/URL_PARAMS';
 
 @Injectable()
 export class LoginService {
@@ -23,7 +24,7 @@ export class LoginService {
    </soapenv:Body>
    </soapenv:Envelope>`;
 
-    return this.backendService.login('http://50.116.97.25:8080/cash-ws/CashWalletServiceWS?wsdl', body);
+    return this.backendService.login(UrlParams.backendUrl, body);
   }
 
 

@@ -16,6 +16,7 @@ export class ConsultationSoldeComponent implements OnInit {
   errorMessage = '';
   errorMessagHistory = '';
   solde: number;
+  transactions_history = [];
 
   showRequestResult = false;
 
@@ -45,14 +46,14 @@ export class ConsultationSoldeComponent implements OnInit {
           /////////////////////////////
           this.w2ISoldeService.getHistorySolde(1979)
             .subscribe(resulHistory => {
-              console.log(resulHistory._body);
               const responsHistory = this.commonServices.xmlResponseParcer_complex( resulHistory._body );
               console.dir( responsHistory );
-              // if (+responsHistory.error === 0) {
-              //   this.showHistorySolde = true;
-              // } else {
-              //   this.errorMessagHistory = this.errorMessageHandlerService.getMessageEquivalent(responsHistory.errorMessage);
-              // }
+              this.transactions_history = responsHistory.operation;
+              if (+responsHistory.error === 0 && this.transactions_history.length) {
+                this.showHistorySolde = true;
+              } else {
+                this.errorMessagHistory = this.errorMessageHandlerService.getMessageEquivalent(responsHistory.errorMessage);
+              }
 
             }, (err) => {
               this.loading = false;
@@ -73,6 +74,7 @@ export class ConsultationSoldeComponent implements OnInit {
 
   public clearAll() {
     this.solde = undefined;
+    this.transactions_history = [];
   }
 
 
