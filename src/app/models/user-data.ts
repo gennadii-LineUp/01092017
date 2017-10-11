@@ -4,8 +4,9 @@ import { Injectable } from '@angular/core';
 export class UserDataGlossary {
 
   myAccounts = [
-    { login: '773151459', firstName: 'Lex', lastName: 'Luthor', email: 'lexluthor@gmail.com', account_id: 1 },
-    { login: '773151459', firstName: 'Lex', lastName: 'Luthor', email: 'lexluthor@yahoo.com', account_id: 2 }
+    { login: '773151459', firstName: 'Lex', lastName: 'Luthor', email: 'lexluthor@gmail.com', account_id: 3 },
+    { login: '773151459', firstName: 'Lex', lastName: 'Luthor', email: 'lexluthor@yahoo.com', account_id: 7 },
+    { login: '773151459', firstName: 'Lex', lastName: 'Luthor', email: 'lexluthor@yahoo.com', account_id: 8 }
   ];
 
   myTransactions = [

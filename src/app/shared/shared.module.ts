@@ -32,6 +32,7 @@ import { ProfileComponent } from './components/menu-top/profile/profile.componen
 import {ServicesCitizComponent} from './components/services/services/services-citiz/services-citiz.component';
 import {OnlyNumberDirective} from './directives/only-number-directive';
 import {FormatTextByThreeCharPipe} from './pipes/formatTextByThreeChar.pipe';
+import {DebitCreditPipe} from './pipes/debitCredit.pipe';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import {FormatTextByThreeCharPipe} from './pipes/formatTextByThreeChar.pipe';
     GeolocalisationAgentComponent, BankToWalletComponent, VirementsVersBanqueComponent, VirementsMultiplesComponent,
     PaiementsComponent,
     ProfileComponent,
+    DebitCreditPipe,
     FormatTextByThreeCharPipe
 
   ],
@@ -73,8 +75,8 @@ import {FormatTextByThreeCharPipe} from './pipes/formatTextByThreeChar.pipe';
     GeolocalisationAgentComponent, BankToWalletComponent, VirementsVersBanqueComponent, VirementsMultiplesComponent,
     PaiementsComponent,
     ProfileComponent,
-    FormatTextByThreeCharPipe
-  ],
+    DebitCreditPipe,
+    FormatTextByThreeCharPipe  ],
   providers: [
 
   ],
