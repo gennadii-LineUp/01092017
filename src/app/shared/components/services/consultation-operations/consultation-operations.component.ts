@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CommonServices} from '../../../../services/common.service';
 import {UserDataGlossary} from '../../../../models/user-data';
 import {ErrorMessageHandlerService} from '../../../../services/error-message-handler.service';
@@ -13,7 +13,9 @@ import {GetOperationService} from '../../../../services/api/GetOperation.service
 export class ConsultationOperationsComponent implements OnInit {
   loading = false;
   errorMessage = '';
+  solde: number;
   transactions_history = [];
+  totalOperations = 0;
   showTransactions = false;
   currentAccount = this.userDataGlossary.myAccounts[0];
 
@@ -22,41 +24,52 @@ export class ConsultationOperationsComponent implements OnInit {
                 public errorMessageHandlerService: ErrorMessageHandlerService,
                 public getOperationService: GetOperationService) { }
 
-    ngOnInit() {
-    }
+    ngOnInit() {}
 
 
     public sumitFunction(e: any) {
       this.errorMessage = '';
       this.loading = true;
-      this.closeParentAccordionItem(e);
-
+      const _e = e.currentTarget.parentElement.parentElement;
       this.showTransactions = false;
-      setTimeout(() => { this.showTransactions = true; }, 1000);
-      setTimeout(() => { this.colorAmountDependOnValue(); }, 10);
 
       this.getOperationService.getOperations(this.currentAccount.account_id)
         .subscribe(result => {
+          this.loading = false;
           const history = this.commonServices.xmlResponseParcer_complex( result._body );
           console.dir( history );
-          // this.transactions_history = history.operation;
-          // if (+history.error === 0 && this.transactions_history.length) {
-          //   this.showHistorySolde = true;
-          // } else {
-          //   this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(history.errorMessage);
-          // }
-
+          this.transactions_history = this.removeElementsWithEmptyAmount( history.operation );
+          this.totalOperations = this.transactions_history.length;
+          if (+history.error === 0 && this.transactions_history.length) {
+            this.solde = history.operation[0].soldeCompte;
+            this.closeParentAccordionItem(_e);
+            setTimeout(() => { this.showTransactions = true; }, 500);
+          } else {
+            this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(history.errorMessage);
+          }
+          setTimeout(() => { this.commonServices.colorAmountDependOnValue('div.consult__item'); }, 10);
         }, (err) => {
           this.loading = false;
           console.log(err);
           this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
         });
+    }
 
+
+    public removeElementsWithEmptyAmount(arr: any) {
+      for (let i = 0; i < arr.length; i++) {
+        if  (arr[i].montant) {
+          continue;
+        } else {
+          arr.splice(i, 1);
+        }
+      }
+      return arr;
     }
 
 
     public chooseAccount(currentAccount: any) {
-      this.errorMessage = '';
+      this.clearAll();
       this.currentAccount = currentAccount;
       console.log(this.currentAccount);
     }
@@ -70,22 +83,18 @@ export class ConsultationOperationsComponent implements OnInit {
         }
       }
 
-      const currentAccordionItem = e.currentTarget.parentElement.parentElement;
+      const currentAccordionItem = e;
       if (currentAccordionItem.className === 'accordionItem open') {
         currentAccordionItem.className = 'accordionItem close-item send-request';
       }
     }
 
 
-    public colorAmountDependOnValue() {
-      const amounts = window.document.querySelectorAll('div.consult__item');
-      for (let i = 0; i < amounts.length; i++) {
-          const direction = (<HTMLSpanElement>amounts[i].firstElementChild.lastChild.previousSibling).innerText[0]; // + or -
-          (<HTMLSpanElement>amounts[i].firstElementChild.lastChild.previousSibling).classList.add('profit');
-          if (direction === '-') {
-            (<HTMLSpanElement>amounts[i].firstElementChild.lastChild.previousSibling).classList.add('lesion');
-          }
-      }
+    public clearAll() {
+      this.loading = false;
+      this.errorMessage = '';
+      this.solde = undefined;
+      this.totalOperations = 0;
     }
 
 }

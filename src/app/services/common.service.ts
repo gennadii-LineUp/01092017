@@ -97,9 +97,9 @@ export class CommonServices {
     const result = {};
     let small_obj = {};
     let _arr = arr;
-    let store_name = [];
-    let store_value = [];
-    let arr_objects = [];
+    const store_name = [];
+    const store_value = [];
+    const arr_objects = [];
     let arr_field = '';
     // console.log(arr);
 
@@ -141,5 +141,18 @@ export class CommonServices {
     // console.dir(store_value);
     return result;
   }
+
+
+  public colorAmountDependOnValue(selectorForParentElement: string) {
+    const amounts = window.document.querySelectorAll(selectorForParentElement);
+    for (let i = 0; i < amounts.length; i++) {
+      const direction = (<HTMLSpanElement>amounts[i].firstElementChild.lastChild.previousSibling).innerText[0]; // + or -
+      (<HTMLSpanElement>amounts[i].firstElementChild.lastChild.previousSibling).classList.add('profit');
+      if (direction === '-') {
+        (<HTMLSpanElement>amounts[i].firstElementChild.lastChild.previousSibling).classList.add('lesion');
+      }
+    }
+  }
+
 
 }

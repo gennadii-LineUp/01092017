@@ -6,20 +6,20 @@
                 <div class="col-md-6 col-lg-4 consult-oper__wrapper">
                     <div class="consult-oper__header">Choose account</div>
                     <div class="accordionWrapper">
-                        <div *ngFor="let operation of userDataGlossary.myAccounts" class="accordionItem close-item"
-                             (click)="commonServices.accordionToggleItemFunction($event); $event.stopPropagation(); chooseAccount(operation)">
+                        <div *ngFor="let myAccount of userDataGlossary.myAccounts" class="accordionItem close-item"
+                             (click)="commonServices.accordionToggleItemFunction($event); $event.stopPropagation(); chooseAccount(myAccount)">
                             <div class="consult-user accordionItemHeading">
                                 <div class="logo"
                                      style="background-image: url('../../../../../assets/img/user.png')"></div>
                                 <div>
-                                    <div>{{operation.firstName}} {{operation.lastName}}</div>
-                                    <div>Email: <span class="mail">{{operation.email}}</span></div>
+                                    <div>{{myAccount.firstName}} {{myAccount.lastName}}</div>
+                                    <div>Email: <span class="mail">{{myAccount.email}}</span></div>
                                 </div>
                                 <i class="fa fa-angle-right" aria-hidden="true"></i>
                             </div>
-                            <div class="accordionItemContent" (click)="$event.stopImmediatePropagation()">
-                              <div *ngIf="errorMessage" class="errorTextClass">{{errorMessage}}</div>
-                              <p *ngIf="!errorMessage" style="margin: 0; text-align: center"><img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>
+                          <div *ngIf="errorMessage" class="errorTextClass" style="padding: 0 8px">{{errorMessage}}</div>
+                          <p *ngIf="!errorMessage" style="margin: 0; text-align: center"><img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>
+                          <div class="accordionItemContent" (click)="$event.stopImmediatePropagation()" >
                               <button class="orange-button blue-button"
                                         (click)="sumitFunction($event)">
                                   Send a request
@@ -30,17 +30,19 @@
                 </div>
 
 
-
-                <div *ngIf="showTransactions" class="col-md-6 col-lg-4 consult-sold-history">
-                    <div class="little-title">Latest transactions</div>
-                    <div *ngFor="let tr of userDataGlossary.myTransactions" class="consult__item">
+                <div *ngIf="transactions_history.length" class="col-md-6 col-lg-4 consult-sold-history">
+                    <div class="balance" style="text-align: right; padding-right: 15px; padding-top: 15px; display: none">
+                      <b>{{solde | number : '1.2-2'}}</b> <span class="curr">USD</span>
+                    </div>
+                    <div class="little-title">Latest transactions <span class="float-right">({{totalOperations}} operations)</span></div>
+                    <div *ngFor="let tr of transactions_history" class="consult__item">
                         <div>
-                            <span>Receiver: <span class="name">{{tr.firstName}} {{tr.lastName}}</span></span>
-                            <span class="profit">{{tr.direction}}{{tr.amount}}<span class="curr">{{tr.currency}}</span></span>
+                            <span>Receiver: <span class="name" style="color: red">firstName lastName</span></span>
+                            <span>{{tr.sens | debitCreditSign}}{{tr.montant | number : '1.2-2'}}<span class="curr">USD</span></span>
                         </div>
                         <div>
-                            <span>{{tr.date}}</span>
-                            <span>{{tr.tyme}}</span>
+                            <span style="color: red">date</span>
+                            <span style="color: red">tyme</span>
                         </div>
                     </div>
                     <!--<div class="consult__item">-->
