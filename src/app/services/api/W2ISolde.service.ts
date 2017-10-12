@@ -17,7 +17,7 @@ export class W2ISoldeService {
           <soapenv:Body>
             <run:consultationSolde>
               <sessionId>` + this.token + `</sessionId>
-              <accountId>3</accountId>
+              <accountId>` + accountId + `</accountId>
             </run:consultationSolde>
           </soapenv:Body>
       </soapenv:Envelope>`;
@@ -34,7 +34,7 @@ export class W2ISoldeService {
            <soapenv:Body>
               <run:getOperationCompte>
                 <sessionId>` + this.token + `</sessionId>
-                <accountId>3</accountId>
+                <accountId>` + accountId + `</accountId>
               </run:getOperationCompte>
             </soapenv:Body>
         </soapenv:Envelope>`;

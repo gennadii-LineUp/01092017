@@ -16,7 +16,9 @@ export class ConsultationSoldeComponent implements OnInit {
   errorMessage = '';
   errorMessagHistory = '';
   solde: number;
+  totalOperations = 0;
   transactions_history = [];
+  currentAccount = this.userDataGlossary.myAccounts[0];
 
   showRequestResult = false;
 
@@ -33,7 +35,7 @@ export class ConsultationSoldeComponent implements OnInit {
     this.loading = true;
     this.errorMessage = '';
 
-    this.w2ISoldeService.getSolde(1979)
+    this.w2ISoldeService.getSolde(this.currentAccount.account_id)
       .subscribe(result => {
         this.loading = false;
         console.log(result._body);
@@ -44,10 +46,11 @@ export class ConsultationSoldeComponent implements OnInit {
           this.showRequestResult = !this.showRequestResult;
           this.solde = +response.solde;
           /////////////////////////////
-          this.w2ISoldeService.getHistorySolde(1979)
+          this.w2ISoldeService.getHistorySolde(this.currentAccount.account_id)
             .subscribe(resulHistory => {
               const responsHistory = this.commonServices.xmlResponseParcer_complex( resulHistory._body );
               console.dir( responsHistory );
+              this.totalOperations = responsHistory.total;
               this.transactions_history = responsHistory.operation;
               if (+responsHistory.error === 0 && this.transactions_history.length) {
                 this.showHistorySolde = true;
@@ -72,9 +75,18 @@ export class ConsultationSoldeComponent implements OnInit {
       });
   }
 
+
+  public chooseAccount(currentAccount: any) {
+    this.clearAll();
+    this.currentAccount = currentAccount;
+    console.log(this.currentAccount);
+  }
+
+
   public clearAll() {
     this.solde = undefined;
     this.transactions_history = [];
+    this.totalOperations = 0;
   }
 
 

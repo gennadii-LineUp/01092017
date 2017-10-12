@@ -13,6 +13,7 @@ import {CommonServices} from '../../../services/common.service';
 })
 export class GeneralAuthorisationComponent implements OnInit {
   errorMessage = '';
+  loading = false;
   authorisation = new AuthorisationClass('773151459', 'wari', 'APP');
 
 
@@ -25,11 +26,12 @@ export class GeneralAuthorisationComponent implements OnInit {
   }
 
   public loginFunction() {
+    this.loading = true;
     this.errorMessage = '';
 
-    localStorage.clear();
-    localStorage.setItem('token', 'token');
-    const newJson = JSON.stringify(this.authorisation);
+    // localStorage.clear();
+    // localStorage.setItem('token', 'token');
+    // const newJson = JSON.stringify(this.authorisation);
 
     // console.log(newJson);
     // console.log(localStorage);
@@ -38,6 +40,7 @@ export class GeneralAuthorisationComponent implements OnInit {
 
     this.loginService.login(this.authorisation)
       .subscribe(result => {
+          this.loading = false;
           const response = this.commonServices.xmlResponseParcer_simple( result._body );
 
           console.dir( response );
@@ -49,7 +52,9 @@ export class GeneralAuthorisationComponent implements OnInit {
           }
 
       }, (err) => {
+        this.loading = false;
         console.log(err);
+        this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
       });
   }
 
