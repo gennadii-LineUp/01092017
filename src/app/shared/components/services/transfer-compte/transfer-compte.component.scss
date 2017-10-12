@@ -75,3 +75,18 @@
     }
   }
 }
+
+
+.consult-user {
+  background-color: #f7f7ff;
+  i {
+    display: none;
+  }
+  &.active,
+  &:hover {
+    background-color: #fff;
+    i {
+      display: block;
+    }
+  }
+}

@@ -1,158 +1,204 @@
 <main class="gray-bg-citizen coin-bg">
     <section class="compte">
         <div class="container">
-            <!-- First page-->
-          <div *ngIf="transfer_all">
-            <h3>Transfert Сompte à Compte</h3>
-            <div class="row">
-                <div class="col-sm-8 col-md-4 ml-auto mr-auto">
-                    <div class="compte__wrapper compte__select">
-                        <h2>Select paiement</h2>
-                        <button class="orange-button blue-button" (click)="goToStandartTransferFunction()">Standart</button>
-                        <button class="orange-button blue-button" (click)="goToMarchandTransferFunction()">Paiement Marchand</button>
-                        <button class="orange-button blue-button" (click)="goToFactureTransferFunction()">Paiement Facture</button>
-                    </div>
+          <div class="row">
+            <!-- Null page-->
+            <div class="col-sm-6 col-md-4 ml-auto mr-auto">
+              <div class="dargent__wrapper">
+                <div class="block__header" style="background-color: #fff">Choose your account</div>
+                <div *ngFor="let myAccount of userDataGlossary.myAccounts" class="consult-user"
+                     (click)="fillReceiverInfoFunction(myAccount, $event); $event.stopPropagation()">
+                  <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
+                  <div>
+                    <div>{{myAccount.firstName}} {{myAccount.lastName}}</div>
+                    <div>Email: <span>{{myAccount.email}}</span></div>
+                  </div>
+                  <i class="fa fa-angle-right" aria-hidden="true"></i>
                 </div>
+              </div>
             </div>
-          </div>
+            <!-- END Null page-->
+
+            <!-- First page-->
+            <div *ngIf="transfer_all">
+              <h3>Transfert Сompte à Compte</h3>
+              <div class="row">
+                <div class="col-sm-6 col-md-4 ml-auto mr-auto">
+                  <div class="compte__wrapper compte__select">
+                    <h2>Select paiement</h2>
+                    <button class="orange-button blue-button" (click)="goToStandartTransferFunction()">Standart</button>
+                    <button class="orange-button blue-button" (click)="goToMarchandTransferFunction()" disabled>Paiement Marchand</button>
+                    <button class="orange-button blue-button" (click)="goToFactureTransferFunction()" disabled>Paiement Facture</button>
+                  </div>
+                </div>
+              </div>
+            </div>
             <!-- END First page-->
 
             <!-- Second page-->
-          <div *ngIf="transfer_facture">
-            <h3>Transfert Сompte à Compte (Paiement Facture)</h3>
-            <div class="row">
+            <div *ngIf="transfer_facture">
+              <h3>Transfert Сompte à Compte (Paiement Facture)</h3>
+              <div class="row">
                 <div class="col-sm-8 col-md-4 ml-auto mr-auto">
-                    <div class="compte__wrapper compte__facture">
-                        <div class="header">Insert paiement facture</div>
-                        <div class="content">
-                            <h4>Type paiement facture</h4>
-                            <div class="floating-block border-hover">
-                                <div class="floating-input">
-                                    <input id="" name="" placeholder="placeholder" required="" type="text">
-                                </div>
-                            </div>
-                            <button class="orange-button blue-button">Send</button>
-                          <div class="orange-angle left-angle" style="display: block; width: 100%; text-align: center" (click)="goToAllTransferFunction()">
-                            <i class="fa fa-angle-left fa-3x" aria-hidden="true"></i>
-                          </div>
+                  <div class="compte__wrapper compte__facture">
+                    <div class="header">Insert paiement facture</div>
+                    <div class="content" style="padding-bottom: 0">
+                      <h4>Type paiement facture</h4>
+                      <div class="floating-block border-hover">
+                        <div class="floating-input">
+                          <input placeholder="placeholder" required="" type="text">
                         </div>
+                      </div>
+                      <div class="compte__amount">
+                        <h4>Amount</h4>
+                        <div class="floating-block border-hover">
+                          <div class="floating-input">
+                            <input id="amountFacture" name="amountFacture" placeholder="Amount" required="" type="text">
+                            <div class="clean-input" onclick="amountFacture.value = ''"></div>
+                          </div>
+                          <div class="currency">Usd</div>
+                        </div>
+                      </div>
+
+                      <button class="orange-button blue-button">Send</button>
+                      <div class="orange-angle left-angle" style="display: block; width: 100%; text-align: center; margin-top:0"
+                           (click)="goToAllTransferFunction()">
+                        <i class="fa fa-angle-left fa-3x" aria-hidden="true"></i>
+                      </div>
                     </div>
+                  </div>
                 </div>
+              </div>
             </div>
-          </div>
             <!-- END Second page-->
 
             <!-- Third page-->
-          <div *ngIf="transfer_marchand">
-            <h3>Transfert Сompte à Compte (Paiement Marchand)</h3>
-            <div class="row">
+            <div *ngIf="transfer_marchand">
+              <h3>Transfert Сompte à Compte (Paiement Marchand)</h3>
+              <div class="row">
                 <div class="col-sm-8 col-md-4 ml-auto mr-auto">
-                    <div class="compte__wrapper compte__marchand">
-                        <div class="header">Insert customer’s information</div>
-                        <div class="content">
-                            <h4>Select customer’s account</h4>
-                            <div class="floating-block border-hover">
-                                <!--Need to hide this item when input empty, when input have value show angle, onclick angle show right drop -->
-                                <div class="orange-angle" style="display: block;"><i class="fa fa-angle-right" aria-hidden="true"></i></div>
-                                <div class="floating-input">
-                                    <input id="" name="" placeholder="placeholder" required="" type="text">
-                                </div>
-                                <!--Right drop for show-->
-                                <div class="right-drop" style="display: block;">
-                                    <div class="right-drop__item">
-                                        <div class="logo" style="background-image: url('/assets/img/user.png')"></div>
-                                        <div>
-                                            Clark Kenwood
-                                            <span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>
-                                        </div>
-                                    </div>
-                                    <div class="right-drop__item">
-                                        <div class="logo" style="background-image: url('/assets/img/user.png')"></div>
-                                        <div>
-                                            Clark Kenwood
-                                            <span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>
-                                        </div>
-                                    </div>
-                                    <div class="right-drop__item">
-                                        <div class="logo" style="background-image: url('/assets/img/user.png')"></div>
-                                        <div>
-                                            Clark Kenwood
-                                            <span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <button class="orange-button blue-button">Send</button>
-                            <div class="orange-angle left-angle" style="display: block; width: 100%; text-align: center" (click)="goToAllTransferFunction()">
-                              <i class="fa fa-angle-left fa-3x" aria-hidden="true"></i>
-                            </div>
+                  <div class="compte__wrapper compte__marchand">
+                    <div class="header">Insert customer’s information</div>
+                    <div class="content" style="padding-bottom: 0">
+                      <h4>Select customer’s account</h4>
+                      <div class="floating-block border-hover">
+                        <!--Need to hide this item when input empty, when input have value show angle, onclick angle show right drop -->
+                        <div class="orange-angle" style="display: block;"><i class="fa fa-angle-right" aria-hidden="true"></i></div>
+                        <div class="floating-input">
+                          <input placeholder="placeholder" required="" type="text">
                         </div>
+                        <!--Right drop for show-->
+                        <div class="right-drop" style="display: block;">
+                          <div class="right-drop__item">
+                            <div class="logo" style="background-image: url('/assets/img/user.png')"></div>
+                            <div>
+                              Clark Kenwood
+                              <span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>
+                            </div>
+                          </div>
+                          <div class="right-drop__item">
+                            <div class="logo" style="background-image: url('/assets/img/user.png')"></div>
+                            <div>
+                              Clark Kenwood
+                              <span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>
+                            </div>
+                          </div>
+                          <div class="right-drop__item">
+                            <div class="logo" style="background-image: url('/assets/img/user.png')"></div>
+                            <div>
+                              Clark Kenwood
+                              <span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="compte__amount">
+                        <h4>Amount</h4>
+                        <div class="floating-block border-hover">
+                          <div class="floating-input">
+                            <input id="amountMarchand" name="amountMarchand" placeholder="Amount" required="" type="text">
+                            <div class="clean-input" onclick="amountMarchand.value = ''"></div>
+                          </div>
+                          <div class="currency">Usd</div>
+                        </div>
+                      </div>
+
+                      <button class="orange-button blue-button">Send</button>
+                      <div class="orange-angle left-angle" style="display: block; width: 100%; text-align: center; margin-top:0"
+                           (click)="goToAllTransferFunction()">
+                        <i class="fa fa-angle-left fa-3x" aria-hidden="true"></i>
+                      </div>
                     </div>
+                  </div>
                 </div>
+              </div>
             </div>
-          </div>
             <!-- END Third page-->
 
             <!-- Fourth page-->
-          <div *ngIf="transfer_standart">
-            <h3>Transfert Сompte à Compte (Standart)</h3>
-            <div class="row">
+            <div *ngIf="transfer_standart">
+              <h3>Transfert Сompte à Compte (Standart)</h3>
+              <div class="row">
                 <div class="col-sm-8 col-md-4 ml-auto mr-auto">
-                    <div class="compte__wrapper compte__marchand">
-                        <div class="header">Insert customer’s information</div>
-                        <div class="content">
-                            <h4>Select customer’s account</h4>
-                            <div class="floating-block border-hover">
-                                <!--Need to hide this item when input empty, when input have value show angle, onclick angle show right drop -->
-                                <div class="orange-angle" style="display: block;"><i class="fa fa-angle-right" aria-hidden="true"></i></div>
-                                <div class="floating-input">
-                                    <input id="" name="" placeholder="placeholder" required="" type="text">
-                                </div>
-                                <!--Right drop for show-->
-                                <div class="right-drop" style="display: block;">
-                                    <div class="right-drop__item">
-                                        <div class="logo" style="background-image: url('/assets/img/user.png')"></div>
-                                        <div>
-                                            Clark Kenwood
-                                            <span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>
-                                        </div>
-                                    </div>
-                                    <div class="right-drop__item">
-                                        <div class="logo" style="background-image: url('/assets/img/user.png')"></div>
-                                        <div>
-                                            Clark Kenwood
-                                            <span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>
-                                        </div>
-                                    </div>
-                                    <div class="right-drop__item">
-                                        <div class="logo" style="background-image: url('/assets/img/user.png')"></div>
-                                        <div>
-                                            Clark Kenwood
-                                            <span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="compte__amount">
-                                <h4>Amount</h4>
-                                <div class="floating-block border-hover">
-                                    <div class="floating-input">
-                                        <input id="amount" name="amount" placeholder="Amount" required="" type="text">
-                                        <div class="clean-input" onclick="amount.value = ''"></div>
-                                    </div>
-                                    <div class="currency">Usd</div>
-                                </div>
-                            </div>
-                            <button class="orange-button blue-button">Send</button>
-                            <div class="orange-angle left-angle" style="display: block; width: 100%; text-align: center" (click)="goToAllTransferFunction()">
-                              <i class="fa fa-angle-left fa-3x" aria-hidden="true"></i>
-                            </div>
+                  <div class="compte__wrapper compte__marchand">
+                    <div class="header">Insert customer’s information</div>
+                    <div class="content" style="padding-bottom: 0">
+                      <h4>Select customer’s account</h4>
+                      <div class="floating-block border-hover">
+                        <!--Need to hide this item when input empty, when input have value show angle, onclick angle show right drop -->
+                        <div class="orange-angle" style="display: block;"><i class="fa fa-angle-right" aria-hidden="true"></i></div>
+                        <div class="floating-input">
+                          <input id="" name="" placeholder="placeholder" required="" type="text">
                         </div>
+                        <!--Right drop for show-->
+                        <div class="right-drop" style="display: block;">
+                          <div class="right-drop__item">
+                            <div class="logo" style="background-image: url('/assets/img/user.png')"></div>
+                            <div>
+                              Clark Kenwood
+                              <span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>
+                            </div>
+                          </div>
+                          <div class="right-drop__item">
+                            <div class="logo" style="background-image: url('/assets/img/user.png')"></div>
+                            <div>
+                              Clark Kenwood
+                              <span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>
+                            </div>
+                          </div>
+                          <div class="right-drop__item">
+                            <div class="logo" style="background-image: url('/assets/img/user.png')"></div>
+                            <div>
+                              Clark Kenwood
+                              <span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="compte__amount">
+                        <h4>Amount</h4>
+                        <div class="floating-block border-hover">
+                          <div class="floating-input">
+                            <input id="amountStandart" name="amountStandart" placeholder="Amount" required="" type="text">
+                            <div class="clean-input" onclick="amountStandart.value = ''"></div>
+                          </div>
+                          <div class="currency">Usd</div>
+                        </div>
+                      </div>
+                      <button class="orange-button blue-button">Send</button>
+                      <div class="orange-angle left-angle" style="display: block; width: 100%; text-align: center; margin-top:0"
+                           (click)="goToAllTransferFunction()">
+                        <i class="fa fa-angle-left fa-3x" aria-hidden="true"></i>
+                      </div>
                     </div>
+                  </div>
                 </div>
+              </div>
             </div>
-          </div>
             <!-- END Fourth page-->
+
+
+          </div>
         </div>
     </section>
 </main>
