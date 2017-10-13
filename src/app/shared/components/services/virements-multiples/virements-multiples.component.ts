@@ -9,9 +9,9 @@ import {CommonServices} from '../../../../services/common.service';
 })
 export class VirementsMultiplesComponent implements OnInit {
   amount_virementsMultiples: number;
-  receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15'),
-              new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2'),
-              new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24')];
+  receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 1),
+              new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 2),
+              new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 3)];
   selectedReceivers = [];
 
   constructor(public commonServices: CommonServices) {}

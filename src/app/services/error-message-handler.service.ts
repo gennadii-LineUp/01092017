@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import {CommonServices} from './common.service';
 
 
 @Injectable()
 export class ErrorMessageHandlerService {
   message = '';
 
-  constructor() {   }
+  constructor(public commonServices: CommonServices) {   }
 
   // public successHandler(successObject: any) {
   //     this.message = '';
@@ -99,9 +100,22 @@ export class ErrorMessageHandlerService {
   public getMessageEquivalent(message: string) {
     switch (message) {
       case 'UNDEFINED_USER_ERROR': message = 'Wrong username or password!';  break;
-      default:
-        message;
+      default:  message;
+    }
+    return message;
+  }
 
+
+  public _getMessageEquivalent(body: any) {
+    let message: string;
+    const obj = this.commonServices.xmlResponseParcer_errors(body);
+    if (obj.faultstring) {
+      message = obj.faultstring;
+    }
+    if (message.indexOf('{') && message.indexOf('}')) {
+      const message_start = (message.split('{'))[0];
+      const message_end = (message.split('}'))[1];
+      message = message_start + message_end;
     }
     return message;
   }

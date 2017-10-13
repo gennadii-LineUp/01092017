@@ -143,6 +143,25 @@ export class CommonServices {
   }
 
 
+  public xmlResponseParcer_errors(response: string): any {
+    const arr = (((response.split('<soap:Fault>'))[1]).split('</soap:Fault>'))[0].split('><');
+
+    // remove '<' at the beginning of 1st element
+    arr[0] = (arr[0]).substr(1);
+
+    // remove '>' at the end of last element
+    arr[arr.length - 1] = (arr[arr.length - 1]).substring(0, (arr[arr.length - 1]).length - 1 );
+
+    const result = {};
+    for (let i = 0; i < arr.length; i++) {
+      const name = ((arr[i]).split('>'))[0];
+      const value = ((((arr[i]).split('<'))[0]).split('>'))[1];
+      result[name] = value;
+    }
+    return result;
+  }
+
+
   public colorAmountDependOnValue(selectorForParentElement: string) {
     const amounts = window.document.querySelectorAll(selectorForParentElement);
     for (let i = 0; i < amounts.length; i++) {
