@@ -65,20 +65,20 @@ export class TransferCompteComponent implements OnInit {
     this.transfer_facture = false;
   }
   public goToMarchandTransferFunction() {
-    this.header_option = '(Paiement Marchand)';
-    this.transfer_accounts = false;
-    this.transfer_all = false;
-    this.transfer_standart = false;
-    this.transfer_marchand = true;
-    this.transfer_facture = false;
+    // this.header_option = '(Paiement Marchand)';
+    // this.transfer_accounts = false;
+    // this.transfer_all = false;
+    // this.transfer_standart = false;
+    // this.transfer_marchand = true;
+    // this.transfer_facture = false;
   }
   public goToFactureTransferFunction() {
-    this.header_option = '(Paiement Facture)';
-    this.transfer_accounts = false;
-    this.transfer_all = false;
-    this.transfer_standart = false;
-    this.transfer_marchand = false;
-    this.transfer_facture = true;
+    // this.header_option = '(Paiement Facture)';
+    // this.transfer_accounts = false;
+    // this.transfer_all = false;
+    // this.transfer_standart = false;
+    // this.transfer_marchand = false;
+    // this.transfer_facture = true;
   }
 
 
