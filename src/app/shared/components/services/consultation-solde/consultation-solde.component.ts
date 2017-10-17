@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CommonServices} from '../../../../services/common.service';
-import {UserDataGlossary} from '../../../../models/user-data';
+import {UserDataService} from '../../../../models/user-data';
 import {ErrorMessageHandlerService} from '../../../../services/error-message-handler.service';
 import {W2ISoldeService} from '../../../../services/api/W2ISolde.service';
 
@@ -8,7 +8,7 @@ import {W2ISoldeService} from '../../../../services/api/W2ISolde.service';
   selector: 'app-services-consultation-solde',
   templateUrl: './consultation-solde.component.html',
   styleUrls: ['./consultation-solde.component.scss'],
-  providers: [UserDataGlossary, ErrorMessageHandlerService, W2ISoldeService]
+  providers: [UserDataService, ErrorMessageHandlerService, W2ISoldeService]
 })
 export class ConsultationSoldeComponent implements OnInit {
   loading = false;
@@ -24,7 +24,7 @@ export class ConsultationSoldeComponent implements OnInit {
 
 
   constructor(public commonServices: CommonServices,
-              public userDataGlossary: UserDataGlossary,
+              public userDataGlossary: UserDataService,
               public errorMessageHandlerService: ErrorMessageHandlerService,
               public w2ISoldeService: W2ISoldeService) { }
 

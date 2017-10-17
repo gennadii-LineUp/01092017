@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {UserDataGlossary} from '../../../../models/user-data';
+import {UserDataService} from '../../../../models/user-data';
 import {CommonServices} from '../../../../services/common.service';
 import {ErrorMessageHandlerService} from '../../../../services/error-message-handler.service';
 import {ReceiverClass} from '../../../../models/receiver-class';
@@ -9,7 +9,7 @@ import {W2WVirementAccountService} from '../../../../services/api/W2WVirementAcc
   selector: 'app-services-transfer-compte',
   templateUrl: './transfer-compte.component.html',
   styleUrls: ['./transfer-compte.component.scss'],
-  providers: [UserDataGlossary, W2WVirementAccountService]
+  providers: [UserDataService, W2WVirementAccountService]
 
 })
 export class TransferCompteComponent implements OnInit {
@@ -30,7 +30,7 @@ export class TransferCompteComponent implements OnInit {
   errorMessage = '';
 
 
-  constructor(public userDataGlossary: UserDataGlossary,
+  constructor(public userDataGlossary: UserDataService,
               public commonServices: CommonServices,
               public w2WVirementAccountService: W2WVirementAccountService,
               public errorMessageHandlerService: ErrorMessageHandlerService) { }

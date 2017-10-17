@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CommonServices} from '../../../../services/common.service';
-import {UserDataGlossary} from '../../../../models/user-data';
+import {UserDataService} from '../../../../models/user-data';
 import {ErrorMessageHandlerService} from '../../../../services/error-message-handler.service';
 import {GetOperationService} from '../../../../services/api/GetOperation.service';
 
@@ -8,7 +8,7 @@ import {GetOperationService} from '../../../../services/api/GetOperation.service
     selector: 'app-services-consultation-operations',
     templateUrl: './consultation-operations.component.html',
     styleUrls: ['./consultation-operations.component.scss'],
-    providers: [UserDataGlossary, ErrorMessageHandlerService, GetOperationService]
+    providers: [UserDataService, ErrorMessageHandlerService, GetOperationService]
 })
 export class ConsultationOperationsComponent implements OnInit {
   loading = false;
@@ -20,7 +20,7 @@ export class ConsultationOperationsComponent implements OnInit {
   currentAccount = this.userDataGlossary.myAccounts[0];
 
     constructor(public commonServices: CommonServices,
-                public userDataGlossary: UserDataGlossary,
+                public userDataGlossary: UserDataService,
                 public errorMessageHandlerService: ErrorMessageHandlerService,
                 public getOperationService: GetOperationService) { }
 

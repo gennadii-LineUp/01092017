@@ -1,25 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
 import {LoginService} from '../../../services/api/login.service';
 import {ErrorMessageHandlerService} from '../../../services/error-message-handler.service';
 import {AuthorisationClass} from '../../../models/authorisation-class';
 import {CommonServices} from '../../../services/common.service';
+import {UserDataService} from '../../../models/user-data';
 
 @Component({
   selector: 'app-authorisation',
   templateUrl: './authorisation.component.html',
   styleUrls: ['./authorisation.component.scss'],
-  providers: [LoginService]
+  providers: [LoginService, UserDataService]
 })
 export class GeneralAuthorisationComponent implements OnInit {
   errorMessage = '';
   loading = false;
-  authorisation = new AuthorisationClass('773151459', 'wari', 'APP');
+  // authorisation = new AuthorisationClass('773151459', 'wari', 'APP');
+  authorisation = new AuthorisationClass('773336110', '1', 'APP');
 
 
   constructor(public loginService: LoginService,
+              public userDataGlossary: UserDataService,
               public errorMessageHandlerService: ErrorMessageHandlerService,
-              public router: Router,
               public commonServices: CommonServices) { }
 
   ngOnInit() {
@@ -44,13 +45,16 @@ export class GeneralAuthorisationComponent implements OnInit {
           const response = this.commonServices.xmlResponseParcer_simple( result._body );
 
           console.dir( response );
-          if (+response.error === 0) {
-            this.router.navigate(['/customer/services']);
+          if (+response.error === 0
+              && response.message === 'Authentification success'
+              && response.profil) {
             localStorage.setItem('token', response.token);
+            this.loginService.usersRouting(response.profil);
+            this.userDataGlossary.setUser(response.nom, response.prenom, response.profil, response.telephone);
+            console.log(55);
           } else {
             this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
           }
-
       }, (err) => {
         this.loading = false;
         console.log(err);

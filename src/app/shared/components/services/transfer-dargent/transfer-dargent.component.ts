@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ReceiverClass} from '../../../../models/receiver-class';
-import {UserDataGlossary} from '../../../../models/user-data';
+import {UserDataService} from '../../../../models/user-data';
 import {W2COrdreRetraitService} from '../../../../services/api/W2COrdreRetrait.service';
 import {CommonServices} from '../../../../services/common.service';
 import {ErrorMessageHandlerService} from '../../../../services/error-message-handler.service';
@@ -9,7 +9,7 @@ import {ErrorMessageHandlerService} from '../../../../services/error-message-han
   selector: 'app-services-transfer-dargent',
   templateUrl: './transfer-dargent.component.html',
   styleUrls: ['./transfer-dargent.component.scss'],
-  providers: [UserDataGlossary, W2COrdreRetraitService]
+  providers: [UserDataService, W2COrdreRetraitService]
 })
 export class TransferDargentComponent implements OnInit {
   loading = false;
@@ -20,7 +20,7 @@ export class TransferDargentComponent implements OnInit {
   successMessage = '';
   errorMessage = '';
 
-  constructor(public userDataGlossary: UserDataGlossary,
+  constructor(public userDataGlossary: UserDataService,
               public w2COrdreRetraitService: W2COrdreRetraitService,
               public commonServices: CommonServices,
               public errorMessageHandlerService: ErrorMessageHandlerService) { }
