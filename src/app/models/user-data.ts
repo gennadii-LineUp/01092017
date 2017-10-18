@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
+import {Subject} from 'rxjs/Subject';
 
 @Injectable()
-export class UserDataGlossary {
+export class UserDataService {
+  user = {};
 
   myAccounts = [
     { login: '773151459', firstName: 'Lex', lastName: 'Luthor', email: 'lexluthor@gmail.com', account_id: 3 },
@@ -18,6 +20,31 @@ export class UserDataGlossary {
   beneficiaires = [
     { firstName: 'KANE', lastName: 'MOMAR', phone: '773151459', address: 'DAKAR', account_id: 9 }
   ];
+
+  // Observable string sources
+  private caseNumber = new Subject<any>();
+  // Observable string streams
+  caseNumber$ = this.caseNumber.asObservable();
+
+
+  publishData(data: Object) {
+    this.caseNumber.next(data);
+  }
+
+  public setUser(nom: string, prenom: string, profil: string, telephone: string) {
+    this.user['nom'] = nom;
+    this.user['prenom'] = prenom;
+    this.user['profil'] = profil;
+    this.user['telephone'] = telephone;
+    console.log(this.user);
+    this.publishData(this.user);
+  }
+
+  public getUser(): any {
+    return this.user;
+  }
+
+
 
 
 }
