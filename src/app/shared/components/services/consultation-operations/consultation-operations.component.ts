@@ -8,7 +8,7 @@ import {GetOperationService} from '../../../../services/api/GetOperation.service
     selector: 'app-services-consultation-operations',
     templateUrl: './consultation-operations.component.html',
     styleUrls: ['./consultation-operations.component.scss'],
-    providers: [UserDataService, ErrorMessageHandlerService, GetOperationService]
+    providers: [ErrorMessageHandlerService, GetOperationService]
 })
 export class ConsultationOperationsComponent implements OnInit {
   loading = false;

@@ -9,10 +9,10 @@
             <div *ngIf="transfer_accounts" class="col-sm-6 col-md-4 ml-auto mr-auto">
               <div class="dargent__wrapper">
                 <div class="block__header" style="background-color: #fff">Choose your account</div>
-                <div *ngFor="let account of userDataGlossary.myAccounts" class="consult-user"
+                <div *ngFor="let account of userDataService.myAccounts" class="consult-user"
                      (click)="fillReceiverInfoFunction(account, $event); $event.stopPropagation();
                               goToAllTransferFunction()"
-                      id="{{account.account_id}}" #{{account.account_id}}>
+                     id="{{account.account_id}}" #{{account.account_id}}>
                   <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
                   <div>
                     <div>{{account.firstName}} {{account.lastName}}</div>

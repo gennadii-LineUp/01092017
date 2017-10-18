@@ -9,7 +9,7 @@ import {ErrorMessageHandlerService} from '../../../../services/error-message-han
   selector: 'app-services-transfer-dargent',
   templateUrl: './transfer-dargent.component.html',
   styleUrls: ['./transfer-dargent.component.scss'],
-  providers: [UserDataService, W2COrdreRetraitService]
+  providers: [W2COrdreRetraitService]
 })
 export class TransferDargentComponent implements OnInit {
   loading = false;

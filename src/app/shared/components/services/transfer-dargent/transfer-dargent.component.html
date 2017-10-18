@@ -6,7 +6,7 @@
                 <div class="col-sm-6 col-md-4">
                     <div class="dargent__wrapper">
                         <div class="block__header">Choose your account</div>
-                        <div *ngFor="let myAccount of userDataGlossary.myAccounts" class="consult-user"
+                        <div *ngFor="let myAccount of userDataService.myAccounts" class="consult-user"
                              (click)="fillReceiverInfoFunction(myAccount, $event); $event.stopPropagation()">
                           <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
                           <div>

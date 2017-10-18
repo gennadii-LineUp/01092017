@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {LoginService} from '../../../services/api/login.service';
 import {ErrorMessageHandlerService} from '../../../services/error-message-handler.service';
 import {AuthorisationClass} from '../../../models/authorisation-class';
@@ -9,7 +9,7 @@ import {UserDataService} from '../../../models/user-data';
   selector: 'app-authorisation',
   templateUrl: './authorisation.component.html',
   styleUrls: ['./authorisation.component.scss'],
-  providers: [LoginService, UserDataService]
+  providers: [LoginService]
 })
 export class GeneralAuthorisationComponent implements OnInit {
   errorMessage = '';
@@ -17,9 +17,8 @@ export class GeneralAuthorisationComponent implements OnInit {
   // authorisation = new AuthorisationClass('773151459', 'wari', 'APP');
   authorisation = new AuthorisationClass('773336110', '1', 'APP');
 
-
   constructor(public loginService: LoginService,
-              public userDataGlossary: UserDataService,
+              public userDataService: UserDataService,
               public errorMessageHandlerService: ErrorMessageHandlerService,
               public commonServices: CommonServices) { }
 
@@ -49,9 +48,12 @@ export class GeneralAuthorisationComponent implements OnInit {
               && response.message === 'Authentification success'
               && response.profil) {
             localStorage.setItem('token', response.token);
+            localStorage.setItem('nom', response.nom);
+            localStorage.setItem('prenom', response.prenom);
+            localStorage.setItem('profil', response.profil);
+            localStorage.setItem('telephone', response.telephone);
             this.loginService.usersRouting(response.profil);
-            this.userDataGlossary.setUser(response.nom, response.prenom, response.profil, response.telephone);
-            console.log(55);
+            this.userDataService.setUser(response.nom, response.prenom, response.profil, response.telephone);
           } else {
             this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
           }

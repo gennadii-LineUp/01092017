@@ -8,7 +8,7 @@ import {W2ISoldeService} from '../../../../services/api/W2ISolde.service';
   selector: 'app-services-consultation-solde',
   templateUrl: './consultation-solde.component.html',
   styleUrls: ['./consultation-solde.component.scss'],
-  providers: [UserDataService, ErrorMessageHandlerService, W2ISoldeService]
+  providers: [ErrorMessageHandlerService, W2ISoldeService]
 })
 export class ConsultationSoldeComponent implements OnInit {
   loading = false;

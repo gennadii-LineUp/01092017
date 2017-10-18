@@ -32,9 +32,9 @@ export class LoginService {
 
   public usersRouting(profil: string) {
       switch (profil) {
-        case 'CITIZEN': this.router.navigate(['/customer/services']); break;
+        case 'CITIZEN': this.router.navigate(['/citizen/services']); break;
         case 'AGENT': this.router.navigate(['/agent/services']); break;
-        case 'CUSTOMER': this.router.navigate(['/customer/services']); break;
+        case 'CLIENT': this.router.navigate(['/customer/services']); break;
         default:
           this.router.navigate(['/authorisation']);
       }

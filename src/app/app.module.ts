@@ -11,6 +11,7 @@ import {ErrorMessageHandlerService} from './services/error-message-handler.servi
 import {BackendService} from './services/backend.service';
 import {CommonServices} from './services/common.service';
 import {OnlyNumberDirective} from './shared/directives/only-number-directive';
+import {UserDataService} from './models/user-data';
 
 
 @NgModule({
@@ -26,7 +27,7 @@ import {OnlyNumberDirective} from './shared/directives/only-number-directive';
   ],
   providers: [
     AuthGuard,
-    ErrorMessageHandlerService, BackendService, CommonServices
+    ErrorMessageHandlerService, BackendService, CommonServices, UserDataService
   ],
   bootstrap: [AppComponent]
 })

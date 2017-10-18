@@ -9,7 +9,7 @@ import {W2WVirementAccountService} from '../../../../services/api/W2WVirementAcc
   selector: 'app-services-transfer-compte',
   templateUrl: './transfer-compte.component.html',
   styleUrls: ['./transfer-compte.component.scss'],
-  providers: [UserDataService, W2WVirementAccountService]
+  providers: [W2WVirementAccountService]
 
 })
 export class TransferCompteComponent implements OnInit {
