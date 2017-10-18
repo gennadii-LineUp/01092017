@@ -442,6 +442,15 @@ button[disabled] {
   }
 }
 
+.disabled-class {
+  color: $disabled !important;
+  cursor: default !important;
+  &:hover {
+    color: $disabled !important;
+    cursor: default !important;
+  }
+}
+
 .checkbox-wrapper {
   display: flex;
   align-items: flex-start;
@@ -754,22 +763,22 @@ input[type=checkbox]:checked + label:after {
         color: #161616;
         font-size: 1.4rem;
         font-family: $raleM;
-        + div {
-          color: $blueBright;
-          font-size: 1.2rem;
-          min-width: 45px;
-          font-family: $raleSM;
-          text-align: center;
-          height: 40px;
-          line-height: 55px;
-          cursor: pointer;
-        }
         input {
           padding-left: 0 !important;
         }
         .floating-desc {
           min-width: 170px;
         }
+      }
+      .pass_save {
+        color: $blueBright;
+        font-size: 1.2rem;
+        min-width: 45px;
+        font-family: $raleSM;
+        text-align: center;
+        height: 40px;
+        line-height: 55px;
+        cursor: pointer;
       }
     }
     .radio-wrapper {

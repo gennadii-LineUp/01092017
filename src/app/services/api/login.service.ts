@@ -12,7 +12,7 @@ export class LoginService {
               public router: Router) {}
 
   login(userdata: AuthorisationClass): Observable<any> {
-    this.logout();
+    localStorage.clear();
 
     const body =
   `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:run="http://runtime.services.cash.innov.sn/">
@@ -41,6 +41,7 @@ export class LoginService {
   }
 
   public logout(): void {
+    this.router.navigate(['/authorisation']);
     localStorage.clear();
   }
 

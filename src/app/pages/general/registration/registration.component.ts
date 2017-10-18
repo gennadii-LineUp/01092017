@@ -19,10 +19,10 @@ export class GeneralRegistrationComponent implements OnInit {
     console.log(this.registration);
   }
 
-  public regFirstNameClear() {this.registration.firstName = ''; }
-  public regLastNameClear() {this.registration.lastName = ''; }
-  public regPhoneClear() {this.registration.phone = ''; }
-  public regMailClear() {this.registration.email = ''; }
+  public regFirstNameClear() {this.registration.nom = ''; }
+  public regLastNameClear() {this.registration.prenom = ''; }
+  public regPhoneClear() {this.registration.telephone = ''; }
+  public regMailClear() {this.registration.mail = ''; }
   public regPswClear() {this.registration.password = ''; }
 
 

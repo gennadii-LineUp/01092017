@@ -8,8 +8,17 @@ export class CommonServices {
   constructor() {}
 
 
+  public accordionCloseAllItemsFunction() {
+    const accordionItems: NodeListOf<Element> = window.document.querySelectorAll('div.accordionItem');
+    for (let i = 0; i < accordionItems.length; i++) {
+      accordionItems[i].className = 'accordionItem close-item';
+    }
+  }
+
+
   public accordionToggleItemFunction(e: any) {
     const currentClass = e.currentTarget.className;
+
     const accordionItems: NodeListOf<Element> = window.document.querySelectorAll('div.accordionItem');
     for (let i = 0; i < accordionItems.length; i++) {
       if (accordionItems[i].className === 'accordionItem close-item send-request') {

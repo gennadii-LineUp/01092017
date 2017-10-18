@@ -1,26 +1,26 @@
 export class RegistrationClass {
-  firstName: string;
-  lastName: string;
-  phone: string;
-  email: string;
+  nom: string;
+  prenom: string;
+  telephone: string;
+  mail: string;
   password: string;
-  profile: string;
+  profil: string;
   agreeTermsAndConditions: boolean;
 
-  constructor( firstName: string,
-               lastName: string,
-               phone: string,
-               email: string,
+  constructor( nom: string,
+               prenom: string,
+               telephone: string,
+               mail: string,
                password: string,
-               profile: string,
+               profil: string,
                agreeTermsAndConditions: boolean) {
 
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.phone = phone;
-    this.email = email;
+    this.nom = nom;
+    this.prenom = prenom;
+    this.telephone = telephone;
+    this.mail = mail;
     this.password = password;
-    this.profile = profile;
+    this.profil = profil;
     this.agreeTermsAndConditions = agreeTermsAndConditions;
   }
 }
