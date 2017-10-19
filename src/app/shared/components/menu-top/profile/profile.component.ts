@@ -52,7 +52,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this._user = this.userDataService.getUser();
-    this.user = new RegistrationClass(this._user.nom, this._user.prenom, this._user.telephone, '', '', this._user.profil, true);
+    this.user = new RegistrationClass(this._user.nom, this._user.prenom, 33, this._user.telephone, '', '', this._user.profil, true);
     console.log(this.user);
   }
 
