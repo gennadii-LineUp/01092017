@@ -5,6 +5,7 @@ import {UserDataService} from '../../../models/user-data';
 import {ErrorMessageHandlerService} from '../../../services/error-message-handler.service';
 import {CommonServices} from '../../../services/common.service';
 import {CountryCode} from '../../../models/country-code';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -13,18 +14,20 @@ import {CountryCode} from '../../../models/country-code';
   providers: [CreateNewAccountService, CountryCode]
 })
 export class GeneralRegistrationComponent implements OnInit {
+  successMessage = '';
   errorMessage = '';
   loading = false;
   disabled = false;
 
-  registration = new RegistrationClass('', '', 221, '', '', '', 'Citizen', true);
+  registration = new RegistrationClass('Michael', 'Jackson', 221, '123456789', 'test@mail.fr', '123456789', '123456789', 'Citizen', true);
 
 
   constructor(public createNewAccountService: CreateNewAccountService,
               public userDataService: UserDataService,
               public errorMessageHandlerService: ErrorMessageHandlerService,
               public commonServices: CommonServices,
-              public countryCode: CountryCode) { }
+              public countryCode: CountryCode,
+              public router: Router) { }
 
   ngOnInit() {
   }
@@ -35,27 +38,27 @@ export class GeneralRegistrationComponent implements OnInit {
     this.errorMessage = '';
 
 
-    // this.createNewAccountService.createNewAccount(this.registration)
-    //   .subscribe(result => {
-    //     this.loading = false;
-    //     const response = this.commonServices.xmlResponseParcer_simple( result._body );
-    //
-    //     console.dir( response );
-    //     // if (+response.error === 0
-    //     //   && response.message === 'Authentification success'
-    //     //   && response.profil) {
-    //     //
-    //     // } else {
-    //     //   this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
-    //     // }
-    //   }, (err) => {
-    //     this.loading = false;
-    //     console.log(err);
-    //     this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
-    //     if (!this.errorMessage) {
-    //       this.errorMessage = this.errorMessageHandlerService._getMessageEquivalent(err._body);
-    //     }
-    //   });
+    this.createNewAccountService.createNewAccount(this.registration)
+      .subscribe(result => {
+        this.loading = false;
+        const response = this.commonServices.xmlResponseParcer_simple( result._body );
+
+        console.dir( response );
+        if (+response.error === 0
+          && response.message === 'Succès ! creation compte effectuée') {
+          this.successMessage = response.message;
+          setTimeout(() => { this.router.navigate(['/authorisation']); }, 4000);
+        } else {
+          this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
+        }
+      }, (err) => {
+        this.loading = false;
+        console.log(err);
+        this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+        if (!this.errorMessage) {
+          this.errorMessage = this.errorMessageHandlerService._getMessageEquivalent(err._body);
+        }
+      });
 
 
   }
@@ -65,6 +68,7 @@ export class GeneralRegistrationComponent implements OnInit {
   public regPhoneClear() {this.registration.telephone = ''; }
   public regMailClear() {this.registration.mail = ''; }
   public regPswClear() {this.registration.password = ''; }
+  public regPswRepeatClear() {this.registration.repeatPassword = ''; }
 
 
 }

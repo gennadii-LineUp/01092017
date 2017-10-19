@@ -5,6 +5,7 @@ export class RegistrationClass {
   telephone: string;
   mail: string;
   password: string;
+  repeatPassword: string;
   profil: string;
   agreeTermsAndConditions: boolean;
 
@@ -14,6 +15,7 @@ export class RegistrationClass {
                telephone: string,
                mail: string,
                password: string,
+               repeatPassword: string,
                profil: string,
                agreeTermsAndConditions: boolean) {
 
@@ -23,6 +25,7 @@ export class RegistrationClass {
     this.telephone = telephone;
     this.mail = mail;
     this.password = password;
+    this.repeatPassword = repeatPassword;
     this.profil = profil;
     this.agreeTermsAndConditions = agreeTermsAndConditions;
   }
