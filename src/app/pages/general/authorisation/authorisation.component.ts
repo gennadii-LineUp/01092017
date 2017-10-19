@@ -61,6 +61,9 @@ export class GeneralAuthorisationComponent implements OnInit {
         this.loading = false;
         console.log(err);
         this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+        if (!this.errorMessage) {
+          this.errorMessage = this.errorMessageHandlerService._getMessageEquivalent(err._body);
+        }
       });
   }
 

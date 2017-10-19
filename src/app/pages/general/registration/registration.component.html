@@ -72,7 +72,7 @@
             </div>
             <div class="pass-caption">At least 6 symbols. Use characters and digits.</div>
             <div class="profile-type">Profile: <span>Citizen</span></div>
-            <div class="checkbox-wrapper">
+            <div class="checkbox-wrapper" style="margin-bottom: 2px">
               <div class="checkbox">
                 <input type="checkbox" name="checkbox" required #checkbox id="checkbox"
                        [(ngModel)]="registration.agreeTermsAndConditions"/>
@@ -85,7 +85,9 @@
                 and for your personal data processing.
               </p>
             </div>
-            <button class="orange-button blue-button"
+            <div *ngIf="errorMessage" class="errorTextClass">{{errorMessage}}</div>
+            <p *ngIf="!errorMessage" style="margin: 0; text-align: center; height: 16px"><img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>
+            <button class="orange-button blue-button"  style="margin-top: 8px"
                     (click)="registrationSubmitFunction()"
                     type="submit"
                     [disabled]="!(user_registrationForm.form.valid
