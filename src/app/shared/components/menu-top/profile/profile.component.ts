@@ -41,9 +41,10 @@ export class ProfileComponent implements OnInit {
   readOnly_phone = true;
 
   newPassword = new NewPasswordClass('', undefined, '');
-  nom = localStorage.nom;
-  prenom = localStorage.prenom;
-  profil = localStorage.profil;
+  // nom = localStorage.nom;
+  // prenom = localStorage.prenom;
+  // profil = localStorage.profil;
+  // phone = localStorage.telephone;
 
 
   constructor(public commonServices: CommonServices,
@@ -54,6 +55,10 @@ export class ProfileComponent implements OnInit {
     this._user = this.userDataService.getUser();
     this.user = new RegistrationClass(this._user.nom, this._user.prenom, 33, this._user.telephone, '', '', '', this._user.profil, true);
     console.log(this.user);
+    if (!this.user.nom) {this.user.nom = localStorage.nom; }
+    if (!this.user.prenom) {this.user.prenom = localStorage.prenom; }
+    if (!this.user.profil) {this.user.profil = localStorage.profil; }
+    if (!this.user.telephone) {this.user.telephone = localStorage.telephone; }
   }
 
   public submitNomFunction() {
