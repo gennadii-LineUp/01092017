@@ -12,13 +12,13 @@
             <h3>Insert code</h3>
             <div *ngIf="!retraitCode_valid" class="floating-block border-hover">
               <div class="floating-input">
-                <input placeholder="Code" type="text" [(ngModel)]="retraitCode">
+                <input placeholder="Code" #mainInput type="text" [(ngModel)]="retraitCode" (keyup.enter)='submitFunction()' (ngModelChange)="clearSearch()">
                 <div *ngIf="retraitCode_errorMessage" class="caption">The code is not in the system</div>
               </div>
             </div>
             <div *ngIf="retraitCode_valid" class="floating-block border-hover validly">
               <div class="floating-input">
-                <input placeholder="Code" type="text" [(ngModel)]="retraitCode" (keyup.enter)='submitFunction()'>
+                <input placeholder="Code" #secondInput type="text" [(ngModel)]="retraitCode" (keyup.enter)='submitFunction()' (ngModelChange)="clearSearch()">
               </div>
             </div>
             <div *ngIf="errorMessage" class="errorTextClass">{{errorMessage}}</div>
@@ -31,15 +31,18 @@
 
 
         <div *ngIf="retraitCode_valid" class="col-sm-6 col-md-4">
-          <div class="retrail-code__header">Information</div>
+          <div class="retrail-code__header">Information
+            <span style="float: right; margin-right: 20px">beneficiaire</span>
+          </div>
           <div class="retrail-code__content info">
             <div class="info-item">
               <b>Nom</b>
-              Clark Kent
+              {{serverResponse.beneficiaire.nom}} {{serverResponse.beneficiaire.prenom}}
               <div class="code" >{{retraitCode}}</div>
             </div>
-            <div class="info-item"><b>Montant</b>10</div>
-            <div class="info-item"><b>Phone</b>+ 14 (123) 154-456-11</div>
+            <div class="info-item"><b>Montant</b>{{serverResponse.montant}}</div>
+            <div class="info-item"><b>Date of transaction</b>{{serverResponse.date}}</div>
+            <div class="info-item"><b>Phone</b>{{serverResponse.beneficiaire.cellulaire}}</div>
           </div>
         </div>
 
