@@ -15,7 +15,7 @@ export class GeneralAuthorisationComponent implements OnInit {
   errorMessage = '';
   loading = false;
   // authorisation = new AuthorisationClass('773151459', 'wari', 'APP');
-  authorisation = new AuthorisationClass('773336110', '1', 'APP');
+  authorisation = new AuthorisationClass('7722222222', 'passer', 'APP');
 
   constructor(public loginService: LoginService,
               public userDataService: UserDataService,

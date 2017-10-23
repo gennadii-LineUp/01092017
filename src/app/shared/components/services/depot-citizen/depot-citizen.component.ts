@@ -8,15 +8,15 @@ import {CommonServices} from '../../../../services/common.service';
   styleUrls: ['./depot-citizen.component.scss']
 })
 export class DepotCitizenComponent implements OnInit {
-  newReceiver = new ReceiverClass('', '', '', '', 0);
+  newReceiver = new ReceiverClass('', '', '', '', 0, '');
   receiverExist = false;
   createNewReceiver = true;
   receiverStatus = '';
   receiverToFind = '';
   amount_depotCitizen = 10;
-  receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 1),
-              new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 2),
-              new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 3)];
+  receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 1, 'citizen'),
+              new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 2, 'citizen'),
+              new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 3, 'citizen')];
 
   constructor(public commonServices: CommonServices) { }
 
@@ -45,7 +45,7 @@ export class DepotCitizenComponent implements OnInit {
     this.amount_depotCitizen = undefined;
     // this.receivers = [];
     this.receiverToFind = '';
-    this.newReceiver = new ReceiverClass('', '', '', '', 0);
+    this.newReceiver = new ReceiverClass('', '', '', '', 0, '');
     this.receiverExist = false;
     this.createNewReceiver = false;
     this.receiverStatus = '';

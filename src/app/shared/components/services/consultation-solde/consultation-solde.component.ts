@@ -18,13 +18,13 @@ export class ConsultationSoldeComponent implements OnInit {
   solde: number;
   totalOperations = 0;
   transactions_history = [];
-  currentAccount = this.userDataGlossary.myAccounts[0];
+  currentAccount = this.userDataService.myAccounts[0];
 
   showRequestResult = false;
 
 
   constructor(public commonServices: CommonServices,
-              public userDataGlossary: UserDataService,
+              public userDataService: UserDataService,
               public errorMessageHandlerService: ErrorMessageHandlerService,
               public w2ISoldeService: W2ISoldeService) { }
 

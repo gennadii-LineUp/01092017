@@ -17,10 +17,10 @@ export class ConsultationOperationsComponent implements OnInit {
   transactions_history = [];
   totalOperations = 0;
   showTransactions = false;
-  currentAccount = this.userDataGlossary.myAccounts[0];
+  currentAccount = this.userDataService.myAccounts[0];
 
     constructor(public commonServices: CommonServices,
-                public userDataGlossary: UserDataService,
+                public userDataService: UserDataService,
                 public errorMessageHandlerService: ErrorMessageHandlerService,
                 public getOperationService: GetOperationService) { }
 

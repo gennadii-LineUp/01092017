@@ -14,25 +14,26 @@ import {ErrorMessageHandlerService} from '../../../../services/error-message-han
 export class TransferDargentComponent implements OnInit {
   loading = false;
   myAccount: any;
-  newReceiver = this.userDataGlossary.beneficiaires[0];
+  newReceiver = this.userDataService.beneficiaires[0];
   amountToReceiver: number;
   showReceiverInfo = false;
   successMessage = '';
   errorMessage = '';
 
-  constructor(public userDataGlossary: UserDataService,
+  constructor(public userDataService: UserDataService,
               public w2COrdreRetraitService: W2COrdreRetraitService,
               public commonServices: CommonServices,
               public errorMessageHandlerService: ErrorMessageHandlerService) { }
 
   ngOnInit() {
+   // this.userDataService.setMyAccounts();
   }
 
 
   public fillReceiverInfoFunction(myAccount: any, e: any) {
     // this.showReceiverInfo = false;
     this.clearSearch();
-    this.newReceiver = this.userDataGlossary.beneficiaires[0];
+    this.newReceiver = this.userDataService.beneficiaires[0];
     this.myAccount = myAccount;
     const allItems: NodeListOf<Element> = window.document.querySelectorAll('div.consult-user');
     for (let i = 0; i < allItems.length; i++) {
@@ -58,7 +59,7 @@ export class TransferDargentComponent implements OnInit {
     this.successMessage = '';
     this.errorMessage = '';
 
-    console.log(this.newReceiver);
+    console.log(this.myAccount);
     this.w2COrdreRetraitService.transferDargent(this.myAccount.login, this.amountToReceiver, this.newReceiver)
       .subscribe(result => {
         this.loading = false;
@@ -69,7 +70,7 @@ export class TransferDargentComponent implements OnInit {
         if (+response.error === 0) {
           this.showReceiverInfo = false;
           this.clearSearch();
-          this.successMessage = response.message;
+          this.successMessage = response.message + '; \n code: ' + response.code;
           this.discardReceiverInfoFunction();
         } else {
           this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
@@ -86,7 +87,7 @@ export class TransferDargentComponent implements OnInit {
   public clearAmount() {this.amountToReceiver = undefined; }
   public clearSearch() {
     this.amountToReceiver = undefined;
-    this.newReceiver = new ReceiverClass('', '', '', '', 0);
+    this.newReceiver = new ReceiverClass('', '', '', '', 0, '');
     this.successMessage = '';
     this.errorMessage = '';
   }

@@ -22,10 +22,10 @@ export class W2COrdreRetraitService {
               <envoyeur>` + envoyeur + `</envoyeur>
               <principal>` + principal + `</principal>
               <beneficiaire>
-                  <nom>` + beneficiaire.firstName + `</nom>
-                  <prenom>` + beneficiaire.lastName + `</prenom>
+                  <nom>` + beneficiaire.nom + `</nom>
+                  <prenom>` + beneficiaire.prenom + `</prenom>
                   <adresse>` + beneficiaire.address + `</adresse>
-                  <cellulaire>` + beneficiaire.phone + `</cellulaire>
+                  <cellulaire>` + beneficiaire.telephone + `</cellulaire>
               </beneficiaire>
           </run:W2COrdreRetrait>
         </soapenv:Body>

@@ -1,15 +1,26 @@
 import { Injectable } from '@angular/core';
 import {Subject} from 'rxjs/Subject';
+import {ReceiverClass} from './receiver-class';
 
 @Injectable()
 export class UserDataService {
-  user = {};
+  user = new ReceiverClass('', '', '', '', 0, '');
+
 
   myAccounts = [
-    { login: '773151459', firstName: 'Lex', lastName: 'Luthor', email: 'lexluthor@gmail.com', account_id: 3 },
-    { login: '773151459', firstName: 'Lex', lastName: 'Luthor', email: 'lexluthor@ukr.net', account_id: 7 },
-    { login: '773151459', firstName: 'Lex', lastName: 'Luthor', email: 'lexluthor@yahoo.com', account_id: 8 }
+    { login: '4', firstName: 'Lex', lastName: 'Luthor', email: 'lexluthor@gmail.com', account_id: 3 },
+    { login: '4', firstName: 'Lex', lastName: 'Luthor', email: 'lexluthor@ukr.net', account_id: 7 },
+    { login: '4', firstName: 'Lex', lastName: 'Luthor', email: 'lexluthor@yahoo.com', account_id: 8 }
   ];
+
+  public setMyAccounts() {
+    this.myAccounts.forEach(myAccount => { myAccount.login = this.getUser().telephone; });
+    console.log(this.myAccounts);
+  }
+
+  public getMyAccounts(): any {
+    return this.myAccounts;
+  }
 
   myTransactions = [
     { firstName: 'Clark', lastName: 'Kent', amount: 123.49, direction: '-', currency: 'USD', date: '11.12.2017', tyme: '11:12', email: 'ClarkKent@gmail.com', account_id: 9 },
@@ -18,7 +29,7 @@ export class UserDataService {
   ];
 
   beneficiaires = [
-    { firstName: 'KANE', lastName: 'MOMAR', phone: '773151459', address: 'DAKAR', account_id: 9 }
+    { nom: 'KANE', prenom: 'MOMAR', telephone: '773151459', address: 'DAKAR', account_id: 9, profil: 'citizen' }
   ];
 
   // Observable string sources
@@ -32,12 +43,17 @@ export class UserDataService {
   }
 
   public setUser(nom: string, prenom: string, profil: string, telephone: string) {
-    this.user['nom'] = nom;
-    this.user['prenom'] = prenom;
-    this.user['profil'] = profil;
-    this.user['telephone'] = telephone;
+    // this.user['nom'] = nom;
+    // this.user['prenom'] = prenom;
+    // this.user['profil'] = profil;
+    // this.user['telephone'] = telephone;
+    this.user.nom = nom;
+    this.user.prenom = prenom;
+    this.user.profil = profil;
+    this.user.telephone = telephone;
     console.log(this.user);
     this.publishData(this.user);
+    this.setMyAccounts();
   }
 
   public getUser(): any {

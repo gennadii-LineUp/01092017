@@ -23,14 +23,14 @@ export class TransferCompteComponent implements OnInit {
   loading = false;
   myAccount: any;
   account_id = '';
-  newReceiver = this.userDataGlossary.beneficiaires[0];
+  newReceiver = this.userDataService.beneficiaires[0];
   amountToReceiver: number;
   showReceiverInfo = false;
   successMessage = '';
   errorMessage = '';
 
 
-  constructor(public userDataGlossary: UserDataService,
+  constructor(public userDataService: UserDataService,
               public commonServices: CommonServices,
               public w2WVirementAccountService: W2WVirementAccountService,
               public errorMessageHandlerService: ErrorMessageHandlerService) { }
@@ -121,7 +121,7 @@ export class TransferCompteComponent implements OnInit {
   public fillReceiverInfoFunction(myAccount: any, e: any) {
     // this.showReceiverInfo = false;
     this.clearSearch();
-    this.newReceiver = this.userDataGlossary.beneficiaires[0];
+    this.newReceiver = this.userDataService.beneficiaires[0];
     this.myAccount = myAccount;
     const allItems: NodeListOf<Element> = window.document.querySelectorAll('div.consult-user');
     for (let i = 0; i < allItems.length; i++) {
@@ -136,7 +136,7 @@ export class TransferCompteComponent implements OnInit {
   public clearAmount() {this.amountToReceiver = undefined; }
   public clearSearch() {
     this.amountToReceiver = undefined;
-    this.newReceiver = new ReceiverClass('', '', '', '', 0);
+    this.newReceiver = new ReceiverClass('', '', '', '', 0, '');
     this.successMessage = '';
     this.errorMessage = '';
   }

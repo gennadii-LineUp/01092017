@@ -1,20 +1,23 @@
 export class ReceiverClass {
-  firstName: string;
-  lastName: string;
-  phone: string;
+  nom: string;
+  prenom: string;
+  telephone: string;
   address: string;
   account_id: number;
+  profil: string;
 
-  constructor( firstName: string,
-               lastName: string,
-               phone: string,
+  constructor( nom: string,
+               prenom: string,
+               telephone: string,
                address: string,
-               account_id: number) {
+               account_id: number,
+               profil: string) {
 
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.phone = phone;
+    this.nom = nom;
+    this.prenom = prenom;
+    this.telephone = telephone;
     this.address = address;
     this.account_id = account_id;
+    this.profil = profil;
   }
 }
