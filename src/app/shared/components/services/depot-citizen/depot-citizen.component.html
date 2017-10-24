@@ -47,13 +47,13 @@
             </div>
 
             <div *ngIf="receivers.length" class="content search">
-              <div  *ngFor="let receiver of receivers" #{{receiver.id_receiver}} id="{{receiver.id_receiver}}"
+              <div  *ngFor="let myAccount of userDataService.getMyAccounts()" #{{receiver.id_receiver}} id="{{myAccount.account_id}}"
                     class="search__user" (click)="commonServices.defineReceiversFunction($event)">
                 <div>
                   <span class="logo" style="background-image: url('../../../../../assets/img/user.png')"></span>
                   <div>
-                    <div>{{receiver.firstName}} {{receiver.lastName}}</div>
-                    <span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>{{receiver.phone}}</span>
+                    <div>{{myAccount.nom}} {{myAccount.prenom}}</div>
+                    <span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>{{myAccount.login}}</span>
                   </div>
                 </div>
                 <div class="circle-check"></div>
@@ -81,12 +81,13 @@
 
           <div class="content amount">
             <form #agent_depoCitizen_existReceiver="ngForm" novalidate>
-                <div class="amount-wrapper" style="margin-top: 70px">
+                <div class="amount-wrapper" style="margin-top: 70px; position: relative">
                   <h3>Amount</h3>
                   <div class="floating-block border-hover">
                     <div class="floating-input">
                       <input id="amount1" name="amount1" placeholder="00.00" required
                              type="text" [(ngModel)]="amount_depotCitizen"
+                             (keyup.enter)='submitDepotSitizen()'
                              onkeydown="return ( event.ctrlKey || event.altKey
                                                                 || (47<event.keyCode && event.keyCode<58 && event.shiftKey==false)
                                                                 || (95<event.keyCode && event.keyCode<106)
@@ -97,8 +98,11 @@
                     </div>
                     <div class="currency">Usd</div>
                   </div>
+                  <div *ngIf="errorMessage" class="errorTextClass" style="position: absolute">{{errorMessage}}</div>
                 </div>
-                <div class="button-wrapper" style="margin-top: 90px">
+                <div class="button-wrapper" style="margin-top: 100px">
+
+                  <p style="margin: 0; text-align: center; height: 16px; margin-bottom: 12px"><img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>
                   <button class="orange-button blue-button"
                           [disabled]="!((+amount_depotCitizen >= 0.01)
                                           && commonServices.getSelectedReceivers().length
