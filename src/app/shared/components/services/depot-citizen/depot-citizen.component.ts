@@ -23,6 +23,7 @@ export class DepotCitizenComponent implements OnInit {
   receiverStatus = '';
   receiverToFind = '';
   amount_depotCitizen: number;
+  commission = [];
   receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 1, 'citizen'),
               new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 2, 'citizen'),
               new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 3, 'citizen')];
@@ -34,8 +35,8 @@ export class DepotCitizenComponent implements OnInit {
               public c2WDepotTransactionService: C2WDepotTransactionService) { }
 
   ngOnInit() {
-    // this.createNewReceiverMode();
-    this.receiverExistMode();
+    this.firstStepMode();
+    // this.secondStepMode();
   }
 
   public submitDepotSitizen() {
@@ -55,20 +56,23 @@ export class DepotCitizenComponent implements OnInit {
         console.dir( response );
         if (+response.error === 0) {
           this.errorMessage = response.message + ' - ' + response.commission;
+          this.commission.push(+response.commission);
+          console.log(this.commission);
           /////////////////////////////
-          this.c2WDepotTransactionService.makeDepotSitizen()
-            .subscribe(result => {
+          this.c2WDepotTransactionService.makeDepotSitizen(this.newReceiver.telephone,
+            +this.amount_depotCitizen, +response.commission, this.userDataService.beneficiaires[0])
+            .subscribe(_result => {
               this.loading = false;
-              console.log(result._body);
-              const response = this.commonServices.xmlResponseParcer_simple( result._body );
+              console.log(_result._body);
+              const _response = this.commonServices.xmlResponseParcer_simple( _result._body );
 
-              console.dir( response );
-              if (+response.error === 0) {
-                this.errorMessage = response.message + ' - ' + response.commission;
-
-              } else {
-                this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
-              }
+              console.dir( _response );
+              // if (+_response.error === 0) {
+              //   this.errorMessage = _response.message + ' - ' + _response.commission;
+              //
+              // } else {
+              //   this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(_response.message);
+              // }
 
             }, (err) => {
               this.loading = false;
@@ -89,12 +93,16 @@ export class DepotCitizenComponent implements OnInit {
       });
   }
 
-  public receiverExistMode() {
+  public setBeneficiaryFunction(beneficiary: any) {
+    this.newReceiver = beneficiary;
+  }
+
+  public firstStepMode() {
     this.clearSearch();
     this.receiverExist = true;
     this.commonServices.unSelectAllReceiversFunction();
   }
-  public createNewReceiverMode() {
+  public secondStepMode() {
     this.clearSearch();
     this.receiverStatus = 'New';
     this.createNewReceiver = true;
@@ -111,6 +119,6 @@ export class DepotCitizenComponent implements OnInit {
     this.loading = false;
     this.successMessage = '';
     this.errorMessage = '';
-
+    this.commission = [];
   }
 }

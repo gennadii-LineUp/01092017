@@ -48,7 +48,7 @@
 
             <div *ngIf="receivers.length" class="content search">
               <div  *ngFor="let myAccount of userDataService.getMyAccounts()" #{{receiver.id_receiver}} id="{{myAccount.account_id}}"
-                    class="search__user" (click)="commonServices.defineReceiversFunction($event)">
+                    class="search__user" (click)="setBeneficiaryFunction(myAccount)">
                 <div>
                   <span class="logo" style="background-image: url('../../../../../assets/img/user.png')"></span>
                   <div>
@@ -59,10 +59,23 @@
                 <div class="circle-check"></div>
               </div>
 
+              <!-- *** M U L T I P L E   S E L E C T *** -->
+              <!--<div  *ngFor="let myAccount of userDataService.getMyAccounts()" #{{receiver.id_receiver}} id="{{myAccount.account_id}}"-->
+                    <!--class="search__user" (click)="commonServices.defineReceiversFunction($event)">-->
+                <!--<div>-->
+                  <!--<span class="logo" style="background-image: url('../../../../../assets/img/user.png')"></span>-->
+                  <!--<div>-->
+                    <!--<div>{{myAccount.nom}} {{myAccount.prenom}}</div>-->
+                    <!--<span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>{{myAccount.login}}</span>-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--<div class="circle-check"></div>-->
+              <!--</div>-->
+
               <div class="new-acc" style="padding-bottom: 0">
                   <span>
                     The citizen’s account you’re looking for is not in the system?
-                    <span class="create" (click)="createNewReceiverMode()">Create it now.</span>
+                    <span class="create" (click)="secondStepMode()">Create it now.</span>
                   </span>
               </div>
             </div>
@@ -76,7 +89,7 @@
           <div class="block__header">
             <span>{{receiverStatus}}</span>
             <!--<span>New</span>-->
-            <div class="blue-angle" style="padding-bottom: 1px" (click)="receiverExistMode()">Change</div>
+            <div class="blue-angle" style="padding-bottom: 1px" (click)="secondStepMode()">Next</div>
           </div>
 
           <div class="content amount">
@@ -173,7 +186,7 @@
           <div class="block__header">
             <span>{{receiverStatus}}</span>
             <!--<span>New</span>-->
-            <div class="blue-angle" style="padding-bottom: 1px" (click)="receiverExistMode()">Change</div>
+            <div class="blue-angle" style="padding-bottom: 1px" (click)="firstStepMode()">Change</div>
           </div>
 
           <form *ngIf="createNewReceiver" #agent_depoCitizen_newReceiverData="ngForm" novalidate>
@@ -182,7 +195,7 @@
               <div class="floating-block border-hover">
                 <div class="floating-input">
                   <input type="text" placeholder="Type here"
-                         #firstName="ngModel" id="firstName" name='firstName' required [(ngModel)]="newReceiver.firstName" />
+                         #firstName="ngModel" id="firstName" name='firstName' required [(ngModel)]="newReceiver.nom" />
                   <div class="clean-input" onclick="firstName.value = ''"></div>
                 </div>
               </div>
@@ -190,7 +203,7 @@
               <div class="floating-block border-hover">
                 <div class="floating-input">
                   <input type="text" placeholder="Type here"
-                         #lastName="ngModel" id="lastName" name='lastName' required [(ngModel)]="newReceiver.lastName" />
+                         #lastName="ngModel" id="lastName" name='lastName' required [(ngModel)]="newReceiver.prenom" />
                   <div class="clean-input" onclick="lastName.value = ''"></div>
                 </div>
               </div>
@@ -198,7 +211,7 @@
               <div class="floating-block border-hover">
                 <div class="floating-input">
                   <input type="text" placeholder="Type here"
-                         #id_receiver="ngModel" id="id_receiver" name='id_receiver' required [(ngModel)]="newReceiver.id_receiver" />
+                         #id_receiver="ngModel" id="id_receiver" name='id_receiver' required [(ngModel)]="newReceiver.account_id" />
                   <div class="clean-input" onclick="id_receiver.value = ''"></div>
                 </div>
               </div>
