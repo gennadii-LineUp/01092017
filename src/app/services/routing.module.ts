@@ -70,6 +70,10 @@ import {ANotificationsPageComponent} from '../pages/agent/menu-user/a-notificati
 import {AgentProfilePageComponent} from '../pages/agent/menu-top/agent-profile-page.component';
 import {CitizenProfilePageComponent} from '../pages/citizen/menu-top/citizen-profile-page.component';
 import {CustomerProfilePageComponent} from '../pages/customer/menu-top/customer-profile-page.component';
+import {AuthGuard} from '../guards/auth-guard.service';
+import {AgentGuard} from '../guards/agent-guard.service';
+import {CitizenGuard} from '../guards/citizen-guard.service';
+import {CustomerGuard} from '../guards/customer-guard.service';
 
 
 const routes: Routes = [
@@ -83,7 +87,7 @@ const routes: Routes = [
   { path: 'refund-policy', component: GeneralRefundPageComponent },
   { path: 'authorisation', component: GeneralAuthorisationComponent },
   { path: 'create-account', component: GeneralRegistrationComponent },
-  { path: 'agent', component: AgentComponent, // canActivate: [AuthGuard, AgentGuard],
+  { path: 'agent', component: AgentComponent,  canActivate: [AuthGuard, AgentGuard],
     children: [
       { path: 'about-us', component: AgentAboutUsPageComponent },
       { path: 'terms-conditions', component: AgentTermsPageComponent },
@@ -110,7 +114,7 @@ const routes: Routes = [
         { path: 'settings', component: ASettingsPageComponent },
     ]
   },
-  { path: 'citizen', component: CitizenComponent, // canActivate: [AuthGuard, CitizenGuard],
+  { path: 'citizen', component: CitizenComponent,  canActivate: [AuthGuard, CitizenGuard],
     children: [
       { path: 'about-us', component: CitizenAboutUsPageComponent },
       { path: 'terms-conditions', component: CitizenTermsPageComponent },
@@ -133,7 +137,7 @@ const routes: Routes = [
         { path: 'settings', component: CSettingsPageComponent },
     ]
   },
-  { path: 'customer', component: CustomerComponent, // canActivate: [AuthGuard, CustomerGuard],
+  { path: 'customer', component: CustomerComponent,  canActivate: [AuthGuard, CustomerGuard],
     children: [
       { path: 'about-us', component: CustomerAboutUsPageComponent },
       { path: 'terms-conditions', component: CustomerTermsPageComponent },
