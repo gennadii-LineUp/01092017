@@ -3,7 +3,7 @@
         <div class="container">
           <h3>Transfert Сompte à Compte {{header_option}}</h3>
           <div *ngIf="!transfer_accounts" class="additional-info">
-              account {{myAccount.firstName}} {{myAccount.lastName}}, {{myAccount.email}}
+              account {{myAccount.nom}} {{myAccount.prenom}}, {{myAccount.email}}
           </div>
             <!-- Null page-->
             <div *ngIf="transfer_accounts" class="col-sm-6 col-md-4 ml-auto mr-auto">
@@ -15,7 +15,7 @@
                      id="{{account.account_id}}" #{{account.account_id}}>
                   <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
                   <div>
-                    <div>{{account.firstName}} {{account.lastName}}</div>
+                    <div>{{account.nom}} {{account.prenom}}</div>
                     <div>Email: <span>{{account.email}}</span></div>
                   </div>
                   <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -179,31 +179,19 @@
                         <!--Need to hide this item when input empty, when input have value show angle, onclick angle show right drop -->
                         <div class="orange-angle" style="display: block;"><i class="fa fa-angle-right" aria-hidden="true"></i></div>
                         <div class="floating-input">
-                          <input id="" name="" placeholder="placeholder" required="" type="text">
+                          <input id="" name="" placeholder="placeholder ID" required="" type="text" [(ngModel)]="newReceiver.account_id">
                         </div>
+
                         <!--Right drop for show-->
-                        <div class="right-drop" style="display: block;">
-                          <div class="right-drop__item">
+                        <div *ngIf="!(+newReceiver.account_id > 0)" class="right-drop" style="display: block;">
+                          <div *ngFor="let receiver of receivers" class="right-drop__item" (click)="setBeneficiaryFunction(receiver)">
                             <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
                             <div>
-                              Clark Kenwood
-                              <span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>
+                              {{receiver.nom}} {{receiver.prenom}}
+                              <span><i class="fa fa-phone" aria-hidden="true"></i>{{receiver.telephone}}</span>
                             </div>
                           </div>
-                          <div class="right-drop__item">
-                            <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
-                            <div>
-                              Clark Kenwood
-                              <span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>
-                            </div>
-                          </div>
-                          <div class="right-drop__item">
-                            <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
-                            <div>
-                              Clark Kenwood
-                              <span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>
-                            </div>
-                          </div>
+
                         </div>
                       </div>
                       <div class="compte__amount">
