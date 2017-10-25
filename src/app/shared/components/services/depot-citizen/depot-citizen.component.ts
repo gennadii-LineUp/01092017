@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ReceiverClass} from '../../../../models/receiver-class';
 import {CommonServices} from '../../../../services/common.service';
 import {UserDataService} from '../../../../models/user-data';
 import {ErrorMessageHandlerService} from '../../../../services/error-message-handler.service';
 import {GetCommissionsTTCService} from '../../../../services/api/getCommissionsTTC.service';
 import {C2WDepotTransactionService} from 'app/services/api/C2WDepotTransaction.service';
+import {EnvoyeurClass} from '../../../../models/envoyeur-class';
 
 @Component({
   selector: 'app-services-depot-citizen',
@@ -21,12 +22,15 @@ export class DepotCitizenComponent implements OnInit {
   receiverExist = false;
   createNewReceiver = true;
   receiverStatus = '';
-  receiverToFind = '';
+  receiverToFind = '7722222222';
   amount_depotCitizen: number;
   commission = [];
+  envoyeur = new EnvoyeurClass('KANE', 'MOMAR', '773151459', 'DAKAR', 'CNI', 'SEN', '1619198107350', '01/01/2016', '01/01/2017');
   receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 1, 'citizen'),
               new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 2, 'citizen'),
               new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 3, 'citizen')];
+
+  @ViewChild('amount2') amount2: any;
 
   constructor(public userDataService: UserDataService,
               public commonServices: CommonServices,
@@ -60,24 +64,22 @@ export class DepotCitizenComponent implements OnInit {
           console.log(this.commission);
           /////////////////////////////
           this.c2WDepotTransactionService.makeDepotSitizen(this.newReceiver.telephone,
-            +this.amount_depotCitizen, +response.commission, this.userDataService.beneficiaires[0])
+            +this.amount_depotCitizen, +response.commission, this.envoyeur)
             .subscribe(_result => {
               this.loading = false;
               console.log(_result._body);
               const _response = this.commonServices.xmlResponseParcer_simple( _result._body );
 
               console.dir( _response );
-              // if (+_response.error === 0) {
-              //   this.errorMessage = _response.message + ' - ' + _response.commission;
-              //
-              // } else {
-              //   this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(_response.message);
-              // }
-
+              if (+_response.error === 0) {
+                this.errorMessage += '  ' +  _response.message;
+              } else {
+                this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(_response.message);
+              }
             }, (err) => {
               this.loading = false;
               console.log(err);
-              this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+              if (err._body.type) {this.errorMessage += '  ' + this.errorMessageHandlerService.getMessageEquivalent(err._body.type); }
             });
 
           /////////////////////////////
@@ -94,7 +96,11 @@ export class DepotCitizenComponent implements OnInit {
   }
 
   public setBeneficiaryFunction(beneficiary: any) {
-    this.newReceiver = beneficiary;
+    this.newReceiver.nom = beneficiary.nom;
+    this.newReceiver.prenom = beneficiary.prenom;
+    this.newReceiver.telephone = this.receiverToFind;
+    this.secondStepMode();
+    console.log(this.newReceiver);
   }
 
   public firstStepMode() {
@@ -104,15 +110,18 @@ export class DepotCitizenComponent implements OnInit {
   }
   public secondStepMode() {
     this.clearSearch();
-    this.receiverStatus = 'New';
+    this.receiverStatus = '' + this.newReceiver.nom + ' ' + this.newReceiver.prenom + ', ' + this.newReceiver.telephone;
     this.createNewReceiver = true;
+    // setTimeout(() => { this.amount2.nativeElement.focus(); this.amount2.nativeElement.focus(); }, 1000);
   }
   public clearAmount() {this.amount_depotCitizen = undefined; }
+  public clearEnvoyeur(field: string) {this.envoyeur[field] = undefined; }
+
   public clearSearch() {
-    this.amount_depotCitizen = undefined;
+    // this.amount_depotCitizen = undefined;
     // this.receivers = [];
-    this.receiverToFind = '';
-    this.newReceiver = new ReceiverClass('', '', '', '', 0, '');
+    // this.receiverToFind = '';
+    // this.newReceiver = new ReceiverClass('', '', '', '', 0, '');
     this.receiverExist = false;
     this.createNewReceiver = false;
     this.receiverStatus = '';

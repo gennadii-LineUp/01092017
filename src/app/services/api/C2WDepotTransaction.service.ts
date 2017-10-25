@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {BackendService} from '../backend.service';
 import {UrlParams} from '../../models/URL_PARAMS';
-import {ReceiverClass} from '../../models/receiver-class';
+import {EnvoyeurClass} from '../../models/envoyeur-class';
 
 @Injectable()
 export class C2WDepotTransactionService {
@@ -13,7 +13,7 @@ export class C2WDepotTransactionService {
   public makeDepotSitizen(beneficiary: string,
                           principal: number,
                           commission: number,
-                          envoyeur: ReceiverClass): Observable<any> {
+                          envoyeur: EnvoyeurClass): Observable<any> {
     const token = localStorage.token;
     const type_piece = 'CNI';
     const pays_piece = 'SEN';
@@ -37,11 +37,11 @@ export class C2WDepotTransactionService {
                       <cellulaire>` + envoyeur.telephone + `</cellulaire>
                   </envoyeur>
                   <envoyeurID>
-                      <type>` + type_piece + `</type>
-                      <pays>` + pays_piece + `</pays>
-                      <valeur>` + valeur_piece + `</valeur>
-                      <debut>` + debut_piece + `</debut>
-                      <fin>` + fin_piece + `</fin>
+                      <type>` + envoyeur.id_type + `</type>
+                      <pays>` + envoyeur.id_pays + `</pays>
+                      <valeur>` + envoyeur.id_valeur + `</valeur>
+                      <debut>` + envoyeur.id_debut + `</debut>
+                      <fin>` + envoyeur.id_fin + `</fin>
                   </envoyeurID>
               </run:C2WDepotTransaction>
           </soapenv:Body>

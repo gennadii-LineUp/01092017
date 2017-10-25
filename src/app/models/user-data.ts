@@ -8,24 +8,18 @@ export class UserDataService {
 
 
   myAccounts = [
-    { login: '4', nom: 'Lex', prenom: 'Luthor', email: 'lexluthor@gmail.com', account_id: 3 },
-    { login: '4', nom: 'Lex', prenom: 'Luthor', email: 'lexluthor@ukr.net', account_id: 7 },
-    { login: '4', nom: 'Lex', prenom: 'Luthor', email: 'lexluthor@yahoo.com', account_id: 8 }
+    { telephone: '4', nom: 'Lex', prenom: 'Luthor', email: 'lexluthor@gmail.com', account_id: 3 },
+    { telephone: '4', nom: 'Lex', prenom: 'Luthor', email: 'lexluthor@ukr.net', account_id: 7 },
+    { telephone: '4', nom: 'Lex', prenom: 'Luthor', email: 'lexluthor@yahoo.com', account_id: 8 }
   ];
 
-  public setMyAccounts() {
-    this.myAccounts.forEach(myAccount => { myAccount.login = this.getUser().telephone; });
-    console.log(this.myAccounts);
-  }
-
-  public getMyAccounts(): any {
-    return this.myAccounts;
-  }
-
   myTransactions = [
-    { nom: 'Clark', prenom: 'Kent', amount: 123.49, direction: '-', currency: 'USD', date: '11.12.2017', tyme: '11:12', email: 'ClarkKent@gmail.com', account_id: 9 },
-    { nom: 'Clark', prenom: 'Kent', amount: 123.49, direction: '-', currency: 'USD', date: '10.12.2017', tyme: '09:12', email: 'ClarkKent@gmail.com', account_id: 9 },
-    { nom: 'Clark', prenom: 'Kent', amount:  54.18, direction: '+', currency: 'USD', date: '09.12.2017', tyme: '11:30', email: 'ClarkKent@gmail.com', account_id: 9 },
+    { nom: 'Clark', prenom: 'Kent', amount: 123.49, direction: '-', currency: 'USD', date: '11.12.2017',
+      tyme: '11:12', email: 'ClarkKent@gmail.com', account_id: 9 },
+    { nom: 'Clark', prenom: 'Kent', amount: 123.49, direction: '-', currency: 'USD', date: '10.12.2017',
+      tyme: '09:12', email: 'ClarkKent@gmail.com', account_id: 9 },
+    { nom: 'Clark', prenom: 'Kent', amount:  54.18, direction: '+', currency: 'USD', date: '09.12.2017',
+      tyme: '11:30', email: 'ClarkKent@gmail.com', account_id: 9 },
   ];
 
   beneficiaires = [
@@ -36,6 +30,16 @@ export class UserDataService {
   private caseNumber = new Subject<any>();
   // Observable string streams
   caseNumber$ = this.caseNumber.asObservable();
+
+
+  public setMyAccounts() {
+    this.myAccounts.forEach(myAccount => { myAccount.telephone = this.getUser().telephone; });
+    console.log(this.myAccounts);
+  }
+
+  public getMyAccounts(): any {
+    return this.myAccounts;
+  }
 
 
   publishData(data: Object) {
