@@ -10,7 +10,10 @@ export class W2WVirementAccountService {
   constructor(public backendService: BackendService) {}
 
 
-  public transferCompteStandart(montant: number, idAccountEnvoyeur: number, idAccountBeneficiary: number): Observable<any> {
+  public transferCompteStandart(montant: number,
+                                commission: number,
+                                idAccountEnvoyeur: number,
+                                idAccountBeneficiary: number): Observable<any> {
     const token = localStorage.token;
 
     const body =
@@ -20,7 +23,7 @@ export class W2WVirementAccountService {
             <run:W2WVirementAccount>
               <sessionId>` + token + `</sessionId>
               <montant>` + montant + `</montant>
-              <commission>?</commission>
+              <commission>` + commission + `</commission>
               <idAccountEnvoyeur>` + idAccountEnvoyeur + `</idAccountEnvoyeur>
               <idAccountBeneficiary>` + idAccountBeneficiary + `</idAccountBeneficiary>
             </run:W2WVirementAccount>

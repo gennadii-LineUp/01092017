@@ -26,7 +26,7 @@ export class TransferDargentComponent implements OnInit {
               public errorMessageHandlerService: ErrorMessageHandlerService) { }
 
   ngOnInit() {
-   // this.userDataService.setMyAccounts();
+    this.userDataService.setMyAccounts();
   }
 
 
@@ -35,6 +35,7 @@ export class TransferDargentComponent implements OnInit {
     this.clearSearch();
     this.newReceiver = this.userDataService.beneficiaires[0];
     this.myAccount = myAccount;
+    console.log(myAccount);
     const allItems: NodeListOf<Element> = window.document.querySelectorAll('div.consult-user');
     for (let i = 0; i < allItems.length; i++) {
       allItems[i].className = 'consult-user';
@@ -60,7 +61,7 @@ export class TransferDargentComponent implements OnInit {
     this.errorMessage = '';
 
     console.log(this.myAccount);
-    this.w2COrdreRetraitService.transferDargent(this.myAccount.login, this.amountToReceiver, this.newReceiver)
+    this.w2COrdreRetraitService.transferDargent(this.myAccount.telephone, this.amountToReceiver, this.newReceiver)
       .subscribe(result => {
         this.loading = false;
         console.log(result._body);

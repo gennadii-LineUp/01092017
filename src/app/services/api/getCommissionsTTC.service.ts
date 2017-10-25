@@ -11,7 +11,6 @@ export class GetCommissionsTTCService {
 
   public getCommission(montant: number, commission_service: string): Observable<any> {
     const token = localStorage.token;
-    // const commission_service = 'C2W';
     const commission_type = 'NORMAL';
 
 
