@@ -4,8 +4,8 @@ import {CommonServices} from '../../../../services/common.service';
 import {UserDataService} from '../../../../models/user-data';
 import {ErrorMessageHandlerService} from '../../../../services/error-message-handler.service';
 import {GetCommissionsTTCService} from '../../../../services/api/getCommissionsTTC.service';
-import {C2WDepotTransactionService} from 'app/services/api/C2WDepotTransaction.service';
 import {EnvoyeurClass} from '../../../../models/envoyeur-class';
+import {C2WDepotTransactionService} from '../../../../services/api/C2WDepotTransaction.service';
 
 @Component({
   selector: 'app-services-depot-citizen',
