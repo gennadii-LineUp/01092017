@@ -148,9 +148,11 @@
             <h3>Select citizen’s account</h3>
             <div class="floating-block border-hover">
               <!--Need to hide this item when input empty, when input have value: show angle, onclick angle show right drop -->
-              <div class="orange-angle" style="display: block;"><i class="fa fa-angle-right" aria-hidden="true"></i></div>
-              <div class="floating-input">
-                <input id="firstname2" name="firstname2" placeholder="Type here" required="" readonly type="text" [(ngModel)]="receiverToFind">
+              <!--<div class="orange-angle" style="display: block;"><i class="fa fa-angle-right" aria-hidden="true"></i></div>-->
+              <div class="floating-input search-wrapper">
+                <input id="firstname2" name="firstname2" placeholder="Type here" readonly
+                       style="border-bottom: 2px solid white; padding-left: 15px"
+                       type="text" [(ngModel)]="receiverToFind">
               </div>
             </div>
             <div *ngIf="createNewReceiver" class="help">It seems we don’t have this number in the citizen database.
