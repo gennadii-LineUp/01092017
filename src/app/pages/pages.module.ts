@@ -106,7 +106,8 @@ import {CustomerProfilePageComponent} from './customer/menu-top/customer-profile
         AServicesTransferComptePageComponent, AServicesConsultationSoldePageComponent, AServicesConsultationOperationsPageComponent,
         AServicesGeolocalisationAgentPageComponent, AServicesBankToWalletPageComponent, AServicesDepotCitizenPageComponent,
         AServicesDepotClientPageComponent, AServicesManageAdminCitizenPageComponent, AServicesRetraitCodePageComponent,
-        CServicesPageComponent
+        CServicesPageComponent,
+
 
     ],
     imports: [
@@ -144,7 +145,8 @@ import {CustomerProfilePageComponent} from './customer/menu-top/customer-profile
       AServicesTransferComptePageComponent, AServicesConsultationSoldePageComponent, AServicesConsultationOperationsPageComponent,
       AServicesGeolocalisationAgentPageComponent, AServicesBankToWalletPageComponent, AServicesDepotCitizenPageComponent,
       AServicesDepotClientPageComponent, AServicesManageAdminCitizenPageComponent, AServicesRetraitCodePageComponent,
-      CServicesPageComponent
+      CServicesPageComponent,
+
     ],
     providers: [],
     bootstrap: [AppComponent]

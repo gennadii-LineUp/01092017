@@ -9,11 +9,12 @@
     padding: 0 !important;
     font-size: 1.4rem;
     color: $mainText;
-    background-color: #fff;
+    //background-color: #fff;
     margin-bottom: 60px;
   }
   &__header {
     color: $mainText;
+    background-color: #fff;
     font-size: 1.4rem;
     font-family: $sf;
     padding: 17px 21px 3px 21px;
@@ -120,3 +121,37 @@
     font-size: 1.4rem;
   }
 }
+
+.accordionWrapper .accordionItemHeading {
+   border-bottom: none;
+}
+
+.accordionItem {
+  background-color: #f7f7ff;
+  i {
+    display: none;
+  }
+  &.open,
+  &:hover {
+    background-color: #fff;
+    i {
+      display: block;
+    }
+  }
+  &.send-request,
+  &:hover {
+    background-color: #fff;
+    i {
+      display: block;
+    }
+  }
+
+}
+
+.accordionItem close-item send-request{
+  background-color: #fff;
+  i {
+    display: block;
+  }
+}
+

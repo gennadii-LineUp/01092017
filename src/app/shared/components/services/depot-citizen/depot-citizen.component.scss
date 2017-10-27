@@ -1,18 +1,13 @@
 @import "../../../../../assets/sass/variables";
 
 .depot-sitizen {
-  h3 {
-    text-align: left;
-    font-size: 1.6rem;
-    font-family: $raleSM;
-    padding: 0;
-  }
   .blue-button__wrapper {
     background-color: #fff;
     .blue-button {
       width: 100%;
       max-width: 335px;
       display: block;
+      height: 55px;
       min-height: 55px;
       line-height: 55px;
       margin: 0 auto 20px;
@@ -35,11 +30,11 @@
   .block__header {
     display: flex;
     justify-content: space-between;
-     span {
-       color: #636363;
-       font-family: $raleL;
-       padding-left: 10px;
-     }
+    span {
+      color: #636363;
+      font-family: $raleL;
+      padding-left: 10px;
+    }
   }
   .amount {
     display: flex;
@@ -49,10 +44,18 @@
   .content {
     padding: 18px;
     &.search {
-      padding: 18px 0;
+      padding: 0;
+    }
+    h3 {
+      text-align: left;
+      font-size: 1.6rem;
+      font-family: $raleSM;
+      padding: 0;
     }
     .floating-block input {
       padding-left: 0;
+      height: 40px;
+      min-height: 40px;
     }
     .blue-button {
       width: 100%;
@@ -67,6 +70,7 @@
       border-top: 2px solid $lightGrayBg;
       .create {
         color: #0095fd;
+        cursor: pointer;
       }
       > span {
         display: block;
@@ -88,5 +92,17 @@
         align-items: flex-end;
       }
     }
+  }
+  .right-drop {
+    display: block;
+    right: auto;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+  }
+  .floating-block .orange-angle {
+    height: 40px;
+    line-height: 40px;
   }
 }

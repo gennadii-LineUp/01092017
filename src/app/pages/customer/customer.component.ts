@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-customer',
   template: `
     <app-header-all-users [userRole]="customer"></app-header-all-users>
-    <app-navbar-for-delete></app-navbar-for-delete>
+    <!--<app-navbar-for-delete></app-navbar-for-delete>-->
     <router-outlet></router-outlet>`,
   styles: [``]
 })

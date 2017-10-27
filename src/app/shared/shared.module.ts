@@ -17,7 +17,7 @@ import { VirementsMultiplesComponent } from './components/services/virements-mul
 import { VirementsVersBanqueComponent } from './components/services/virements-vers-banque/virements-vers-banque.component';
 import { PaiementsComponent } from './components/services/paiements/paiements.component';
 import { ServicesAgentComponent } from './components/services/services/services-agent/services-agent.component';
-import { ServicesCustCitizComponent } from './components/services/services/services-cust-citiz/services-cust-citiz.component';
+import { ServicesCustComponent } from './components/services/services/services-cust/services-cust.component';
 import { ConsultationSoldeComponent } from './components/services/consultation-solde/consultation-solde.component';
 import { DepotCitizenComponent } from './components/services/depot-citizen/depot-citizen.component';
 import { DepotClientComponent } from './components/services/depot-client/depot-client.component';
@@ -29,6 +29,10 @@ import { ConsultationOperationsComponent } from './components/services/consultat
 import { GeolocalisationAgentComponent } from './components/services/geolocalisation-agent/geolocalisation-agent.component';
 import { BankToWalletComponent } from './components/services/bank-to-wallet/bank-to-wallet.component';
 import { ProfileComponent } from './components/menu-top/profile/profile.component';
+import {ServicesCitizComponent} from './components/services/services/services-citiz/services-citiz.component';
+import {OnlyNumberDirective} from './directives/only-number-directive';
+import {FormatTextByThreeCharPipe} from './pipes/formatTextByThreeChar.pipe';
+import {DebitCreditPipe} from './pipes/debitCredit.pipe';
 
 
 @NgModule({
@@ -45,12 +49,14 @@ import { ProfileComponent } from './components/menu-top/profile/profile.componen
     CancellationComponent,
     RefundPolicyComponent,
     NavbarForDeleteComponent,
-    ServicesAgentComponent, ServicesCustCitizComponent,
+    ServicesAgentComponent, ServicesCustComponent, ServicesCitizComponent,
     ConsultationSoldeComponent, DepotCitizenComponent, DepotClientComponent, RetraitCodeComponent,
     ManageAdminCitizenComponent, TransferDargentComponent, TransferCompteComponent, ConsultationOperationsComponent,
     GeolocalisationAgentComponent, BankToWalletComponent, VirementsVersBanqueComponent, VirementsMultiplesComponent,
     PaiementsComponent,
     ProfileComponent,
+    DebitCreditPipe,
+    FormatTextByThreeCharPipe
 
   ],
   exports: [
@@ -63,13 +69,14 @@ import { ProfileComponent } from './components/menu-top/profile/profile.componen
     CancellationComponent,
     RefundPolicyComponent,
     NavbarForDeleteComponent,
-    ServicesAgentComponent, ServicesCustCitizComponent,
+    ServicesAgentComponent, ServicesCustComponent, ServicesCitizComponent,
     ConsultationSoldeComponent, DepotCitizenComponent, DepotClientComponent, RetraitCodeComponent,
     ManageAdminCitizenComponent, TransferDargentComponent, TransferCompteComponent, ConsultationOperationsComponent,
     GeolocalisationAgentComponent, BankToWalletComponent, VirementsVersBanqueComponent, VirementsMultiplesComponent,
     PaiementsComponent,
-    ProfileComponent
-  ],
+    ProfileComponent,
+    DebitCreditPipe,
+    FormatTextByThreeCharPipe  ],
   providers: [
 
   ],

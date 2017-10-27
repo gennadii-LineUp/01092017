@@ -6,10 +6,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./depot-client.component.scss']
 })
 export class DepotClientComponent implements OnInit {
+  amount_depotClient: number;
 
   constructor() { }
 
   ngOnInit() {
   }
+
+  public clearAmount() {this.amount_depotClient = undefined; }
+
+  public submitFunction() {
+    console.log(this.amount_depotClient);
+  }
+
 
 }

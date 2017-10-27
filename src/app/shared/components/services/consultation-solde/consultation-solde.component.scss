@@ -12,6 +12,7 @@
     color: $mainText;
     font-size: 1.4rem;
     font-family: $sf;
+    background-color: #fff;
     padding: 17px 21px 3px 21px;
     border-bottom: 2px solid $lightGrayBg;
   }
@@ -102,5 +103,30 @@
         padding-right: 5px;
       }
     }
+  }
+}
+
+.accordionItem {
+  background-color: #f7f7ff;
+  i {
+    display: none;
+  }
+  &.open,
+  &:hover {
+    background-color: #fff;
+    i {
+      display: block;
+    }
+  }
+}
+
+.accordionWrapper .accordionItemHeading {
+  border-bottom: none;
+}
+
+.left-angle {
+  margin-top: 0;
+  i {
+    padding: 0 12px;
   }
 }

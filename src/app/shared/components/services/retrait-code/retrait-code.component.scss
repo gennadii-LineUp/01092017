@@ -5,8 +5,8 @@
     justify-content: center;
     > div {
       padding: 0;
-      background-color: #fff;
       &:first-child + div {
+        background-color: #fff;
         &:after {
           top: 0;
           content: '';
@@ -19,6 +19,7 @@
     }
   }
   &__header {
+    background-color: #fff;
     color: #414141;
     font-size: 1.4rem;
     font-family: $sf;
@@ -26,6 +27,7 @@
     border-bottom: 1px solid $line;
   }
   &__content {
+    background-color: #fff;
     padding: 15px 20px;
     &.info {
       padding: 0 20px;
@@ -42,6 +44,7 @@
       font-size: 1.4rem;
       font-family: $raleM;
       padding: 15px 0;
+      position: absolute;
     }
     input {
       color: #414141;
@@ -82,7 +85,7 @@
       height: 55px;
       line-height: 55px;
       width: 100%;
-      margin-top: 20px;
+      margin-top: 16px;
     }
     .info-item {
       margin: 15px 0 0 0;

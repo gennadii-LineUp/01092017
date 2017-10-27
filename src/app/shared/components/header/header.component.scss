@@ -276,3 +276,12 @@ header {
   color: $orange;
   transition: .2s all ease;
 }
+
+@media (max-width: 768px) {
+  .toolbar {
+    font-size: 1.4rem;
+    .sprite {
+      transform: scale(.8);
+    }
+  }
+}

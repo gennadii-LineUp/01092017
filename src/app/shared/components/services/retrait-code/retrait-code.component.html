@@ -3,37 +3,83 @@
     <div class="container">
       <h3>Retrait code</h3>
       <div class="row">
+
+
         <div class="col-sm-6 col-md-4">
-          <div class="retrail-code__header">Validate the retrait</div>
+          <div class="retrail-code__header"
+               (click)="retraitCode_errorMessage = !retraitCode_errorMessage">Validate the retrait</div>
           <div class="retrail-code__content">
             <h3>Insert code</h3>
-            <div class="floating-block border-hover">
+            <div *ngIf="!retraitCode_valid" class="floating-block border-hover">
               <div class="floating-input">
-                <input placeholder="Code" required="" type="text">
-                <div class="caption">The code is not in the system</div>
+                <input placeholder="Code" #mainInput type="text" [(ngModel)]="retraitCode" (keyup.enter)='submitFunction()' (ngModelChange)="clearSearch()">
+                <div *ngIf="retraitCode_errorMessage" class="caption">The code is not in the system</div>
               </div>
             </div>
-            <div class="floating-block border-hover validly">
+            <div *ngIf="retraitCode_valid" class="floating-block border-hover validly">
               <div class="floating-input">
-                <input placeholder="Code" required="" type="text">
-                <div class="caption">The code is not in the system</div>
+                <input placeholder="Code" #secondInput type="text" [(ngModel)]="retraitCode" (keyup.enter)='submitFunction()' (ngModelChange)="clearSearch()">
               </div>
             </div>
-            <button class="orange-button blue-button">Send</button>
+            <div *ngIf="errorMessage" class="errorTextClass">{{errorMessage}}</div>
+            <p *ngIf="!errorMessage" style="margin: 0; text-align: center; height: 16px"><img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>
+            <button class="orange-button blue-button"
+                    [disabled]="!retraitCode" type="submit"
+                    (click)="submitFunction()">Send</button>
           </div>
         </div>
-        <div class="col-sm-6 col-md-4">
-          <div class="retrail-code__header">Information</div>
+
+
+        <div *ngIf="retraitCode_valid" class="col-sm-6 col-md-4">
+          <div class="retrail-code__header">Information
+            <span style="float: right; margin-right: 20px">beneficiaire</span>
+          </div>
           <div class="retrail-code__content info">
             <div class="info-item">
               <b>Nom</b>
-              Clark Kent
-              <div class="code">000 111 222</div>
+              {{serverResponse.beneficiaire.nom}} {{serverResponse.beneficiaire.prenom}}
+              <div class="code" >{{retraitCode}}</div>
             </div>
-            <div class="info-item"><b>Montant</b>10</div>
-            <div class="info-item"><b>Phone</b>+ 14 (123) 154-456-11</div>
+            <div class="info-item"><b>Montant</b>{{serverResponse.montant}}</div>
+            <div class="info-item"><b>Date of transaction</b>{{serverResponse.date}}</div>
+            <div class="info-item"><b>Phone</b>{{serverResponse.beneficiaire.cellulaire}}</div>
           </div>
         </div>
+
+
+        <!--<div class="col-sm-6 col-md-4">-->
+          <!--<div class="retrail-code__header">Validate the retrait</div>-->
+          <!--<div class="retrail-code__content">-->
+            <!--<h3>Insert code</h3>-->
+            <!--<div class="floating-block border-hover">-->
+              <!--<div class="floating-input">-->
+                <!--<input placeholder="Code" required="" type="text">-->
+                <!--<div class="caption">The code is not in the system</div>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="floating-block border-hover validly">-->
+              <!--<div class="floating-input">-->
+                <!--<input placeholder="Code" required="" type="text">-->
+                <!--<div class="caption">The code is not in the system</div>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<button class="orange-button blue-button">Send</button>-->
+          <!--</div>-->
+        <!--</div>-->
+
+
+        <!--<div class="col-sm-6 col-md-4">-->
+          <!--<div class="retrail-code__header">Information</div>-->
+          <!--<div class="retrail-code__content info">-->
+            <!--<div class="info-item">-->
+              <!--<b>Nom</b>-->
+              <!--Clark Kent-->
+              <!--<div class="code">000 111 222</div>-->
+            <!--</div>-->
+            <!--<div class="info-item"><b>Montant</b>10</div>-->
+            <!--<div class="info-item"><b>Phone</b>+ 14 (123) 154-456-11</div>-->
+          <!--</div>-->
+        <!--</div>-->
       </div>
     </div>
   </section>

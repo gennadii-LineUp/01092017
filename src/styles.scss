@@ -34,7 +34,7 @@ body {
 }
 
 main {
-  min-height: 300px;
+  min-height: 320px;
   padding-bottom: 20px;
   /*overflow: overlay;
   min-height: calc(100vh - 350px);*/
@@ -272,6 +272,31 @@ footer {
   }
 }
 
+span.successMessage{
+  color: $blue;
+}
+
+.left-angle {
+  margin-right: 100%;
+  cursor: pointer;
+  margin-top: 10px;
+  font: normal normal normal 14px/1 FontAwesome;
+  i {
+    padding: 0 4px 4px 0;
+  }
+  &:hover{
+    color: $orange;
+  }
+}
+
+.errorTextClass {
+  color: #fe2323;
+  font-size: 1.4rem;
+  font-family: "RalewayMedium", sans-serif;
+  //padding: 15px 0;
+  width: 100%;
+}
+
 .right-drop {
   top: -8px;
   right: -398px;
@@ -322,6 +347,17 @@ footer {
     text-align: center;
     margin-bottom: 0;
   }
+}
+
+div.additional-info{
+  position: absolute;
+  z-index: 100;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.2rem;
+  top: 56px;
+  //color: #bababa;
+  font-family: RalewayMedium,sans-serif;
 }
 
 input[type=radio] {
@@ -403,6 +439,15 @@ button[disabled] {
   &:hover {
     background-color: $disabled;
     cursor: default;
+  }
+}
+
+.disabled-class {
+  color: $disabled !important;
+  cursor: default !important;
+  &:hover {
+    color: $disabled !important;
+    cursor: default !important;
   }
 }
 
@@ -718,22 +763,22 @@ input[type=checkbox]:checked + label:after {
         color: #161616;
         font-size: 1.4rem;
         font-family: $raleM;
-        + div {
-          color: $blueBright;
-          font-size: 1.2rem;
-          min-width: 45px;
-          font-family: $raleSM;
-          text-align: center;
-          height: 40px;
-          line-height: 55px;
-          cursor: pointer;
-        }
         input {
           padding-left: 0 !important;
         }
         .floating-desc {
           min-width: 170px;
         }
+      }
+      .pass_save {
+        color: $blueBright;
+        font-size: 1.2rem;
+        min-width: 45px;
+        font-family: $raleSM;
+        text-align: center;
+        height: 40px;
+        line-height: 55px;
+        cursor: pointer;
       }
     }
     .radio-wrapper {
@@ -993,9 +1038,9 @@ input[type=checkbox]:checked + label:after {
     }
   }
   img {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
+    //width: 30px;
+    //height: 30px;
+    //border-radius: 50%;
   }
   .tel {
     color: #afafaf;
@@ -1029,3 +1074,9 @@ input[type=checkbox]:checked + label:after {
 ///////////////////////////////////////////////////////////////////////
 //   _sitizen.scss   END
 ///////////////////////////////////////////////////////////////////////
+
+@media (max-width: 576px) {
+  main {
+    padding: 0 10px;
+  }
+}

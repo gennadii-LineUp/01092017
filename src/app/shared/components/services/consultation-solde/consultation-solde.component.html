@@ -3,35 +3,25 @@
     <div class="container">
       <h3>Consultation Solde</h3>
       <div class="row">
-        <div class="col-md-4 ml-md-auto mr-md-auto consult-sold__wrapper">
-          <div class="consult-sold__header">Chose account</div>
+        <div class="col-md-6 col-lg-4 ml-md-auto mr-md-auto consult-sold__wrapper">
+          <div class="consult-sold__header">Choose account</div>
           <div class="accordionWrapper">
-            <div class="accordionItem close-item" (click)="commonServices.accordionToggleItemFunction($event); $event.stopPropagation()">
-              <div class="consult-user accordionItemHeading">
-                <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
-                <div>
-                  <div>Lex Luthor</div>
-                  <div>Email: <span class="mail">lexluthor@gmail.com</span></div>
-                </div>
-                <i class="fa fa-angle-right" aria-hidden="true"></i>
-              </div>
-              <div class="accordionItemContent" (click)="$event.stopImmediatePropagation()">
-                <button class="orange-button blue-button" (click)="showRequestResultFunction()">Send a request</button>
-              </div>
-            </div>
-
-            <div class="accordionItem close-item" (click)="commonServices.accordionToggleItemFunction($event); $event.stopPropagation()">
-              <div class="consult-user accordionItemHeading">
-                <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
-                <div>
-                  <div>Lex Luthor</div>
-                  <div>Email: <span class="mail">lexluthor@gmail.com</span></div>
-                </div>
-                <i class="fa fa-angle-right" aria-hidden="true"></i>
-              </div>
-              <div class="accordionItemContent" (click)="$event.stopImmediatePropagation()">
-                <button class="orange-button blue-button" (click)="showRequestResultFunction()">Send a request</button>
-              </div>
+            <div *ngFor="let myAccount of userDataService.myAccounts" class="accordionItem close-item"
+                 (click)="commonServices.accordionToggleItemFunction($event); $event.stopPropagation(); chooseAccount(myAccount)">
+                      <div class="consult-user accordionItemHeading">
+                        <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
+                        <div>
+                          <div>{{myAccount.nom}} {{myAccount.prenom}}</div>
+                          <div>Email: <span class="mail">{{myAccount.email}}</span></div>
+                        </div>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                      </div>
+                      <div class="accordionItemContent" (click)="$event.stopImmediatePropagation()">
+                        <div *ngIf="errorMessage" class="errorTextClass">{{errorMessage}}</div>
+                        <p *ngIf="!errorMessage" style="margin: 0; text-align: center"><img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>
+                        <button class="orange-button blue-button" type="submit" style="margin-top: 4px"
+                                (click)="submitSoldeFunction()">Send a request</button>
+                      </div>
             </div>
           </div>
         </div>
@@ -45,32 +35,35 @@
       <h3>Consultation Solde</h3>
       <div class="row">
         <div class="col-md-4 ml-md-auto mr-md-auto wrapper">
-          <div class="little-title">Latest transactions</div>
+          <div *ngIf="transactions_history.length" class="little-title">Latest transactions</div>
           <div class="consult-sold-history__user">
             <div>
               <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
               <div>
                 <div>Lex Luthor</div>
-                <div class="card-data"><span>****</span><span>****</span><span>****</span><span>1212</span></div>
+                <div class="card-data"   style="color: red"><span style="color: red">****</span><span>****</span><span>****</span><span style="color: red">1212</span></div>
               </div>
             </div>
-            <div class="balance"><b>1200.25</b> USD</div>
+            <div class="balance"><b>{{solde | number : '1.2-2'}}</b> USD</div>
           </div>
-          <div class="little-title history">History</div>
-          <div class="history-item">
-            <div><span>11.12.2017</span><span>11:12</span></div>
-            <div>
-              <div class="card-data"><span>****</span><span>****</span><span>****</span><span>1212</span></div>
-              <div class="balance"><b>919.25</b> USD</div>
+          <div *ngIf="errorMessagHistory" class="errorTextClass">{{errorMessagHistory}}</div>
+          <p *ngIf="!errorMessagHistory" style="margin: 0; text-align: center"><img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>
+
+          <div *ngIf="transactions_history.length">
+            <div class="little-title history">History <span class="float-right">({{totalOperations}} operations)</span></div>
+            <div *ngFor="let tr of transactions_history" class="history-item">
+              <div  style="color: red"><span>11.12.2017</span><span>11:12</span></div>
+              <div>
+                <div class="card-data"  style="color: red"><span style="color: red">****</span><span>****</span><span>****</span><span>1212</span></div>
+                <div class="balance"><b>{{tr.sens | debitCreditSign}}{{tr.montant | number : '1.2-2'}}</b> USD</div>
+              </div>
             </div>
           </div>
-          <div class="history-item">
-            <div><span>11.12.2017</span><span>11:12</span></div>
-            <div>
-              <div class="card-data"><span>****</span><span>****</span><span>****</span><span>1212</span></div>
-              <div class="balance"><b>919.25</b> USD</div>
-            </div>
+
+          <div class="orange-angle left-angle" style="display: block; width: 100%; text-align: center" (click)="submitSoldeFunction()">
+            <i class="fa fa-angle-left fa-3x" aria-hidden="true"></i>
           </div>
+
         </div>
       </div>
     </div>
@@ -78,19 +71,3 @@
 
 </main>
 
-<script>
-//  var accItem = document.getElementsByClassName('accordionItem');
-//  var accHD = document.getElementsByClassName('accordionItemHeading');
-//  for (var i = 0; i < accHD.length; i++) {
-//    accHD[i].addEventListener('click', toggleItem, false);
-//  }
-//  function toggleItem() {
-//    var itemClass = this.parentNode.className;
-//    for (var i = 0; i < accItem.length; i++) {
-//      accItem[i].className = 'accordionItem close-item';
-//    }
-//    if (itemClass == 'accordionItem close-item') {
-//      this.parentNode.className = 'accordionItem open';
-//    }
-//  }
-</script>
