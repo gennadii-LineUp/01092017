@@ -142,6 +142,7 @@ footer {
   .floating-input {
     width: 100%;
     position: relative;
+    margin-bottom: 20px;
     input {
       color: #121212;
       min-height: 50px;
@@ -957,6 +958,30 @@ input[type=checkbox]:checked + label:after {
   }
 }
 
+.compte_finder {
+  background-color: #fff;
+  input {
+    padding-left: 0;
+  }
+  .header {
+    font-size: 14px;
+    border-bottom: 1px solid $line;
+    font-family: $sf;
+    padding: 17px 0 9px 21px;
+  }
+  .content {
+    padding: 23px 20px;
+    //padding-bottom: 8px;
+  }
+  h4 {
+    font-size: 16px;
+    font-family: $raleSM;
+    margin: 5px 0 10px;
+  }
+  &__wrapper {
+    background-color: #fff;
+  }
+}
 
 .search-wrapper {
   font-size: 1.6rem;

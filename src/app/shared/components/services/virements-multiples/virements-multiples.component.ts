@@ -8,6 +8,11 @@ import {CommonServices} from '../../../../services/common.service';
   styleUrls: ['./virements-multiples.component.scss']
 })
 export class VirementsMultiplesComponent implements OnInit {
+  errorMessage_contract = '';
+  loading_contract = true;
+  contract_to_find = true;
+  contract_found = true;
+
   amount_virementsMultiples: number;
   receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 1, 'citizen'),
               new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 2, 'citizen'),
