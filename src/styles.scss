@@ -962,6 +962,8 @@ input[type=checkbox]:checked + label:after {
   background-color: #fff;
   input {
     padding-left: 0;
+    padding-left: 12px !important;
+    padding-right: 16px !important;
   }
   .header {
     font-size: 14px;

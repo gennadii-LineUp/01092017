@@ -9,9 +9,11 @@ import {CommonServices} from '../../../../services/common.service';
 })
 export class VirementsMultiplesComponent implements OnInit {
   errorMessage_contract = '';
-  loading_contract = true;
+  loading_contract = false;
   contract_to_find = true;
   contract_found = true;
+  contract_number: string;
+  forIdReceiver = 'receiver';
 
   amount_virementsMultiples: number;
   receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 1, 'citizen'),
@@ -21,10 +23,28 @@ export class VirementsMultiplesComponent implements OnInit {
 
   constructor(public commonServices: CommonServices) {}
 
-  ngOnInit() {}
+  ngOnInit() {this.gotoContractToFindFunction(); }
 
+
+  public findContractFunction() {
+    console.log(this.contract_number);
+    setTimeout(() => {this.gotoContractFoundFunction()}, 100)
+  }
 
   public clearAmount() {this.amount_virementsMultiples = undefined; }
+  public clearIndividualAmount(e: any) {
+    e.target.previousElementSibling.value = '';
+    console.dir(e.target.previousElementSibling.value);
+  }
+  public gotoContractToFindFunction() {
+    this.contract_to_find = true;
+    this.contract_found = false;
+    this.contract_number = undefined;
+  }
+  public gotoContractFoundFunction() {
+    this.contract_to_find = false;
+    this.contract_found = true;
+  }
 
   public submitFunction() {
     console.dir(this.commonServices.getSelectedReceivers());
