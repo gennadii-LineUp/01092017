@@ -64,7 +64,7 @@ export class CommonServices {
     const allItems: NodeListOf<Element> = window.document.querySelectorAll('div.search__user.active');
     this.selectedReceivers = [];
     for (let i = 0; i < allItems.length; i++) {
-      this.selectedReceivers.push(+allItems[i].id);
+      this.selectedReceivers.push(allItems[i].id);
     }
   }
 

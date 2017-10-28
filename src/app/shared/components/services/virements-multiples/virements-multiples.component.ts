@@ -14,12 +14,16 @@ export class VirementsMultiplesComponent implements OnInit {
   contract_found = true;
   contract_number: string;
   forIdReceiver = 'receiver';
+  arrayToSend = [];
 
   amount_virementsMultiples: number;
   receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 1, 'citizen'),
               new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 2, 'citizen'),
               new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 3, 'citizen')];
   selectedReceivers = [];
+  contracts = [{number: 'BD012345678910', conract_id: 15},
+               {number: 'PJ112233445511', conract_id: 16},
+               {number: 'OK998877664444', conract_id: 17}];
 
   constructor(public commonServices: CommonServices) {}
 
@@ -36,6 +40,10 @@ export class VirementsMultiplesComponent implements OnInit {
     e.target.previousElementSibling.value = '';
     console.dir(e.target.previousElementSibling.value);
   }
+  public chooseContractFunction(contract: any) {
+    this.contract_number = contract.number;
+    this.findContractFunction();
+  }
   public gotoContractToFindFunction() {
     this.contract_to_find = true;
     this.contract_found = false;
@@ -45,10 +53,21 @@ export class VirementsMultiplesComponent implements OnInit {
     this.contract_to_find = false;
     this.contract_found = true;
   }
+  public makeArrToSend() {
+    this.arrayToSend = [];
+    (this.commonServices.getSelectedReceivers()).forEach(item => {
+      const name = (item.split('receiver_'))[1];
+      const value = +(window.document.getElementById('amount_to_' + name) as HTMLInputElement).value;
+      this.arrayToSend.push({receiver: name, amount: value});
+    });
+    console.log(this.arrayToSend);
+  }
 
   public submitFunction() {
     console.dir(this.commonServices.getSelectedReceivers());
     console.log(this.amount_virementsMultiples);
+    this.makeArrToSend();
+
   }
 
 
