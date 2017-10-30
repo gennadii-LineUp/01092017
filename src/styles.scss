@@ -13,6 +13,10 @@ a:hover {
   text-decoration: none !important;
 }
 
+img {
+  max-width: 100%;
+}
+
 // For footer at bottom of page
 
 html {
@@ -35,8 +39,8 @@ body {
 
 main {
   min-height: 320px;
-  padding-bottom: 20px;
-  /*overflow: overlay;
+  /*padding-bottom: 20px;
+  overflow: overlay;
   min-height: calc(100vh - 350px);*/
 }
 
@@ -550,7 +554,7 @@ input[type=checkbox]:checked + label:after {
 .block__header {
   font-size: 14px;
   border-bottom: 2px solid $lightGrayBg;
-  padding: 17px 0 9px 21px;
+  padding: 17px 10px 9px 21px;
   font-family: $sf;
 }
 
@@ -643,7 +647,6 @@ input[type=checkbox]:checked + label:after {
 
 .accordionWrapper {
   .accordionItem {
-    border-bottom: 2px solid $lightGrayBg;
     &:last-child {
       border-bottom: none;
     }
@@ -653,7 +656,7 @@ input[type=checkbox]:checked + label:after {
     &.open {
       .accordionItemHeading {
         i {
-          transform: rotate(90deg);
+          transform: translateY(-50%) rotate(90deg);
           transition: .2s all ease;
         }
       }
@@ -706,7 +709,7 @@ input[type=checkbox]:checked + label:after {
         .toggleHeading {
           i {
             transition: .2s all ease;
-            transform: rotate(90deg);
+            transform: translateY(-50%) rotate(90deg);
           }
         }
       }
@@ -819,7 +822,9 @@ input[type=checkbox]:checked + label:after {
     }
   }
 
-  .accordionItem {
+  // TODO: Maybe needless copypast
+
+  /*.accordionItem {
     overflow: hidden;
     transition: .4s all ease;
     &.close-item:last-child {
@@ -847,7 +852,7 @@ input[type=checkbox]:checked + label:after {
         }
       }
     }
-  }
+  }*/
 }
 
 .consult-user {
@@ -1075,8 +1080,17 @@ input[type=checkbox]:checked + label:after {
 //   _sitizen.scss   END
 ///////////////////////////////////////////////////////////////////////
 
-@media (max-width: 576px) {
-  main {
-    padding: 0 10px;
+@media (max-width: 992px) {
+  .transfers-to-bank {
+    form {
+      display: block;
+      > div {
+        display: inline-block;
+        width: 100%;
+        &:not(:last-child) {
+          margin-right: 0;
+        }
+      }
+    }
   }
 }
