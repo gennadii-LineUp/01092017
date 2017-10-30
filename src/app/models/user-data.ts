@@ -74,16 +74,15 @@ export class UserDataService {
 
   public checkUserRole(): boolean {
     const active_profil = this.user.profil;
-    console.log(active_profil);
     if (active_profil) {   // after login succes
       if (localStorage.profil) {
-        if (active_profil !== localStorage.profil) {console.log('_1_ please re-login !!!'); }
+        if (active_profil !== localStorage.profil) {this.logOut(); }
       }
-      if (active_profil === 'AGENT') {console.log('2'); return true; }
-      console.log('3'); return false;
+      if (active_profil === 'AGENT') {return true; }
+      return false;
     } else { // after page refreshed
-      if (localStorage.profil && (localStorage.profil === 'AGENT')) {console.log('4'); return true; }
-      console.log('5'); return false;
+      if (localStorage.profil && (localStorage.profil === 'AGENT')) {return true; }
+      return false;
     }
   }
 
