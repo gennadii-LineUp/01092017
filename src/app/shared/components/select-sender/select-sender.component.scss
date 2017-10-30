@@ -1,0 +1,62 @@
+@import "../../../../assets/sass/variables";
+
+.virements-multiples {
+  &__header {
+    text-align: center;
+    font-size: 1.4rem;
+    position: relative;
+    padding: 17px 0 8px 0;
+    font-family: $sf;
+    background-color: #fff;
+    + .row {
+      margin-right: 0;
+      margin-left: 0;
+    }
+    span {
+      color: #bababa;
+      padding-left: 10px;
+      font-family: $sfL;
+    }
+    .blue-angle {
+      position: absolute;
+      right: 0;
+      top: 17px;
+    }
+  }
+  &__choose {
+    background-color: #fff;
+    .virements-multiples__header {
+      text-align: left;
+    }
+    &-item {
+      color: #2c2c2c;
+      font-family: $raleSM;
+      font-size: 1.4rem;
+      //padding-right: 20px;
+      //margin-left: 20px;
+      min-height: 75px;
+      border-bottom: 1px solid $line;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      span {
+        display: block;
+        color: #bababa;
+        font-family: $sf;
+      }
+      &.active,
+      &:hover {
+        .circle-check {
+          background-color: #00a1ff;
+        }
+        span {
+          color: #0095fd;
+        }
+      }
+    }
+    .virements-multiples__footer {
+      color: #00a9f2;
+
+    }
+  }
+}
