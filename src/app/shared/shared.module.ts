@@ -33,6 +33,7 @@ import {ServicesCitizComponent} from './components/services/services/services-ci
 import {OnlyNumberDirective} from './directives/only-number-directive';
 import {FormatTextByThreeCharPipe} from './pipes/formatTextByThreeChar.pipe';
 import {DebitCreditPipe} from './pipes/debitCredit.pipe';
+import { SelectSenderComponent } from './components/select-sender/select-sender.component';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import {DebitCreditPipe} from './pipes/debitCredit.pipe';
     PaiementsComponent,
     ProfileComponent,
     DebitCreditPipe,
-    FormatTextByThreeCharPipe
+    FormatTextByThreeCharPipe,
+    SelectSenderComponent
 
   ],
   exports: [
@@ -76,7 +78,7 @@ import {DebitCreditPipe} from './pipes/debitCredit.pipe';
     PaiementsComponent,
     ProfileComponent,
     DebitCreditPipe,
-    FormatTextByThreeCharPipe  ],
+    FormatTextByThreeCharPipe, SelectSenderComponent  ],
   providers: [
 
   ],

@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import {Subject} from 'rxjs/Subject';
 import {ReceiverClass} from './receiver-class';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class UserDataService {
   user = new ReceiverClass('', '', '', '', 0, '');
-
+  sender_default = [new ReceiverClass('skype', 'gena_ukr79', '', '', 0, '')];
 
   myAccounts = [
     { telephone: '4', nom: 'Lex', prenom: 'Luthor', email: 'lexluthor@gmail.com', account_id: 3 },
@@ -32,6 +33,8 @@ export class UserDataService {
   caseNumber$ = this.caseNumber.asObservable();
 
 
+  constructor(public router: Router) {}
+
   public setMyAccounts() {
     this.myAccounts.forEach(myAccount => { myAccount.telephone = this.getUser().telephone; });
     console.log(this.myAccounts);
@@ -42,7 +45,7 @@ export class UserDataService {
   }
 
 
-  publishData(data: Object) {
+  public publishData(data: Object) {
     this.caseNumber.next(data);
   }
 
@@ -64,7 +67,30 @@ export class UserDataService {
     return this.user;
   }
 
+  public getSender_default(): any {
+    return this.sender_default;
+  }
 
 
+  public checkUserRole(): boolean {
+    const active_profil = this.user.profil;
+    console.log(active_profil);
+    if (active_profil) {   // after login succes
+      if (localStorage.profil) {
+        if (active_profil !== localStorage.profil) {console.log('_1_ please re-login !!!'); }
+      }
+      if (active_profil === 'AGENT') {console.log('2'); return true; }
+      console.log('3'); return false;
+    } else { // after page refreshed
+      if (localStorage.profil && (localStorage.profil === 'AGENT')) {console.log('4'); return true; }
+      console.log('5'); return false;
+    }
+  }
 
+
+  public logOut() {
+    this.router.navigate(['/authorisation']);
+    localStorage.clear();
+    this.user = new ReceiverClass('', '', '', '', 0, '');
+  }
 }
