@@ -18,8 +18,11 @@ export class ConsultationOperationsComponent implements OnInit {
   totalOperations = 0;
   showTransactions = false;
   currentAccount = this.userDataService.myAccounts[0];
+  profileAsAgent = this.userDataService.checkUserRole();
+  sender = [this.userDataService.getSender_default()];
 
-    constructor(public commonServices: CommonServices,
+
+  constructor(public commonServices: CommonServices,
                 public userDataService: UserDataService,
                 public errorMessageHandlerService: ErrorMessageHandlerService,
                 public getOperationService: GetOperationService) { }
@@ -67,8 +70,14 @@ export class ConsultationOperationsComponent implements OnInit {
       return arr;
     }
 
+  public setSenderFunction(sender: any) {
+    this.sender.push(sender);
+    console.log(this.sender);
+    this.profileAsAgent = false;
+  }
 
-    public chooseAccount(currentAccount: any) {
+
+  public chooseAccount(currentAccount: any) {
       this.clearAll();
       this.currentAccount = currentAccount;
       console.log(this.currentAccount);

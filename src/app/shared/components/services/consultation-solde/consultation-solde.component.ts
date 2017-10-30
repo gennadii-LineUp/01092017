@@ -19,6 +19,8 @@ export class ConsultationSoldeComponent implements OnInit {
   totalOperations = 0;
   transactions_history = [];
   currentAccount = this.userDataService.myAccounts[0];
+  profileAsAgent = this.userDataService.checkUserRole();
+  sender = [this.userDataService.getSender_default()];
 
   showRequestResult = false;
 
@@ -80,6 +82,12 @@ export class ConsultationSoldeComponent implements OnInit {
     this.clearAll();
     this.currentAccount = currentAccount;
     console.log(this.currentAccount);
+  }
+
+  public setSenderFunction(sender: any) {
+    this.sender.push(sender);
+    console.log(this.sender);
+    this.profileAsAgent = false;
   }
 
 

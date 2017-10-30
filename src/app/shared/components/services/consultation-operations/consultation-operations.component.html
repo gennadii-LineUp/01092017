@@ -3,7 +3,12 @@
         <div class="container">
             <h3>Consultation operations</h3>
             <div class="row">
-                <div class="col-md-6 col-lg-4 consult-oper__wrapper">
+                <div *ngIf="profileAsAgent" class="col-md-6 col-lg-4">
+                  <app-select-sender (senderDefined)="setSenderFunction($event)"></app-select-sender>
+                </div>
+
+
+                <div *ngIf="!profileAsAgent" class="col-md-6 col-lg-4 consult-oper__wrapper">
                     <div class="consult-oper__header">Choose account</div>
                     <div class="accordionWrapper">
                         <div *ngFor="let myAccount of userDataService.myAccounts" class="accordionItem close-item"

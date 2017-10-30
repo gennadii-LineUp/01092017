@@ -13,6 +13,8 @@ import {ErrorMessageHandlerService} from '../../../../services/error-message-han
 })
 export class TransferDargentComponent implements OnInit {
   loading = false;
+  profileAsAgent = this.userDataService.checkUserRole();
+  sender = [this.userDataService.getSender_default()];
   myAccount: any;
   newReceiver = this.userDataService.beneficiaires[0];
   amountToReceiver: number;
@@ -27,8 +29,23 @@ export class TransferDargentComponent implements OnInit {
 
   ngOnInit() {
     this.userDataService.setMyAccounts();
+
+    // this.checkUserRole();
   }
 
+
+  // public checkUserRole() {
+  //   const active_profil = this.userDataService.getUser().profil;
+  //   console.log(active_profil);
+  //   if (active_profil) {   // after login succes
+  //     if (active_profil === 'AGENT') {this.profileAsAgent = true; }
+  //     if (localStorage.profil) {
+  //       if (active_profil !== localStorage.profil) {console.log('_1_ please re-login !!!'); }
+  //     }
+  //   } else { // after page refreshed
+  //     if (localStorage.profil && (localStorage.profil === 'AGENT')) {this.profileAsAgent = true; }
+  //   };
+  // }
 
   public fillReceiverInfoFunction(myAccount: any, e: any) {
     // this.showReceiverInfo = false;
@@ -44,6 +61,12 @@ export class TransferDargentComponent implements OnInit {
 
     // setTimeout(() => { this.showReceiverInfo = true; }, 500);
     this.showReceiverInfo = true;
+  }
+
+  public setSenderFunction(sender: any) {
+    this.sender.push(sender);
+    console.log(this.sender);
+    this.profileAsAgent = false;
   }
 
   public discardReceiverInfoFunction() {

@@ -31,6 +31,9 @@ export class TransferCompteComponent implements OnInit {
   successMessage = '';
   errorMessage = '';
   commission = [];
+  profileAsAgent = this.userDataService.checkUserRole();
+  sender = [this.userDataService.getSender_default()];
+
   receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 18, 'citizen'),
     new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 19, 'citizen'),
     new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 20, 'citizen')];
@@ -87,6 +90,12 @@ export class TransferCompteComponent implements OnInit {
     // this.transfer_standart = false;
     // this.transfer_marchand = false;
     // this.transfer_facture = true;
+  }
+
+  public setSenderFunction(sender: any) {
+    this.sender.push(sender);
+    console.log(this.sender);
+    this.profileAsAgent = false;
   }
 
   public setBeneficiaryFunction(beneficiary: any) {
