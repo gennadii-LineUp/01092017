@@ -34,6 +34,7 @@ import {OnlyNumberDirective} from './directives/only-number-directive';
 import {FormatTextByThreeCharPipe} from './pipes/formatTextByThreeChar.pipe';
 import {DebitCreditPipe} from './pipes/debitCredit.pipe';
 import { SelectSenderComponent } from './components/select-sender/select-sender.component';
+import { SuccessMessageComponent } from './components/success-message/success-message.component';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { SelectSenderComponent } from './components/select-sender/select-sender.
     ProfileComponent,
     DebitCreditPipe,
     FormatTextByThreeCharPipe,
-    SelectSenderComponent
+    SelectSenderComponent,
+    SuccessMessageComponent,
 
   ],
   exports: [
@@ -78,7 +80,9 @@ import { SelectSenderComponent } from './components/select-sender/select-sender.
     PaiementsComponent,
     ProfileComponent,
     DebitCreditPipe,
-    FormatTextByThreeCharPipe, SelectSenderComponent  ],
+    FormatTextByThreeCharPipe, SelectSenderComponent,
+    SuccessMessageComponent
+  ],
   providers: [
 
   ],

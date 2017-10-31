@@ -41,7 +41,7 @@
                                     </span>
                             <h4>Amount</h4>
                             <div class="floating-block border-hover">
-                                <div class="floating-input">
+                                <div class="floating-input" style="margin-bottom: 0">
                                     <input id="amount" name="amount" placeholder="00.00" required="" type="text"
                                            [(ngModel)]="amountToReceiver" min="0.01"
                                            (keyup.enter)='submitTransferDargentFunction()'
@@ -69,21 +69,6 @@
         </div>
     </section>
 
-  <section *ngIf="successMessage" class="dargent">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-6 col-md-4">
-          <div class="dargent__wrapper">
-            <div class="block__header"
-                 style="margin-top: 26px; text-align: left; padding: 12px 8px 12px 23%; position: relative; border-bottom: 2px solid orange">
-              <img alt="logo" src="../../../../assets/img/logo.png"
-                   style=" width: 20%; position: absolute; left: 4px; top: 14px;">
-              <span class="successMessage">{{successMessage}}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <app-success-message [message_firstLine]="successMessage_1" [message_secondLine]="successMessage_2"></app-success-message>
 
 </main>

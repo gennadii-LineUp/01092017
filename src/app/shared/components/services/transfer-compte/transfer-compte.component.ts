@@ -28,7 +28,8 @@ export class TransferCompteComponent implements OnInit {
   newReceiver = new ReceiverClass('', '', '', '', undefined, '');
   amountToReceiver: number;
   showReceiverInfo = false;
-  successMessage = '';
+  successMessage_1 = '';
+  successMessage_2 = '';
   errorMessage = '';
   commission = [];
   profileAsAgent = this.userDataService.checkUserRole();
@@ -105,10 +106,10 @@ export class TransferCompteComponent implements OnInit {
 
 
   public submitTransferCompteFunction() {
-    this.loading = true;
-    this.successMessage = '';
+    this.successMessage_1 = '';
+    this.successMessage_2 = '';
     this.errorMessage = '';
-    this.commission = [];
+    this.loading = true;
 
     console.log(this.myAccount);
     console.log(this.amountToReceiver);
@@ -121,12 +122,11 @@ export class TransferCompteComponent implements OnInit {
 
         console.dir( response );
         if (+response.error === 0) {
-          this.errorMessage = response.message + ' - ' + response.commission;
           this.commission.push(+response.commission);
-          console.log(this.commission);
+          console.log(response.commission);
           /////////////////////////////
           this.w2WVirementAccountService.transferCompteStandart(this.amountToReceiver,
-                                                                this.commission[0],
+                                                                response.commission,
                                                                 this.myAccount.account_id,
                                                                 this.newReceiver.account_id)
             .subscribe(_result => {
@@ -136,10 +136,9 @@ export class TransferCompteComponent implements OnInit {
 
               console.dir( _response );
               if (+_response.error === 0) {
-                // this.showReceiverInfo = false;
-                // this.clearSearch();
-                // this.successMessage = response.message;
-                // this.discardReceiverInfoFunction();
+                this.errorMessage = '';
+                this.successMessage_1 = response.message + ' - ' + response.commission;
+                this.successMessage_2 = _response.message;
               } else {
                 this.errorMessage += '  ' + this.errorMessageHandlerService.getMessageEquivalent(_response.message);
               }
@@ -155,13 +154,16 @@ export class TransferCompteComponent implements OnInit {
           /////////////////////////////
         } else {
           this.loading = false;
-          this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
+          this.errorMessage = response.message + ' - ' + response.commission;
+          if (response.message) {this.errorMessage += this.errorMessageHandlerService.getMessageEquivalent(response.message); }
+          if (response.statusText) {this.errorMessage += this.errorMessageHandlerService.getMessageEquivalent(response.statusText); }
         }
 
       }, (err) => {
         this.loading = false;
         console.log(err);
-        this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+        if (err._body.type) {this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type); }
+        if (err.statusText) {this.errorMessage += this.errorMessageHandlerService.getMessageEquivalent(err.statusText); }
       });
 
   }
@@ -187,7 +189,8 @@ export class TransferCompteComponent implements OnInit {
   public clearSearch() {
     this.amountToReceiver = undefined;
     // this.newReceiver = new ReceiverClass('', '', '', '', undefined, '');
-    this.successMessage = '';
+    this.successMessage_1 = '';
+    this.successMessage_2 = '';
     this.errorMessage = '';
     this.commission = [];
   }

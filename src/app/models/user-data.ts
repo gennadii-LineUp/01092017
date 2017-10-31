@@ -36,7 +36,14 @@ export class UserDataService {
   constructor(public router: Router) {}
 
   public setMyAccounts() {
-    this.myAccounts.forEach(myAccount => { myAccount.telephone = this.getUser().telephone; });
+    this.myAccounts.forEach(myAccount => {
+      // if (this.getUser().telephone) {
+      //   myAccount.telephone = this.getUser().telephone;
+      // } else {
+      //   myAccount.telephone = localStorage.telephone;
+      // }
+      myAccount.telephone = (this.getUser().telephone) ?  this.getUser().telephone : localStorage.telephone;
+    });
     console.log(this.myAccounts);
   }
 

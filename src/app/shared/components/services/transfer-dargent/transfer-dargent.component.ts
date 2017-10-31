@@ -19,7 +19,8 @@ export class TransferDargentComponent implements OnInit {
   newReceiver = this.userDataService.beneficiaires[0];
   amountToReceiver: number;
   showReceiverInfo = false;
-  successMessage = '';
+  successMessage_1 = '';
+  successMessage_2 = '';
   errorMessage = '';
 
   constructor(public userDataService: UserDataService,
@@ -29,23 +30,8 @@ export class TransferDargentComponent implements OnInit {
 
   ngOnInit() {
     this.userDataService.setMyAccounts();
-
-    // this.checkUserRole();
   }
 
-
-  // public checkUserRole() {
-  //   const active_profil = this.userDataService.getUser().profil;
-  //   console.log(active_profil);
-  //   if (active_profil) {   // after login succes
-  //     if (active_profil === 'AGENT') {this.profileAsAgent = true; }
-  //     if (localStorage.profil) {
-  //       if (active_profil !== localStorage.profil) {console.log('_1_ please re-login !!!'); }
-  //     }
-  //   } else { // after page refreshed
-  //     if (localStorage.profil && (localStorage.profil === 'AGENT')) {this.profileAsAgent = true; }
-  //   };
-  // }
 
   public fillReceiverInfoFunction(myAccount: any, e: any) {
     // this.showReceiverInfo = false;
@@ -80,7 +66,8 @@ export class TransferDargentComponent implements OnInit {
 
   public submitTransferDargentFunction() {
     this.loading = true;
-    this.successMessage = '';
+    this.successMessage_1 = '';
+    this.successMessage_2 = '';
     this.errorMessage = '';
 
     console.log(this.myAccount);
@@ -94,7 +81,8 @@ export class TransferDargentComponent implements OnInit {
         if (+response.error === 0) {
           this.showReceiverInfo = false;
           this.clearSearch();
-          this.successMessage = response.message + '; \n code: ' + response.code;
+          this.successMessage_1 = response.message + ';';
+          this.successMessage_2 = 'code: ' + response.code;
           this.discardReceiverInfoFunction();
         } else {
           this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
@@ -112,7 +100,8 @@ export class TransferDargentComponent implements OnInit {
   public clearSearch() {
     this.amountToReceiver = undefined;
     this.newReceiver = new ReceiverClass('', '', '', '', 0, '');
-    this.successMessage = '';
+    this.successMessage_1 = '';
+    this.successMessage_2 = '';
     this.errorMessage = '';
   }
 

@@ -66,7 +66,7 @@
                       <div class="compte__amount">
                         <h4>Amount</h4>
                         <div class="floating-block border-hover">
-                          <div class="floating-input">
+                          <div class="floating-input" style="margin-bottom: 0">
                             <input id="amountFacture" name="amountFacture" placeholder="00.00" required type="text"
                                    [(ngModel)]="amountToReceiver" min="0.01"
                                    (keyup.enter)='submitTransferCompteFunction()'
@@ -140,7 +140,7 @@
                       <div class="compte__amount">
                         <h4>Amount</h4>
                         <div class="floating-block border-hover">
-                          <div class="floating-input">
+                          <div class="floating-input" style="margin-bottom: 0">
                             <input id="amountMarchand" name="amountMarchand" placeholder="00.00" required type="text"
                                    [(ngModel)]="amountToReceiver" min="0.01"
                                    (keyup.enter)='submitTransferCompteFunction()'
@@ -202,7 +202,7 @@
                       <div class="compte__amount">
                         <h4>Amount</h4>
                         <div class="floating-block border-hover">
-                          <div class="floating-input">
+                          <div class="floating-input" style="margin-bottom: 0">
                             <input id="amountStandart" name="amountStandart" placeholder="00.00" required type="text"
                                    [(ngModel)]="amountToReceiver" min="0.01"
                                    (keyup.enter)='submitTransferCompteFunction()'
@@ -236,4 +236,7 @@
 
         </div>
     </section>
+
+  <app-success-message [message_firstLine]="successMessage_1" [message_secondLine]="successMessage_2"></app-success-message>
+
 </main>

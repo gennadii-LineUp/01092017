@@ -11,7 +11,7 @@ export class W2WVirementAccountService {
 
 
   public transferCompteStandart(montant: number,
-                                commission: number,
+                                commission: string,
                                 idAccountEnvoyeur: number,
                                 idAccountBeneficiary: number): Observable<any> {
     const token = localStorage.token;
