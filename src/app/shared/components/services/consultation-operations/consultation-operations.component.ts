@@ -12,6 +12,7 @@ import {GetOperationService} from '../../../../services/api/GetOperation.service
 })
 export class ConsultationOperationsComponent implements OnInit {
   loading = false;
+  successMessage = '';
   errorMessage = '';
   solde: number;
   transactions_history = [];
@@ -30,8 +31,8 @@ export class ConsultationOperationsComponent implements OnInit {
     ngOnInit() {}
 
 
-    public sumitFunction(e: any) {
-      this.errorMessage = '';
+    public submitFunction(e: any) {
+      this.clearAll();
       this.loading = true;
       const _e = e.currentTarget.parentElement.parentElement;
       this.showTransactions = false;
@@ -41,14 +42,21 @@ export class ConsultationOperationsComponent implements OnInit {
           this.loading = false;
           const history = this.commonServices.xmlResponseParcer_complex( result._body );
           console.dir( history );
-          this.transactions_history = this.removeElementsWithEmptyAmount( history.operation );
-          this.totalOperations = this.transactions_history.length;
-          if (+history.error === 0 && this.transactions_history.length) {
-            this.solde = history.operation[0].soldeCompte;
+
+          if (+history.error === 0 && history.total) {
+            if (history.operation && +history.total > 0) {
+              this.transactions_history = this.removeElementsWithEmptyAmount( history.operation );
+              this.totalOperations = this.transactions_history.length;
+              this.solde = history.operation[0].soldeCompte;
+            }
+            if (+history.total === 0) {
+              this.successMessage = history.message;
+            }
             this.closeParentAccordionItem(_e);
             setTimeout(() => { this.showTransactions = true; }, 500);
           } else {
-            this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(history.errorMessage);
+            if (history.errorMessage) {this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(history.errorMessage); }
+            if (history.message) {this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(history.message); }
           }
           setTimeout(() => { this.commonServices.colorAmountDependOnValue('div.consult__item'); }, 10);
         }, (err) => {
@@ -78,6 +86,7 @@ export class ConsultationOperationsComponent implements OnInit {
 
 
   public chooseAccount(currentAccount: any) {
+      this.commonServices.accordionCloseAllItemsFunction();
       this.clearAll();
       this.currentAccount = currentAccount;
       console.log(this.currentAccount);
@@ -101,9 +110,12 @@ export class ConsultationOperationsComponent implements OnInit {
 
     public clearAll() {
       this.loading = false;
+      this.successMessage = '';
       this.errorMessage = '';
       this.solde = undefined;
       this.totalOperations = 0;
+      this.transactions_history = [];
+      this.showTransactions = false;
     }
 
 }

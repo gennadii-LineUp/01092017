@@ -39,8 +39,8 @@
       <h3>Consultation Solde</h3>
       <div class="row">
         <div class="col-md-4 ml-md-auto mr-md-auto wrapper">
-          <div *ngIf="transactions_history.length" class="little-title">Latest transactions</div>
-          <div class="consult-sold-history__user">
+          <div class="little-title">Latest transactions</div>
+          <div *ngIf="transactions_history.length" class="consult-sold-history__user">
             <div>
               <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
               <div>
@@ -49,6 +49,9 @@
               </div>
             </div>
             <div class="balance"><b>{{solde | number : '1.2-2'}}</b> USD</div>
+          </div>
+          <div *ngIf="successMessage" class="consult-sold-history__user">
+            <div class="succesTextClass">{{successMessage}}</div>
           </div>
           <div *ngIf="errorMessagHistory" class="errorTextClass">{{errorMessagHistory}}</div>
           <p *ngIf="!errorMessagHistory" style="margin: 0; text-align: center"><img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>

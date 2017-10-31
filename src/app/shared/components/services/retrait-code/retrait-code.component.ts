@@ -72,7 +72,8 @@ export class RetraitCodeComponent implements OnInit {
         //   this.discardReceiverInfoFunction();
         } else {
           this.retraitCode_valid = false;
-          this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.errorMessage);
+          if (response.errorMessage) {this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.errorMessage); }
+          if (response.message) {this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message); }
           this.clearSearch();
         }
 

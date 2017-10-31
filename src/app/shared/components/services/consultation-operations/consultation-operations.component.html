@@ -12,7 +12,7 @@
                     <div class="consult-oper__header">Choose account</div>
                     <div class="accordionWrapper">
                         <div *ngFor="let myAccount of userDataService.myAccounts" class="accordionItem close-item"
-                             (click)="commonServices.accordionToggleItemFunction($event); $event.stopPropagation(); chooseAccount(myAccount)">
+                             (click)="chooseAccount(myAccount); commonServices.accordionToggleItemFunction($event); $event.stopPropagation()">
                             <div class="consult-user accordionItemHeading">
                                 <div class="logo"
                                      style="background-image: url('../../../../../assets/img/user.png')"></div>
@@ -26,7 +26,7 @@
                           <p *ngIf="!errorMessage" style="margin: 0; text-align: center"><img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>
                           <div class="accordionItemContent" (click)="$event.stopImmediatePropagation()" >
                               <button class="orange-button blue-button"
-                                        (click)="sumitFunction($event)">
+                                        (click)="submitFunction($event)">
                                   Send a request
                                 </button>
                             </div>
@@ -35,11 +35,14 @@
                 </div>
 
 
-                <div *ngIf="transactions_history.length" class="col-md-6 col-lg-4 consult-sold-history">
-                    <div class="balance" style="text-align: right; padding-right: 15px; padding-top: 15px; display: none">
+                <div *ngIf="showTransactions" class="col-md-6 col-lg-4 consult-sold-history">
+                    <div *ngIf="transactions_history.length" class="balance" style="text-align: right; padding-right: 15px; padding-top: 15px; display: none">
                       <b>{{solde | number : '1.2-2'}}</b> <span class="curr">USD</span>
                     </div>
-                    <div class="little-title">Latest transactions <span class="float-right">({{totalOperations}} operations)</span></div>
+                    <div class="little-title">
+                      Latest transactions
+                      <span *ngIf="transactions_history.length" class="float-right">({{totalOperations}} operations)</span>
+                    </div>
                     <div *ngFor="let tr of transactions_history" class="consult__item">
                         <div>
                             <span>Receiver: <span class="name" style="color: red">firstName lastName</span></span>
@@ -49,6 +52,9 @@
                             <span style="color: red">date</span>
                             <span style="color: red">tyme</span>
                         </div>
+                    </div>
+                    <div *ngIf="successMessage" class="consult__item">
+                      <div class="succesTextClass">{{successMessage}}</div>
                     </div>
                     <!--<div class="consult__item">-->
                         <!--<div>-->

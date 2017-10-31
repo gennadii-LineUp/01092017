@@ -13,6 +13,7 @@ import {W2ISoldeService} from '../../../../services/api/W2ISolde.service';
 export class ConsultationSoldeComponent implements OnInit {
   loading = false;
   showHistorySolde = false;
+  successMessage = '';
   errorMessage = '';
   errorMessagHistory = '';
   solde: number;
@@ -36,6 +37,7 @@ export class ConsultationSoldeComponent implements OnInit {
   public submitSoldeFunction() {
     this.loading = true;
     this.errorMessage = '';
+    this.successMessage = '';
 
     this.w2ISoldeService.getSolde(this.currentAccount.account_id)
       .subscribe(result => {
@@ -52,10 +54,16 @@ export class ConsultationSoldeComponent implements OnInit {
             .subscribe(resulHistory => {
               const responsHistory = this.commonServices.xmlResponseParcer_complex( resulHistory._body );
               console.dir( responsHistory );
-              this.totalOperations = responsHistory.total;
-              this.transactions_history = responsHistory.operation;
-              if (+responsHistory.error === 0 && this.transactions_history.length) {
-                this.showHistorySolde = true;
+              if (+responsHistory.error === 0 && responsHistory.total) {
+                this.totalOperations = responsHistory.total;
+                if (responsHistory.operation && +responsHistory.total > 0) {
+                  this.transactions_history = responsHistory.operation;
+                  // this.showHistorySolde = true;
+                }
+                if (+responsHistory.total === 0) {
+                  // this.showRequestResult = false;
+                  this.successMessage = responsHistory.message;
+                }
               } else {
                 this.errorMessagHistory = this.errorMessageHandlerService.getMessageEquivalent(responsHistory.errorMessage);
               }
@@ -67,7 +75,8 @@ export class ConsultationSoldeComponent implements OnInit {
             });
           /////////////////////////
         } else {
-          this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.errorMessage);
+          if (response.errorMessage) {this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.errorMessage); }
+          if (response.message) {this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message); }
         }
 
       }, (err) => {
@@ -92,6 +101,8 @@ export class ConsultationSoldeComponent implements OnInit {
 
 
   public clearAll() {
+    this.successMessage = '';
+    this.errorMessage = '';
     this.solde = undefined;
     this.transactions_history = [];
     this.totalOperations = 0;
