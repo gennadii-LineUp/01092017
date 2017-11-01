@@ -8,6 +8,7 @@
                 </div>
 
                 <div *ngIf="!profileAsAgent" class="col-sm-6 col-md-4">
+                <div class="col-sm-8 col-md-6 col-lg-4">
                     <div class="dargent__wrapper">
                         <div class="block__header">Choose your account</div>
                         <div *ngFor="let myAccount of userDataService.getMyAccounts()" class="consult-user"
@@ -23,7 +24,7 @@
                 </div>
 
                 <!--Show this block for answer-->
-                <div *ngIf="showReceiverInfo" class="col-sm-6 col-md-4">
+                <div *ngIf="showReceiverInfo" class="col-sm-8 col-md-6 col-lg-4">
                     <div class="dargent__wrapper">
                         <div class="block__header">Insert receiver’s information</div>
                         <div class="content">
