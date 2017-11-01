@@ -36,26 +36,36 @@
 
 
                 <div *ngIf="showTransactions" class="col-md-6 col-lg-4 consult-sold-history">
-                    <div *ngIf="transactions_history.length" class="balance" style="text-align: right; padding-right: 15px; padding-top: 15px; display: none">
+                    <div class="balance" style="text-align: right; padding-right: 15px; padding-top: 15px; display: none">
+                      <!--<div *ngIf="transactions_current.length" class="balance" style="text-align: right; padding-right: 15px; padding-top: 15px; display: none">-->
                       <b>{{solde | number : '1.2-2'}}</b> <span class="curr">USD</span>
                     </div>
                     <div class="little-title">
                       Latest transactions
-                      <span *ngIf="transactions_history.length" class="float-right">({{totalOperations}} operations)</span>
+                      <span class="float-right">({{totalOperations}} operations)</span>
+                      <!--<span *ngIf="transactions_current.length" class="float-right">({{totalOperations}} operations)</span>-->
                     </div>
-                    <div *ngFor="let tr of transactions_history" class="consult__item">
-                        <div>
+                    <div *ngIf="transactions_current.length>0" >
+                        <div *ngFor="let tr of transactions_current" class="consult__item">
+                          <div>
                             <span>Receiver: <span class="name" style="color: red">firstName lastName</span></span>
                             <span>{{tr.sens | debitCreditSign}}{{tr.montant | number : '1.2-2'}}<span class="curr">USD</span></span>
-                        </div>
-                        <div>
+                          </div>
+                          <div>
                             <span style="color: red">date</span>
                             <span style="color: red">tyme</span>
+                          </div>
                         </div>
                     </div>
+
                     <div *ngIf="successMessage" class="consult__item">
                       <div class="succesTextClass">{{successMessage}}</div>
                     </div>
+
+
+                  <app-pagination [transactions_all]="transactions_all" (transactions_current)="setTransactionsCurrentFunction($event)" ></app-pagination>
+
+
                     <!--<div class="consult__item">-->
                         <!--<div>-->
                             <!--<span>Receiver: <span class="name">Clark Kent</span></span>-->

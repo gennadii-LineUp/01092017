@@ -11,6 +11,8 @@ export class CustomerGuard implements CanActivate {
     if (localStorage.profil === 'CLIENT') {
       return true;
     }
+    this.router.navigate(['/authorisation']);
+    localStorage.clear();
     return false;
   }
 }

@@ -78,7 +78,7 @@ import {CustomerGuard} from '../guards/customer-guard.service';
 
 const routes: Routes = [
   // { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '', component: LoginStartPageComponent },
+  { path: '', component: GeneralAuthorisationComponent },
   { path: 'about-us', component: GeneralAboutUsPageComponent},
   { path: 'terms-conditions', component: GeneralTermsPageComponent },
   { path: 'faq', component: GeneralFaqPageComponent },

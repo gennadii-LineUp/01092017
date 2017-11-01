@@ -30,11 +30,11 @@ import { GeolocalisationAgentComponent } from './components/services/geolocalisa
 import { BankToWalletComponent } from './components/services/bank-to-wallet/bank-to-wallet.component';
 import { ProfileComponent } from './components/menu-top/profile/profile.component';
 import {ServicesCitizComponent} from './components/services/services/services-citiz/services-citiz.component';
-import {OnlyNumberDirective} from './directives/only-number-directive';
 import {FormatTextByThreeCharPipe} from './pipes/formatTextByThreeChar.pipe';
 import {DebitCreditPipe} from './pipes/debitCredit.pipe';
 import { SelectSenderComponent } from './components/select-sender/select-sender.component';
 import { SuccessMessageComponent } from './components/success-message/success-message.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 
 @NgModule({
@@ -61,6 +61,7 @@ import { SuccessMessageComponent } from './components/success-message/success-me
     FormatTextByThreeCharPipe,
     SelectSenderComponent,
     SuccessMessageComponent,
+    PaginationComponent,
 
   ],
   exports: [
@@ -81,7 +82,8 @@ import { SuccessMessageComponent } from './components/success-message/success-me
     ProfileComponent,
     DebitCreditPipe,
     FormatTextByThreeCharPipe, SelectSenderComponent,
-    SuccessMessageComponent
+    SuccessMessageComponent,
+    PaginationComponent
   ],
   providers: [
 

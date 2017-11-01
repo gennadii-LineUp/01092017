@@ -661,8 +661,10 @@ input[type=checkbox]:checked + label:after {
     }
     &.close-item {
       max-height: 65px;
+      border-bottom: 2px solid $line;
     }
     &.open {
+      border-bottom: 2px solid $line;
       .accordionItemHeading {
         i {
           transform: translateY(-50%) rotate(90deg);
@@ -698,6 +700,7 @@ input[type=checkbox]:checked + label:after {
   .accordionItem {
     overflow: hidden;
     transition: .4s all ease;
+
     &.close-item:last-child {
       .accordionItemHeading {
         border-bottom: none;

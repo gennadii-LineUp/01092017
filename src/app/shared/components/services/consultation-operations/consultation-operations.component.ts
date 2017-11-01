@@ -3,6 +3,7 @@ import {CommonServices} from '../../../../services/common.service';
 import {UserDataService} from '../../../../models/user-data';
 import {ErrorMessageHandlerService} from '../../../../services/error-message-handler.service';
 import {GetOperationService} from '../../../../services/api/GetOperation.service';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
     selector: 'app-services-consultation-operations',
@@ -15,7 +16,8 @@ export class ConsultationOperationsComponent implements OnInit {
   successMessage = '';
   errorMessage = '';
   solde: number;
-  transactions_history = [];
+  transactions_all = [];
+  transactions_current = []
   totalOperations = 0;
   showTransactions = false;
   currentAccount = this.userDataService.myAccounts[0];
@@ -45,8 +47,8 @@ export class ConsultationOperationsComponent implements OnInit {
 
           if (+history.error === 0 && history.total) {
             if (history.operation && +history.total > 0) {
-              this.transactions_history = this.removeElementsWithEmptyAmount( history.operation );
-              this.totalOperations = this.transactions_history.length;
+              this.transactions_all = this.removeElementsWithEmptyAmount( history.operation );
+              this.totalOperations = this.transactions_all.length;
               this.solde = history.operation[0].soldeCompte;
             }
             if (+history.total === 0) {
@@ -108,13 +110,22 @@ export class ConsultationOperationsComponent implements OnInit {
     }
 
 
+    public setTransactionsCurrentFunction(transactions_current_obs: Observable<any>): void {
+       // console.log(transactions_current);
+       // this.transactions_current = transactions_current;
+      this.transactions_current = [];
+      transactions_current_obs.subscribe((data) => {
+        this.transactions_current.push(data);
+      });
+    }
+
     public clearAll() {
       this.loading = false;
       this.successMessage = '';
       this.errorMessage = '';
       this.solde = undefined;
       this.totalOperations = 0;
-      this.transactions_history = [];
+      this.transactions_all = [];
       this.showTransactions = false;
     }
 
