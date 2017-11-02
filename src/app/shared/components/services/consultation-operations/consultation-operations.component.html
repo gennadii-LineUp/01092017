@@ -45,8 +45,8 @@
                       <span class="float-right">({{totalOperations}} operations)</span>
                       <!--<span *ngIf="transactions_current.length" class="float-right">({{totalOperations}} operations)</span>-->
                     </div>
-                    <div *ngIf="transactions_current.length>0" >
-                        <div *ngFor="let tr of transactions_current" class="consult__item">
+                    <div *ngIf="transactions_all.length>0" >
+                        <div *ngFor="let tr of transactions_all" class="consult__item">
                           <div>
                             <span>Receiver: <span class="name" style="color: red">firstName lastName</span></span>
                             <span>{{tr.sens | debitCreditSign}}{{tr.montant | number : '1.2-2'}}<span class="curr">USD</span></span>
@@ -63,19 +63,9 @@
                     </div>
 
 
-                  <app-pagination [transactions_all]="transactions_all" (transactions_current)="setTransactionsCurrentFunction($event)" ></app-pagination>
+                  <!--<app-pagination [transactions_all]="transactions_all" (transactions_current)="setTransactionsCurrentFunction($event)" ></app-pagination>-->
 
 
-                    <!--<div class="consult__item">-->
-                        <!--<div>-->
-                            <!--<span>Receiver: <span class="name">Clark Kent</span></span>-->
-                            <!--<span class="lesion">-123.49<span class="curr">USD</span></span>-->
-                        <!--</div>-->
-                        <!--<div>-->
-                            <!--<span>11.12.2017</span>-->
-                            <!--<span>11:12</span>-->
-                        <!--</div>-->
-                    <!--</div>-->
                 </div>
             </div>
         </div>

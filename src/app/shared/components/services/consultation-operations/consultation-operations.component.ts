@@ -48,6 +48,7 @@ export class ConsultationOperationsComponent implements OnInit {
           if (+history.error === 0 && history.total) {
             if (history.operation && +history.total > 0) {
               this.transactions_all = this.removeElementsWithEmptyAmount( history.operation );
+              console.log(this.transactions_all);
               this.totalOperations = this.transactions_all.length;
               this.solde = history.operation[0].soldeCompte;
             }
