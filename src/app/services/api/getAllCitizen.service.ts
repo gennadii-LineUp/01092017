@@ -17,7 +17,9 @@ export class GetAllCitizenService {
          <soapenv:Header/>
          <soapenv:Body>
             <run:getAllCitizen>
-               </run:getAllCitizen>
+               <!--Optional:-->
+               <pays>221</pays>
+            </run:getAllCitizen>
          </soapenv:Body>
       </soapenv:Envelope>`;
 
