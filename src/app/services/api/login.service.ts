@@ -4,11 +4,15 @@ import {BackendService} from '../backend.service';
 import {AuthorisationClass} from '../../models/authorisation-class';
 import {UrlParams} from '../../models/URL_PARAMS';
 import {Router} from '@angular/router';
+import {CommonServices} from '../common.service';
+import {UserDataService} from '../../models/user-data';
 
 @Injectable()
 export class LoginService {
 
   constructor(public backendService: BackendService,
+              public userDataService: UserDataService,
+              public commonServices: CommonServices,
               public router: Router) {}
 
   login(userdata: AuthorisationClass): Observable<any> {
@@ -32,9 +36,16 @@ export class LoginService {
 
   public usersRouting(profil: string) {
       switch (profil) {
-        case 'CITIZEN': this.router.navigate(['/citizen/services']); break;
-        case 'AGENT': this.router.navigate(['/agent/services']); break;
-        case 'CLIENT': this.router.navigate(['/customer/services']); break;
+
+        case 'CITIZEN': this.router.navigate(['/citizen/services']);
+          break;
+
+        case 'AGENT': this.router.navigate(['/agent/services']);
+          break;
+
+        case 'CLIENT': this.router.navigate(['/customer/services']);
+          break;
+
         default:
           this.router.navigate(['/authorisation']);
       }

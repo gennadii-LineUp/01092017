@@ -4,12 +4,14 @@ import {ErrorMessageHandlerService} from '../../../services/error-message-handle
 import {AuthorisationClass} from '../../../models/authorisation-class';
 import {CommonServices} from '../../../services/common.service';
 import {UserDataService} from '../../../models/user-data';
+import {GetAllCitizenService} from '../../../services/api/getAllCitizen.service';
+import {GetAllCustomerService} from '../../../services/api/getAllCustomer.service';
 
 @Component({
   selector: 'app-authorisation',
   templateUrl: './authorisation.component.html',
   styleUrls: ['./authorisation.component.scss'],
-  providers: [LoginService]
+  providers: [LoginService, GetAllCitizenService, GetAllCustomerService]
 })
 export class GeneralAuthorisationComponent implements OnInit {
   errorMessage = '';
@@ -20,6 +22,8 @@ export class GeneralAuthorisationComponent implements OnInit {
 
   constructor(public loginService: LoginService,
               public userDataService: UserDataService,
+              public getAllCitizenService: GetAllCitizenService,
+              public getAllCustomerService: GetAllCustomerService,
               public errorMessageHandlerService: ErrorMessageHandlerService,
               public commonServices: CommonServices) { }
 
@@ -55,6 +59,31 @@ export class GeneralAuthorisationComponent implements OnInit {
             localStorage.setItem('telephone', response.telephone);
             this.loginService.usersRouting(response.profil);
             this.userDataService.setUser(response.nom, response.prenom, response.profil, response.telephone);
+
+            if (response.profil === 'CITIZEN') {
+            this.getAllCitizenService.getAllCitizens()
+              .subscribe(result1 => {
+                const response1 = (this.commonServices.xmlResponseParcer_complex(result1._body)).uos;
+                if (response1.length) {
+                  this.userDataService.setCitizens(response1);
+                }
+              }, (err) => {
+                console.log(err);
+              });
+          }
+
+            if (response.profil === 'CLIENT') {
+              this.getAllCustomerService.getAllCustomer()
+                .subscribe(result2 => {
+                  const response2 = (this.commonServices.xmlResponseParcer_complex(result2._body)).uos;
+                  if (response2.length) {
+                    this.userDataService.setClients(response2);
+                  }
+                }, (err) => {
+                  console.log(err);
+                });
+            }
+
           } else {
             this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
           }

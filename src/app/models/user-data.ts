@@ -7,6 +7,8 @@ import {Router} from '@angular/router';
 export class UserDataService {
   user = new ReceiverClass('', '', '', '', 0, '');
   sender_default = [new ReceiverClass('skype', 'gena_ukr79', '', '', 0, '')];
+  citizens = [];
+  client = [];
 
   myAccounts = [
     { telephone: '4', nom: 'Lex', prenom: 'Luthor', email: 'lexluthor@gmail.com', account_id: 3 },
@@ -72,6 +74,18 @@ export class UserDataService {
 
   public getUser(): any {
     return this.user;
+  }
+
+  public setCitizens(citizens: any) {
+    this.citizens = [];
+    this.citizens = citizens;
+    console.log(this.citizens)
+  }
+
+  public setClients(client: any) {
+    this.client = [];
+    this.client = client;
+    console.log(this.client)
   }
 
   public getSender_default(): any {
