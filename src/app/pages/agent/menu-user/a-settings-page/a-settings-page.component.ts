@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./a-settings-page.component.scss']
 })
 export class ASettingsPageComponent implements OnInit {
+  userRole = 'agent';
 
   constructor() { }
 

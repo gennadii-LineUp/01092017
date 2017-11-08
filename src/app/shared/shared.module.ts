@@ -35,6 +35,7 @@ import {DebitCreditPipe} from './pipes/debitCredit.pipe';
 import { SelectSenderComponent } from './components/select-sender/select-sender.component';
 import { SuccessMessageComponent } from './components/success-message/success-message.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
+import {MobileSettingsComponent} from './components/mobile/settings/settings.component';
 
 
 @NgModule({
@@ -62,6 +63,7 @@ import { PaginationComponent } from './components/pagination/pagination.componen
     SelectSenderComponent,
     SuccessMessageComponent,
     PaginationComponent,
+    MobileSettingsComponent,
 
   ],
   exports: [
@@ -83,7 +85,8 @@ import { PaginationComponent } from './components/pagination/pagination.componen
     DebitCreditPipe,
     FormatTextByThreeCharPipe, SelectSenderComponent,
     SuccessMessageComponent,
-    PaginationComponent
+    PaginationComponent,
+    MobileSettingsComponent
   ],
   providers: [
 
