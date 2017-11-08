@@ -176,7 +176,7 @@ header {
   text-align: center;
   font-size: 2rem;
   margin-bottom: 30px;
-  > div {
+  .col-md-10 {
     display: flex;
     justify-content: space-around;
   }
@@ -280,11 +280,38 @@ header {
   transition: .2s all ease;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 800px) {
+  .unaut-header {
+    .row:not(.toolbar) {
+      display: none;
+    }
+    .container {
+      padding: 0;
+    }
+  }
   .toolbar {
     font-size: 1.4rem;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    margin: 0;
+    background-color: #f7f7f7;
+    border-top: 1px solid #b1b1b1;
     .sprite {
       transform: scale(.8);
+    }
+  }
+}
+
+@media (max-width: 410px) {
+  .toolbar {
+    font-size: 10px;
+    .sprite {
+      transform-origin: bottom;
+      transform: scale(.5);
+      margin-top: -25px;
     }
   }
 }

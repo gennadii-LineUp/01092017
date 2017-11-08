@@ -41,3 +41,10 @@ footer {
     }
   }
 }
+
+@media (max-width: 800px) {
+  // Need to change footer
+  footer {
+    display: none;
+  }
+}
