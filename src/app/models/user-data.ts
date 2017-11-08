@@ -46,7 +46,6 @@ export class UserDataService {
       // }
       myAccount.telephone = (this.getUser().telephone) ?  this.getUser().telephone : localStorage.telephone;
     });
-    console.log(this.myAccounts);
   }
 
   public getMyAccounts(): any {
@@ -72,7 +71,7 @@ export class UserDataService {
     this.setMyAccounts();
   }
 
-  public getUser(): any {
+  public getUser(): ReceiverClass {
     return this.user;
   }
 

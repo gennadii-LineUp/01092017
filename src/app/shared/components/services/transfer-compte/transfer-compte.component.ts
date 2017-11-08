@@ -5,12 +5,14 @@ import {ErrorMessageHandlerService} from '../../../../services/error-message-han
 import {ReceiverClass} from '../../../../models/receiver-class';
 import {W2WVirementAccountService} from '../../../../services/api/W2WVirementAccount.service';
 import {GetCommissionsTTCService} from '../../../../services/api/getCommissionsTTC.service';
+import {GetAllCitizenService} from '../../../../services/api/getAllCitizen.service';
+import {GetAllCustomerService} from 'app/services/api/getAllCustomer.service';
 
 @Component({
   selector: 'app-services-transfer-compte',
   templateUrl: './transfer-compte.component.html',
   styleUrls: ['./transfer-compte.component.scss'],
-  providers: [W2WVirementAccountService, GetCommissionsTTCService]
+  providers: [GetAllCitizenService, GetAllCustomerService, W2WVirementAccountService, GetCommissionsTTCService]
 
 })
 export class TransferCompteComponent implements OnInit {
@@ -32,22 +34,51 @@ export class TransferCompteComponent implements OnInit {
   successMessage_2 = '';
   errorMessage = '';
   commission = [];
+  receivers = [];
   profileAsAgent = this.userDataService.checkUserRole();
   sender = [this.userDataService.getSender_default()];
 
-  receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 18, 'citizen'),
-    new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 19, 'citizen'),
-    new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 20, 'citizen')];
+  // receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 18, 'citizen'),
+  //   new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 19, 'citizen'),
+  //   new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 20, 'citizen')];
 
 
   constructor(public userDataService: UserDataService,
               public commonServices: CommonServices,
+              public getAllCitizenService: GetAllCitizenService,
+              public getAllCustomerService: GetAllCustomerService,
               public w2WVirementAccountService: W2WVirementAccountService,
               public getCommissionsTTCService: GetCommissionsTTCService,
               public errorMessageHandlerService: ErrorMessageHandlerService) { }
 
   ngOnInit() {
     this.userDataService.setMyAccounts();
+
+    const profil = ((<any>this.userDataService.getUser).profil) ? (<any>this.userDataService.getUser).profil :
+                                                                  localStorage.getItem('profil');
+    console.log(profil);
+    this.setCustomers(profil);
+  }
+
+  public setCustomers(profil: string) {
+    if (profil === 'CITIZEN') {
+      this.getAllCitizenService.getAllCitizens()
+        .subscribe(result => {
+          const response = (this.commonServices.xmlResponseParcer_complex(result._body)).uos;
+            this.receivers = (response.length) ? response : [];
+            console.log(this.receivers);
+        }, (err) => {console.log(err); });
+    }
+
+    if (profil === 'CLIENT') {
+      this.getAllCustomerService.getAllCustomer()
+        .subscribe(result => {
+          const response = (this.commonServices.xmlResponseParcer_complex(result._body)).uos;
+          this.receivers = (response.length) ? response : [];
+          console.log(this.receivers);
+        }, (err) => {console.log(err); });
+    }
+
   }
 
   public goToAllAccountsFunction() {
@@ -128,7 +159,7 @@ export class TransferCompteComponent implements OnInit {
           this.w2WVirementAccountService.transferCompteStandart(this.amountToReceiver,
                                                                 response.commission,
                                                                 this.myAccount.account_id,
-                                                                this.newReceiver.account_id)
+                                                                (<any>this.newReceiver).id)
             .subscribe(_result => {
               this.loading = false;
               console.log(_result._body);

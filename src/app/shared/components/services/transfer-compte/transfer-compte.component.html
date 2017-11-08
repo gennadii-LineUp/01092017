@@ -114,28 +114,15 @@
                           <input placeholder="placeholder" required="" type="text">
                         </div>
                         <!--Right drop for show-->
-                        <div class="right-drop" style="display: block;">
-                          <div class="right-drop__item">
+                        <div *ngIf="!(+newReceiver.account_id > 0)" class="right-drop" style="display: block;">
+                          <div *ngFor="let receiver of receivers" class="right-drop__item" (click)="setBeneficiaryFunction(receiver)">
                             <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
                             <div>
-                              Clark Kenwood
-                              <span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>
+                              {{receiver.nom}} {{receiver.prenom}}
+                              <span><i class="fa fa-phone" aria-hidden="true"></i>{{receiver.numTel}}</span>
                             </div>
                           </div>
-                          <div class="right-drop__item">
-                            <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
-                            <div>
-                              Clark Kenwood
-                              <span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>
-                            </div>
-                          </div>
-                          <div class="right-drop__item">
-                            <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
-                            <div>
-                              Clark Kenwood
-                              <span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>
-                            </div>
-                          </div>
+
                         </div>
                       </div>
                       <div class="compte__amount">
@@ -194,7 +181,7 @@
                             <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
                             <div>
                               {{receiver.nom}} {{receiver.prenom}}
-                              <span><i class="fa fa-phone" aria-hidden="true"></i>{{receiver.telephone}}</span>
+                              <span><i class="fa fa-phone" aria-hidden="true"></i>{{receiver.numTel}}</span>
                             </div>
                           </div>
 
