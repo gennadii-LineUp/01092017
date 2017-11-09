@@ -1132,3 +1132,9 @@ input[type=checkbox]:checked + label:after {
     }
   }
 }
+
+@media (max-width: 800px) {
+  .not-mobile {
+    display: none;
+  }
+}
