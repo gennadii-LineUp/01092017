@@ -74,6 +74,9 @@ import {AuthGuard} from '../guards/auth-guard.service';
 import {AgentGuard} from '../guards/agent-guard.service';
 import {CitizenGuard} from '../guards/citizen-guard.service';
 import {CustomerGuard} from '../guards/customer-guard.service';
+import {AMobileShareComponent} from '../pages/agent/menu-user/mobile/a-share/a-share.component';
+import {CMobileShareComponent} from '../pages/citizen/menu-user/mobile/c-share/c-share.component';
+import {CustMobileShareComponent} from '../pages/customer/menu-user/mobile/cust-share/cust-share.component';
 
 
 const routes: Routes = [
@@ -112,6 +115,7 @@ const routes: Routes = [
         { path: 'operations', component: AOperationsPageComponent },
         { path: 'parameters', component: AParametersPageComponent },
         { path: 'settings', component: ASettingsPageComponent },
+        { path: 'share', component: AMobileShareComponent },
     ]
   },
   { path: 'citizen', component: CitizenComponent,  canActivate: [AuthGuard, CitizenGuard],
@@ -135,6 +139,7 @@ const routes: Routes = [
         { path: 'operations', component: COperationsPageComponent },
         { path: 'parameters', component: CParametersPageComponent },
         { path: 'settings', component: CSettingsPageComponent },
+        { path: 'share', component: CMobileShareComponent },
     ]
   },
   { path: 'customer', component: CustomerComponent,  canActivate: [AuthGuard, CustomerGuard],
@@ -158,6 +163,7 @@ const routes: Routes = [
         { path: 'operations', component: CustOperationsPageComponent },
         { path: 'parameters', component: CustParametersPageComponent },
         { path: 'settings', component: CustSettingsPageComponent },
+        { path: 'share', component: CustMobileShareComponent },
     ]
   },
   { path: '**', component: LoginStartPageComponent }

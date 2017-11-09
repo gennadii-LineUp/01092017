@@ -74,6 +74,9 @@ import {CustServicesPaiementsPageComponent} from './customer/menu-user/cust-serv
 import {AgentProfilePageComponent} from './agent/menu-top/agent-profile-page.component';
 import {CitizenProfilePageComponent} from './citizen/menu-top/citizen-profile-page.component';
 import {CustomerProfilePageComponent} from './customer/menu-top/customer-profile-page.component';
+import { AMobileShareComponent } from './agent/menu-user/mobile/a-share/a-share.component';
+import { CMobileShareComponent } from './citizen/menu-user/mobile/c-share/c-share.component';
+import { CustMobileShareComponent } from './customer/menu-user/mobile/cust-share/cust-share.component';
 
 
 @NgModule({
@@ -107,6 +110,9 @@ import {CustomerProfilePageComponent} from './customer/menu-top/customer-profile
         AServicesGeolocalisationAgentPageComponent, AServicesBankToWalletPageComponent, AServicesDepotCitizenPageComponent,
         AServicesDepotClientPageComponent, AServicesManageAdminCitizenPageComponent, AServicesRetraitCodePageComponent,
         CServicesPageComponent,
+      AMobileShareComponent,
+      CMobileShareComponent,
+      CustMobileShareComponent
 
 
     ],
@@ -146,6 +152,9 @@ import {CustomerProfilePageComponent} from './customer/menu-top/customer-profile
       AServicesGeolocalisationAgentPageComponent, AServicesBankToWalletPageComponent, AServicesDepotCitizenPageComponent,
       AServicesDepotClientPageComponent, AServicesManageAdminCitizenPageComponent, AServicesRetraitCodePageComponent,
       CServicesPageComponent,
+      AMobileShareComponent,
+      CMobileShareComponent,
+      CustMobileShareComponent
 
     ],
     providers: [],

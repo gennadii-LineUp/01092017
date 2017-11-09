@@ -16,7 +16,7 @@ export class MobileSettingsComponent implements OnInit {
     {caption: 'FAQ', routing: '/faq'},
     {caption: 'Privacy policy', routing: '/privacy-policy'},
     {caption: 'Cancellation & Refund Policy', routing: '/cancellation-refund'},
-    {caption: 'Share', routing: '/about-us'},
+    {caption: 'Share', routing: '/share'},
   ];
   @Input() userRole: string;
 

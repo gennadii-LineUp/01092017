@@ -36,6 +36,7 @@ import { SelectSenderComponent } from './components/select-sender/select-sender.
 import { SuccessMessageComponent } from './components/success-message/success-message.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import {MobileSettingsComponent} from './components/mobile/settings/settings.component';
+import {MobileShareComponent} from './components/mobile/share/share.component';
 
 
 @NgModule({
@@ -63,7 +64,7 @@ import {MobileSettingsComponent} from './components/mobile/settings/settings.com
     SelectSenderComponent,
     SuccessMessageComponent,
     PaginationComponent,
-    MobileSettingsComponent,
+    MobileSettingsComponent, MobileShareComponent,
 
   ],
   exports: [
@@ -86,7 +87,7 @@ import {MobileSettingsComponent} from './components/mobile/settings/settings.com
     FormatTextByThreeCharPipe, SelectSenderComponent,
     SuccessMessageComponent,
     PaginationComponent,
-    MobileSettingsComponent
+    MobileSettingsComponent, MobileShareComponent
   ],
   providers: [
 
