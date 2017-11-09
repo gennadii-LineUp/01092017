@@ -1,14 +1,15 @@
 <main class="gray-bg-citizen coin-bg">
   <section *ngIf="!showRequestResult"  class="consult-sold">
+    <h3 class="h3-mobile">Consultation Solde</h3>
     <div class="container">
-      <h3>Consultation Solde</h3>
+
       <div class="row">
         <!--<div class="col-md-6 col-lg-4 ml-md-auto mr-md-auto consult-sold__wrapper">-->
-        <div *ngIf="profileAsAgent" class="col-md-6 col-lg-4 ml-md-auto mr-md-auto consult-sold__wrapper">
+        <div *ngIf="profileAsAgent" class="col-sm-12 col-md-6 col-lg-4 ml-md-auto mr-md-auto consult-sold__wrapper">
           <app-select-sender (senderDefined)="setSenderFunction($event)"></app-select-sender>
         </div>
 
-        <div *ngIf="!profileAsAgent" class="col-md-6 col-lg-4 ml-md-auto mr-md-auto consult-sold__wrapper">
+        <div *ngIf="!profileAsAgent" class="col-sm-12 col-md-6 col-lg-4 ml-md-auto mr-md-auto consult-sold__wrapper">
           <div class="consult-sold__header">Choose account</div>
           <div class="accordionWrapper">
             <div *ngFor="let myAccount of userDataService.myAccounts" class="accordionItem close-item"
@@ -36,10 +37,10 @@
 
 
   <section *ngIf="showRequestResult" class="consult-sold-history">
+    <h3 class="h3-mobile">Consultation Solde</h3>
     <div class="container">
-      <h3>Consultation Solde</h3>
       <div class="row">
-        <div class="col-md-4 ml-md-auto mr-md-auto wrapper">
+        <div class="col-sm-12 col-md-4 ml-md-auto mr-md-auto wrapper">
           <div class="little-title">Latest transactions</div>
           <div *ngIf="transactions_history.length" class="consult-sold-history__user">
             <div>

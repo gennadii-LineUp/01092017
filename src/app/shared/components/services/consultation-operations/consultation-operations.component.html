@@ -1,14 +1,15 @@
 <main class="gray-bg-citizen coin-bg">
     <section class="consult-oper">
-        <div class="container">
-            <h3>Consultation operations</h3>
+      <h3 class="h3-mobile">Consultation operations</h3>
+      <div class="container">
+
             <div class="row">
-                <div *ngIf="profileAsAgent" class="col-md-6 col-lg-4">
+                <div *ngIf="profileAsAgent" class="col-sm-12 col-md-6 col-lg-4">
                   <app-select-sender (senderDefined)="setSenderFunction($event)"></app-select-sender>
                 </div>
 
 
-                <div *ngIf="!profileAsAgent" class="col-md-6 col-lg-4 consult-oper__wrapper">
+                <div *ngIf="!profileAsAgent" class="col-sm-12 col-md-6 col-lg-4 consult-oper__wrapper">
                     <div class="consult-oper__header">Choose account</div>
                     <div class="accordionWrapper">
                         <div *ngFor="let myAccount of userDataService.myAccounts" class="accordionItem close-item"
@@ -35,7 +36,7 @@
                 </div>
 
 
-                <div *ngIf="showTransactions" class="col-md-6 col-lg-4 consult-sold-history">
+                <div *ngIf="showTransactions" class="col-sm-12 col-md-6 col-lg-4 consult-sold-history">
                     <div class="balance" style="text-align: right; padding-right: 15px; padding-top: 15px; display: none">
                       <!--<div *ngIf="transactions_current.length" class="balance" style="text-align: right; padding-right: 15px; padding-top: 15px; display: none">-->
                       <b>{{solde | number : '1.2-2'}}</b> <span class="curr">USD</span>

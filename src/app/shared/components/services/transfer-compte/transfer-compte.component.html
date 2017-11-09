@@ -1,17 +1,18 @@
 <main class="gray-bg-citizen coin-bg">
     <section class="compte">
-        <div class="container">
-          <h3>Transfert Сompte à Compte {{header_option}}</h3>
+      <h3 class="h3-mobile">Transfert Сompte à Compte {{header_option}}</h3>
+      <div class="container">
+
           <div *ngIf="!transfer_accounts" class="additional-info">
               account {{myAccount.nom}} {{myAccount.prenom}}, {{myAccount.email}}
           </div>
 
-            <div *ngIf="profileAsAgent" class="col-sm-8 col-md-6 col-lg-4 ml-auto mr-auto">
+            <div *ngIf="profileAsAgent" class="col-sm-12 col-md-6 col-lg-4 ml-auto mr-auto">
               <app-select-sender (senderDefined)="setSenderFunction($event)"></app-select-sender>
             </div>
 
             <!-- Null page-->
-            <div *ngIf="!profileAsAgent && transfer_accounts" class="col-sm-8 col-md-6 col-lg-4 ml-auto mr-auto">
+            <div *ngIf="!profileAsAgent && transfer_accounts" class="col-sm-12 col-md-6 col-lg-4 ml-auto mr-auto">
             <!--<div *ngIf="transfer_accounts" class="col-sm-8 col-md-6 col-lg-4 ml-auto mr-auto">-->
               <div class="dargent__wrapper">
                 <div class="block__header" style="background-color: #fff">Choose your account</div>
@@ -34,7 +35,7 @@
             <div *ngIf="transfer_all">
               <!--<h3>Transfert Сompte à Compte</h3>-->
               <div class="row">
-                <div class="col-sm-8 col-md-6 col-lg-4 ml-auto mr-auto">
+                <div class="col-sm-12 col-md-6 col-lg-4 ml-auto mr-auto">
                   <div class="compte__wrapper compte__select" style="padding-bottom:0">
                     <h2>Select paiement</h2>
                     <button class="orange-button blue-button" (click)="goToStandartTransferFunction()">Standart</button>
@@ -54,7 +55,7 @@
             <div *ngIf="transfer_facture">
               <!--<h3>Transfert Сompte à Compte (Paiement Facture)</h3>-->
               <div class="row">
-                <div class="col-sm-8 col-md-6 col-lg-4 ml-auto mr-auto">
+                <div class="col-sm-12 col-md-6 col-lg-4 ml-auto mr-auto">
                   <div class="compte__wrapper compte__facture">
                     <div class="header">Insert paiement facture</div>
                     <div class="content" style="padding-bottom: 0">
@@ -102,7 +103,7 @@
             <div *ngIf="transfer_marchand">
               <!--<h3>Transfert Сompte à Compte (Paiement Marchand)</h3>-->
               <div class="row">
-                <div class="col-sm-8 col-md-6 col-lg-4 ml-auto mr-auto">
+                <div class="col-sm-12 col-md-6 col-lg-4 ml-auto mr-auto">
                   <div class="compte__wrapper compte__marchand">
                     <div class="header">Insert customer’s information</div>
                     <div class="content" style="padding-bottom: 0">
@@ -163,7 +164,7 @@
             <div *ngIf="transfer_standart">
               <!--<h3>Transfert Сompte à Compte (Standart)</h3>-->
               <div class="row">
-                <div class="col-sm-8 col-md-6 col-lg-4 ml-auto mr-auto">
+                <div class="col-sm-12 col-md-6 col-lg-4 ml-auto mr-auto">
                   <div class="compte__wrapper compte__marchand">
                     <div class="header">Insert customer’s information</div>
                     <div class="content" style="padding-bottom: 0">

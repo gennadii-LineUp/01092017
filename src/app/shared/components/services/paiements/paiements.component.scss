@@ -63,3 +63,17 @@
     background-color: #fff;
   }
 }
+
+
+@media (max-width: 575px) {
+  main {
+    section{
+      .container{
+        .row{
+          margin-right: 0;
+          margin-left: 0;
+        }
+      }
+    }
+  }
+}

@@ -146,7 +146,7 @@ footer {
   .floating-input {
     width: 100%;
     position: relative;
-    margin-bottom: 20px;
+    //margin-bottom: 20px;
     input {
       color: #121212;
       min-height: 50px;
@@ -368,7 +368,7 @@ div.additional-info{
   left: 50%;
   transform: translateX(-50%);
   font-size: 1.2rem;
-  top: 56px;
+  top: -16px;
   //color: #bababa;
   font-family: RalewayMedium,sans-serif;
 }
@@ -1133,8 +1133,46 @@ input[type=checkbox]:checked + label:after {
   }
 }
 
-@media (max-width: 800px) {
-  .not-mobile {
-    display: none;
+
+@media (min-width: 800px) {
+  h3.h3-mobile{
+
   }
+}
+
+
+@media (max-width: 575px) {
+  main {
+    section.page-title,
+    section.profile,
+    section.depot-sitizen,
+    section.compte,
+    section.consult-sold,
+    section.consult-sold-history,
+    section.consult-oper,
+    section.geo-agent,
+    section.transfers-to-bank,
+    section.virements-multiples,
+    section.paiements,
+    section.page-title{
+        .container{
+          width: 100%;
+          max-width: 100%;
+          padding-right: 0;
+          padding-left: 0;
+          .col-sm-12{
+            padding-right: 0;
+            padding-left: 0;
+          }
+        }
+    }
+  }
+  .not-mobile {
+      display: none;
+    }
+  h3.h3-mobile,
+  h2.h2-mobile{
+      background-color: $blue;
+  }
+
 }

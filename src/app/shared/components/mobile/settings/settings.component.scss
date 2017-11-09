@@ -51,6 +51,7 @@
 }
 
 @media (max-width: 800px) {
+
   h2 {
     background-color: $blue;
   }
@@ -115,5 +116,16 @@
       }
     }
 
+  }
+}
+
+@media (max-width: 575px) {
+  main {
+    section.page-title {
+      .container {
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+    }
   }
 }

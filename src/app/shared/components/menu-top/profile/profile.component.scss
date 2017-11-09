@@ -92,3 +92,23 @@
     }
   }
 }
+
+
+@media (max-width: 575px) {
+  main {
+    section.profile {
+      .container {
+        //padding-left: 0;
+        //padding-right: 0;
+        .row{
+          margin-right: 0;
+          margin-left: 0;
+          .col{
+            max-width: 100%;
+          }
+        }
+
+      }
+    }
+  }
+}
