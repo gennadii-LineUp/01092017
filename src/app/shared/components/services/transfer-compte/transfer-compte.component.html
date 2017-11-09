@@ -19,7 +19,7 @@
                 <div *ngFor="let account of userDataService.myAccounts" class="consult-user"
                      (click)="fillReceiverInfoFunction(account, $event); $event.stopPropagation();
                               goToAllTransferFunction()"
-                     id="{{account.account_id}}" #{{account.account_id}}>
+                     id="{{account.id_account}}" #{{account.id_account}}>
                   <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
                   <div>
                     <div>{{account.nom}} {{account.prenom}}</div>
@@ -115,7 +115,7 @@
                           <input placeholder="placeholder" required="" type="text">
                         </div>
                         <!--Right drop for show-->
-                        <div *ngIf="!(+newReceiver.account_id > 0)" class="right-drop" style="display: block;">
+                        <div *ngIf="!(+newReceiver.id_account > 0)" class="right-drop" style="display: block;">
                           <div *ngFor="let receiver of receivers" class="right-drop__item" (click)="setBeneficiaryFunction(receiver)">
                             <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
                             <div>
@@ -173,11 +173,11 @@
                         <!--Need to hide this item when input empty, when input have value show angle, onclick angle show right drop -->
                         <div class="orange-angle" style="display: block;"><i class="fa fa-angle-right" aria-hidden="true"></i></div>
                         <div class="floating-input">
-                          <input id="" name="" placeholder="placeholder ID" required="" type="text" [(ngModel)]="newReceiver.account_id">
+                          <input id="" name="" placeholder="placeholder ID" required="" type="text" [(ngModel)]="newReceiver.id_account">
                         </div>
 
                         <!--Right drop for show-->
-                        <div *ngIf="!(+newReceiver.account_id > 0)" class="right-drop" style="display: block;">
+                        <div *ngIf="!(+newReceiver.id_account > 0)" class="right-drop" style="display: block;">
                           <div *ngFor="let receiver of receivers" class="right-drop__item" (click)="setBeneficiaryFunction(receiver)">
                             <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
                             <div>

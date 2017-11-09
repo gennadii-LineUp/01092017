@@ -9,7 +9,7 @@ export class GetAllListAccountService {
   constructor(public backendService: BackendService) {}
 
 
-  public getAllCustomer(cellulaire: string): Observable<any> {
+  public getMyAccounts(cellulaire: string): Observable<any> {
     const token = localStorage.token;
 
     const body =

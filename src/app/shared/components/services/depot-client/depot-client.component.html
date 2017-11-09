@@ -48,7 +48,7 @@
             </div>
 
             <div *ngIf="receivers.length" class="content search">
-              <div  *ngFor="let myAccount of userDataService.getMyAccounts()" #{{receiver.id_receiver}} id="{{myAccount.account_id}}"
+              <div  *ngFor="let myAccount of userDataService.getMyAccounts()" #{{receiver.id_receiver}} id="{{myAccount.id_account}}"
                     class="search__user" (click)="commonServices.defineReceiversFunction($event); setBeneficiaryFunction(myAccount)">
                 <div>
                   <span class="logo" style="background-image: url('../../../../../assets/img/user.png')"></span>
@@ -61,7 +61,7 @@
               </div>
 
               <!-- *** M U L T I P L E   S E L E C T *** -->
-              <!--<div  *ngFor="let myAccount of userDataService.getMyAccounts()" #{{receiver.id_receiver}} id="{{myAccount.account_id}}"-->
+              <!--<div  *ngFor="let myAccount of userDataService.getMyAccounts()" #{{receiver.id_receiver}} id="{{myAccount.id_account}}"-->
               <!--class="search__user" (click)="commonServices.defineReceiversFunction($event)">-->
               <!--<div>-->
               <!--<span class="logo" style="background-image: url('../../../../../assets/img/user.png')"></span>-->

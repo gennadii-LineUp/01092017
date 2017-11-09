@@ -39,7 +39,7 @@ export class ConsultationSoldeComponent implements OnInit {
     this.errorMessage = '';
     this.successMessage = '';
 
-    this.w2ISoldeService.getSolde(this.currentAccount.account_id)
+    this.w2ISoldeService.getSolde(this.currentAccount.id_account)
       .subscribe(result => {
         this.loading = false;
         console.log(result._body);
@@ -50,7 +50,7 @@ export class ConsultationSoldeComponent implements OnInit {
           this.showRequestResult = !this.showRequestResult;
           this.solde = +response.solde;
           /////////////////////////////
-          this.w2ISoldeService.getHistorySolde(this.currentAccount.account_id)
+          this.w2ISoldeService.getHistorySolde(this.currentAccount.id_account)
             .subscribe(resulHistory => {
               const responsHistory = this.commonServices.xmlResponseParcer_complex( resulHistory._body );
               console.dir( responsHistory );

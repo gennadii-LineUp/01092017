@@ -11,22 +11,14 @@ export class UserDataService {
   client = [];
 
   myAccounts = [
-    { telephone: '4', nom: 'Lex', prenom: 'Luthor', email: 'lexluthor@gmail.com', account_id: 3 },
-    { telephone: '4', nom: 'Lex', prenom: 'Luthor', email: 'lexluthor@ukr.net', account_id: 7 },
-    { telephone: '4', nom: 'Lex', prenom: 'Luthor', email: 'lexluthor@yahoo.com', account_id: 8 }
+    { telephone: '4', nom: 'Lex', prenom: 'Luthor', email: 'lexluthor@gmail.com', id_account: 3 },
+    { telephone: '4', nom: 'Lex', prenom: 'Luthor', email: 'lexluthor@ukr.net', id_account: 7 },
+    { telephone: '4', nom: 'Lex', prenom: 'Luthor', email: 'lexluthor@yahoo.com', id_account: 8 }
   ];
 
-  myTransactions = [
-    { nom: 'Clark', prenom: 'Kent', amount: 123.49, direction: '-', currency: 'USD', date: '11.12.2017',
-      tyme: '11:12', email: 'ClarkKent@gmail.com', account_id: 9 },
-    { nom: 'Clark', prenom: 'Kent', amount: 123.49, direction: '-', currency: 'USD', date: '10.12.2017',
-      tyme: '09:12', email: 'ClarkKent@gmail.com', account_id: 9 },
-    { nom: 'Clark', prenom: 'Kent', amount:  54.18, direction: '+', currency: 'USD', date: '09.12.2017',
-      tyme: '11:30', email: 'ClarkKent@gmail.com', account_id: 9 },
-  ];
 
   beneficiaires = [
-    { nom: 'KANE', prenom: 'MOMAR', telephone: '773151459', address: 'DAKAR', account_id: 21, profil: 'citizen' }
+    { nom: 'KANE', prenom: 'MOMAR', telephone: '773151459', address: 'DAKAR', id_account: 21, profil: 'citizen' }
   ];
 
   // Observable string sources
@@ -39,11 +31,6 @@ export class UserDataService {
 
   public setMyAccounts() {
     this.myAccounts.forEach(myAccount => {
-      // if (this.getUser().telephone) {
-      //   myAccount.telephone = this.getUser().telephone;
-      // } else {
-      //   myAccount.telephone = localStorage.telephone;
-      // }
       myAccount.telephone = (this.getUser().telephone) ?  this.getUser().telephone : localStorage.telephone;
     });
   }
@@ -66,9 +53,13 @@ export class UserDataService {
     this.user.prenom = prenom;
     this.user.profil = profil;
     this.user.telephone = telephone;
-    console.log(this.user);
+    // console.log(this.user);
     this.publishData(this.user);
-    this.setMyAccounts();
+    // this.setMyAccounts();
+  }
+  public setUserId(id_account: string) {
+    this.user.id_account = +id_account;
+    console.log(this.user);
   }
 
   public getUser(): ReceiverClass {

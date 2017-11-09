@@ -39,7 +39,7 @@ export class ConsultationOperationsComponent implements OnInit {
       const _e = e.currentTarget.parentElement.parentElement;
       this.showTransactions = false;
 
-      this.getOperationService.getOperations(this.currentAccount.account_id)
+      this.getOperationService.getOperations(this.currentAccount.id_account)
         .subscribe(result => {
           this.loading = false;
           const history = this.commonServices.xmlResponseParcer_complex( result._body );

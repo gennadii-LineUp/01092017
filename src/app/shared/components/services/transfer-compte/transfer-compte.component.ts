@@ -6,7 +6,7 @@ import {ReceiverClass} from '../../../../models/receiver-class';
 import {W2WVirementAccountService} from '../../../../services/api/W2WVirementAccount.service';
 import {GetCommissionsTTCService} from '../../../../services/api/getCommissionsTTC.service';
 import {GetAllCitizenService} from '../../../../services/api/getAllCitizen.service';
-import {GetAllCustomerService} from 'app/services/api/getAllCustomer.service';
+import {GetAllCustomerService} from '../../../../services/api/getAllCustomer.service';
 
 @Component({
   selector: 'app-services-transfer-compte',
@@ -25,7 +25,7 @@ export class TransferCompteComponent implements OnInit {
 
   loading = false;
   myAccount: any;
-  account_id = '';
+  id_account = '';
   // newReceiver = this.userDataService.beneficiaires[0];
   newReceiver = new ReceiverClass('', '', '', '', undefined, '');
   amountToReceiver: number;
@@ -52,6 +52,12 @@ export class TransferCompteComponent implements OnInit {
               public errorMessageHandlerService: ErrorMessageHandlerService) { }
 
   ngOnInit() {
+    console.log(!!this.userDataService.user.id_account);
+    if (this.userDataService.user.id_account) {
+      this.fillReceiverInfoFunction(this.userDataService.user, {});
+
+    };
+
     this.userDataService.setMyAccounts();
 
     const profil = ((<any>this.userDataService.getUser).profil) ? (<any>this.userDataService.getUser).profil :
@@ -88,7 +94,7 @@ export class TransferCompteComponent implements OnInit {
     this.transfer_standart = false;
     this.transfer_marchand = false;
     this.transfer_facture = false;
-    setTimeout(() => { window.document.getElementById(this.account_id).classList.add('active'); }, 1);
+    setTimeout(() => { window.document.getElementById(this.id_account).classList.add('active'); }, 1);
   }
   public goToAllTransferFunction() {
     this.header_option = '';
@@ -158,7 +164,7 @@ export class TransferCompteComponent implements OnInit {
           /////////////////////////////
           this.w2WVirementAccountService.transferCompteStandart(this.amountToReceiver,
                                                                 response.commission,
-                                                                this.myAccount.account_id,
+                                                                this.myAccount.id_account,
                                                                 (<any>this.newReceiver).id)
             .subscribe(_result => {
               this.loading = false;
@@ -210,8 +216,8 @@ export class TransferCompteComponent implements OnInit {
     for (let i = 0; i < allItems.length; i++) {
       allItems[i].className = 'consult-user';
     }
-    this.account_id = e.currentTarget.id;
-    e.currentTarget.classList.add('active');
+    this.id_account = this.myAccount.id_account;  // this.id_account = e.currentTarget.id;
+    // e.currentTarget.classList.add('active');
     this.showReceiverInfo = true;
   }
 
