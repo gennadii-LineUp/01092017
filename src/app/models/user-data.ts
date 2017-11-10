@@ -5,8 +5,8 @@ import {Router} from '@angular/router';
 
 @Injectable()
 export class UserDataService {
-  user = new ReceiverClass('', '', '', '', 0, '');
-  sender_default = [new ReceiverClass('skype', 'gena_ukr79', '', '', 0, '')];
+  user = new ReceiverClass('', '', '', '', 0, '', '');
+  sender_default = [new ReceiverClass('skype', 'gena_ukr79', '', '', 0, '', '')];
   citizens = [];
   client = [];
 
@@ -101,6 +101,6 @@ export class UserDataService {
   public logOut() {
     this.router.navigate(['/authorisation']);
     localStorage.clear();
-    this.user = new ReceiverClass('', '', '', '', 0, '');
+    this.user = new ReceiverClass('', '', '', '', 0, '', '');
   }
 }

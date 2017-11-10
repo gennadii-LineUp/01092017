@@ -99,7 +99,7 @@ export class TransferDargentComponent implements OnInit {
   public clearAmount() {this.amountToReceiver = undefined; }
   public clearSearch() {
     this.amountToReceiver = undefined;
-    this.newReceiver = new ReceiverClass('', '', '', '', 0, '');
+    this.newReceiver = new ReceiverClass('', '', '', '', 0, '', '');
     this.successMessage_1 = '';
     this.successMessage_2 = '';
     this.errorMessage = '';

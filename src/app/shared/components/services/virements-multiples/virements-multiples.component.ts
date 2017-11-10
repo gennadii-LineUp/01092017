@@ -17,9 +17,9 @@ export class VirementsMultiplesComponent implements OnInit {
   arrayToSend = [];
 
   amount_virementsMultiples: number;
-  receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 1, 'citizen'),
-              new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 2, 'citizen'),
-              new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 3, 'citizen')];
+  receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 1, 'citizen', ''),
+              new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 2, 'citizen', ''),
+              new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 3, 'citizen', '')];
   selectedReceivers = [];
   contracts = [{number: 'BD012345678910', conract_id: 15},
                {number: 'PJ112233445511', conract_id: 16},

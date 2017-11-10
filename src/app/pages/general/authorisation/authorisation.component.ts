@@ -5,6 +5,7 @@ import {AuthorisationClass} from '../../../models/authorisation-class';
 import {CommonServices} from '../../../services/common.service';
 import {UserDataService} from '../../../models/user-data';
 import {GetAllListAccountService} from '../../../services/api/getAllListAccount.service';
+import {ReceiverClass} from '../../../models/receiver-class';
 
 @Component({
   selector: 'app-authorisation',
@@ -60,11 +61,25 @@ export class GeneralAuthorisationComponent implements OnInit {
 
             this.getAllListAccountService.getMyAccounts(response.telephone)
               .subscribe(result1 => {
-                const response1 = this.commonServices.xmlResponseParcer_simple(result1._body);
+                const response1 = this.commonServices.xmlResponseParcer_complex(result1._body);
                 console.log(response1);
-                if (response1.status === 'ACTIF' && response1.total === '1') {
-                  this.userDataService.setUserId(response1.id);
+                const accounts = response1.accounts;
+                if (accounts.length) {
+                  if (accounts['0'].status === 'ACTIF') {
+                    this.userDataService.setUserId(accounts['0'].id);
+                    this.userDataService.myAccounts = [];
+                    for (let i = 0; i < accounts.length; i++) {
+                      this.userDataService.myAccounts.push(new ReceiverClass(response.nom,
+                                                                            response.prenom,
+                                                                            response.telephone,
+                                                                            'please add an adress',
+                                                                            +accounts[i].id,
+                                                                            response.profil,
+                                                                            'please add @'));
+                    }
+                  }
                 }
+                console.log(this.userDataService.getMyAccounts());
               }, (err) => {
                 console.log(err);
               });

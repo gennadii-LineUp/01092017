@@ -27,7 +27,7 @@ export class TransferCompteComponent implements OnInit {
   myAccount: any;
   id_account = '';
   // newReceiver = this.userDataService.beneficiaires[0];
-  newReceiver = new ReceiverClass('', '', '', '', undefined, '');
+  newReceiver = new ReceiverClass('', '', '', '', undefined, '', '');
   amountToReceiver: number;
   showReceiverInfo = false;
   successMessage_1 = '';
@@ -38,9 +38,9 @@ export class TransferCompteComponent implements OnInit {
   profileAsAgent = this.userDataService.checkUserRole();
   sender = [this.userDataService.getSender_default()];
 
-  // receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 18, 'citizen'),
-  //   new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 19, 'citizen'),
-  //   new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 20, 'citizen')];
+  // receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 18, 'citizen', ''),
+  //   new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 19, 'citizen', ''),
+  //   new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 20, 'citizen', '')];
 
 
   constructor(public userDataService: UserDataService,
@@ -209,7 +209,7 @@ export class TransferCompteComponent implements OnInit {
   public fillReceiverInfoFunction(myAccount: any, e: any) {
     // this.showReceiverInfo = false;
     this.clearSearch();
-    this.newReceiver = new ReceiverClass('', '', '', '', undefined, '');
+    this.newReceiver = new ReceiverClass('', '', '', '', undefined, '', '');
     this.myAccount = myAccount;
     console.log(this.myAccount);
     const allItems: NodeListOf<Element> = window.document.querySelectorAll('div.consult-user');
@@ -225,7 +225,7 @@ export class TransferCompteComponent implements OnInit {
   public clearAmount() {this.amountToReceiver = undefined; }
   public clearSearch() {
     this.amountToReceiver = undefined;
-    // this.newReceiver = new ReceiverClass('', '', '', '', undefined, '');
+    // this.newReceiver = new ReceiverClass('', '', '', '', undefined, '', '');
     this.successMessage_1 = '';
     this.successMessage_2 = '';
     this.errorMessage = '';
