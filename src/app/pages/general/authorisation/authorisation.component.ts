@@ -16,9 +16,9 @@ import {ReceiverClass} from '../../../models/receiver-class';
 export class GeneralAuthorisationComponent implements OnInit {
   errorMessage = '';
   loading = false;
-  // authorisation = new AuthorisationClass('773151459', 'wari', 'APP');
+  authorisation = new AuthorisationClass('wari', 'wari', 'APP');
   // authorisation = new AuthorisationClass('7722222222', 'passer', 'APP'); // CITIZEN
-  authorisation = new AuthorisationClass('tresor', 'tresor', 'APP');        // CUSTOMER = CLIENT
+  // authorisation = new AuthorisationClass('tresor', 'tresor', 'APP');        // CUSTOMER = CLIENT
 
   constructor(public loginService: LoginService,
               public userDataService: UserDataService,
@@ -59,55 +59,7 @@ export class GeneralAuthorisationComponent implements OnInit {
             this.loginService.usersRouting(response.profil);
             this.userDataService.setUser(response.nom, response.prenom, response.profil, response.telephone);
 
-            this.getAllListAccountService.getMyAccounts(response.telephone)
-              .subscribe(result1 => {
-                const response1 = this.commonServices.xmlResponseParcer_complex(result1._body);
-                console.log(response1);
-                const accounts = response1.accounts;
-                if (accounts.length) {
-                  if (accounts['0'].status === 'ACTIF') {
-                    this.userDataService.setUserId(accounts['0'].id);
-                    this.userDataService.myAccounts = [];
-                    for (let i = 0; i < accounts.length; i++) {
-                      this.userDataService.myAccounts.push(new ReceiverClass(response.nom,
-                                                                            response.prenom,
-                                                                            response.telephone,
-                                                                            'please add an adress',
-                                                                            +accounts[i].id,
-                                                                            response.profil,
-                                                                            'please add @'));
-                    }
-                  }
-                }
-                console.log(this.userDataService.getMyAccounts());
-              }, (err) => {
-                console.log(err);
-              });
-
-          //   if (response.profil === 'CITIZEN') {
-          //   this.getAllCitizenService.getAllCitizens()
-          //     .subscribe(result1 => {
-          //       const response1 = (this.commonServices.xmlResponseParcer_complex(result1._body)).uos;
-          //       if (response1.length) {
-          //         this.userDataService.setCitizens(response1);
-          //       }
-          //     }, (err) => {
-          //       console.log(err);
-          //     });
-          // }
-
-            // if (response.profil === 'CLIENT') {
-            //   this.getAllCustomerService.getAllCustomer()
-            //     .subscribe(result2 => {
-            //       const response2 = (this.commonServices.xmlResponseParcer_complex(result2._body)).uos;
-            //       if (response2.length) {
-            //         this.userDataService.setClients(response2);
-            //       }
-            //     }, (err) => {
-            //       console.log(err);
-            //     });
-            // }
-
+            this.userDataService.setMyAccounts();
           } else {
             this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
           }

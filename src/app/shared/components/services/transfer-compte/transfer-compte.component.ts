@@ -7,12 +7,14 @@ import {W2WVirementAccountService} from '../../../../services/api/W2WVirementAcc
 import {GetCommissionsTTCService} from '../../../../services/api/getCommissionsTTC.service';
 import {GetAllCitizenService} from '../../../../services/api/getAllCitizen.service';
 import {GetAllCustomerService} from '../../../../services/api/getAllCustomer.service';
+import {GetAllListAccountService} from '../../../../services/api/getAllListAccount.service';
 
 @Component({
   selector: 'app-services-transfer-compte',
   templateUrl: './transfer-compte.component.html',
   styleUrls: ['./transfer-compte.component.scss'],
-  providers: [GetAllCitizenService, GetAllCustomerService, W2WVirementAccountService, GetCommissionsTTCService]
+  providers: [GetAllCitizenService, GetAllCustomerService, W2WVirementAccountService, GetCommissionsTTCService,
+    GetAllListAccountService]
 
 })
 export class TransferCompteComponent implements OnInit {
@@ -27,65 +29,43 @@ export class TransferCompteComponent implements OnInit {
   myAccount: any;
   id_account = '';
   // newReceiver = this.userDataService.beneficiaires[0];
-  newReceiver = new ReceiverClass('', '', '', '', undefined, '', '');
+  newReceiver = new ReceiverClass('', '', '', '', undefined, '', '', '');
   amountToReceiver: number;
   showReceiverInfo = false;
   successMessage_1 = '';
   successMessage_2 = '';
   errorMessage = '';
   commission = [];
-  receivers = [];
+  receivers = this.userDataService.getReceivers();
   profileAsAgent = this.userDataService.checkUserRole();
   sender = [this.userDataService.getSender_default()];
-
-  // receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 18, 'citizen', ''),
-  //   new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 19, 'citizen', ''),
-  //   new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 20, 'citizen', '')];
 
 
   constructor(public userDataService: UserDataService,
               public commonServices: CommonServices,
-              public getAllCitizenService: GetAllCitizenService,
+              public getAllListAccountService: GetAllListAccountService,
               public getAllCustomerService: GetAllCustomerService,
               public w2WVirementAccountService: W2WVirementAccountService,
               public getCommissionsTTCService: GetCommissionsTTCService,
               public errorMessageHandlerService: ErrorMessageHandlerService) { }
 
   ngOnInit() {
-    console.log(!!this.userDataService.user.id_account);
-    if (this.userDataService.user.id_account) {
-      this.fillReceiverInfoFunction(this.userDataService.user, {});
+    if ((this.userDataService.getMyAccounts()).length) {
+      console.log('=== MyAccounts\' length ' + this.userDataService.getMyAccounts().length);
+    } else {
+      console.log('=== MyAccounts\' is empty ===');
+      this.userDataService.setMyAccounts();
+    }
 
-    };
-
-    this.userDataService.setMyAccounts();
+    // this.userDataService.setMyAccounts();
 
     const profil = ((<any>this.userDataService.getUser).profil) ? (<any>this.userDataService.getUser).profil :
                                                                   localStorage.getItem('profil');
     console.log(profil);
-    this.setCustomers(profil);
+    this.userDataService.setReceivers(profil);
   }
 
-  public setCustomers(profil: string) {
-    if (profil === 'CITIZEN') {
-      this.getAllCitizenService.getAllCitizens()
-        .subscribe(result => {
-          const response = (this.commonServices.xmlResponseParcer_complex(result._body)).uos;
-            this.receivers = (response.length) ? response : [];
-            console.log(this.receivers);
-        }, (err) => {console.log(err); });
-    }
 
-    if (profil === 'CLIENT') {
-      this.getAllCustomerService.getAllCustomer()
-        .subscribe(result => {
-          const response = (this.commonServices.xmlResponseParcer_complex(result._body)).uos;
-          this.receivers = (response.length) ? response : [];
-          console.log(this.receivers);
-        }, (err) => {console.log(err); });
-    }
-
-  }
 
   public goToAllAccountsFunction() {
     this.header_option = '';
@@ -112,6 +92,9 @@ export class TransferCompteComponent implements OnInit {
     this.transfer_standart = true;
     this.transfer_marchand = false;
     this.transfer_facture = false;
+    if (!this.receivers.length) {
+      this.receivers = this.userDataService.getReceivers();
+    }
   }
   public goToMarchandTransferFunction() {
     // this.header_option = '(Paiement Marchand)';
@@ -120,6 +103,9 @@ export class TransferCompteComponent implements OnInit {
     // this.transfer_standart = false;
     // this.transfer_marchand = true;
     // this.transfer_facture = false;
+    // if (!this.receivers.length) {
+    //   this.receivers = this.userDataService.getReceivers();
+    // }
   }
   public goToFactureTransferFunction() {
     // this.header_option = '(Paiement Facture)';
@@ -128,6 +114,9 @@ export class TransferCompteComponent implements OnInit {
     // this.transfer_standart = false;
     // this.transfer_marchand = false;
     // this.transfer_facture = true;
+    // if (!this.receivers.length) {
+    //   this.receivers = this.userDataService.getReceivers();
+    // }
   }
 
   public setSenderFunction(sender: any) {
@@ -137,6 +126,7 @@ export class TransferCompteComponent implements OnInit {
   }
 
   public setBeneficiaryFunction(beneficiary: any) {
+    console.log(beneficiary);
     this.newReceiver = beneficiary;
     console.log(this.newReceiver);
   }
@@ -161,34 +151,52 @@ export class TransferCompteComponent implements OnInit {
         if (+response.error === 0) {
           this.commission.push(+response.commission);
           console.log(response.commission);
-          /////////////////////////////
-          this.w2WVirementAccountService.transferCompteStandart(this.amountToReceiver,
-                                                                response.commission,
-                                                                this.myAccount.id_account,
-                                                                (<any>this.newReceiver).id)
-            .subscribe(_result => {
-              this.loading = false;
-              console.log(_result._body);
-              const _response = this.commonServices.xmlResponseParcer_simple( _result._body );
 
-              console.dir( _response );
-              if (+_response.error === 0) {
-                this.errorMessage = '';
-                this.successMessage_1 = response.message + ' - ' + response.commission;
-                this.successMessage_2 = _response.message;
-              } else {
-                this.errorMessage += '  ' + this.errorMessageHandlerService.getMessageEquivalent(_response.message);
-              }
+          this.getAllListAccountService.getMyAccounts(this.newReceiver.numTel).subscribe(result1 => {
+            console.log(result1._body);
+            const response1 = this.commonServices.xmlResponseParcer_complex( result1._body );
+            const _accounts = response1.accounts;
+            let receiver_id: number;
+            if (_accounts && _accounts.length) {
+              receiver_id = _accounts['0'].id;
+              console.log(receiver_id);
+            }
+            /////////////////////////////
+            this.w2WVirementAccountService.transferCompteStandart(this.amountToReceiver,
+                                                                  response.commission,
+                                                                  this.myAccount.id_account,
+                                                                  receiver_id)
+              .subscribe(result2 => {
+                this.loading = false;
+                console.log(result2._body);
+                const _response = this.commonServices.xmlResponseParcer_simple( result2._body );
 
-            }, (err) => {
-              this.loading = false;
-              console.log(err);
-              this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
-              if (!this.errorMessage) {
-                this.errorMessage = this.errorMessageHandlerService._getMessageEquivalent(err._body);
-              }
-            });
-          /////////////////////////////
+                console.dir( _response );
+                if (+_response.error === 0) {
+                  this.errorMessage = '';
+                  this.successMessage_1 = response.message + ' - ' + response.commission;
+                  this.successMessage_2 = _response.message;
+                } else {
+                  this.errorMessage += '  ' + this.errorMessageHandlerService.getMessageEquivalent(_response.message);
+                }
+
+              }, (err) => {
+                this.loading = false;
+                console.log(err);
+                this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+                if (!this.errorMessage) {
+                  this.errorMessage = this.errorMessageHandlerService._getMessageEquivalent(err._body);
+                }
+              });
+            /////////////////////////////
+          }, (err) => {
+            this.loading = false;
+            console.log(err);
+            this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+            if (!this.errorMessage) {
+              this.errorMessage = this.errorMessageHandlerService._getMessageEquivalent(err._body);
+            }
+          });
         } else {
           this.loading = false;
           this.errorMessage = response.message + ' - ' + response.commission;
@@ -209,8 +217,9 @@ export class TransferCompteComponent implements OnInit {
   public fillReceiverInfoFunction(myAccount: any, e: any) {
     // this.showReceiverInfo = false;
     this.clearSearch();
-    this.newReceiver = new ReceiverClass('', '', '', '', undefined, '', '');
+    this.newReceiver = new ReceiverClass('', '', '', '', undefined, '', '', '');
     this.myAccount = myAccount;
+    console.log('=== sender\'s account: ');
     console.log(this.myAccount);
     const allItems: NodeListOf<Element> = window.document.querySelectorAll('div.consult-user');
     for (let i = 0; i < allItems.length; i++) {
@@ -225,7 +234,7 @@ export class TransferCompteComponent implements OnInit {
   public clearAmount() {this.amountToReceiver = undefined; }
   public clearSearch() {
     this.amountToReceiver = undefined;
-    // this.newReceiver = new ReceiverClass('', '', '', '', undefined, '', '');
+    // this.newReceiver = new ReceiverClass('', '', '', '', undefined, '', '', '');
     this.successMessage_1 = '';
     this.successMessage_2 = '';
     this.errorMessage = '';

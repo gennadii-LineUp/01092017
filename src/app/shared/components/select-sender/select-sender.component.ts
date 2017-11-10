@@ -11,9 +11,9 @@ export class SelectSenderComponent implements OnInit {
   loading = false;
   sender_to_find = '';
 
-  senders = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 1, 'citizen', ''),
-    new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 2, 'citizen', ''),
-    new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 3, 'citizen', '')];
+  senders = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 1, 'citizen', '', ''),
+    new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 2, 'citizen', '', ''),
+    new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 3, 'citizen', '', '')];
 
   @Input() header_page = 'Insert sender’s information';
   @Input() input_caption = 'Find a sender’s account by';

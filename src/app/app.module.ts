@@ -15,6 +15,9 @@ import {UserDataService} from './models/user-data';
 import {AgentGuard} from './guards/agent-guard.service';
 import {CitizenGuard} from './guards/citizen-guard.service';
 import {CustomerGuard} from './guards/customer-guard.service';
+import {GetAllListAccountService} from './services/api/getAllListAccount.service';
+import {GetAllCitizenService} from './services/api/getAllCitizen.service';
+import {GetAllCustomerService} from './services/api/getAllCustomer.service';
 
 
 @NgModule({
@@ -30,7 +33,8 @@ import {CustomerGuard} from './guards/customer-guard.service';
   ],
   providers: [
     AuthGuard, AgentGuard, CitizenGuard, CustomerGuard,
-    ErrorMessageHandlerService, BackendService, CommonServices, UserDataService
+    ErrorMessageHandlerService, BackendService, CommonServices, UserDataService, GetAllListAccountService,
+    GetAllCustomerService, GetAllCitizenService
   ],
   bootstrap: [AppComponent]
 })

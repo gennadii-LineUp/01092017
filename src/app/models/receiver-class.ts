@@ -6,6 +6,7 @@ export class ReceiverClass {
   id_account: number;
   profil: string;
   email: string;
+  numTel: string;
 
   constructor( nom: string,
                prenom: string,
@@ -13,7 +14,8 @@ export class ReceiverClass {
                address: string,
                id_account: number,
                profil: string,
-               email: string) {
+               email: string,
+               numTel: string) {
 
     this.nom = nom;
     this.prenom = prenom;
@@ -22,5 +24,6 @@ export class ReceiverClass {
     this.id_account = id_account;
     this.profil = profil;
     this.email = email;
+    this.numTel = numTel;
   }
 }

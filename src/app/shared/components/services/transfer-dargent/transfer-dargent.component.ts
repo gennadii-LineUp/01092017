@@ -29,7 +29,17 @@ export class TransferDargentComponent implements OnInit {
               public errorMessageHandlerService: ErrorMessageHandlerService) { }
 
   ngOnInit() {
-    this.userDataService.setMyAccounts();
+    if ((this.userDataService.getMyAccounts()).length) {
+      console.log('=== MyAccounts\' length ' + this.userDataService.getMyAccounts().length);
+    } else {
+      console.log('=== MyAccounts\' is empty ===');
+      this.userDataService.setMyAccounts();
+    }
+    const profil = ((<any>this.userDataService.getUser).profil) ? (<any>this.userDataService.getUser).profil :
+      localStorage.getItem('profil');
+    console.log(profil);
+    this.userDataService.setReceivers(profil);
+
   }
 
 
@@ -99,7 +109,7 @@ export class TransferDargentComponent implements OnInit {
   public clearAmount() {this.amountToReceiver = undefined; }
   public clearSearch() {
     this.amountToReceiver = undefined;
-    this.newReceiver = new ReceiverClass('', '', '', '', 0, '', '');
+    this.newReceiver = new ReceiverClass('', '', '', '', 0, '', '', '');
     this.successMessage_1 = '';
     this.successMessage_2 = '';
     this.errorMessage = '';

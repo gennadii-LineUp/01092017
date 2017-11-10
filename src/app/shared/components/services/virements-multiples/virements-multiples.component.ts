@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ReceiverClass} from '../../../../models/receiver-class';
 import {CommonServices} from '../../../../services/common.service';
+import {UserDataService} from '../../../../models/user-data';
 
 @Component({
   selector: 'app-virements-multiples',
@@ -17,17 +18,31 @@ export class VirementsMultiplesComponent implements OnInit {
   arrayToSend = [];
 
   amount_virementsMultiples: number;
-  receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 1, 'citizen', ''),
-              new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 2, 'citizen', ''),
-              new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 3, 'citizen', '')];
+  receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 1, 'citizen', '', ''),
+              new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 2, 'citizen', '', ''),
+              new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 3, 'citizen', '', '')];
   selectedReceivers = [];
   contracts = [{number: 'BD012345678910', conract_id: 15},
                {number: 'PJ112233445511', conract_id: 16},
                {number: 'OK998877664444', conract_id: 17}];
 
-  constructor(public commonServices: CommonServices) {}
+  constructor(public commonServices: CommonServices,
+              public userDataService: UserDataService) {}
 
-  ngOnInit() {this.gotoContractToFindFunction(); }
+  ngOnInit() {
+    this.gotoContractToFindFunction();
+    if ((this.userDataService.getMyAccounts()).length) {
+      console.log('=== MyAccounts\' length ' + this.userDataService.getMyAccounts().length);
+    } else {
+      console.log('=== MyAccounts\' is empty ===');
+      this.userDataService.setMyAccounts();
+    }
+
+    const profil = ((<any>this.userDataService.getUser).profil) ? (<any>this.userDataService.getUser).profil :
+      localStorage.getItem('profil');
+    console.log(profil);
+    this.userDataService.setReceivers(profil);
+  }
 
 
   public findContractFunction() {

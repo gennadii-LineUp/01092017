@@ -19,7 +19,7 @@ export class ConsultationSoldeComponent implements OnInit {
   solde: number;
   totalOperations = 0;
   transactions_history = [];
-  currentAccount = this.userDataService.myAccounts[0];
+  myAccount: any;
   profileAsAgent = this.userDataService.checkUserRole();
   sender = [this.userDataService.getSender_default()];
 
@@ -32,6 +32,12 @@ export class ConsultationSoldeComponent implements OnInit {
               public w2ISoldeService: W2ISoldeService) { }
 
   ngOnInit() {
+    if ((this.userDataService.getMyAccounts()).length) {
+      console.log('=== MyAccounts\' length ' + this.userDataService.getMyAccounts().length);
+    } else {
+      console.log('=== MyAccounts\' is empty ===');
+      this.userDataService.setMyAccounts();
+    }
   }
 
   public submitSoldeFunction() {
@@ -39,7 +45,7 @@ export class ConsultationSoldeComponent implements OnInit {
     this.errorMessage = '';
     this.successMessage = '';
 
-    this.w2ISoldeService.getSolde(this.currentAccount.id_account)
+    this.w2ISoldeService.getSolde(this.myAccount.id_account)
       .subscribe(result => {
         this.loading = false;
         console.log(result._body);
@@ -50,7 +56,7 @@ export class ConsultationSoldeComponent implements OnInit {
           this.showRequestResult = !this.showRequestResult;
           this.solde = +response.solde;
           /////////////////////////////
-          this.w2ISoldeService.getHistorySolde(this.currentAccount.id_account)
+          this.w2ISoldeService.getHistorySolde(this.myAccount.id_account)
             .subscribe(resulHistory => {
               const responsHistory = this.commonServices.xmlResponseParcer_complex( resulHistory._body );
               console.dir( responsHistory );
@@ -87,10 +93,10 @@ export class ConsultationSoldeComponent implements OnInit {
   }
 
 
-  public chooseAccount(currentAccount: any) {
+  public chooseAccount(myAccount: any) {
     this.clearAll();
-    this.currentAccount = currentAccount;
-    console.log(this.currentAccount);
+    this.myAccount = myAccount;
+    console.log(this.myAccount);
   }
 
   public setSenderFunction(sender: any) {

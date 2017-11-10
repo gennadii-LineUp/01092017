@@ -19,16 +19,16 @@ export class DepotClientComponent implements OnInit {
   loading = false;
   errorMessage = '';
   newReceiver = this.userDataService.beneficiaires[0];
-  // newReceiver = new ReceiverClass('', '', '', '', 0, '', '');
+  // newReceiver = new ReceiverClass('', '', '', '', 0, '', '', '');
   receiverExist = false;
   createNewReceiver = true;
   receiverStatus = '';
   receiverToFind = '7722222222';
   commission = [];
   envoyeur = new EnvoyeurClass('KANE', 'MOMAR', '773151459', 'DAKAR', 'CNI', 'SEN', '1619198107350', '01/01/2016', '01/01/2017');
-  receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 1, 'citizen', ''),
-              new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 2, 'citizen', ''),
-              new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 3, 'citizen', '')];
+  receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 1, 'citizen', '', ''),
+              new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 2, 'citizen', '', ''),
+              new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 3, 'citizen', '', '')];
 
   @ViewChild('amount2') amount2: any;
 
@@ -42,6 +42,17 @@ export class DepotClientComponent implements OnInit {
   ngOnInit() {
     this.firstStepMode();
     // this.secondStepMode();
+    if ((this.userDataService.getMyAccounts()).length) {
+      console.log('=== MyAccounts\' length ' + this.userDataService.getMyAccounts().length);
+    } else {
+      console.log('=== MyAccounts\' is empty ===');
+      this.userDataService.setMyAccounts();
+    }
+
+    const profil = ((<any>this.userDataService.getUser).profil) ? (<any>this.userDataService.getUser).profil :
+      localStorage.getItem('profil');
+    console.log(profil);
+    this.userDataService.setReceivers(profil);
   }
 
   public clearAmount() {this.amount_depotClient = undefined; }
@@ -126,7 +137,7 @@ export class DepotClientComponent implements OnInit {
     // this.amount_depotClient = undefined;
     // this.receivers = [];
     // this.receiverToFind = '';
-    // this.newReceiver = new ReceiverClass('', '', '', '', 0, '', '');
+    // this.newReceiver = new ReceiverClass('', '', '', '', 0, '', '', '');
     this.receiverExist = false;
     this.createNewReceiver = false;
     this.receiverStatus = '';
