@@ -15,9 +15,11 @@ export class GetAllContractsService {
     const body =
       `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:run="http://runtime.services.cash.innov.sn/">
          <soapenv:Header/>
-         <soapenv:Body>
-            <run:getAllContracts/>
-         </soapenv:Body>
+           <soapenv:Body>
+              <run:getAllContracts>
+                  <sessionId>` + token + `</sessionId>
+              </run:getAllContracts>
+           </soapenv:Body>
       </soapenv:Envelope>`;
 
     console.log(body);

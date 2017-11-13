@@ -48,13 +48,13 @@
             </div>
 
             <div *ngIf="receivers.length" class="content search">
-              <div  *ngFor="let myAccount of userDataService.getMyAccounts()" #{{receiver.id_receiver}} id="{{myAccount.id_account}}"
-                    class="search__user" (click)="commonServices.defineReceiversFunction($event); setBeneficiaryFunction(myAccount)">
+              <div  *ngFor="let citizen of userDataService.getCitizens()" #{{receiver.id_receiver}} id="{{citizen.id_account}}"
+                    class="search__user" (click)="commonServices.defineReceiversFunction($event); setBeneficiaryFunction(citizen)">
                 <div>
                   <span class="logo" style="background-image: url('../../../../../assets/img/user.png')"></span>
                   <div>
-                    <div>{{myAccount.nom}} {{myAccount.prenom}}</div>
-                    <span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>{{myAccount.telephone}}</span>
+                    <div>{{citizen.nom}} {{citizen.prenom}}</div>
+                    <span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>{{citizen.numTel}}</span>
                   </div>
                 </div>
                 <div class="circle-check"></div>
@@ -262,7 +262,7 @@
         </div>
       </div>
       <div *ngIf="createNewReceiver" class="row">
-        <div class="col-md-8 blue-button__wrapper">
+        <div class="col-md-12 blue-button__wrapper">
           <button class="orange-button blue-button" style="margin-top: 8px"
                   [disabled]="!((+amount_depotCitizen >= 0.01)
                             && commonServices.getSelectedReceivers().length

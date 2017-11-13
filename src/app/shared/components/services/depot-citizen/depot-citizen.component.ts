@@ -41,17 +41,10 @@ export class DepotCitizenComponent implements OnInit {
   ngOnInit() {
     this.firstStepMode();
 
-    if ((this.userDataService.getMyAccounts()).length) {
-      console.log('=== MyAccounts\' length ' + this.userDataService.getMyAccounts().length);
-    } else {
-      console.log('=== MyAccounts\' is empty ===');
-      this.userDataService.setMyAccounts();
+    if (!(this.userDataService.getCitizens()).length) {
+      this.userDataService.setCitizens();
     }
 
-    const profil = ((<any>this.userDataService.getUser).profil) ? (<any>this.userDataService.getUser).profil :
-      localStorage.getItem('profil');
-    console.log(profil);
-    this.userDataService.setReceivers(profil);
   }
 
   public submitDepotSitizen() {
@@ -107,9 +100,10 @@ export class DepotCitizenComponent implements OnInit {
   }
 
   public setBeneficiaryFunction(beneficiary: any) {
+    console.log(beneficiary);
     this.newReceiver.nom = beneficiary.nom;
     this.newReceiver.prenom = beneficiary.prenom;
-    this.newReceiver.telephone = this.receiverToFind;
+ //   this.newReceiver.telephone = beneficiary;
     this.secondStepMode();
     console.log(this.newReceiver);
   }
@@ -121,7 +115,10 @@ export class DepotCitizenComponent implements OnInit {
   }
   public secondStepMode() {
     this.clearSearch();
-    this.receiverStatus = '' + this.newReceiver.nom + ' ' + this.newReceiver.prenom + ', ' + this.newReceiver.telephone;
+    this.receiverStatus = (this.newReceiver.nom) ? (this.newReceiver.nom) : '';
+    this.receiverStatus += (this.newReceiver.prenom) ? (' ' + this.newReceiver.prenom) : '';
+    this.receiverStatus += (this.newReceiver.nom || this.newReceiver.prenom) ? (', ') : '';
+    this.receiverStatus += (this.newReceiver.telephone) ? (this.newReceiver.telephone) : '';
     this.createNewReceiver = true;
     // setTimeout(() => { this.amount2.nativeElement.focus(); this.amount2.nativeElement.focus(); }, 1000);
   }

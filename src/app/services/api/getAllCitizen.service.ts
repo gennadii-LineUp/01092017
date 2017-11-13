@@ -17,6 +17,7 @@ export class GetAllCitizenService {
          <soapenv:Header/>
          <soapenv:Body>
             <run:getAllCitizen>
+               <sessionId>` + token + `</sessionId>
                <pays>221</pays>
             </run:getAllCitizen>
          </soapenv:Body>

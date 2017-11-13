@@ -17,7 +17,7 @@ export class GetAllCustomerService {
          <soapenv:Header/>
          <soapenv:Body>
             <run:getAllCustomer>
-               <!--Optional:-->
+               <sessionId>` + token + `</sessionId>
                <pays>221</pays>
             </run:getAllCustomer>
          </soapenv:Body>
