@@ -33,8 +33,8 @@ export class C2WDepotTransactionService {
                   <envoyeur>
                       <nom>` + envoyeur.nom + `</nom>
                       <prenom>` + envoyeur.prenom + `</prenom>
-                      <adresse>` + envoyeur.address + `</adresse>
-                      <cellulaire>` + envoyeur.telephone + `</cellulaire>
+                      <adresse>` + envoyeur.addresse + `</adresse>
+                      <cellulaire>` + envoyeur.cellulaire + `</cellulaire>
                   </envoyeur>
                   <envoyeurID>
                       <type>` + envoyeur.id_type + `</type>

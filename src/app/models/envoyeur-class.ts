@@ -1,8 +1,8 @@
 export class EnvoyeurClass {
   nom: string;
   prenom: string;
-  telephone: string;
-  address: string;
+  cellulaire: string;
+  addresse: string;
   id_type: string;
   id_pays: string;
   id_valeur: string;
@@ -11,8 +11,8 @@ export class EnvoyeurClass {
 
   constructor( nom: string,
                prenom: string,
-               telephone: string,
-               address: string,
+               cellulaire: string,
+               addresse: string,
                id_type: string,
               id_pays: string,
               id_valeur: string,
@@ -21,8 +21,8 @@ export class EnvoyeurClass {
 
     this.nom = nom;
     this.prenom = prenom;
-    this.telephone = telephone;
-    this.address = address;
+    this.cellulaire = cellulaire;
+    this.addresse = addresse;
     this.id_type = id_type;
     this.id_pays = id_pays;
     this.id_valeur = id_valeur;
