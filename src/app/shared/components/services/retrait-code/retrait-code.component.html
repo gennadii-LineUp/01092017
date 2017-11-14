@@ -31,24 +31,55 @@
         </div>
 
 
-        <div *ngIf="retraitCode_valid" class="col-md-6 col-lg-4">
+        <div *ngIf="retraitCode_valid && !successMessage_1" class="col-md-6 col-lg-4">
           <div class="retrail-code__header">Information
             <span style="float: right; margin-right: 20px">beneficiaire</span>
           </div>
-          <div class="retrail-code__content info">
-            <div class="info-item">
-              <b>Nom</b>
-              {{serverResponse.beneficiaire.nom}} {{serverResponse.beneficiaire.prenom}}
-              <div class="code" >{{retraitCode}}</div>
-            </div>
-            <div class="info-item"><b>Montant</b>{{serverResponse.montant}}</div>
-            <div class="info-item"><b>Date of transaction</b>{{serverResponse.date}}</div>
-            <div class="info-item"><b>Phone</b>{{serverResponse.beneficiaire.cellulaire}}</div>
-            <div class="info-item">
-              <div *ngIf="errorMessage_retrieve" class="errorTextClass">{{errorMessage_retrieve}}</div>
-              <p *ngIf="!errorMessage_retrieve" style="margin: 0; text-align: center; height: 16px"><img *ngIf="loading_retrieve" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>
-              <button class="orange-button blue-button" (click)="retrieveCashFunction()">Retirer le cash</button>
-            </div>
+          <div *ngIf="!setAmountAndBeneficiareId"  class="retrail-code__content info">
+              <div class="info-item">
+                <b>Nom</b>{{serverResponse.beneficiaire.nom}} {{serverResponse.beneficiaire.prenom}}
+                <div class="code" >{{retraitCode}}</div>
+              </div>
+              <div class="info-item"><b>Montant</b>{{serverResponse.montant}}</div>
+              <div class="info-item"><b>Date of transaction</b>{{serverResponse.date}}</div>
+              <div class="info-item"><b>Phone</b>{{serverResponse.beneficiaire.cellulaire}}</div>
+              <div class="info-item">
+                <button class="orange-button blue-button" (click)="setAmountAndBeneficiareIdFunction()">Retirer le cash</button>
+              </div>
+          </div>
+
+          <div *ngIf="setAmountAndBeneficiareId"  class="retrail-code__content info">
+              <div class="amount-wrapper" style="margin-top: 16px; position: relative">
+                <h3>Amount</h3>
+                <div class="floating-block border-hover">
+                  <div class="floating-input">
+                    <input id="amount1" name="amount1" placeholder="00.00"
+                           type="text" [(ngModel)]="amount_retraitCode"
+                           (keyup.enter)='submitDepotClient()'
+                           onkeydown="return ( event.ctrlKey || event.altKey
+                                                                || (47<event.keyCode && event.keyCode<58 && event.shiftKey==false)
+                                                                || (95<event.keyCode && event.keyCode<106)
+                                                                || (event.keyCode===8) || (event.keyCode===9)
+                                                                || (event.keyCode>34 && event.keyCode<40)
+                                                                || (event.keyCode===46) || (event.keyCode===110))"/>
+                    <div class="clean-input" (click)="clearAmount()"></div>
+                  </div>
+                  <div class="currency">Usd</div>
+                </div>
+              </div>
+
+              <app-get-user-id (userData)="onChanged($event)"></app-get-user-id>
+
+              <div class="info-item">
+                <div *ngIf="errorMessage_retrieve" class="errorTextClass">{{errorMessage_retrieve}}</div>
+                <p *ngIf="!errorMessage_retrieve" style="margin: 0; text-align: center; height: 16px"><img *ngIf="loading_retrieve" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>
+                <button class="orange-button blue-button"
+                        [disabled]="!(amount_retraitCode && beneficiaire.nom && beneficiaire.prenom
+                                                        && beneficiaire.cellulaire && beneficiaire.id_type
+                                                        && beneficiaire.id_pays
+                                                        && beneficiaire.id_valeur && beneficiaire.id_debut)"
+                        (click)="retrieveCashFunction()">Retirer le cash</button>
+              </div>
           </div>
         </div>
 
@@ -89,5 +120,8 @@
       </div>
     </div>
   </section>
+
+  <app-success-message [message_firstLine]="successMessage_1"></app-success-message>
+
 
 </main>

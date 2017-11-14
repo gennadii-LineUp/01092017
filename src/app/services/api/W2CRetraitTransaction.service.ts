@@ -10,23 +10,17 @@ export class W2CRetraitTransactionService {
   constructor(public backendService: BackendService) {}
 
 
-  public retrieveCash(serverResponse: any, principal: number,
+  public retrieveCash(code: string, principal: number,
                       commission: number, beneficiaire: EnvoyeurClass): Observable<any> {
     const token = localStorage.token;
-    const type_piece = 'CNI';
-    const pays_piece = 'SEN';
-    const valeur_piece = '1619198107350';
-    const debut_piece = '01/01/2016';
-    const fin_piece = '01/01/2017';
 
-console.log(serverResponse.code);
     const body =
       `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:run="http://runtime.services.cash.innov.sn/">
         <soapenv:Header/>
           <soapenv:Body>
               <run:W2CRetraitTransaction>
                   <sessionId>` + token + `</sessionId>
-                  <code>` + serverResponse.code + `</code>
+                  <code>` + code + `</code>
                   <principal>` + principal + `</principal>
                   <commission>` + commission + `</commission>
                   <beneficiaire>

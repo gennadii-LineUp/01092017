@@ -599,6 +599,22 @@ input[type=checkbox]:checked + label:after {
   }
 }
 
+.amount-wrapper {
+  .currency {
+    color: #c2c2c2;
+    font-size: 1.4rem;
+    font-family: $raleSM;
+    margin-left: 10px;
+    line-height: 35px;
+    text-transform: uppercase;
+    border-bottom: 2px solid #e6e5e5;
+  }
+  .floating-block {
+    align-items: flex-end;
+  }
+}
+
+
 ///////////////////////////////////////////////////////////////////////
 //   _sitizen.scss:
 ///////////////////////////////////////////////////////////////////////

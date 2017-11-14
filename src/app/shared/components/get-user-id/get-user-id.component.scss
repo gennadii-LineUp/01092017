@@ -1,0 +1,21 @@
+@import "../../../../assets/sass/variables";
+
+
+.content {
+  //padding: 18px;
+  &.search {
+    padding: 0;
+  }
+  h3 {
+    text-align: left;
+    font-size: 1.6rem;
+    font-family: $raleSM;
+    padding: 0;
+  }
+  .floating-block input {
+    padding-left: 0;
+    height: 40px;
+    min-height: 40px;
+  }
+
+}
