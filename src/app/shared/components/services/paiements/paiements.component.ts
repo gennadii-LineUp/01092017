@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {UserDataService} from '../../../../models/user-data';
+import 'rxjs/add/operator/takeWhile';
 
 @ Component({
   selector: 'app-services-paiements',
   templateUrl: 'paiements.component.html',
   styleUrls: ['paiements.component.scss']
 })
-export class PaiementsComponent implements OnInit {
+export class PaiementsComponent implements OnInit, OnDestroy {
+  alive = true;
 
   constructor(public userDataService: UserDataService) { }
 
@@ -23,5 +25,10 @@ export class PaiementsComponent implements OnInit {
     console.log(profil);
     this.userDataService.setReceivers(profil);
   }
+
+  ngOnDestroy() {
+    this.alive = false;
+  }
+
 
 }

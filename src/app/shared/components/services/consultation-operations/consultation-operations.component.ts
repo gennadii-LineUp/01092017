@@ -1,9 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {CommonServices} from '../../../../services/common.service';
 import {UserDataService} from '../../../../models/user-data';
 import {ErrorMessageHandlerService} from '../../../../services/error-message-handler.service';
 import {GetOperationService} from '../../../../services/api/GetOperation.service';
 import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/takeWhile';
+import 'rxjs/add/operator/takeWhile';
 
 @Component({
     selector: 'app-services-consultation-operations',
@@ -11,7 +13,7 @@ import {Observable} from 'rxjs/Observable';
     styleUrls: ['./consultation-operations.component.scss'],
     providers: [ErrorMessageHandlerService, GetOperationService]
 })
-export class ConsultationOperationsComponent implements OnInit {
+export class ConsultationOperationsComponent implements OnInit, OnDestroy {
   loading = false;
   successMessage = '';
   errorMessage = '';
@@ -23,6 +25,7 @@ export class ConsultationOperationsComponent implements OnInit {
   currentAccount = this.userDataService.myAccounts[0];
   profileAsAgent = this.userDataService.checkUserRole();
   sender = [this.userDataService.getSender_default()];
+  alive = true;
 
 
   constructor(public commonServices: CommonServices,
@@ -32,8 +35,12 @@ export class ConsultationOperationsComponent implements OnInit {
 
     ngOnInit() {}
 
+  ngOnDestroy() {
+    this.alive = false;
+  }
 
-    public submitFunction(e: any) {
+
+  public submitFunction(e: any) {
       this.clearAll();
       this.loading = true;
       const _e = e.currentTarget.parentElement.parentElement;

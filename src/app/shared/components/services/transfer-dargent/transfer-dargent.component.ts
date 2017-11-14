@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {ReceiverClass} from '../../../../models/receiver-class';
 import {UserDataService} from '../../../../models/user-data';
 import {W2COrdreRetraitService} from '../../../../services/api/W2COrdreRetrait.service';
 import {CommonServices} from '../../../../services/common.service';
 import {ErrorMessageHandlerService} from '../../../../services/error-message-handler.service';
+import 'rxjs/add/operator/takeWhile';
 
 @Component({
   selector: 'app-services-transfer-dargent',
@@ -11,7 +12,7 @@ import {ErrorMessageHandlerService} from '../../../../services/error-message-han
   styleUrls: ['./transfer-dargent.component.scss'],
   providers: [W2COrdreRetraitService]
 })
-export class TransferDargentComponent implements OnInit {
+export class TransferDargentComponent implements OnInit, OnDestroy {
   loading = false;
   profileAsAgent = this.userDataService.checkUserRole();
   sender = [this.userDataService.getSender_default()];
@@ -22,6 +23,7 @@ export class TransferDargentComponent implements OnInit {
   successMessage_1 = '';
   successMessage_2 = '';
   errorMessage = '';
+  alive = true;
 
   constructor(public userDataService: UserDataService,
               public w2COrdreRetraitService: W2COrdreRetraitService,
@@ -40,6 +42,10 @@ export class TransferDargentComponent implements OnInit {
     console.log(profil);
     this.userDataService.setReceivers(profil);
 
+  }
+
+  ngOnDestroy() {
+    this.alive = false;
   }
 
 
@@ -82,6 +88,7 @@ export class TransferDargentComponent implements OnInit {
 
     console.log(this.myAccount);
     this.w2COrdreRetraitService.transferDargent(this.myAccount.telephone, this.amountToReceiver, this.newReceiver)
+      .takeWhile(() => this.alive)
       .subscribe(result => {
         this.loading = false;
         console.log(result._body);

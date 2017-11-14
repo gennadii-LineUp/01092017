@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {GetCommissionsTTCService} from '../../../../services/api/getCommissionsTTC.service';
 import {UserDataService} from '../../../../models/user-data';
 import {CommonServices} from '../../../../services/common.service';
@@ -6,6 +6,7 @@ import {ErrorMessageHandlerService} from '../../../../services/error-message-han
 import {V2WDepotClientTransactionService} from '../../../../services/api/V2WDepotClientTransaction.service';
 import {EnvoyeurClass} from '../../../../models/envoyeur-class';
 import {ReceiverClass} from '../../../../models/receiver-class';
+import 'rxjs/add/operator/takeWhile';
 
 @Component({
   selector: 'app-services-depot-client',
@@ -13,7 +14,7 @@ import {ReceiverClass} from '../../../../models/receiver-class';
   styleUrls: ['./depot-client.component.scss'],
   providers: [GetCommissionsTTCService, V2WDepotClientTransactionService]
 })
-export class DepotClientComponent implements OnInit {
+export class DepotClientComponent implements OnInit, OnDestroy {
   amount_depotClient: number;
   successMessage = '';
   loading = false;
@@ -28,6 +29,7 @@ export class DepotClientComponent implements OnInit {
   receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 1, 'citizen', '', ''),
               new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 2, 'citizen', '', ''),
               new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 3, 'citizen', '', '')];
+  alive = true;
 
   @ViewChild('amount2') amount2: any;
 
@@ -47,6 +49,11 @@ export class DepotClientComponent implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    this.alive = false;
+  }
+
+
   public clearAmount() {this.amount_depotClient = undefined; }
 
   public submitDepotClient() {
@@ -59,6 +66,7 @@ export class DepotClientComponent implements OnInit {
 
     // console.log(this.myAccount);
     this.getCommissionsTTCService.getCommission(this.amount_depotClient, 'C2W')
+      .takeWhile(() => this.alive)
       .subscribe(result => {
         console.log(result._body);
         const response = this.commonServices.xmlResponseParcer_simple( result._body );

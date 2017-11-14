@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {ReceiverClass} from '../../../../models/receiver-class';
 import {CommonServices} from '../../../../services/common.service';
 import {UserDataService} from '../../../../models/user-data';
@@ -6,6 +6,7 @@ import {ErrorMessageHandlerService} from '../../../../services/error-message-han
 import {GetCommissionsTTCService} from '../../../../services/api/getCommissionsTTC.service';
 import {EnvoyeurClass} from '../../../../models/envoyeur-class';
 import {C2WDepotTransactionService} from '../../../../services/api/C2WDepotTransaction.service';
+import 'rxjs/add/operator/takeWhile';
 
 @Component({
   selector: 'app-services-depot-citizen',
@@ -13,7 +14,7 @@ import {C2WDepotTransactionService} from '../../../../services/api/C2WDepotTrans
   styleUrls: ['./depot-citizen.component.scss'],
   providers: [GetCommissionsTTCService, C2WDepotTransactionService]
 })
-export class DepotCitizenComponent implements OnInit {
+export class DepotCitizenComponent implements OnInit, OnDestroy {
   successMessage = '';
   loading = false;
   errorMessage = '';
@@ -29,6 +30,7 @@ export class DepotCitizenComponent implements OnInit {
   receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 1, 'citizen', '', ''),
               new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 2, 'citizen', '', ''),
               new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 3, 'citizen', '', '')];
+  alive = true;
 
   @ViewChild('amount2') amount2: any;
 
@@ -44,8 +46,12 @@ export class DepotCitizenComponent implements OnInit {
     if (!(this.userDataService.getCitizens()).length) {
       this.userDataService.setCitizens();
     }
-
   }
+
+  ngOnDestroy() {
+    this.alive = false;
+  }
+
 
   public submitDepotSitizen() {
     console.log(this.amount_depotCitizen + '  to send');
@@ -57,6 +63,7 @@ export class DepotCitizenComponent implements OnInit {
 
     // console.log(this.myAccount);
     this.getCommissionsTTCService.getCommission(this.amount_depotCitizen, 'C2W')
+      .takeWhile(() => this.alive)
       .subscribe(result => {
         console.log(result._body);
         const response = this.commonServices.xmlResponseParcer_simple( result._body );

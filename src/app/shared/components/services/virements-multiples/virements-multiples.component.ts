@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {ReceiverClass} from '../../../../models/receiver-class';
 import {CommonServices} from '../../../../services/common.service';
 import {UserDataService} from '../../../../models/user-data';
+import 'rxjs/add/operator/takeWhile';
 
 @Component({
   selector: 'app-virements-multiples',
   templateUrl: './virements-multiples.component.html',
   styleUrls: ['./virements-multiples.component.scss']
 })
-export class VirementsMultiplesComponent implements OnInit {
+export class VirementsMultiplesComponent implements OnInit, OnDestroy {
   errorMessage_contract = '';
   loading_contract = false;
   contract_to_find = true;
@@ -16,6 +17,7 @@ export class VirementsMultiplesComponent implements OnInit {
   contract_number: string;
   forIdReceiver = 'receiver';
   arrayToSend = [];
+  alive = true;
 
   amount_virementsMultiples: number;
   receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 1, 'citizen', '', ''),
@@ -42,6 +44,10 @@ export class VirementsMultiplesComponent implements OnInit {
       localStorage.getItem('profil');
     console.log(profil);
     this.userDataService.setReceivers(profil);
+  }
+
+  ngOnDestroy() {
+    this.alive = false;
   }
 
 

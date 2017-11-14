@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {UserDataService} from '../../../../models/user-data';
 import {CommonServices} from '../../../../services/common.service';
 import {ErrorMessageHandlerService} from '../../../../services/error-message-handler.service';
@@ -8,6 +8,7 @@ import {GetCommissionsTTCService} from '../../../../services/api/getCommissionsT
 import {GetAllCitizenService} from '../../../../services/api/getAllCitizen.service';
 import {GetAllCustomerService} from '../../../../services/api/getAllCustomer.service';
 import {GetAllListAccountService} from '../../../../services/api/getAllListAccount.service';
+import 'rxjs/add/operator/takeWhile';
 
 @Component({
   selector: 'app-services-transfer-compte',
@@ -17,7 +18,7 @@ import {GetAllListAccountService} from '../../../../services/api/getAllListAccou
     GetAllListAccountService]
 
 })
-export class TransferCompteComponent implements OnInit {
+export class TransferCompteComponent implements OnInit, OnDestroy {
   header_option = '';
   transfer_accounts = true;
   transfer_all = false;
@@ -39,6 +40,7 @@ export class TransferCompteComponent implements OnInit {
   receivers = this.userDataService.getReceivers();
   profileAsAgent = this.userDataService.checkUserRole();
   sender = [this.userDataService.getSender_default()];
+  alive = true;
 
 
   constructor(public userDataService: UserDataService,
@@ -57,14 +59,15 @@ export class TransferCompteComponent implements OnInit {
       this.userDataService.setMyAccounts();
     }
 
-    // this.userDataService.setMyAccounts();
-
     const profil = ((<any>this.userDataService.getUser).profil) ? (<any>this.userDataService.getUser).profil :
                                                                   localStorage.getItem('profil');
     console.log(profil);
     this.userDataService.setReceivers(profil);
   }
 
+  ngOnDestroy() {
+    this.alive = false;
+  }
 
 
   public goToAllAccountsFunction() {
@@ -143,6 +146,7 @@ export class TransferCompteComponent implements OnInit {
     console.log(this.newReceiver);
 
     this.getCommissionsTTCService.getCommission(this.amountToReceiver, 'W2W')
+      .takeWhile(() => this.alive)
       .subscribe(result => {
         console.log(result._body);
         const response = this.commonServices.xmlResponseParcer_simple( result._body );
@@ -152,7 +156,9 @@ export class TransferCompteComponent implements OnInit {
           this.commission.push(+response.commission);
           console.log(response.commission);
 
-          this.getAllListAccountService.getMyAccounts(this.newReceiver.numTel).subscribe(result1 => {
+          this.getAllListAccountService.getMyAccounts(this.newReceiver.numTel)
+            .takeWhile(() => this.alive)
+            .subscribe(result1 => {
             console.log(result1._body);
             const response1 = this.commonServices.xmlResponseParcer_complex( result1._body );
             const _accounts = response1.accounts;
@@ -166,6 +172,7 @@ export class TransferCompteComponent implements OnInit {
                                                                   response.commission,
                                                                   this.myAccount.id_account,
                                                                   receiver_id)
+              .takeWhile(() => this.alive)
               .subscribe(result2 => {
                 this.loading = false;
                 console.log(result2._body);

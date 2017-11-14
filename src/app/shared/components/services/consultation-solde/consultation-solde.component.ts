@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {CommonServices} from '../../../../services/common.service';
 import {UserDataService} from '../../../../models/user-data';
 import {ErrorMessageHandlerService} from '../../../../services/error-message-handler.service';
 import {W2ISoldeService} from '../../../../services/api/W2ISolde.service';
+import 'rxjs/add/operator/takeWhile';
 
 @Component({
   selector: 'app-services-consultation-solde',
@@ -10,7 +11,7 @@ import {W2ISoldeService} from '../../../../services/api/W2ISolde.service';
   styleUrls: ['./consultation-solde.component.scss'],
   providers: [ErrorMessageHandlerService, W2ISoldeService]
 })
-export class ConsultationSoldeComponent implements OnInit {
+export class ConsultationSoldeComponent implements OnInit, OnDestroy {
   loading = false;
   showHistorySolde = false;
   successMessage = '';
@@ -24,6 +25,7 @@ export class ConsultationSoldeComponent implements OnInit {
   sender = [this.userDataService.getSender_default()];
 
   showRequestResult = false;
+  alive = true;
 
 
   constructor(public commonServices: CommonServices,
@@ -40,12 +42,18 @@ export class ConsultationSoldeComponent implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    this.alive = false;
+  }
+
+
   public submitSoldeFunction() {
     this.loading = true;
     this.errorMessage = '';
     this.successMessage = '';
 
     this.w2ISoldeService.getSolde(this.myAccount.id_account)
+      .takeWhile(() => this.alive)
       .subscribe(result => {
         this.loading = false;
         console.log(result._body);
@@ -57,6 +65,7 @@ export class ConsultationSoldeComponent implements OnInit {
           this.solde = +response.solde;
           /////////////////////////////
           this.w2ISoldeService.getHistorySolde(this.myAccount.id_account)
+            .takeWhile(() => this.alive)
             .subscribe(resulHistory => {
               const responsHistory = this.commonServices.xmlResponseParcer_complex( resulHistory._body );
               console.dir( responsHistory );
