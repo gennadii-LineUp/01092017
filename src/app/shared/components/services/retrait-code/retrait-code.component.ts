@@ -4,7 +4,7 @@ import {CommonServices} from '../../../../services/common.service';
 import {ErrorMessageHandlerService} from '../../../../services/error-message-handler.service';
 import {W2CRetraitTransactionService} from '../../../../services/api/W2CRetraitTransaction.service';
 import {EnvoyeurClass} from '../../../../models/envoyeur-class';
-import {Subscription} from 'rxjs/Subscription';
+import 'rxjs/add/operator/takeWhile';
 
 @Component({
   selector: 'app-services-retrait-code',
@@ -34,8 +34,7 @@ export class RetraitCodeComponent implements OnInit, OnDestroy {
   };
   // beneficiaire = new EnvoyeurClass('Ivan', 'Petrov', '773151459', 'DAKAR', 'CNI', 'SEN', '1619198107350', '01/01/2016', '01/01/2019');
 
-  subscription_w2CCheckOrdreRetraitService: Subscription;
-  subscription_w2CRetraitTransactionService: Subscription;
+  alive = true;
 
   @Input() beneficiaire: any; // ('', '', '', '', '', '', '', '', '');
   @ViewChild('mainInput') mainInput: any;
@@ -52,12 +51,7 @@ export class RetraitCodeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.subscription_w2CCheckOrdreRetraitService) {
-      this.subscription_w2CCheckOrdreRetraitService.unsubscribe();
-    }
-    if (this.subscription_w2CRetraitTransactionService) {
-      this.subscription_w2CRetraitTransactionService.unsubscribe();
-    }
+    this.alive = false;
   }
 
   public submitFunction() {
@@ -69,7 +63,8 @@ export class RetraitCodeComponent implements OnInit, OnDestroy {
     this.errorMessage = '';
     this.errorMessage_retrieve = '';
 
-    this.subscription_w2CCheckOrdreRetraitService = this.w2CCheckOrdreRetraitService.retraitCode(this.retraitCode)
+    this.w2CCheckOrdreRetraitService.retraitCode(this.retraitCode)
+      .takeWhile(() => this.alive)
       .subscribe(result => {
         this.loading = false;
         console.log(result._body);
@@ -121,8 +116,8 @@ export class RetraitCodeComponent implements OnInit, OnDestroy {
   public retrieveCashFunction() {
     this.loading_retrieve = true;
     // console.log(this.beneficiaire);
-    this.subscription_w2CRetraitTransactionService =
-      this.w2CRetraitTransactionService.retrieveCash(this.serverResponse.code, this.amount_retraitCode, 1000, this.beneficiaire)
+    this.w2CRetraitTransactionService.retrieveCash(this.serverResponse.code, this.amount_retraitCode, 0, this.beneficiaire)
+      .takeWhile(() => this.alive)
       .subscribe(result => {
         this.loading_retrieve = false;
         console.log(result._body);
