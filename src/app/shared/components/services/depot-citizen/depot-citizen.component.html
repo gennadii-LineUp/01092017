@@ -262,13 +262,14 @@
         </div>
       </div>
       <div *ngIf="createNewReceiver" class="row">
-        <div class="col-md-12 blue-button__wrapper">
+        <div class="col-md-12 col-lg-8 blue-button__wrapper">
           <button class="orange-button blue-button" style="margin-top: 8px"
                   [disabled]="!((+amount_depotCitizen >= 0.01)
                             && commonServices.getSelectedReceivers().length
-                            && (envoyeur.id_fin && envoyeur.id_debut && envoyeur.nom && envoyeur.prenom && envoyeur.telephone
-                            && envoyeur.address && envoyeur.id_type && envoyeur.id_pays && envoyeur.id_valeur))"
+                            && (envoyeur.id_fin && envoyeur.id_debut && envoyeur.nom && envoyeur.prenom && envoyeur.cellulaire
+                            && envoyeur.addresse && envoyeur.id_type && envoyeur.id_pays && envoyeur.id_valeur))"
                   (click)="submitDepotSitizen()">Send
+
           </button>
         </div>
       </div>
