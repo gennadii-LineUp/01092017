@@ -3,6 +3,7 @@ import {ReceiverClass} from '../../../../models/receiver-class';
 import {CommonServices} from '../../../../services/common.service';
 import {UserDataService} from '../../../../models/user-data';
 import 'rxjs/add/operator/takeWhile';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-virements-multiples',
@@ -33,11 +34,11 @@ export class VirementsMultiplesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.gotoContractToFindFunction();
-    if ((this.userDataService.getMyAccounts()).length) {
-      console.log('=== MyAccounts\' length ' + this.userDataService.getMyAccounts().length);
+    if ((this.userDataService.getAllContracts()).length) {
+      console.log('=== AllContracts\' length ' + this.userDataService.getAllContracts().length);
     } else {
-      console.log('=== MyAccounts\' is empty ===');
-      this.userDataService.setMyAccounts();
+      console.log('=== AllContracts\' is empty ===');
+      this.userDataService.setAllContracts();
     }
 
     const profil = ((<any>this.userDataService.getUser).profil) ? (<any>this.userDataService.getUser).profil :
@@ -62,7 +63,8 @@ export class VirementsMultiplesComponent implements OnInit, OnDestroy {
     console.dir(e.target.previousElementSibling.value);
   }
   public chooseContractFunction(contract: any) {
-    this.contract_number = contract.number;
+    this.contract_number = '' + contract.reference
+                              + ', from ' + this.commonServices.fromServerMoment(contract.debut);
     this.findContractFunction();
   }
   public gotoContractToFindFunction() {

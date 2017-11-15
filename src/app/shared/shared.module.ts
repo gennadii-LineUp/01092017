@@ -38,6 +38,7 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 import {MobileSettingsComponent} from './components/mobile/settings/settings.component';
 import {MobileShareComponent} from './components/mobile/share/share.component';
 import { GetUserIdComponent } from './components/get-user-id/get-user-id.component';
+import {DateFromServerMomentPipe} from './pipes/dateFromServerMoment.pipe';
 
 
 @NgModule({
@@ -60,7 +61,7 @@ import { GetUserIdComponent } from './components/get-user-id/get-user-id.compone
     GeolocalisationAgentComponent, BankToWalletComponent, VirementsVersBanqueComponent, VirementsMultiplesComponent,
     PaiementsComponent,
     ProfileComponent,
-    DebitCreditPipe,
+    DebitCreditPipe, DateFromServerMomentPipe,
     FormatTextByThreeCharPipe,
     SelectSenderComponent,
     SuccessMessageComponent,
@@ -84,7 +85,7 @@ import { GetUserIdComponent } from './components/get-user-id/get-user-id.compone
     GeolocalisationAgentComponent, BankToWalletComponent, VirementsVersBanqueComponent, VirementsMultiplesComponent,
     PaiementsComponent,
     ProfileComponent,
-    DebitCreditPipe,
+    DebitCreditPipe, DateFromServerMomentPipe,
     FormatTextByThreeCharPipe, SelectSenderComponent,
     SuccessMessageComponent,
     PaginationComponent,

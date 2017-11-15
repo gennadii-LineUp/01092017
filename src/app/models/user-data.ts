@@ -6,6 +6,8 @@ import {GetAllListAccountService} from '../services/api/getAllListAccount.servic
 import {CommonServices} from '../services/common.service';
 import {GetAllCustomerService} from '../services/api/getAllCustomer.service';
 import {GetAllCitizenService} from '../services/api/getAllCitizen.service';
+import {GetAllContractsService} from '../services/api/getAllContracts.service';
+import * as moment from 'moment';
 
 @Injectable()
 export class UserDataService {
@@ -15,6 +17,7 @@ export class UserDataService {
   clients = [];
   citizensClients = [];
   receivers = [];
+  allContracts = [];
 
   myAccounts = [
     // { telephone: '4', nom: 'Lex', prenom: 'Luthor', email: 'lexluthor@gmail.com', id_account: 3 },
@@ -38,7 +41,8 @@ export class UserDataService {
               public getAllListAccountService: GetAllListAccountService,
               public commonServices: CommonServices,
               public getAllCustomerService: GetAllCustomerService,
-              public getAllCitizenService: GetAllCitizenService) {}
+              public getAllCitizenService: GetAllCitizenService,
+              public getAllContractsService: GetAllContractsService) {}
 
   public setMyAccounts() {
     // this.myAccounts.forEach(myAccount => {
@@ -88,6 +92,19 @@ export class UserDataService {
     return this.myAccounts;
   }
 
+  public setAllContracts() {
+    this.allContracts = [];
+    this.getAllContractsService.getAllContracts()
+      .subscribe(result => {
+        const response = (this.commonServices.xmlResponseParcer_complex(result._body)).contract;
+        console.log(response);
+        this.allContracts = response;
+      }, (err) => {console.log(err); });
+  }
+
+  public getAllContracts(): any {
+    return this.allContracts;
+  }
 
   public publishData(data: Object) {
     this.caseNumber.next(data);

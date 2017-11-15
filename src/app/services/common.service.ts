@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {ReceiverClass} from '../models/receiver-class';
+import * as moment from 'moment';
 
 @Injectable()
 export class CommonServices {
@@ -237,6 +238,10 @@ export class CommonServices {
         (<HTMLSpanElement>amounts[i].firstElementChild.lastChild.previousSibling).classList.add('lesion');
       }
     }
+  }
+
+  public fromServerMoment(stringDate: string): string {
+    return moment(stringDate).local().format('DD.MM.YYYY');
   }
 
 

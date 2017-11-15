@@ -34,10 +34,11 @@
                       Сhoose contract:
                       <!--<div class="blue-angle">Choose</div>-->
                     </div>
-                    <div *ngFor="let contract of contracts" class="virements-multiples__choose-item" (click)="chooseContractFunction(contract)">
+                    <div *ngFor="let contract of userDataService.getAllContracts()" class="virements-multiples__choose-item"
+                         (click)="chooseContractFunction(contract)">
                       <div>
-                        Contract ID
-                        <span>{{contract.number}}</span>
+                        Contract reference: {{contract.reference}}, from {{contract.dateCreation | dateFromServerMoment}}.<br>
+                        <span>Valid from {{contract.debut | dateFromServerMoment}}. Type - {{contract.type}}. {{contract.statut}}.</span>
                       </div>
                       <!--<div class="circle-check"></div>-->
                     </div>
