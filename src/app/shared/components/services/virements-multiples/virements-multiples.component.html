@@ -80,13 +80,13 @@
                   <div class="search-wrapper" style="margin-top: 4px; margin-bottom: 8px">
                     <input type="text" placeholder="Search" readonly [(ngModel)]="contract_number">
                   </div>
-                  <div *ngFor="let receiver of receivers" [attr.id]="'receiver_'+receiver.id_account"
+                  <div *ngFor="let receiver of userDataService.getReceivers()" [attr.id]="'receiver_'+receiver.id"
                        class="search__user" (click)="commonServices.defineReceiversFunction($event)">
                     <div>
                       <span class="logo" style="background-image: url('../../../../../assets/img/user.png')"></span>
                       <div>
-                        <div>{{receiver.nom}} {{receiver.prenom}}, _{{receiver.id_account}}</div>
-                        <span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>{{receiver.telephone}}</span>
+                        <div>{{receiver.nom}} {{receiver.prenom}}, _{{receiver.id}}</div>
+                        <span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>{{receiver.numTel}}</span>
                       </div>
                     </div>
                     <div class="circle-check"></div>
@@ -111,8 +111,8 @@
                     <!--<div>+ Add more</div>-->
                   <!--</div>-->
                 </div>
-                <div class="col-md-6 virements-multiples__amount" style="padding-top: 0; position: relative; padding-bottom: 64px">
-                  <h3>Amount (same to all)</h3>
+                <div class="col-md-6 virements-multiples__amount" style="padding-top: 0; position: relative; padding-bottom: 80px">
+                  <h3>Amount (same to all) :</h3>
                   <div class="floating-block border-hover" style="margin-bottom: 12px">
                     <div class="floating-input" style="margin-bottom:0">
                       <input id="amount" name="amount" placeholder="00.00" required type="text"
@@ -128,13 +128,14 @@
                     <div class="currency">Usd</div>
                   </div>
 
-                  <div *ngFor="let amount of receivers">
-                    <h4>Amount to {{amount.nom}} {{amount.prenom}}</h4>
+                  <div *ngFor="let amount of userDataService.getReceivers()">
+                    <h4>Amount to {{amount.nom}} {{amount.prenom}}:</h4>
                     <div class="floating-block border-hover">
                       <div class="floating-input" style="margin-bottom:0">
-                        <input [attr.id]="'amount_to_'+amount.id_account" [attr.name]="'amount_to_'+amount.id_account"
+                        <input [attr.id]="'amount_to_'+amount.id" [attr.name]="'amount_to_'+amount.id"
                                placeholder="00.00" required type="text"
                                [ngModel]="amount_virementsMultiples"
+                               (keyup.enter)='submitFunction()'
                                onkeydown="return ( event.ctrlKey || event.altKey
                                                               || (47<event.keyCode && event.keyCode<58 && event.shiftKey===false)
                                                               || (95<event.keyCode && event.keyCode<106)
@@ -147,7 +148,8 @@
                     </div>
                   </div>
 
-
+                  <div *ngIf="errorMessage_virements" class="errorTextClass">{{errorMessage_virements}}</div>
+                  <p *ngIf="!errorMessage_virements" style="margin: 0; text-align: center; height: 16px"><img *ngIf="loading_virements" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>
                   <button [disabled]="!( commonServices.getSelectedReceivers().length)"
                           class="orange-button blue-button" style="position: absolute; bottom: 12px; width: calc(100% - 36px)"
                           (click)="submitFunction()">Save</button>
@@ -161,4 +163,7 @@
 
     </div>
   </section>
+
+  <app-success-message [message_firstLine]="successMessage_1" [message_secondLine]="successMessage_2"></app-success-message>
+
 </main>

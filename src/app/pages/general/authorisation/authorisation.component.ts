@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {LoginService} from '../../../services/api/login.service';
 import {ErrorMessageHandlerService} from '../../../services/error-message-handler.service';
 import {AuthorisationClass} from '../../../models/authorisation-class';
@@ -6,6 +6,7 @@ import {CommonServices} from '../../../services/common.service';
 import {UserDataService} from '../../../models/user-data';
 import {GetAllListAccountService} from '../../../services/api/getAllListAccount.service';
 import {ReceiverClass} from '../../../models/receiver-class';
+import 'rxjs/add/operator/takeWhile';
 
 @Component({
   selector: 'app-authorisation',
@@ -13,9 +14,10 @@ import {ReceiverClass} from '../../../models/receiver-class';
   styleUrls: ['./authorisation.component.scss'],
   providers: [LoginService, GetAllListAccountService]
 })
-export class GeneralAuthorisationComponent implements OnInit {
+export class GeneralAuthorisationComponent implements OnInit, OnDestroy {
   errorMessage = '';
   loading = false;
+  alive = true;
   // authorisation = new AuthorisationClass('wari', 'wari', 'APP');
   // authorisation = new AuthorisationClass('7722222222', 'passer', 'APP'); // CITIZEN
   authorisation = new AuthorisationClass('tresor', 'tresor', 'APP');        // CUSTOMER = CLIENT
@@ -27,6 +29,10 @@ export class GeneralAuthorisationComponent implements OnInit {
               public commonServices: CommonServices) { }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    this.alive = false;
   }
 
   public loginFunction() {
@@ -43,6 +49,7 @@ export class GeneralAuthorisationComponent implements OnInit {
 
 
     this.loginService.login(this.authorisation)
+      .takeWhile(() => this.alive)
       .subscribe(result => {
           this.loading = false;
           const response = this.commonServices.xmlResponseParcer_simple( result._body );
