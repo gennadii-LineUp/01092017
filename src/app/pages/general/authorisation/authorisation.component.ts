@@ -19,8 +19,8 @@ export class GeneralAuthorisationComponent implements OnInit, OnDestroy {
   loading = false;
   alive = true;
   // authorisation = new AuthorisationClass('wari', 'wari', 'APP');
-  // authorisation = new AuthorisationClass('7722222222', 'passer', 'APP'); // CITIZEN
-  authorisation = new AuthorisationClass('tresor', 'tresor', 'APP');        // CUSTOMER = CLIENT
+  authorisation = new AuthorisationClass('7722222222', 'passer', 'APP'); // CITIZEN
+  // authorisation = new AuthorisationClass('tresor', 'tresor', 'APP');        // CUSTOMER = CLIENT
 
   constructor(public loginService: LoginService,
               public userDataService: UserDataService,

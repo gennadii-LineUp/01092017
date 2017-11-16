@@ -11,8 +11,8 @@ import * as moment from 'moment';
 
 @Injectable()
 export class UserDataService {
-  user = new ReceiverClass('', '', '', '', 0, '', '', '');
-  sender_default = [new ReceiverClass('skype', 'gena_ukr79', '', '', 0, '', '', '')];
+  user = new ReceiverClass('', '', '', '', 0, '', '', '', '', '', '');
+  sender_default = [new ReceiverClass('skype', 'gena_ukr79', '', '', 0, '', '', '', '', '', '')];
   citizens = [];
   clients = [];
   citizensClients = [];
@@ -28,7 +28,8 @@ export class UserDataService {
 
   beneficiaires = [
     { nom: undefined, prenom: undefined, telephone: '773151459',
-      address: undefined, id_account: undefined, profil: undefined, email: '@', numTel: ''}
+      address: undefined, id_account: undefined, profil: undefined, email: '@', numTel: '',
+      status: '', type: '', uoId: ''}
   ];
 
   // Observable string sources
@@ -65,7 +66,10 @@ export class UserDataService {
                                                         'please add an address',
                                                         +accounts[i].id,
                                                         localStorage.profil || 'add a profil',
-                                                        'please add @', ''));
+                                                        'please add @', '',
+                                                        accounts[i].status,
+                                                        accounts[i].type,
+                                                        accounts[i].uoId));
                 }
               }
             }
@@ -224,6 +228,6 @@ export class UserDataService {
   public logOut() {
     this.router.navigate(['/authorisation']);
     localStorage.clear();
-    this.user = new ReceiverClass('', '', '', '', 0, '', '', '');
+    this.user = new ReceiverClass('', '', '', '', 0, '', '', '', '', '', '');
   }
 }

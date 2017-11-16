@@ -19,16 +19,16 @@ export class DepotClientComponent implements OnInit, OnDestroy {
   successMessage = '';
   loading = false;
   errorMessage = '';
-  newReceiver = new ReceiverClass('', '', '', '', 0, '', '', '');
+  newReceiver = new ReceiverClass('', '', '', '', 0, '', '', '', '', '', '');
   receiverExist = false;
   createNewReceiver = true;
   receiverStatus = '';
   receiverToFind = '7722222222';
   commission = [];
   envoyeur = new EnvoyeurClass('KANE', 'MOMAR', '773151459', 'DAKAR', 'CNI', 'SEN', '1619198107350', '01/01/2016', '01/01/2017');
-  receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 1, 'citizen', '', ''),
-              new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 2, 'citizen', '', ''),
-              new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 3, 'citizen', '', '')];
+  receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 1, 'citizen', '', '', '', '', ''),
+              new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 2, 'citizen', '', '', '', '', ''),
+              new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 3, 'citizen', '', '', '', '', '')];
   alive = true;
 
   @ViewChild('amount2') amount2: any;
@@ -140,7 +140,7 @@ export class DepotClientComponent implements OnInit, OnDestroy {
     // this.amount_depotClient = undefined;
     // this.receivers = [];
     // this.receiverToFind = '';
-    // this.newReceiver = new ReceiverClass('', '', '', '', 0, '', '', '');
+    // this.newReceiver = new ReceiverClass('', '', '', '', 0, '', '', '', '', '', '');
     this.receiverExist = false;
     this.createNewReceiver = false;
     this.receiverStatus = '';

@@ -12,13 +12,16 @@
         <div *ngIf="!profileAsAgent" class="col-sm-12 col-md-6 col-lg-4 ml-md-auto mr-md-auto consult-sold__wrapper">
           <div class="consult-sold__header">Choose account</div>
           <div class="accordionWrapper">
-            <div *ngFor="let myAccount of userDataService.myAccounts" class="accordionItem close-item"
+            <div *ngFor="let myAccount of userDataService.getMyAccounts()" class="accordionItem close-item"
                  (click)="commonServices.accordionToggleItemFunction($event); $event.stopPropagation(); chooseAccount(myAccount)">
                       <div class="consult-user accordionItemHeading">
                         <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
-                        <div>
-                          <div>{{myAccount.nom}} {{myAccount.prenom}}</div>
-                          <div>Email: <span class="mail">{{myAccount.email}}</span></div>
+                        <div style="line-height: 25px">
+                          <div style="line-height: 19px">{{myAccount.nom}} {{myAccount.prenom}}</div>
+                          <!--<div>Email: <span class="mail">{{myAccount.email}}</span></div>-->
+                          <div style="display: inline-block;line-height: 19px">Email: <span>{{myAccount.email}}.</span></div>
+                          <div style="display: inline-block;line-height: 19px">{{myAccount.type}}, <span></span></div>
+                          <div style="display: inline-block;line-height: 19px"> id {{myAccount.id_account}}.<span class="mail"></span></div>
                         </div>
                         <i class="fa fa-angle-right" aria-hidden="true"></i>
                       </div>

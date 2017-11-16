@@ -27,9 +27,9 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
   amount_depotCitizen: number;
   commission = [];
   envoyeur = new EnvoyeurClass('KANE', 'MOMAR', '773151459', 'DAKAR', 'CNI', 'SEN', '1619198107350', '01/01/2016', '01/01/2017');
-  receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 1, 'citizen', '', ''),
-              new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 2, 'citizen', '', ''),
-              new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 3, 'citizen', '', '')];
+  receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 1, 'citizen', '', '', '', '', ''),
+              new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 2, 'citizen', '', '', '', '', ''),
+              new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 3, 'citizen', '', '', '', '', '')];
   alive = true;
 
   @ViewChild('amount2') amount2: any;
@@ -136,7 +136,7 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
     // this.amount_depotCitizen = undefined;
     // this.receivers = [];
     // this.receiverToFind = '';
-    // this.newReceiver = new ReceiverClass('', '', '', '', 0, '', '', '');
+    // this.newReceiver = new ReceiverClass('', '', '', '', 0, '', '', '', '', '', '');
     this.receiverExist = false;
     this.createNewReceiver = false;
     this.receiverStatus = '';

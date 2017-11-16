@@ -33,7 +33,14 @@ export class ConsultationOperationsComponent implements OnInit, OnDestroy {
                 public errorMessageHandlerService: ErrorMessageHandlerService,
                 public getOperationService: GetOperationService) { }
 
-    ngOnInit() {}
+    ngOnInit() {
+      if ((this.userDataService.getMyAccounts()).length) {
+        console.log('=== MyAccounts\' length ' + this.userDataService.getMyAccounts().length);
+      } else {
+        console.log('=== MyAccounts\' is empty ===');
+        this.userDataService.setMyAccounts();
+      }
+    }
 
   ngOnDestroy() {
     this.alive = false;

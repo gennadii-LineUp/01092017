@@ -30,7 +30,7 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
   myAccount: any;
   id_account = '';
   // newReceiver = this.userDataService.beneficiaires[0];
-  newReceiver = new ReceiverClass('', '', '', '', undefined, '', '', '');
+  newReceiver = new ReceiverClass('', '', '', '', undefined, '', '', '', '', '', '');
   amountToReceiver: number;
   showReceiverInfo = false;
   successMessage_1 = '';
@@ -224,7 +224,7 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
   public fillReceiverInfoFunction(myAccount: any, e: any) {
     // this.showReceiverInfo = false;
     this.clearSearch();
-    this.newReceiver = new ReceiverClass('', '', '', '', undefined, '', '', '');
+    this.newReceiver = new ReceiverClass('', '', '', '', undefined, '', '', '', '', '', '');
     this.myAccount = myAccount;
     console.log('=== sender\'s account: ');
     console.log(this.myAccount);
@@ -241,7 +241,7 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
   public clearAmount() {this.amountToReceiver = undefined; }
   public clearSearch() {
     this.amountToReceiver = undefined;
-    // this.newReceiver = new ReceiverClass('', '', '', '', undefined, '', '', '');
+    // this.newReceiver = new ReceiverClass('', '', '', '', undefined, '', '', '', '', '', '');
     this.successMessage_1 = '';
     this.successMessage_2 = '';
     this.errorMessage = '';

@@ -16,14 +16,16 @@
             <!--<div *ngIf="transfer_accounts" class="col-sm-8 col-md-6 col-lg-4 ml-auto mr-auto">-->
               <div class="dargent__wrapper">
                 <div class="block__header" style="background-color: #fff">Choose your account</div>
-                <div *ngFor="let account of userDataService.myAccounts" class="consult-user"
-                     (click)="fillReceiverInfoFunction(account, $event); $event.stopPropagation();
+                <div *ngFor="let myAccount of userDataService.getMyAccounts()" class="consult-user"
+                     (click)="fillReceiverInfoFunction(myAccount, $event); $event.stopPropagation();
                               goToAllTransferFunction()"
-                     id="{{account.id_account}}" #{{account.id_account}}>
+                     id="{{myAccount.id_account}}" #{{myAccount.id_account}}>
                   <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
                   <div>
-                    <div>{{account.nom}} {{account.prenom}}</div>
-                    <div>Email: <span>{{account.email}}</span></div>
+                    <div>{{myAccount.nom}} {{myAccount.prenom}}</div>
+                    <div style="display: inline-block">Email: <span>{{myAccount.email}}.</span></div>
+                    <div style="display: inline-block">{{myAccount.type}}, <span></span></div>
+                    <div style="display: inline-block"> id {{myAccount.id_account}}.<span></span></div>
                   </div>
                   <i class="fa fa-angle-right" aria-hidden="true"></i>
                 </div>
