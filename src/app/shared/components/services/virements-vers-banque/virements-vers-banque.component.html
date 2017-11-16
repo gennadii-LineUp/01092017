@@ -28,6 +28,13 @@
 
               <div>
                 <h4>Compte</h4>
+
+                <select name="selectCompte" [(ngModel)]="activeSelect"  (change)="showNextBeneficiary(activeSelect)" id="selectCompte">
+                  <option *ngFor="let benef of beneficiaries" [value]="benef.id">
+                    {{benef.compte}}
+                  </option>
+                </select>
+
                 <div class="floating-block border-hover">
                   <div class="floating-input">
                     <input type="text" name="Account" id="Account" readonly="true" [ngModel]="beneficiary.compte"/>

@@ -49,6 +49,7 @@ export class VirementsVersBanqueComponent implements OnInit, OnDestroy {
   nomClient: string;
   beneficiary = new BeneficiaryClass('', '', '', '', '', '', '');
   amountToReceiver: number;
+  activeSelect: string;
   alive = true;
 
   @ViewChild('amount') amountInput: any;
@@ -88,7 +89,11 @@ export class VirementsVersBanqueComponent implements OnInit, OnDestroy {
         console.log(result._body);
         const response = this.commonServices.xmlResponseParcer_complex( result._body );
         this.beneficiaries = (response.beneficiaries) ? response.beneficiaries : [];
-        this.beneficiary = (this.beneficiaries.length) ? this.beneficiaries['1'] : [];
+
+        if (response.beneficiaries.length) {
+          this.showNextBeneficiary(this.beneficiaries['0'].id);
+          this.activeSelect = this.beneficiaries['0'].id;
+        }
 
         this.nomClient = (this.beneficiary.nom) ? (this.beneficiary.nom) : '';
         this.nomClient += (this.beneficiary.prenom) ? (' ' + this.beneficiary.prenom) : '';
@@ -99,6 +104,12 @@ export class VirementsVersBanqueComponent implements OnInit, OnDestroy {
           this.errorMessage = this.errorMessageHandlerService._getMessageEquivalent(err._body);
         }
       });
+  }
+
+  public showNextBeneficiary(userChoice: string) {
+    console.log(userChoice);
+    this.beneficiary = this.beneficiaries.find(x => x.id === userChoice);
+    console.log(this.beneficiary);
   }
 
 
@@ -126,7 +137,6 @@ export class VirementsVersBanqueComponent implements OnInit, OnDestroy {
         }
       });
   }
-
 
   public clearAmount() {this.amountToReceiver = undefined; }
 
