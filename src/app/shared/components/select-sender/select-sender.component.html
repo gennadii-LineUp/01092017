@@ -25,7 +25,8 @@
           Сhoose a sender:
           <!--<div class="blue-angle">Choose</div>-->
         </div>
-        <div *ngFor="let sender of commonServices.getReceivers()" class="virements-multiples__choose-item" (click)="setSenderFunction(sender)">
+        <!--<div *ngFor="let sender of commonServices.getReceivers()" class="virements-multiples__choose-item" (click)="setSenderFunction(sender)">-->
+        <div *ngFor="let sender of senders" class="virements-multiples__choose-item" (click)="setSenderFunction(sender)">
           <div>
             <span>{{sender.nom}} {{sender.prenom}}, {{sender.telephone}}</span>
           </div>

@@ -16,7 +16,10 @@ export class UserDataService {
   citizens = [];
   clients = [];
   citizensClients = [];
-  receivers = [];
+  receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 1, 'citizen', '', '', '', '', ''),
+                new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 2, 'citizen', '', '', '', '', ''),
+                new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 3, 'citizen', '', '', '', '', '')];
+
   allContracts = [];
 
   myAccounts = [
@@ -137,6 +140,7 @@ export class UserDataService {
   }
 
   public setCitizens() {
+    this.receivers = [];
     this.citizens = [];
     this.getAllCitizenService.getAllCitizens()
         .subscribe(result => {
@@ -153,6 +157,7 @@ export class UserDataService {
 
   public setClients() {
     this.clients = [];
+    this.receivers = [];
     this.getAllCustomerService.getAllCustomer()
       .subscribe(result => {
         const response = (this.commonServices.xmlResponseParcer_complex(result._body)).uos;
