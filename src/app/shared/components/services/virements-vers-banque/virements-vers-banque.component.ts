@@ -27,7 +27,7 @@ export class BeneficiaryClass {
     this.compte = compte;
     this.guichet = guichet;
     this.id = id;
-    this.nom = prenom;
+    this.nom = nom;
     this.prenom = prenom;
     this.rib = rib;
   }
@@ -87,6 +87,7 @@ export class VirementsVersBanqueComponent implements OnInit, OnDestroy {
       .takeWhile( () => this.alive)
       .subscribe((result) => {
         console.log(result._body);
+
         const response = this.commonServices.xmlResponseParcer_complex( result._body );
         this.beneficiaries = (response.beneficiaries) ? response.beneficiaries : [];
 
@@ -125,8 +126,8 @@ export class VirementsVersBanqueComponent implements OnInit, OnDestroy {
         const response = this.commonServices.xmlResponseParcer_complex( result._body );
         console.log(response);
 
-        this.successMessage_1 = 'Success confirmation for amount ' +  response.montant + 'usd !';
-        this.successMessage_2 = '' + this.commonServices.fromServerMoment(response.dateTransaction) + ' at '
+        this.successMessage_1 = 'Confirmation de succès pour le montant ' +  response.montant + 'usd !';
+        this.successMessage_2 = '' + this.commonServices.fromServerMoment(response.dateTransaction) + ' à '
                                     + moment(response.dateTransaction).local().format('HH:mm:ss');
         setTimeout(() => { this.amountInput.nativeElement.focus(); }, 10);
       }, (err) => {
