@@ -6,7 +6,6 @@ import {ReceiverClass} from '../../../../models/receiver-class';
 import {W2WVirementAccountService} from '../../../../services/api/W2WVirementAccount.service';
 import {GetCommissionsTTCService} from '../../../../services/api/getCommissionsTTC.service';
 import {GetAllCitizenService} from '../../../../services/api/getAllCitizen.service';
-import {GetAllCustomerService} from '../../../../services/api/getAllCustomer.service';
 import {GetAllListAccountService} from '../../../../services/api/getAllListAccount.service';
 import 'rxjs/add/operator/takeWhile';
 
@@ -14,7 +13,7 @@ import 'rxjs/add/operator/takeWhile';
   selector: 'app-services-transfer-compte',
   templateUrl: './transfer-compte.component.html',
   styleUrls: ['./transfer-compte.component.scss'],
-  providers: [GetAllCitizenService, GetAllCustomerService, W2WVirementAccountService, GetCommissionsTTCService,
+  providers: [GetAllCitizenService, W2WVirementAccountService, GetCommissionsTTCService,
     GetAllListAccountService]
 
 })
@@ -46,7 +45,6 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
   constructor(public userDataService: UserDataService,
               public commonServices: CommonServices,
               public getAllListAccountService: GetAllListAccountService,
-              public getAllCustomerService: GetAllCustomerService,
               public w2WVirementAccountService: W2WVirementAccountService,
               public getCommissionsTTCService: GetCommissionsTTCService,
               public errorMessageHandlerService: ErrorMessageHandlerService) { }
@@ -221,7 +219,7 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
   }
 
 
-  public fillReceiverInfoFunction(myAccount: any, e: any) {
+  public fillReceiverInfoFunction(myAccount: any) {  // , e: any
     // this.showReceiverInfo = false;
     this.clearSearch();
     this.newReceiver = new ReceiverClass('', '', '', '', undefined, '', '', '', '', '', '');

@@ -6,12 +6,13 @@ import 'rxjs/add/operator/takeWhile';
 import * as moment from 'moment';
 import {W2XWalletService} from '../../../../services/api/W2XWallet.service';
 import {ErrorMessageHandlerService} from '../../../../services/error-message-handler.service';
+import {GetCitizenContractService} from '../../../../services/api/getCitizenContract.service';
 
 @Component({
   selector: 'app-virements-multiples',
   templateUrl: './virements-multiples.component.html',
   styleUrls: ['./virements-multiples.component.scss'],
-  providers: [W2XWalletService]
+  providers: [W2XWalletService, GetCitizenContractService]
 })
 export class VirementsMultiplesComponent implements OnInit, OnDestroy {
   errorMessage_contract = '';
@@ -23,21 +24,18 @@ export class VirementsMultiplesComponent implements OnInit, OnDestroy {
   contract_to_find = true;
   contract_found = true;
   contract_number: string;
-  forIdReceiver = 'receiver';
+  contractsCustomer = [];
   alive = true;
 
   amount_virementsMultiples: number;
   receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 1, 'citizen', '', '', '', '', ''),
               new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 2, 'citizen', '', '', '', '', ''),
               new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 3, 'citizen', '', '', '', '', '')];
-  selectedReceivers = [];
-  // contracts = [{number: 'BD012345678910', conract_id: 15},
-  //              {number: 'PJ112233445511', conract_id: 16},
-  //              {number: 'OK998877664444', conract_id: 17}];
 
   constructor(public commonServices: CommonServices,
               public userDataService: UserDataService,
               public w2XWalletService: W2XWalletService,
+              public getCitizenContractService: GetCitizenContractService,
               public errorMessageHandlerService: ErrorMessageHandlerService) {}
 
   ngOnInit() {
@@ -82,6 +80,7 @@ export class VirementsMultiplesComponent implements OnInit, OnDestroy {
     this.contract_number = '' + contract.reference
                               + ', from ' + this.commonServices.fromServerMoment(contract.debut);
     this.findContractFunction();
+    this.getContractsCustomerFunction(contract.id);
   }
   public gotoContractToFindFunction() {
     this.contract_to_find = true;
@@ -102,6 +101,19 @@ export class VirementsMultiplesComponent implements OnInit, OnDestroy {
     });
     console.log(beneficiaryToSend);
     return beneficiaryToSend;
+  }
+
+  public getContractsCustomerFunction(idContract: number) {
+    this.contractsCustomer = [];
+    this.getCitizenContractService.getCitizensContract(idContract)
+      .takeWhile(() => this.alive)
+      .subscribe((result) => {
+        const response = this.commonServices.xmlResponseParcer_complex( result._body );
+        this.contractsCustomer = response.citizen;
+        console.log(this.contractsCustomer);
+      }, (err) => {
+        console.log(err);
+      });
   }
 
   public submitFunction() {

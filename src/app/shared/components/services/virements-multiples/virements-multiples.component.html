@@ -80,7 +80,13 @@
                   <div class="search-wrapper" style="margin-top: 4px; margin-bottom: 8px">
                     <input type="text" placeholder="Search" readonly [(ngModel)]="contract_number">
                   </div>
-                  <div *ngFor="let receiver of userDataService.getReceivers()" [attr.id]="'receiver_'+receiver.id"
+
+
+
+
+
+
+                  <div *ngFor="let receiver of contractsCustomer" [attr.id]="'receiver_'+receiver.id"
                        class="search__user" (click)="commonServices.defineReceiversFunction($event)">
                     <div>
                       <span class="logo" style="background-image: url('../../../../../assets/img/user.png')"></span>
@@ -128,7 +134,7 @@
                     <div class="currency">Usd</div>
                   </div>
 
-                  <div *ngFor="let amount of userDataService.getReceivers()">
+                  <div *ngFor="let amount of contractsCustomer">
                     <h4>Amount to {{amount.nom}} {{amount.prenom}}:</h4>
                     <div class="floating-block border-hover">
                       <div class="floating-input" style="margin-bottom:0">

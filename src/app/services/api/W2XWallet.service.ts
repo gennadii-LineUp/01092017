@@ -22,7 +22,6 @@ export class W2XWalletService {
                  `;
       listComptes += list;
     }
-    console.log(listComptes);
 
     const body =
       `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:run="http://runtime.services.cash.innov.sn/">
