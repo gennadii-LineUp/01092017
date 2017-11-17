@@ -7,12 +7,12 @@
               account {{myAccount.nom}} {{myAccount.prenom}}, {{myAccount.email}}
           </div>
 
-            <div *ngIf="profileAsAgent" class="col-sm-12 col-md-6 col-lg-4 ml-auto mr-auto">
-              <app-select-sender (senderDefined)="setSenderFunction($event)"></app-select-sender>
-            </div>
+            <!--<div *ngIf="profileAsAgent" class="col-sm-12 col-md-6 col-lg-4 ml-auto mr-auto">-->
+              <!--<app-select-sender (senderDefined)="setSenderFunction($event)"></app-select-sender>-->
+            <!--</div>-->
 
             <!-- Null page-->
-            <div *ngIf="!profileAsAgent && transfer_accounts" class="col-sm-12 col-md-6 col-lg-4 ml-auto mr-auto">
+            <div *ngIf="transfer_accounts" class="col-sm-12 col-md-6 col-lg-4 ml-auto mr-auto">
             <!--<div *ngIf="transfer_accounts" class="col-sm-8 col-md-6 col-lg-4 ml-auto mr-auto">-->
               <div class="dargent__wrapper">
                 <div class="block__header" style="background-color: #fff">Choose your account</div>

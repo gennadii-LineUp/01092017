@@ -4,12 +4,12 @@
       <div class="container">
 
             <div class="row">
-                <div *ngIf="profileAsAgent" class="col-sm-12 col-md-6 col-lg-4">
-                  <app-select-sender (senderDefined)="setSenderFunction($event)"></app-select-sender>
-                </div>
+                <!--<div *ngIf="profileAsAgent" class="col-sm-12 col-md-6 col-lg-4">-->
+                  <!--<app-select-sender (senderDefined)="setSenderFunction($event)"></app-select-sender>-->
+                <!--</div>-->
 
 
-                <div *ngIf="!profileAsAgent" class="col-sm-12 col-md-6 col-lg-4 consult-oper__wrapper">
+                <div  class="col-sm-12 col-md-6 col-lg-4 consult-oper__wrapper">
                     <div class="consult-oper__header">Choose account</div>
                     <div class="accordionWrapper">
                         <div *ngFor="let myAccount of userDataService.getMyAccounts()" class="accordionItem close-item"
