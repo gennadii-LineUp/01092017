@@ -143,6 +143,7 @@ export class UserDataService {
           const response = (this.commonServices.xmlResponseParcer_complex(result._body)).uos;
           this.citizens = (response.length) ? response : [];
           this.receivers = this.citizens;
+          console.log('=== CITIZENs created ===');
           console.log(this.citizens);
         }, (err) => {console.log(err); });
   }
@@ -157,6 +158,7 @@ export class UserDataService {
         const response = (this.commonServices.xmlResponseParcer_complex(result._body)).uos;
         this.clients = (response.length) ? response : [];
         this.receivers = this.clients;
+        console.log('=== CUSTOMERs created ===');
         console.log(this.clients);
       }, (err) => {console.log(err); });
   }
@@ -170,30 +172,25 @@ export class UserDataService {
       case 'CITIZEN': {
         if (!this.citizens.length) {
           this.setCitizens();
-          console.log('=== CITIZENs created ===');
         } break;
       }
       case 'CLIENT': {
         if (!this.clients.length) {
           this.setClients();
-          console.log('=== CUSTOMERs created ===');
         } break;
       }
       case 'AGENT': {
-        if (!this.citizensClients.length) {
-          if (!this.clients.length) {
-            this.setClients();
-            console.log('=== CUSTOMERs created ===');
-          }
-          if (!this.citizens.length) {
-            this.setCitizens();
-            console.log('=== CITIZENs created ===');
-          }
-          this.citizensClients = (this.clients).concat(this.citizens);
-          this.receivers = this.citizensClients;
-          console.log('=== CITIZENs+CUSTOMERs created ===');
-          console.log(this.citizensClients);
-        }
+        // if (!this.citizensClients.length) {
+        //   if (!this.clients.length) { this.setClients(); }
+        //   if (!this.citizens.length) { this.setCitizens(); }
+        //   setTimeout(() => {
+        //     this.citizensClients = (this.clients).concat(this.citizens);
+        //     this.receivers = this.citizensClients;
+        //     console.log('=== CITIZENs+CUSTOMERs created ===');
+        //     console.log(this.citizensClients);
+        //   }, 1000);
+        //
+        // }
         break;
       }
 
@@ -203,6 +200,14 @@ export class UserDataService {
 
   public getReceivers(): any {
     return this.receivers;
+  }
+
+  public setCitizensClients(citizensClients: any) {
+    this.citizensClients = citizensClients;
+    console.log(this.citizensClients);
+  }
+  public getCitizensClients(): any {
+    return this.citizensClients;
   }
 
   public getSender_default(): any {

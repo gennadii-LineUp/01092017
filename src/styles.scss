@@ -1190,5 +1190,8 @@ input[type=checkbox]:checked + label:after {
   h2.h2-mobile{
       background-color: $blue;
   }
-
+  .row {
+    margin-right: 0;
+    margin-left: 0;
+  }
 }

@@ -4,27 +4,24 @@ import {ErrorMessageHandlerService} from '../../../services/error-message-handle
 import {AuthorisationClass} from '../../../models/authorisation-class';
 import {CommonServices} from '../../../services/common.service';
 import {UserDataService} from '../../../models/user-data';
-import {GetAllListAccountService} from '../../../services/api/getAllListAccount.service';
-import {ReceiverClass} from '../../../models/receiver-class';
 import 'rxjs/add/operator/takeWhile';
 
 @Component({
   selector: 'app-authorisation',
   templateUrl: './authorisation.component.html',
   styleUrls: ['./authorisation.component.scss'],
-  providers: [LoginService, GetAllListAccountService]
+  providers: [LoginService]
 })
 export class GeneralAuthorisationComponent implements OnInit, OnDestroy {
   errorMessage = '';
   loading = false;
   alive = true;
-  // authorisation = new AuthorisationClass('wari', 'wari', 'APP');
-  authorisation = new AuthorisationClass('7722222222', 'passer', 'APP'); // CITIZEN
+  authorisation = new AuthorisationClass('wari', 'wari', 'APP');
+  // authorisation = new AuthorisationClass('7722222222', 'passer', 'APP'); // CITIZEN
   // authorisation = new AuthorisationClass('tresor', 'tresor', 'APP');        // CUSTOMER = CLIENT
 
   constructor(public loginService: LoginService,
               public userDataService: UserDataService,
-              public getAllListAccountService: GetAllListAccountService,
               public errorMessageHandlerService: ErrorMessageHandlerService,
               public commonServices: CommonServices) { }
 
@@ -38,14 +35,6 @@ export class GeneralAuthorisationComponent implements OnInit, OnDestroy {
   public loginFunction() {
     this.loading = true;
     this.errorMessage = '';
-
-    // localStorage.clear();
-    // localStorage.setItem('token', 'token');
-    // const newJson = JSON.stringify(this.authorisation);
-
-    // console.log(newJson);
-    // console.log(localStorage);
-    // this.router.navigate(['/customer/services']);
 
 
     this.loginService.login(this.authorisation)
