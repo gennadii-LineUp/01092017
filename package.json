@@ -25,8 +25,10 @@
     "bootstrap-sass": "^3.3.7",
     "core-js": "^2.4.1",
     "moment": "^2.19.2",
+    "ng-select2": "^1.0.3",
     "ngx-bootstrap": "^1.9.1",
     "rxjs": "^5.1.0",
+    "select2": "^4.0.6-rc.0",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {

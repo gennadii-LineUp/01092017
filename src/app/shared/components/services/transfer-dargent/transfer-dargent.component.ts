@@ -24,6 +24,8 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
   successMessage_2 = '';
   errorMessage = '';
   alive = true;
+fruits = [{id: '1', text: '11'},  {id: '2', text: '22'},  {id: '3', text: '33'}];
+frui: any;
 
   constructor(public userDataService: UserDataService,
               public w2COrdreRetraitService: W2COrdreRetraitService,
@@ -52,7 +54,7 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
   public fillReceiverInfoFunction(myAccount: any, e: any) {
     // this.showReceiverInfo = false;
     this.clearSearch();
-    this.newReceiver = this.userDataService.beneficiaires[0];
+    // this.newReceiver = this.userDataService.beneficiaires[0];
     this.myAccount = myAccount;
     console.log(myAccount);
     const allItems: NodeListOf<Element> = window.document.querySelectorAll('div.consult-user');
@@ -85,31 +87,32 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
     this.successMessage_1 = '';
     this.successMessage_2 = '';
     this.errorMessage = '';
+    console.log(this.frui);
+    // console.log(this.myAccount);
+    // this.w2COrdreRetraitService.transferDargent(this.myAccount.telephone, this.amountToReceiver, this.newReceiver)
+    //   .takeWhile(() => this.alive)
+    //   .subscribe(result => {
+    //     this.loading = false;
+    //     console.log(result._body);
+    //     const response = this.commonServices.xmlResponseParcer_simple( result._body );
+    //
+    //     console.dir( response );
+    //     if (+response.error === 0) {
+    //       this.showReceiverInfo = false;
+    //       this.clearSearch();
+    //       this.successMessage_1 = response.message + ';';
+    //       this.successMessage_2 = 'code: ' + response.code;
+    //       this.discardReceiverInfoFunction();
+    //     } else {
+    //       this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
+    //     }
+    //
+    //   }, (err) => {
+    //     this.loading = false;
+    //     console.log(err);
+    //     this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+    //   });
 
-    console.log(this.myAccount);
-    this.w2COrdreRetraitService.transferDargent(this.myAccount.telephone, this.amountToReceiver, this.newReceiver)
-      .takeWhile(() => this.alive)
-      .subscribe(result => {
-        this.loading = false;
-        console.log(result._body);
-        const response = this.commonServices.xmlResponseParcer_simple( result._body );
-
-        console.dir( response );
-        if (+response.error === 0) {
-          this.showReceiverInfo = false;
-          this.clearSearch();
-          this.successMessage_1 = response.message + ';';
-          this.successMessage_2 = 'code: ' + response.code;
-          this.discardReceiverInfoFunction();
-        } else {
-          this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
-        }
-
-      }, (err) => {
-        this.loading = false;
-        console.log(err);
-        this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
-      });
   }
 
 

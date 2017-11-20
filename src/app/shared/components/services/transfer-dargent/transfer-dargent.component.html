@@ -33,6 +33,14 @@
                         <div class="content">
                           <form #agent_depoClient="ngForm" novalidate>
                             <h4>Phone number</h4>
+
+                            <!--<select2 [data]="userDataService.getCitizens()"></select2>-->
+                            <ng-select2 name="hello"
+                              [(ngModel)]="frui"
+                              [data]="fruits"
+                              [placeholder]="'Please select a fruit...'">
+                            </ng-select2>
+
                             <div class="floating-block border-hover">
                                 <div class="floating-input">
                                   <input type="text"

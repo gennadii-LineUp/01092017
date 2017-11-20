@@ -39,11 +39,12 @@ import {MobileSettingsComponent} from './components/mobile/settings/settings.com
 import {MobileShareComponent} from './components/mobile/share/share.component';
 import { GetUserIdComponent } from './components/get-user-id/get-user-id.component';
 import {DateFromServerMomentPipe} from './pipes/dateFromServerMoment.pipe';
+import { NgSelect2Module } from 'ng-select2';
 
 
 @NgModule({
   imports: [
-    CommonModule, BrowserModule, FormsModule, AppRoutingModule,
+    CommonModule, BrowserModule, FormsModule, AppRoutingModule, NgSelect2Module
   ],
   declarations: [
     HeaderGeneralComponent, HeaderAllUsersComponent,
@@ -66,8 +67,7 @@ import {DateFromServerMomentPipe} from './pipes/dateFromServerMoment.pipe';
     SelectSenderComponent,
     SuccessMessageComponent,
     PaginationComponent,
-    MobileSettingsComponent, MobileShareComponent, GetUserIdComponent,
-
+    MobileSettingsComponent, MobileShareComponent, GetUserIdComponent
   ],
   exports: [
     HeaderGeneralComponent, HeaderAllUsersComponent,

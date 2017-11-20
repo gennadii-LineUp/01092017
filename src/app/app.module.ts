@@ -19,6 +19,7 @@ import {GetAllListAccountService} from './services/api/getAllListAccount.service
 import {GetAllCitizenService} from './services/api/getAllCitizen.service';
 import {GetAllCustomerService} from './services/api/getAllCustomer.service';
 import {GetAllContractsService} from './services/api/getAllContracts.service';
+import { NgSelect2Module } from 'ng-select2';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import {GetAllContractsService} from './services/api/getAllContracts.service';
     FormsModule,
     HttpModule,
     AppRoutingModule,
-    PagesModule
+    PagesModule,
+    NgSelect2Module
 
   ],
   providers: [
