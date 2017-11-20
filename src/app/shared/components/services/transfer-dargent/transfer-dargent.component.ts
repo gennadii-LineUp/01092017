@@ -17,15 +17,15 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
   profileAsAgent = this.userDataService.checkUserRole();
   sender = [this.userDataService.getSender_default()];
   myAccount: any;
-  newReceiver = this.userDataService.beneficiaires[0];
+  newReceiver = new ReceiverClass('', '', '', '', 0, '', '', '', '', '', '');
   amountToReceiver: number;
   showReceiverInfo = false;
   successMessage_1 = '';
   successMessage_2 = '';
   errorMessage = '';
   alive = true;
-fruits = [{id: '1', text: '11'},  {id: '2', text: '22'},  {id: '3', text: '33'}];
-frui: any;
+  numTel_fromSelect2 = '';
+
 
   constructor(public userDataService: UserDataService,
               public w2COrdreRetraitService: W2COrdreRetraitService,
@@ -54,7 +54,6 @@ frui: any;
   public fillReceiverInfoFunction(myAccount: any, e: any) {
     // this.showReceiverInfo = false;
     this.clearSearch();
-    // this.newReceiver = this.userDataService.beneficiaires[0];
     this.myAccount = myAccount;
     console.log(myAccount);
     const allItems: NodeListOf<Element> = window.document.querySelectorAll('div.consult-user');
@@ -87,7 +86,8 @@ frui: any;
     this.successMessage_1 = '';
     this.successMessage_2 = '';
     this.errorMessage = '';
-    console.log(this.frui);
+    console.log(this.numTel_fromSelect2);
+    console.log(this.userDataService.getReceiverFromSelect2(this.numTel_fromSelect2));
     // console.log(this.myAccount);
     // this.w2COrdreRetraitService.transferDargent(this.myAccount.telephone, this.amountToReceiver, this.newReceiver)
     //   .takeWhile(() => this.alive)

@@ -8,6 +8,7 @@ import {GetAllCustomerService} from '../services/api/getAllCustomer.service';
 import {GetAllCitizenService} from '../services/api/getAllCitizen.service';
 import {GetAllContractsService} from '../services/api/getAllContracts.service';
 import * as moment from 'moment';
+import {Select2optionClass} from './select2option-class';
 
 @Injectable()
 export class UserDataService {
@@ -19,7 +20,7 @@ export class UserDataService {
   receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 1, 'citizen', '', '', '', '', ''),
                 new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 2, 'citizen', '', '', '', '', ''),
                 new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 3, 'citizen', '', '', '', '', '')];
-
+  receiversForSelect2 = [new Select2optionClass('', '')];
   allContracts = [];
 
   myAccounts = [
@@ -147,6 +148,7 @@ export class UserDataService {
           const response = (this.commonServices.xmlResponseParcer_complex(result._body)).uos;
           this.citizens = (response.length) ? response : [];
           this.receivers = this.citizens;
+          this.setReceiversForSelect2(this.citizens);
           console.log('=== CITIZENs created ===');
           console.log(this.citizens);
         }, (err) => {console.log(err); });
@@ -154,6 +156,37 @@ export class UserDataService {
   public getCitizens(): any {
     return this.citizens;
   }
+
+  public setReceiversForSelect2(receivers: Array<ReceiverClass>) {
+    this.receiversForSelect2 = [];
+    receivers.forEach(item => {
+      let text = (item.nom) ? (item.nom) : '';
+      text += (item.prenom) ? (' ' + item.prenom) : '';
+      text += (item.telephone) ? (', ' + item.telephone) : '';
+      text += (item.numTel) ? (', ' + item.numTel) : '';
+
+      let id = (item.numTel) ? (item.numTel) : '';
+      if (!id) {id = (item.telephone) ? (item.telephone) : ''; }
+
+      this.receiversForSelect2.push(new Select2optionClass(id, text));
+    })
+    console.log(this.receiversForSelect2);
+  }
+  public getReceiversForSelect2(): Array<Select2optionClass> {
+    return this.receiversForSelect2;
+  }
+
+
+  public getReceiverFromSelect2(numTel: string): ReceiverClass {
+    let receiver = new ReceiverClass('', '', '', '', 0, '', '', '', '', '', '');
+    Object.keys(this.getReceivers()).forEach(key => {
+      if (this.getReceivers()[key].numTel === numTel) {
+        receiver = this.getReceivers()[key];
+      }
+    });
+    return receiver;
+  }
+
 
   public setClients() {
     this.clients = [];
@@ -203,7 +236,7 @@ export class UserDataService {
     }
   }
 
-  public getReceivers(): any {
+  public getReceivers(): Array<ReceiverClass> {
     return this.receivers;
   }
 
