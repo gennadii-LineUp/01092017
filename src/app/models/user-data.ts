@@ -21,6 +21,7 @@ export class UserDataService {
                 new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 2, 'citizen', '', '', '', '', ''),
                 new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 3, 'citizen', '', '', '', '', '')];
   receiversForSelect2 = [new Select2optionClass('', '')];
+  contractsForSelect2 = [new Select2optionClass('', '')];
   allContracts = [];
 
   myAccounts = [
@@ -107,6 +108,7 @@ export class UserDataService {
         const response = (this.commonServices.xmlResponseParcer_complex(result._body)).contract;
         console.log(response);
         this.allContracts = response;
+        this.setContractsForSelect2(response);
       }, (err) => {console.log(err); });
   }
 
@@ -173,6 +175,25 @@ export class UserDataService {
   }
   public getReceiversForSelect2(): Array<Select2optionClass> {
     return this.receiversForSelect2;
+  }
+
+
+  public setContractsForSelect2(contracts: Array<any>) {
+    this.contractsForSelect2 = [];
+    contracts.forEach(item => {
+      let text = (item.reference) ? (item.reference) : '';
+      text += (item.dateCreation) ? (' de ' + this.commonServices.fromServerDateMoment(item.dateCreation)) : '';
+      text += (item.debut) ? ('. Valide à partir de ' + this.commonServices.fromServerDateMoment(item.debut)) : '';
+      text += (item.statut) ? ('. ' + item.statut) : '';
+      text += (item.banque) ? ('. ' + item.banque + ' banque.') : '';
+      const id = (item.id) ? (item.id) : '';
+
+      this.contractsForSelect2.push(new Select2optionClass(id, text));
+    });
+    console.log(this.contractsForSelect2);
+  }
+  public getContractsForSelect2(): Array<Select2optionClass> {
+    return this.contractsForSelect2;
   }
 
 

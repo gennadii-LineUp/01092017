@@ -24,7 +24,9 @@ export class VirementsMultiplesComponent implements OnInit, OnDestroy {
   contract_to_find = true;
   contract_found = true;
   contract_number: string;
+  contract_number_valid: string;
   contractsCustomer = [];
+  contract_fromSelect2 = '';
   alive = true;
 
   amount_virementsMultiples: number;
@@ -43,14 +45,13 @@ export class VirementsMultiplesComponent implements OnInit, OnDestroy {
     if ((this.userDataService.getAllContracts()).length) {
       console.log('=== AllContracts\' length ' + this.userDataService.getAllContracts().length);
     } else {
-      console.log('=== AllContracts\' is empty ===');
+      console.log('=== AllContracts are empty ===');
       this.userDataService.setAllContracts();
     }
 
     const profil = ((<any>this.userDataService.getUser).profil) ? (<any>this.userDataService.getUser).profil :
       localStorage.getItem('profil');
     console.log(profil);
-    this.userDataService.setReceivers(profil);
 
     if ((this.userDataService.getMyAccounts()).length) {
       console.log('=== MyAccounts\' length ' + this.userDataService.getMyAccounts().length);
@@ -76,16 +77,19 @@ export class VirementsMultiplesComponent implements OnInit, OnDestroy {
     console.dir(e.target.previousElementSibling.value);
   }
   public chooseContractFunction(contract: any) {
+    console.log(contract);
     this.clearSearch();
-    this.contract_number = '' + contract.reference
-                              + ', from ' + this.commonServices.fromServerDateMoment(contract.debut);
+    // "C201751015198 de 10.06.2017. Valide à partir de 29.05.2017. VALIDE. BICIS banque."
+    this.contract_number = (contract.data['0'].text).split('.')['0'];
+    this.contract_number_valid = (contract.data['0'].text).split('.')['1'] + '. Sélectionnez les destinataires:';
     this.findContractFunction();
-    this.getContractsCustomerFunction(contract.id);
+    this.getContractsCustomerFunction(contract.data['0'].id);
   }
   public gotoContractToFindFunction() {
     this.contract_to_find = true;
     this.contract_found = false;
     this.contract_number = undefined;
+    this.contract_number_valid = undefined;
   }
   public gotoContractFoundFunction() {
     this.contract_to_find = false;

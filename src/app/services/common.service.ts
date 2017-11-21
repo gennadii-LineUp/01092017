@@ -241,7 +241,7 @@ export class CommonServices {
   }
 
   public fromServerDateMoment(stringDate: string): string {
-    return moment(stringDate).local().format('DD.MM.YYYY');
+    return moment(stringDate).local().format('DD/MM/YYYY');
   }
 
   public fromServerTimeMoment(stringDate: string): string {
