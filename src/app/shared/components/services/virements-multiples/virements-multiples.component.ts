@@ -78,7 +78,7 @@ export class VirementsMultiplesComponent implements OnInit, OnDestroy {
   public chooseContractFunction(contract: any) {
     this.clearSearch();
     this.contract_number = '' + contract.reference
-                              + ', from ' + this.commonServices.fromServerMoment(contract.debut);
+                              + ', from ' + this.commonServices.fromServerDateMoment(contract.debut);
     this.findContractFunction();
     this.getContractsCustomerFunction(contract.id);
   }

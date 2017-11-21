@@ -240,8 +240,12 @@ export class CommonServices {
     }
   }
 
-  public fromServerMoment(stringDate: string): string {
+  public fromServerDateMoment(stringDate: string): string {
     return moment(stringDate).local().format('DD.MM.YYYY');
+  }
+
+  public fromServerTimeMoment(stringDate: string): string {
+    return moment(stringDate).local().format('HH:mm:ss');
   }
 
 

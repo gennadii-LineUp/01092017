@@ -2,15 +2,15 @@ import { Pipe, PipeTransform } from '@angular/core';
 import {CommonServices} from '../../services/common.service';
 
 @Pipe({
-  name: 'dateFromServerMoment'
+  name: 'timeFromServerMoment'
 })
-export class FromServerDateMomentPipe implements PipeTransform {
+export class FromServerTimeMomentPipe implements PipeTransform {
 
   constructor(public commonServices: CommonServices) {}
 
   transform(value: any) {
     if (value) {
-      return this.commonServices.fromServerDateMoment(value);
+      return this.commonServices.fromServerTimeMoment(value);
     }
     return value;
   }

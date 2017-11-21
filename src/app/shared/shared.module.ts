@@ -38,8 +38,9 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 import {MobileSettingsComponent} from './components/mobile/settings/settings.component';
 import {MobileShareComponent} from './components/mobile/share/share.component';
 import { GetUserIdComponent } from './components/get-user-id/get-user-id.component';
-import {DateFromServerMomentPipe} from './pipes/dateFromServerMoment.pipe';
+import {FromServerDateMomentPipe} from './pipes/dateFromServerMoment.pipe';
 import { NgSelect2Module } from 'ng-select2';
+import {FromServerTimeMomentPipe} from './pipes/timeFromServerMoment.pipe';
 
 
 @NgModule({
@@ -62,7 +63,7 @@ import { NgSelect2Module } from 'ng-select2';
     GeolocalisationAgentComponent, BankToWalletComponent, VirementsVersBanqueComponent, VirementsMultiplesComponent,
     PaiementsComponent,
     ProfileComponent,
-    DebitCreditPipe, DateFromServerMomentPipe,
+    DebitCreditPipe, FromServerDateMomentPipe, FromServerTimeMomentPipe,
     FormatTextByThreeCharPipe,
     SelectSenderComponent,
     SuccessMessageComponent,
@@ -85,7 +86,7 @@ import { NgSelect2Module } from 'ng-select2';
     GeolocalisationAgentComponent, BankToWalletComponent, VirementsVersBanqueComponent, VirementsMultiplesComponent,
     PaiementsComponent,
     ProfileComponent,
-    DebitCreditPipe, DateFromServerMomentPipe,
+    DebitCreditPipe, FromServerDateMomentPipe, FromServerTimeMomentPipe,
     FormatTextByThreeCharPipe, SelectSenderComponent,
     SuccessMessageComponent,
     PaginationComponent,

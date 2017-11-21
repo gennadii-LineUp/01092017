@@ -127,7 +127,7 @@ export class VirementsVersBanqueComponent implements OnInit, OnDestroy {
         console.log(response);
 
         this.successMessage_1 = 'Confirmation de succès pour le montant ' +  response.montant + 'usd !';
-        this.successMessage_2 = '' + this.commonServices.fromServerMoment(response.dateTransaction) + ' à '
+        this.successMessage_2 = '' + this.commonServices.fromServerDateMoment(response.dateTransaction) + ' à '
                                     + moment(response.dateTransaction).local().format('HH:mm:ss');
         setTimeout(() => { this.amountInput.nativeElement.focus(); }, 10);
       }, (err) => {
