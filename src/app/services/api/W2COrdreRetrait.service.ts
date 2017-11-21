@@ -25,7 +25,7 @@ export class W2COrdreRetraitService {
                   <nom>` + beneficiaire.nom + `</nom>
                   <prenom>` + beneficiaire.prenom + `</prenom>
                   <adresse>` + beneficiaire.address + `</adresse>
-                  <cellulaire>` + beneficiaire.telephone + `</cellulaire>
+                  <cellulaire>` + beneficiaire.numTel + `</cellulaire>
               </beneficiaire>
           </run:W2COrdreRetrait>
         </soapenv:Body>
