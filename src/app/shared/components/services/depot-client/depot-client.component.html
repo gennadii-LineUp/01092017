@@ -15,50 +15,64 @@
           </div>
           <div class="content">
             <h3>Select client’s account</h3>
-            <div class="floating-block border-hover">
-              <!--Need to hide this item when input empty, when input have value: show angle, onclick angle show right drop -->
-              <div class="orange-angle" style="display: block;"><i class="fa fa-angle-right" aria-hidden="true"></i></div>
-              <div class="floating-input">
-                <input id="firstname1" name="firstname1" placeholder="Type here" required="" type="text" [(ngModel)]="receiverToFind">
-              </div>
-              <!--Right drop for show-->
-              <div *ngIf="false" class="right-drop" style="display: block;">
-                <div class="right-drop__item">
-                  <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
-                  <div>
-                    Clark Kenwood
-                    <span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>
-                  </div>
-                </div>
-                <div class="right-drop__item">
-                  <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
-                  <div>
-                    Clark Kenwood
-                    <span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>
-                  </div>
-                </div>
-                <div class="right-drop__item">
-                  <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
-                  <div>
-                    Clark Kenwood
-                    <span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>
-                  </div>
-                </div>
-              </div>
+
+            <ng-select2 [(ngModel)]="client_fromSelect2"
+                        [data]="userDataService.getReceiversForSelect2()"
+                        [placeholder]="'Please select...'"
+                        (valueChanged)="setBeneficiaryFunction($event)">
+            </ng-select2>
+
+            <div class="new-acc" style="padding-bottom: 0">
+                  <span>
+                    The client’s account you’re looking for is not in the system?
+                    <span class="create">Create it now.</span>
+                  </span>
             </div>
 
-            <div *ngIf="receivers.length" class="content search">
-              <div  *ngFor="let client of userDataService.getClients()" #{{receiver.id_receiver}} id="{{client.id_account}}"
-                    class="search__user" (click)="commonServices.defineReceiversFunction($event); setBeneficiaryFunction(client)">
-                <div>
-                  <span class="logo" style="background-image: url('../../../../../assets/img/user.png')"></span>
-                  <div>
-                    <div>{{client.nom}} {{client.prenom}}</div>
-                    <span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>{{client.numTel}}</span>
-                  </div>
-                </div>
-                <div class="circle-check"></div>
-              </div>
+            <!--<div class="floating-block border-hover">-->
+              <!--Need to hide this item when input empty, when input have value: show angle, onclick angle show right drop -->
+              <!--<div class="orange-angle" style="display: block;"><i class="fa fa-angle-right" aria-hidden="true"></i></div>-->
+              <!--<div class="floating-input">-->
+                <!--<input id="firstname1" name="firstname1" placeholder="Type here" required="" type="text" [(ngModel)]="receiverToFind">-->
+              <!--</div>-->
+              <!--Right drop for show-->
+              <!--<div *ngIf="false" class="right-drop" style="display: block;">-->
+                <!--<div class="right-drop__item">-->
+                  <!--<div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>-->
+                  <!--<div>-->
+                    <!--Clark Kenwood-->
+                    <!--<span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--<div class="right-drop__item">-->
+                  <!--<div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>-->
+                  <!--<div>-->
+                    <!--Clark Kenwood-->
+                    <!--<span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--<div class="right-drop__item">-->
+                  <!--<div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>-->
+                  <!--<div>-->
+                    <!--Clark Kenwood-->
+                    <!--<span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+
+            <!--<div *ngIf="receivers.length" class="content search">-->
+              <!--<div  *ngFor="let client of userDataService.getClients()" #{{receiver.id_receiver}} id="{{client.id_account}}"-->
+                    <!--class="search__user" (click)="commonServices.defineReceiversFunction($event); setBeneficiaryFunction(client)">-->
+                <!--<div>-->
+                  <!--<span class="logo" style="background-image: url('../../../../../assets/img/user.png')"></span>-->
+                  <!--<div>-->
+                    <!--<div>{{client.nom}} {{client.prenom}}</div>-->
+                    <!--<span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>{{client.numTel}}</span>-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--<div class="circle-check"></div>-->
+              <!--</div>-->
 
               <!-- *** M U L T I P L E   S E L E C T *** -->
               <!--<div  *ngFor="let myAccount of userDataService.getMyAccounts()" #{{receiver.id_receiver}} id="{{myAccount.id_account}}"-->
@@ -73,13 +87,8 @@
               <!--<div class="circle-check"></div>-->
               <!--</div>-->
 
-              <div class="new-acc" style="padding-bottom: 0">
-                  <span>
-                    The client’s account you’re looking for is not in the system?
-                    <span class="create">Create it now.</span>
-                  </span>
-              </div>
-            </div>
+
+            <!--</div>-->
 
           </div>
         </div>
@@ -121,8 +130,7 @@
 
               <p style="margin: 0; text-align: center; height: 16px; margin-bottom: 12px"><img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>
               <button class="orange-button blue-button"
-                      [disabled]="!((+amount_depotClient >= 0.01)
-                                          && commonServices.getSelectedReceivers().length)"
+                      [disabled]="!((+amount_depotClient >= 0.01) && client_fromSelect2)"
                       (click)="submitDepotClient()">Send
               </button>
             </div>
@@ -168,6 +176,7 @@
                     <div class="floating-input">
                       <input id="amount2" name="amount2" placeholder="00.00" required type="text"
                              [(ngModel)]="amount_depotClient"
+                             (keyup.enter)='submitDepotClient()'
                              onkeydown="return ( event.ctrlKey || event.altKey
                                                                 || (47<event.keyCode && event.keyCode<58 && event.shiftKey==false)
                                                                 || (95<event.keyCode && event.keyCode<106)
@@ -264,7 +273,7 @@
         <div class="col-md-12 col-lg-8 blue-button__wrapper">
           <button class="orange-button blue-button" style="margin-top: 8px"
                   [disabled]="!((+amount_depotClient >= 0.01)
-                            && commonServices.getSelectedReceivers().length
+                            && client_fromSelect2
                             && (envoyeur.id_fin && envoyeur.id_debut && envoyeur.nom && envoyeur.prenom && envoyeur.cellulaire
                             && envoyeur.addresse && envoyeur.id_type && envoyeur.id_pays && envoyeur.id_valeur))"
                   (click)="submitDepotClient()">Send
@@ -275,6 +284,9 @@
 
     </div>
   </section>
+
+  <app-success-message [message_firstLine]="successMessage_1" [message_secondLine]="successMessage_2"></app-success-message>
+
 </main>
 
 

@@ -23,12 +23,16 @@ export class DepotClientComponent implements OnInit, OnDestroy {
   receiverExist = false;
   createNewReceiver = true;
   receiverStatus = '';
-  receiverToFind = '7722222222';
+  receiverToFind = '';
+  successMessage_1 = '';
+  successMessage_2 = '';
+
   commission = [];
   envoyeur = new EnvoyeurClass('KANE', 'MOMAR', '773151459', 'DAKAR', 'CNI', 'SEN', '1619198107350', '01/01/2016', '01/01/2017');
   receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 1, 'citizen', '', '', '', '', ''),
               new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 2, 'citizen', '', '', '', '', ''),
               new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 3, 'citizen', '', '', '', '', '')];
+  client_fromSelect2 = '';
   alive = true;
 
   @ViewChild('amount2') amount2: any;
@@ -44,9 +48,8 @@ export class DepotClientComponent implements OnInit, OnDestroy {
     this.firstStepMode();
     // this.secondStepMode();
 
-    if (!(this.userDataService.getClients()).length) {
-      this.userDataService.setClients();
-    }
+    if (!this.userDataService.getClients().length) {this.userDataService.setClients(); }
+    setTimeout(() => this.userDataService.setReceiversForSelect2(this.userDataService.getClients()), 500);
   }
 
   ngOnDestroy() {
@@ -59,6 +62,7 @@ export class DepotClientComponent implements OnInit, OnDestroy {
   public submitDepotClient() {
     console.log(this.amount_depotClient + '  to send');
     console.dir(this.commonServices.getSelectedReceivers());
+    const beneficiaire = this.userDataService.getReceiverFromSelect2(this.client_fromSelect2);
 
     this.loading = true;
     this.successMessage = '';
@@ -73,11 +77,11 @@ export class DepotClientComponent implements OnInit, OnDestroy {
 
         console.dir( response );
         if (+response.error === 0) {
-          this.errorMessage = response.message + ' - ' + response.commission;
+         // this.errorMessage = response.message + ' - ' + response.commission;
           this.commission.push(+response.commission);
           console.log(this.commission);
           /////////////////////////////
-          this.v2WDepotClientTransactionService.makeDepotClient(this.newReceiver.telephone,
+          this.v2WDepotClientTransactionService.makeDepotClient(beneficiaire.numTel,
                                                                 +this.amount_depotClient,
                                                                 +response.commission,
                                                                 this.envoyeur)
@@ -88,10 +92,13 @@ export class DepotClientComponent implements OnInit, OnDestroy {
 
               console.dir( _response );
               if (+_response.error === 0) {
-                this.errorMessage += '  ' +  _response.message;
+                this.successMessage_1 = response.message + ' - ' + response.commission +
+                  ' pour le montant ' + this.amount_depotClient + ' usd';
+                this.successMessage_2 = _response.message;
               } else {
                 this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(_response.message);
               }
+              this.firstStepMode();
             }, (err) => {
               this.loading = false;
               console.log(err);
@@ -112,9 +119,8 @@ export class DepotClientComponent implements OnInit, OnDestroy {
   }
 
   public setBeneficiaryFunction(beneficiary: any) {
-    this.newReceiver.nom = beneficiary.nom;
-    this.newReceiver.prenom = beneficiary.prenom;
-    this.newReceiver.telephone = this.receiverToFind;
+    this.client_fromSelect2 = beneficiary.value;
+    this.receiverToFind = this.client_fromSelect2;
     this.secondStepMode();
     console.log(this.newReceiver);
   }
@@ -122,14 +128,22 @@ export class DepotClientComponent implements OnInit, OnDestroy {
   public firstStepMode() {
     this.clearSearch();
     this.receiverExist = true;
+    this.client_fromSelect2 = ';'
+    this.amount_depotClient = undefined;
     this.commonServices.unSelectAllReceiversFunction();
   }
   public secondStepMode() {
     this.clearSearch();
-    this.receiverStatus = (this.newReceiver.nom) ? (this.newReceiver.nom) : '';
-    this.receiverStatus += (this.newReceiver.prenom) ? (' ' + this.newReceiver.prenom) : '';
-    this.receiverStatus += (this.newReceiver.nom || this.newReceiver.prenom) ? (', ') : '';
-    this.receiverStatus += (this.newReceiver.telephone) ? (this.newReceiver.telephone) : '';
+    const beneficiaire = this.userDataService.getReceiverFromSelect2(this.client_fromSelect2);
+    this.receiverStatus = (beneficiaire.nom) ? (beneficiaire.nom) : '';
+    this.receiverStatus += (beneficiaire.prenom) ? (' ' + beneficiaire.prenom) : '';
+    // this.receiverStatus += (beneficiaire.nom || beneficiaire.prenom) ? (', ') : '';
+    // this.receiverStatus += (beneficiaire.telephone) ? (beneficiaire.telephone) : '';
+
+    this.envoyeur.nom = (beneficiaire.nom) ? beneficiaire.nom : '';
+    this.envoyeur.prenom = (beneficiaire.prenom) ? beneficiaire.prenom : '';
+    this.envoyeur.cellulaire = (beneficiaire.numTel) ? beneficiaire.numTel : '';
+
     this.createNewReceiver = true;
     // setTimeout(() => { this.amount2.nativeElement.focus(); this.amount2.nativeElement.focus(); }, 1000);
   }
