@@ -39,11 +39,29 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
       console.log('=== MyAccounts\' is empty ===');
       this.userDataService.setMyAccounts();
     }
+
     const profil = ((<any>this.userDataService.getUser).profil) ? (<any>this.userDataService.getUser).profil :
       localStorage.getItem('profil');
     console.log(profil);
-    this.userDataService.setReceivers(profil);
 
+    switch (profil) {
+      case 'CITIZEN': {
+        if (!this.userDataService.getCitizens().length) {this.userDataService.setCitizens(); }
+        setTimeout(() => this.userDataService.setReceiversForSelect2(this.userDataService.getCitizens()), 500);
+        break;
+      }
+      case 'CLIENT':
+      case 'AGENT': {
+        if (!this.userDataService.getClients().length) {this.userDataService.setClients(); }
+        if (!this.userDataService.getCitizens().length) {this.userDataService.setCitizens(); }
+        setTimeout(() => {
+          this.userDataService.setCitizensClients((this.userDataService.getClients()).concat(this.userDataService.getCitizens()));
+          this.userDataService.setReceiversForSelect2(this.userDataService.getCitizensClients());
+          }, 900);
+        break;
+      }
+      default:  console.log('=== there is a new type of user ! ===');
+    }
   }
 
   ngOnDestroy() {
@@ -86,7 +104,7 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
     this.successMessage_1 = '';
     this.successMessage_2 = '';
     this.errorMessage = '';
-    const beneficiaire = this.userDataService.getReceiverFromSelect2(this.numTel_fromSelect2)
+    const beneficiaire = this.userDataService.getReceiverFromSelect2(this.numTel_fromSelect2);
     console.log(this.myAccount);
 
     this.w2COrdreRetraitService.transferDargent(this.myAccount.telephone, this.amountToReceiver, beneficiaire)

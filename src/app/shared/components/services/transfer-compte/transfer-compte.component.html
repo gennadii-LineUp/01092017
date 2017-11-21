@@ -41,8 +41,8 @@
                   <div class="compte__wrapper compte__select" style="padding-bottom:0">
                     <h2>Select paiement</h2>
                     <button class="orange-button blue-button" (click)="goToStandartTransferFunction()">Standart</button>
-                    <button class="orange-button blue-button" (click)="goToMarchandTransferFunction()" disabled>Paiement Marchand</button>
-                    <button class="orange-button blue-button" (click)="goToFactureTransferFunction()" disabled style="margin-bottom:0">Paiement Facture</button>
+                    <button class="orange-button blue-button" (click)="goToMarchandTransferFunction()">Paiement Marchand</button>
+                    <button class="orange-button blue-button" (click)="goToFactureTransferFunction()" style="margin-bottom:0">Paiement Facture</button>
                     <div class="orange-angle left-angle" style="display: block; width: 100%; text-align: center; margin-top:0"
                          (click)="goToAllAccountsFunction()">
                       <i class="fa fa-angle-left fa-3x" aria-hidden="true"></i>
@@ -73,7 +73,7 @@
                           <div class="floating-input" style="margin-bottom: 0">
                             <input id="amountFacture" name="amountFacture" placeholder="00.00" required type="text"
                                    [(ngModel)]="amountToReceiver" min="0.01"
-                                   (keyup.enter)='submitTransferCompteFunction()'
+                                   (keyup.enter)='submitFactureTransferFunction()'
                                    onkeydown="return ( event.ctrlKey || event.altKey
                                                                 || (47<event.keyCode && event.keyCode<58 && event.shiftKey==false)
                                                                 || (95<event.keyCode && event.keyCode<106)
@@ -89,7 +89,7 @@
                       <p *ngIf="!errorMessage" style="margin: 0; text-align: center; height: 16px"><img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>
                       <button class="orange-button blue-button" type="submit" style="margin-top: 4px"
                               [disabled]="!(+amountToReceiver >= 0.01)"
-                              (click)="submitTransferCompteFunction()">Send</button>
+                              (click)="submitFactureTransferFunction()">Send</button>
                       <div class="orange-angle left-angle" style="display: block; width: 100%; text-align: center; margin-top:0"
                            (click)="goToAllTransferFunction()">
                         <i class="fa fa-angle-left fa-3x" aria-hidden="true"></i>
@@ -134,7 +134,7 @@
                           <div class="floating-input" style="margin-bottom: 0">
                             <input id="amountMarchand" name="amountMarchand" placeholder="00.00" required type="text"
                                    [(ngModel)]="amountToReceiver" min="0.01"
-                                   (keyup.enter)='submitTransferCompteFunction()'
+                                   (keyup.enter)='submitMarchandTransferFunction()'
                                    onkeydown="return ( event.ctrlKey || event.altKey
                                                                 || (47<event.keyCode && event.keyCode<58 && event.shiftKey==false)
                                                                 || (95<event.keyCode && event.keyCode<106)
@@ -150,7 +150,7 @@
                       <p *ngIf="!errorMessage" style="margin: 0; text-align: center; height: 16px"><img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>
                       <button class="orange-button blue-button" type="submit" style="margin-top: 4px"
                               [disabled]="!(+amountToReceiver >= 0.01)"
-                              (click)="submitTransferCompteFunction()">Send</button>
+                              (click)="submitMarchandTransferFunction()">Send</button>
                       <div class="orange-angle left-angle" style="display: block; width: 100%; text-align: center; margin-top:0"
                            (click)="goToAllTransferFunction()">
                         <i class="fa fa-angle-left fa-3x" aria-hidden="true"></i>
@@ -171,32 +171,39 @@
                     <div class="header">Insert customer’s information</div>
                     <div class="content" style="padding-bottom: 0">
                       <h4>Select customer’s account</h4>
-                      <div class="floating-block border-hover">
-                        <!--Need to hide this item when input empty, when input have value show angle, onclick angle show right drop -->
-                        <div class="orange-angle" style="display: block;"><i class="fa fa-angle-right" aria-hidden="true"></i></div>
-                        <div class="floating-input">
-                          <input id="" name="" placeholder="placeholder ID" required="" type="text" [(ngModel)]="newReceiver.numTel">
-                        </div>
+                      <ng-select2 name="select2_standart"
+                                  [(ngModel)]="numTel_fromSelect2"
+                                  [data]="userDataService.getReceiversForSelect2()"
+                                  [placeholder]="'Please select...'">
+                      </ng-select2>
 
-                        <!--Right drop for show-->
-                        <div *ngIf="!(+newReceiver.id_account > 0)" class="right-drop" style="display: block;">
-                          <div *ngFor="let receiver of receivers" class="right-drop__item" (click)="setBeneficiaryFunction(receiver)">
-                            <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
-                            <div>
-                              {{receiver.nom}} {{receiver.prenom}}
-                              <span><i class="fa fa-phone" aria-hidden="true"></i>{{receiver.numTel}}</span>
-                            </div>
-                          </div>
+                      <!--<div class="floating-block border-hover">-->
+                        <!--&lt;!&ndash;Need to hide this item when input empty, when input have value show angle, onclick angle show right drop &ndash;&gt;-->
+                        <!--<div class="orange-angle" style="display: block;"><i class="fa fa-angle-right" aria-hidden="true"></i></div>-->
+                        <!--<div class="floating-input">-->
+                          <!--<input id="" name="" placeholder="placeholder ID" required="" type="text" [(ngModel)]="newReceiver.numTel">-->
+                        <!--</div>-->
 
-                        </div>
-                      </div>
+                        <!--&lt;!&ndash;Right drop for show&ndash;&gt;-->
+                        <!--<div *ngIf="!(+newReceiver.id_account > 0)" class="right-drop" style="display: block;">-->
+                          <!--<div *ngFor="let receiver of receivers" class="right-drop__item" (click)="setBeneficiaryFunction(receiver)">-->
+                            <!--<div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>-->
+                            <!--<div>-->
+                              <!--{{receiver.nom}} {{receiver.prenom}}-->
+                              <!--<span><i class="fa fa-phone" aria-hidden="true"></i>{{receiver.numTel}}</span>-->
+                            <!--</div>-->
+                          <!--</div>-->
+
+                        <!--</div>-->
+                      <!--</div>-->
+
                       <div class="compte__amount">
                         <h4>Amount</h4>
                         <div class="floating-block border-hover">
                           <div class="floating-input" style="margin-bottom: 0">
                             <input id="amountStandart" name="amountStandart" placeholder="00.00" required type="text"
                                    [(ngModel)]="amountToReceiver" min="0.01"
-                                   (keyup.enter)='submitTransferCompteFunction()'
+                                   (keyup.enter)='submitStandartTransferFunction()'
                                    onkeydown="return ( event.ctrlKey || event.altKey
                                                                 || (47<event.keyCode && event.keyCode<58 && event.shiftKey==false)
                                                                 || (95<event.keyCode && event.keyCode<106)
@@ -211,8 +218,8 @@
                       <div *ngIf="errorMessage" class="errorTextClass">{{errorMessage}}</div>
                       <p *ngIf="!errorMessage" style="margin: 0; text-align: center; height: 16px"><img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>
                       <button class="orange-button blue-button" type="submit" style="margin-top: 4px"
-                              [disabled]="!(+amountToReceiver >= 0.01)"
-                              (click)="submitTransferCompteFunction()">Send</button>
+                              [disabled]="!(numTel_fromSelect2 && (+amountToReceiver >= 0.01))"
+                              (click)="submitStandartTransferFunction()">Send</button>
                       <div class="orange-angle left-angle" style="display: block; width: 100%; text-align: center; margin-top:0"
                            (click)="goToAllTransferFunction()">
                         <i class="fa fa-angle-left fa-3x" aria-hidden="true"></i>

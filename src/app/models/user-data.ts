@@ -148,7 +148,6 @@ export class UserDataService {
           const response = (this.commonServices.xmlResponseParcer_complex(result._body)).uos;
           this.citizens = (response.length) ? response : [];
           this.receivers = this.citizens;
-          this.setReceiversForSelect2(this.citizens);
           console.log('=== CITIZENs created ===');
           console.log(this.citizens);
         }, (err) => {console.log(err); });
@@ -206,6 +205,10 @@ export class UserDataService {
 
 
   public setReceivers(profil) {
+    if (!this.citizens.length) {this.setCitizens(); }
+    if (!this.clients.length)  {this.setClients(); }
+
+
     switch (profil) {
       case 'CITIZEN': {
         if (!this.citizens.length) {
