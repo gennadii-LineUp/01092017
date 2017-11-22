@@ -16,7 +16,7 @@ export class W2XWalletService {
     let listComptes = '';
     for (let i = 0; i < beneficiary.length; i++) {
       const list = `<listComptes>
-                      <idBeneficiaire>` + beneficiary[i].beneficiary_id + `</idBeneficiaire>
+                      <idBeneficiaire>` + beneficiary[i].__id + `</idBeneficiaire>
                       <montant>` + beneficiary[i].montant + `</montant>
                  </listComptes>
                  `;

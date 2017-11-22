@@ -68,15 +68,9 @@
               </div>
               <div class="row">
                 <div class="col-md-6 virements-multiples__search">
-                  <div class="search-wrapper" style="margin-top: 4px; margin-bottom: 8px">
+                  <div *ngIf="contractsCustomer" class="search-wrapper" style="margin-top: 4px; margin-bottom: 8px">
                     <input type="text" placeholder="Search" readonly [(ngModel)]="contract_number_valid">
                   </div>
-
-
-
-
-
-
                   <div *ngFor="let receiver of contractsCustomer" [attr.id]="'receiver_'+receiver.id"
                        class="search__user" (click)="commonServices.defineReceiversFunction($event)">
                     <div>
@@ -89,7 +83,11 @@
                     <div class="circle-check"></div>
                   </div>
 
-                  <div class="virements-multiples__footer">
+                  <div *ngIf="!contractsCustomer" class="virements-multiples__header">
+                    No customers for this contract <br>
+                  </div>
+
+                  <div  *ngIf="contractsCustomer" class="virements-multiples__footer">
                     <div (click)="commonServices.unSelectAllReceiversFunction()">Unselect All</div>
                     <div style="margin-left: 10%" (click)="commonServices.selectAllReceiversFunction()">Select All</div>
                   </div>
@@ -109,8 +107,8 @@
                   <!--</div>-->
                 </div>
                 <div class="col-md-6 virements-multiples__amount" style="padding-top: 0; position: relative; padding-bottom: 80px">
-                  <h3>Amount (same to all) :</h3>
-                  <div class="floating-block border-hover" style="margin-bottom: 12px">
+                  <h3 *ngIf="contractsCustomer">Amount (same to all) :</h3>
+                  <div *ngIf="contractsCustomer" class="floating-block border-hover" style="margin-bottom: 12px">
                     <div class="floating-input" style="margin-bottom:0">
                       <input id="amount" name="amount" placeholder="00.00" required type="text"
                              [(ngModel)]="amount_virementsMultiples"
@@ -147,7 +145,8 @@
 
                   <div *ngIf="errorMessage_virements" class="errorTextClass">{{errorMessage_virements}}</div>
                   <p *ngIf="!errorMessage_virements" style="margin: 0; text-align: center; height: 16px"><img *ngIf="loading_virements" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>
-                  <button [disabled]="!( commonServices.getSelectedReceivers().length)"
+                  <button *ngIf="contractsCustomer"
+                          [disabled]="!( commonServices.getSelectedReceivers().length)"
                           class="orange-button blue-button" style="position: absolute; bottom: 12px; width: calc(100% - 36px)"
                           (click)="submitFunction()">Save</button>
                 </div>

@@ -71,7 +71,8 @@ export class UserDataService {
                                                         'please add an address',
                                                         +accounts[i].id,
                                                         localStorage.profil || 'add a profil',
-                                                        'please add @', '',
+                                                        '',
+                                                        '',
                                                         accounts[i].status,
                                                         accounts[i].type,
                                                         accounts[i].uoId));
@@ -85,7 +86,7 @@ export class UserDataService {
                           localStorage.prenom || 'add a prenom',
                           localStorage.profil || 'add a profil',
                           localStorage.telephone || 'add a phone');
-              this.setUserId(this.myAccounts['0'].id_account);
+              this.setUserId(this.myAccounts['0'].id_account, this.myAccounts['0'].uoId);
               console.log('=== from LS User:');
               console.log(this.getUser());
             }
@@ -133,8 +134,9 @@ export class UserDataService {
     this.publishData(this.user);
     // this.setMyAccounts();
   }
-  public setUserId(id_account: string) {
+  public setUserId(id_account: string, uoId: string) {
     this.user.id_account = +id_account;
+    this.user.uoId = uoId;
     console.log(this.user);
   }
 
