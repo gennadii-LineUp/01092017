@@ -19,7 +19,7 @@
                                      style="background-image: url('../../../../../assets/img/user.png')"></div>
                                 <div style="line-height: 25px">
                                     <div style="line-height: 19px">{{myAccount.nom}} {{myAccount.prenom}}</div>
-                                    <div style="display: inline-block;line-height: 19px">Email: <span class="mail">{{myAccount.email}}.</span></div>
+                                    <div  *ngIf="myAccount.email!==''" style="display: inline-block;line-height: 19px">Email: <span class="mail">{{myAccount.email}}.</span></div>
                                     <div style="display: inline-block;line-height: 19px">{{myAccount.type}}, <span></span></div>
                                     <div style="display: inline-block;line-height: 19px"> id {{myAccount.id_account}}.<span class="mail"></span></div>
                                 </div>

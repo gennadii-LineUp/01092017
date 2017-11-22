@@ -11,6 +11,9 @@
               <div class="blue-angle">Choose</div>
               <!--<span class="float-right">({{operations.length}} operations)</span>-->
             </div>
+            <div *ngIf="!operations" class="paiements__header">
+              No operations available <br><br>
+            </div>
             <div *ngFor="let operation of operations" class="paiements__item">
               <div>
                 <span>Receiver: <span class="name">{{operation.nom}} {{operation.prenom}}</span></span>
