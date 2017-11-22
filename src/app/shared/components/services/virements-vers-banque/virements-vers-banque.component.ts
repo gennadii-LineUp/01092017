@@ -70,8 +70,8 @@ export class VirementsVersBanqueComponent implements OnInit, OnDestroy {
       this.userDataService.setMyAccounts();
     }
 
-    if (this.userDataService.getUser().id_account) {this.getMyBeneficiariesFunction();
-    } else {setTimeout(() => {this.getMyBeneficiariesFunction(); }, 100); }
+    if (this.userDataService.getUser().uoId) {this.getMyBeneficiariesFunction();
+    } else {setTimeout(() => {this.getMyBeneficiariesFunction(); }, 1000); }
 
     setTimeout(() => { this.amountInput.nativeElement.focus(); }, 10);
   }
@@ -82,16 +82,17 @@ export class VirementsVersBanqueComponent implements OnInit, OnDestroy {
 
 
   public getMyBeneficiariesFunction() {
-    console.log(this.userDataService.getUser().id_account);
-    this.getMyBeneficiariesService.getMyBeneficiaries(this.userDataService.getUser().id_account)
+    console.log(this.userDataService.getUser().uoId);
+    this.getMyBeneficiariesService.getMyBeneficiaries(+this.userDataService.getUser().uoId)
       .takeWhile( () => this.alive)
       .subscribe((result) => {
         console.log(result._body);
 
         const response = this.commonServices.xmlResponseParcer_complex( result._body );
+        console.log(response);
         this.beneficiaries = (response.beneficiaries) ? response.beneficiaries : [];
 
-        if (response.beneficiaries.length) {
+        if (response.beneficiaries && response.beneficiaries.length) {
           this.showNextBeneficiary(this.beneficiaries['0'].id);
           this.activeSelect = this.beneficiaries['0'].id;
         }
