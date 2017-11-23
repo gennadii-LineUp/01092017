@@ -104,33 +104,38 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
     this.successMessage_1 = '';
     this.successMessage_2 = '';
     this.errorMessage = '';
-    const beneficiaire = this.userDataService.getReceiverFromSelect2(this.numTel_fromSelect2);
-    console.log(this.myAccount);
+    const beneficiaire = <ReceiverClass>this.userDataService.getReceiverFromSelect2(this.numTel_fromSelect2);
+    console.log(beneficiaire);
+    console.log(this.numTel_fromSelect2);
 
-    this.w2COrdreRetraitService.transferDargent(this.myAccount.telephone, this.amountToReceiver, beneficiaire)
-      .takeWhile(() => this.alive)
-      .subscribe(result => {
-        this.loading = false;
-        console.log(result._body);
-        const response = this.commonServices.xmlResponseParcer_simple( result._body );
+    if (this.numTel_fromSelect2) {
+      this.w2COrdreRetraitService.transferDargent(this.myAccount.telephone, this.amountToReceiver, beneficiaire)
+        .takeWhile(() => this.alive)
+        .subscribe(result => {
+          this.loading = false;
+          console.log(result._body);
+          const response = this.commonServices.xmlResponseParcer_simple( result._body );
 
-        console.dir( response );
-        if (+response.error === 0) {
-          this.showReceiverInfo = false;
-          this.clearSearch();
-          this.successMessage_1 = response.message + ';';
-          this.successMessage_2 = 'code: ' + response.code;
-          this.discardReceiverInfoFunction();
-        } else {
-          this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
-        }
+          console.dir( response );
+          if (+response.error === 0) {
+            this.showReceiverInfo = false;
+            this.clearSearch();
+            this.successMessage_1 = response.message + ';';
+            this.successMessage_2 = 'code: ' + response.code;
+            this.discardReceiverInfoFunction();
+          } else {
+            this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
+          }
 
-      }, (err) => {
-        this.loading = false;
-        console.log(err);
-        this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
-      });
-
+        }, (err) => {
+          this.loading = false;
+          console.log(err);
+          this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+        });
+    } else {
+      this.loading = false;
+      this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent('no cellulaire in the database');
+    }
   }
 
 

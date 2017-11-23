@@ -162,7 +162,9 @@ export class UserDataService {
 
   public setReceiversForSelect2(receivers: Array<ReceiverClass>) {
     this.receiversForSelect2 = [];
-    receivers.forEach(item => {
+    this.receivers = [];
+    this.receivers = receivers;
+      receivers.forEach(item => {
       let text = (item.nom) ? (item.nom) : '';
       text += (item.prenom) ? (' ' + item.prenom) : '';
       text += (item.telephone) ? (', ' + item.telephone) : '';
@@ -172,7 +174,7 @@ export class UserDataService {
       if (!id) {id = (item.telephone) ? (item.telephone) : ''; }
 
       this.receiversForSelect2.push(new Select2optionClass(id, text));
-    })
+    });
     console.log(this.receiversForSelect2);
   }
   public getReceiversForSelect2(): Array<Select2optionClass> {

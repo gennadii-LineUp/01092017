@@ -100,6 +100,8 @@ export class ErrorMessageHandlerService {
   public getMessageEquivalent(message: string) {
     switch (message) {
       case 'UNDEFINED_USER_ERROR': message = 'Wrong username or password!';  break;
+      case 'no cellulaire in the database':
+        message = 'Transaction is restricted. The beneficiaire didn\'t save his cellulaire in the database.';  break;
       default:  message;
     }
     return message;

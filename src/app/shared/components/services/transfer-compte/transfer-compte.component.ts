@@ -8,13 +8,15 @@ import {GetCommissionsTTCService} from '../../../../services/api/getCommissionsT
 import {GetAllCitizenService} from '../../../../services/api/getAllCitizen.service';
 import {GetAllListAccountService} from '../../../../services/api/getAllListAccount.service';
 import 'rxjs/add/operator/takeWhile';
+import {GetFacturiersPaysService} from '../../../../services/api/getFacturiersPays.service';
+import {GetCommercantsPaysService} from '../../../../services/api/getCommercantsPays.service';
 
 @Component({
   selector: 'app-services-transfer-compte',
   templateUrl: './transfer-compte.component.html',
   styleUrls: ['./transfer-compte.component.scss'],
   providers: [GetAllCitizenService, W2WVirementAccountService, GetCommissionsTTCService,
-    GetAllListAccountService]
+    GetAllListAccountService, GetFacturiersPaysService, GetCommercantsPaysService]
 
 })
 export class TransferCompteComponent implements OnInit, OnDestroy {
@@ -24,12 +26,11 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
   transfer_standart = false;
   transfer_marchand = false;
   transfer_facture = false;
+  profil = '';
 
   loading = false;
   myAccount: any;
   id_account = '';
-  // newReceiver = this.userDataService.beneficiaires[0];
-  newReceiver = new ReceiverClass('', '', '', '', undefined, '', '', '', '', '', '');
   amountToReceiver: number;
   showReceiverInfo = false;
   successMessage_1 = '';
@@ -40,12 +41,16 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
   profileAsAgent = this.userDataService.checkUserRole();
   sender = [this.userDataService.getSender_default()];
   numTel_fromSelect2 = '';
+  factures = [];
+  marchands = [];
   alive = true;
 
 
   constructor(public userDataService: UserDataService,
               public commonServices: CommonServices,
               public getAllListAccountService: GetAllListAccountService,
+              public getFacturiersPaysService: GetFacturiersPaysService,
+              public getCommercantsPaysService: GetCommercantsPaysService,
               public w2WVirementAccountService: W2WVirementAccountService,
               public getCommissionsTTCService: GetCommissionsTTCService,
               public errorMessageHandlerService: ErrorMessageHandlerService) { }
@@ -58,31 +63,14 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
       this.userDataService.setMyAccounts();
     }
 
-    const profil = ((<any>this.userDataService.getUser).profil) ? (<any>this.userDataService.getUser).profil :
+    this.profil = ((<any>this.userDataService.getUser).profil) ? (<any>this.userDataService.getUser).profil :
                                                                   localStorage.getItem('profil');
-    console.log(profil);
+    console.log(this.profil);
 
-    switch (profil) {
-      case 'CITIZEN': {
-        if (!this.userDataService.getClients().length) {this.userDataService.setClients(); }
-        setTimeout(() => this.userDataService.setReceiversForSelect2(this.userDataService.getClients()), 500);
-        // SKYPE 20.11.2017:
-        // 2. citizen send only to citizen for "transfert d'argent". if they want to send something to customers they will use W2W
-        // 3-customer can send money to customer + citizen
-        break;
-      }
-      case 'CLIENT':
-      case 'AGENT': {
-        if (!this.userDataService.getClients().length) {this.userDataService.setClients(); }
-        if (!this.userDataService.getCitizens().length) {this.userDataService.setCitizens(); }
-        setTimeout(() => {
-          this.userDataService.setCitizensClients((this.userDataService.getClients()).concat(this.userDataService.getCitizens()));
-          this.userDataService.setReceiversForSelect2(this.userDataService.getCitizensClients());
-        }, 900);
-        break;
-      }
-      default:  console.log('=== there is a new type of user ! ===');
-    }
+    if (!this.userDataService.getClients().length) {this.userDataService.setClients(); }
+    if (!this.userDataService.getCitizens().length) {this.userDataService.setCitizens(); }
+    this.getPaiementsFactureFunction();
+    this.getPaiementMarchandFunction();
   }
 
   ngOnDestroy() {
@@ -109,37 +97,63 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
     this.transfer_facture = false;
   }
   public goToStandartTransferFunction() {
+    switch (this.profil) {
+      case 'CITIZEN': {
+        this.userDataService.setReceiversForSelect2(this.userDataService.getClients());
+        // SKYPE 20.11.2017:
+        // 2. citizen send only to citizen for "transfert d'argent". if they want to send something to customers they will use W2W
+        // 3-customer can send money to customer + citizen
+        break;
+      }
+      case 'CLIENT':
+      case 'AGENT': {
+        this.userDataService.setCitizensClients((this.userDataService.getClients()).concat(this.userDataService.getCitizens()));
+        this.userDataService.setReceiversForSelect2(this.userDataService.getCitizensClients());
+        break;
+      }
+      default:  console.log('=== there is a new type of user ! ===');
+    }
+
     this.header_option = '(Standart)';
     this.transfer_accounts = false;
     this.transfer_all = false;
     this.transfer_standart = true;
     this.transfer_marchand = false;
     this.transfer_facture = false;
-    if (!this.receivers.length) {
-      this.receivers = this.userDataService.getReceivers();
-    }
+    this.numTel_fromSelect2 = '';
+    this.amountToReceiver = undefined;
+    // if (!this.receivers.length) {
+    //   this.receivers = this.userDataService.getReceivers();
+    // }
   }
+
   public goToMarchandTransferFunction() {
+    this.userDataService.setReceiversForSelect2(this.marchands);
     this.header_option = '(Paiement Marchand)';
     this.transfer_accounts = false;
     this.transfer_all = false;
     this.transfer_standart = false;
     this.transfer_marchand = true;
     this.transfer_facture = false;
-    if (!this.receivers.length) {
-      this.receivers = this.userDataService.getReceivers();
-    }
+    this.numTel_fromSelect2 = '';
+    this.amountToReceiver = undefined;
+    // if (!this.receivers.length) {
+    //   this.receivers = this.userDataService.getReceivers();
+    // }
   }
   public goToFactureTransferFunction() {
+    this.userDataService.setReceiversForSelect2(this.factures);
     this.header_option = '(Paiement Facture)';
     this.transfer_accounts = false;
     this.transfer_all = false;
     this.transfer_standart = false;
     this.transfer_marchand = false;
     this.transfer_facture = true;
-    if (!this.receivers.length) {
-      this.receivers = this.userDataService.getReceivers();
-    }
+    this.numTel_fromSelect2 = '';
+    this.amountToReceiver = undefined;
+    // if (!this.receivers.length) {
+    //   this.receivers = this.userDataService.getReceivers();
+    // }
   }
 
   public setSenderFunction(sender: any) {
@@ -148,67 +162,104 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
     this.profileAsAgent = false;
   }
 
-  public setBeneficiaryFunction(beneficiary: any) {
-    console.log(beneficiary);
-    this.newReceiver = beneficiary;
-    console.log(this.newReceiver);
+
+  public getPaiementsFactureFunction() {
+    this.getFacturiersPaysService.getPaiementFacture()
+      .takeWhile(() => this.alive)
+      .subscribe(result => {
+        const response = this.commonServices.xmlResponseParcer_complexReturn( result._body );
+        console.dir( response );
+        if (response.return && response.return.length) {
+          response.return.forEach(payement => {
+            this.factures.push(new ReceiverClass(
+              payement.nom, payement.prenom, payement.numTel, '', payement.id, '', '', '', '', payement.type, ''))
+          });
+        }
+
+      }, err => {
+        console.log(err);
+      });
   }
 
 
-  public submitStandartTransferFunction() {
+  public getPaiementMarchandFunction() {
+    this.getCommercantsPaysService.getPaiementMarchand()
+      .takeWhile(() => this.alive)
+      .subscribe(result => {
+        const response = this.commonServices.xmlResponseParcer_complexReturn( result._body );
+        console.dir( response );
+        if (response.return && response.return.length) {
+          response.return.forEach(payement => {
+            this.marchands.push(new ReceiverClass(
+              payement.nom, payement.prenom, payement.numTel, '', payement.id, '', '', '', '', payement.type, ''))
+          });
+        }
+
+      }, err => {
+        console.log(err);
+      })
+  }
+
+  public submitTransferCompteFunction() {
     this.successMessage_1 = '';
     this.successMessage_2 = '';
     this.errorMessage = '';
     this.loading = true;
 
     console.log(this.myAccount);
-    console.log(this.amountToReceiver);
-    console.log(this.newReceiver);
+    console.log(this.numTel_fromSelect2);
 
-    const beneficiaire = this.userDataService.getReceiverFromSelect2(this.numTel_fromSelect2);
+    const beneficiaire = <ReceiverClass>this.userDataService.getReceiverFromSelect2(this.numTel_fromSelect2);
+    console.log(beneficiaire);
 
-    this.getCommissionsTTCService.getCommission(this.amountToReceiver, 'W2W')
-      .takeWhile(() => this.alive)
-      .subscribe(result => {
-        console.log(result._body);
-        const response = this.commonServices.xmlResponseParcer_simple( result._body );
+    if (this.numTel_fromSelect2) {
+      this.getCommissionsTTCService.getCommission(this.amountToReceiver, 'W2W')
+        .takeWhile(() => this.alive)
+        .subscribe(result => {
+          const response = this.commonServices.xmlResponseParcer_simple( result._body );
+          console.dir( response );
+          if (+response.error === 0) {
+            this.commission.push(+response.commission);
+            console.log(response.commission);
 
-        console.dir( response );
-        if (+response.error === 0) {
-          this.commission.push(+response.commission);
-          console.log(response.commission);
-
-          this.getAllListAccountService.getMyAccounts(beneficiaire.numTel)
-            .takeWhile(() => this.alive)
-            .subscribe(result1 => {
-            console.log(result1._body);
-            const response1 = this.commonServices.xmlResponseParcer_complex( result1._body );
-            const _accounts = response1.accounts;
-            let receiver_id: number;
-            if (_accounts && _accounts.length) {
-              receiver_id = _accounts['0'].id;
-              console.log(receiver_id);
-            }
-            /////////////////////////////
-            this.w2WVirementAccountService.transferCompteStandart(this.amountToReceiver,
-                                                                  response.commission,
-                                                                  this.myAccount.id_account,
-                                                                  receiver_id)
+            this.getAllListAccountService.getMyAccounts(this.numTel_fromSelect2)
               .takeWhile(() => this.alive)
-              .subscribe(result2 => {
-                this.loading = false;
-                console.log(result2._body);
-                const _response = this.commonServices.xmlResponseParcer_simple( result2._body );
-
-                console.dir( _response );
-                if (+_response.error === 0) {
-                  this.errorMessage = '';
-                  this.successMessage_1 = response.message + ' - ' + response.commission;
-                  this.successMessage_2 = _response.message;
-                } else {
-                  this.errorMessage += '  ' + this.errorMessageHandlerService.getMessageEquivalent(_response.message);
+              .subscribe(result1 => {
+                const response1 = this.commonServices.xmlResponseParcer_complex( result1._body );
+                const _accounts = response1.accounts;
+                let receiver_id: number;
+                if (_accounts && _accounts.length) {
+                  receiver_id = _accounts['0'].id;
+                  console.log(receiver_id);
                 }
+                /////////////////////////////
+                this.w2WVirementAccountService.transferCompteStandart(this.amountToReceiver,
+                  response.commission,
+                  this.myAccount.id_account,
+                  receiver_id)
+                  .takeWhile(() => this.alive)
+                  .subscribe(result2 => {
+                    this.loading = false;
+                    const _response = this.commonServices.xmlResponseParcer_simple( result2._body );
 
+                    console.dir( _response );
+                    if (+_response.error === 0) {
+                      this.errorMessage = '';
+                      this.successMessage_1 = response.message + ' - ' + response.commission;
+                      this.successMessage_2 = _response.message;
+                    } else {
+                      this.errorMessage += '  ' + this.errorMessageHandlerService.getMessageEquivalent(_response.message);
+                    }
+
+                  }, (err) => {
+                    this.loading = false;
+                    console.log(err);
+                    this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+                    if (!this.errorMessage) {
+                      this.errorMessage = this.errorMessageHandlerService._getMessageEquivalent(err._body);
+                    }
+                  });
+                /////////////////////////////
               }, (err) => {
                 this.loading = false;
                 console.log(err);
@@ -217,28 +268,23 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
                   this.errorMessage = this.errorMessageHandlerService._getMessageEquivalent(err._body);
                 }
               });
-            /////////////////////////////
-          }, (err) => {
+          } else {
             this.loading = false;
-            console.log(err);
-            this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
-            if (!this.errorMessage) {
-              this.errorMessage = this.errorMessageHandlerService._getMessageEquivalent(err._body);
-            }
-          });
-        } else {
-          this.loading = false;
-          this.errorMessage = response.message + ' - ' + response.commission;
-          if (response.message) {this.errorMessage += this.errorMessageHandlerService.getMessageEquivalent(response.message); }
-          if (response.statusText) {this.errorMessage += this.errorMessageHandlerService.getMessageEquivalent(response.statusText); }
-        }
+            this.errorMessage = response.message + ' - ' + response.commission;
+            if (response.message) {this.errorMessage += this.errorMessageHandlerService.getMessageEquivalent(response.message); }
+            if (response.statusText) {this.errorMessage += this.errorMessageHandlerService.getMessageEquivalent(response.statusText); }
+          }
 
-      }, (err) => {
-        this.loading = false;
-        console.log(err);
-        if (err._body.type) {this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type); }
-        if (err.statusText) {this.errorMessage += this.errorMessageHandlerService.getMessageEquivalent(err.statusText); }
-      });
+        }, (err) => {
+          this.loading = false;
+          console.log(err);
+          if (err._body.type) {this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type); }
+          if (err.statusText) {this.errorMessage += this.errorMessageHandlerService.getMessageEquivalent(err.statusText); }
+        });
+    } else {
+      this.loading = false;
+      this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent('no cellulaire in the database');
+    }
 
   }
 
@@ -256,7 +302,6 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
   public fillReceiverInfoFunction(myAccount: any) {  // , e: any
     // this.showReceiverInfo = false;
     this.clearSearch();
-    this.newReceiver = new ReceiverClass('', '', '', '', undefined, '', '', '', '', '', '');
     this.myAccount = myAccount;
     console.log('=== sender\'s account: ');
     console.log(this.myAccount);
@@ -273,7 +318,6 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
   public clearAmount() {this.amountToReceiver = undefined; }
   public clearSearch() {
     this.amountToReceiver = undefined;
-    // this.newReceiver = new ReceiverClass('', '', '', '', undefined, '', '', '', '', '', '');
     this.successMessage_1 = '';
     this.successMessage_2 = '';
     this.errorMessage = '';
