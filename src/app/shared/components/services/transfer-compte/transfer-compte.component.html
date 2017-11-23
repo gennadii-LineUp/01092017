@@ -4,7 +4,7 @@
       <div class="container">
 
           <div *ngIf="!transfer_accounts" class="additional-info">
-              account {{myAccount.nom}} {{myAccount.prenom}}, {{myAccount.email}}
+              account {{myAccount.nom}}<span *ngIf="myAccount.prenom"> </span>{{myAccount.prenom}}<span *ngIf="myAccount.email">, </span>{{myAccount.email}}
           </div>
 
             <!--<div *ngIf="profileAsAgent" class="col-sm-12 col-md-6 col-lg-4 ml-auto mr-auto">-->
