@@ -60,7 +60,7 @@
             <div class="floating-block border-hover pass">
               <div class="floating-block border-hover pass"  style="width: 100%">
                 <div class="floating-icon"></div>
-                <div class="floating-input" style="width: calc(100% - 55px)">
+                <div class="floating-input">
                   <input  type="password" placeholder="Password" required
                           #password="ngModel" id="password" name='password' [(ngModel)]="registration.password"
                           (keyup.enter)='registrationSubmitFunction()'
@@ -108,7 +108,7 @@
                 <input type="checkbox" name="checkbox" required #checkbox id="checkbox"
                        [(ngModel)]="registration.agreeTermsAndConditions"/>
                 <!--[value]="periode.booleanValue"-->
-                <label for="checkbox" style="min-width: 355px; min-height: 55px"></label>
+                <label for="checkbox"></label>
               </div>
               <p>
                 Pushing button below, you agree with
