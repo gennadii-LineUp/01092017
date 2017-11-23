@@ -693,11 +693,6 @@ input[type=checkbox]:checked + label:after {
     height: 65px;
     border-bottom: none;
     > div:not(.logo) {
-      //min-width: 78%;
-      //flex-basis: 78%;
-      //display: flex;
-      //flex-direction: column;
-      //align-items: right;
       > div {
         font-size: 1.6rem;
         line-height: 23px;
@@ -849,38 +844,6 @@ input[type=checkbox]:checked + label:after {
       }
     }
   }
-
-  // TODO: Maybe needless copypast
-
-  /*.accordionItem {
-    overflow: hidden;
-    transition: .4s all ease;
-    &.close-item:last-child {
-      .accordionItemHeading {
-        border-bottom: none;
-        transition: .2s all ease;
-      }
-    }
-    &.close-item {
-      max-height: 50px;
-      transition: .4s all ease;
-    }
-    &.open {
-      max-height: 300px;
-      transition: .4s all ease;
-      + .accordionItemHeading {
-        border-top: 2px solid $line;
-      }
-      .accordionItemHeading {
-        .toggleHeading {
-          i {
-            transition: .2s all ease;
-            transform: rotate(90deg);
-          }
-        }
-      }
-    }
-  }*/
 }
 
 .consult-user {
@@ -1213,5 +1176,126 @@ ng-select2 span.select2.select2-container.select2-container--default{
   .row {
     margin-right: 0;
     margin-left: 0;
+  }
+}
+
+@media (max-width: 800px) {
+  body:after {
+    display: none;
+  }
+  [class*="col-"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .orange-button {
+    font-size: 2.7rem;
+    height: 103px;
+    border-radius: 3px;
+  }
+  .floating-block {
+    margin-bottom: 16px;
+    .floating-icon {
+      width: 70px;
+      min-width: 70px;
+      min-height: 74px;
+      + .floating-input {
+        width: calc(100% - 70px);
+      }
+    }
+    .floating-input input {
+      height: 74px;
+      min-height: 74px;
+      padding-left: 20px;
+      font-size: 24px;
+      padding-top: 32px;
+      &:focus,
+      &:not(:focus):valid {
+        padding-top: 30px
+      }
+      &:focus ~ .floating-label,
+      &:not(:focus):valid ~ .floating-label {
+        top:12px;
+        font-size:18px;
+      }
+    }
+    .floating-label {
+      left: 20px;
+      top: 21px;
+      font-size: 24px;
+    }
+    .pass-forget {
+      right: 20px;
+      line-height: 77px;
+      font-size: 21px;
+    }
+  }
+  .authorisation-page {
+    &__caption {
+      padding: 30px 0;
+      font-size: 2.1rem;
+      a {
+        padding-left: 6px;
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .orange-button {
+    font-size: 1.35rem;
+    border-radius: 0;
+    height: 50px;
+  }
+  .floating-block {
+    margin-bottom: 8px;
+    &.border-hover .clean-input {
+      display: none;
+      width: 25px;
+      height: 37px;
+      background-size: 12px;
+    }
+    .floating-icon {
+      width: 35px;
+      min-width: 35px;
+      min-height: 37px;
+      + .floating-input {
+        width: calc(100% - 35px);
+      }
+    }
+    .floating-input input {
+      height: 37px;
+      min-height: 37px;
+      padding-left: 10px;
+      font-size: 12px;
+      padding-top: 16px;
+      &:focus,
+      &:not(:focus):valid {
+        padding-top: 15px
+      }
+      &:focus ~ .floating-label,
+      &:not(:focus):valid ~ .floating-label {
+        top: 6px;
+        font-size: 9px;
+      }
+    }
+    .floating-label {
+      left: 10px;
+      top: 12px;
+      font-size: 12px;
+    }
+    .pass-forget {
+      right: 7px;
+      line-height: 37px;
+      font-size: 10.5px;
+    }
+  }
+  .authorisation-page {
+    &__caption {
+      padding: 19px 0;
+      font-size: 1.1rem;
+      a {
+        padding-left: 3px;
+      }
+    }
   }
 }

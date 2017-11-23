@@ -111,3 +111,40 @@
     }
   }
 }
+
+@media (max-width: 800px) {
+  #selectCountry {
+    width: 100%;
+    height: 74px;
+    min-height: 74px;
+    font-size: 24px;
+    padding-left: 13px;
+  }
+  .registration-page {
+    .pass-caption {
+      font-size: 1.9rem;
+      text-align: right;
+    }
+    .blue-button {
+      max-width: 100%;
+    }
+    .floating-block.pass {
+
+    }
+  }
+
+}
+
+@media (max-width: 576px) {
+  #selectCountry {
+    height: 37px;
+    min-height: 37px;
+    font-size: 12px;
+    padding-left: 5px;
+  }
+  .registration-page {
+     .pass-caption {
+      font-size: 9.5px;
+    }
+  }
+}

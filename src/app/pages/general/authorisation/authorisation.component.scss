@@ -10,3 +10,20 @@
     margin-top: 12px;
   }
 }
+
+@media (max-width: 800px) {
+  .authorisation-page {
+    .blue-button {
+      margin-top: 8px;
+      max-width: 100%;
+    }
+  }
+}
+
+@media (max-width: 410px) {
+  .authorisation-page {
+    .blue-button {
+      margin-top: 8px;
+    }
+  }
+}
