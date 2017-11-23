@@ -5,6 +5,7 @@ import {W2COrdreRetraitService} from '../../../../services/api/W2COrdreRetrait.s
 import {CommonServices} from '../../../../services/common.service';
 import {ErrorMessageHandlerService} from '../../../../services/error-message-handler.service';
 import 'rxjs/add/operator/takeWhile';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-services-transfer-dargent',
@@ -25,14 +26,20 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
   errorMessage = '';
   alive = true;
   numTel_fromSelect2 = '';
+  userRole = '';
 
 
   constructor(public userDataService: UserDataService,
               public w2COrdreRetraitService: W2COrdreRetraitService,
               public commonServices: CommonServices,
-              public errorMessageHandlerService: ErrorMessageHandlerService) { }
+              public errorMessageHandlerService: ErrorMessageHandlerService,
+              private activateRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.activateRoute.parent.url
+      .takeWhile(() => this.alive)
+      .subscribe(resp =>  this.userRole = resp['0'].path);
+
     if ((this.userDataService.getMyAccounts()).length) {
       console.log('=== MyAccounts\' length ' + this.userDataService.getMyAccounts().length);
     } else {

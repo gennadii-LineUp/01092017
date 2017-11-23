@@ -1,6 +1,11 @@
 <main class="gray-bg-citizen coin-bg">
     <section class="dargent">
-      <h3 class="h3-mobile">Transfer d'argent</h3>
+      <h3 class="h3-mobile">
+        <div *ngIf="!showReceiverInfo" class="back-button" [routerLink]="['/' +userRole+ '/services']">Back</div>
+        <div *ngIf="showReceiverInfo" class="back-button" (click)="showReceiverInfo=false">Back</div>
+
+        Transfer d'argent
+      </h3>
       <div class="container">
 
             <div class="row">

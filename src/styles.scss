@@ -1133,8 +1133,11 @@ ng-select2 span.select2.select2-container.select2-container--default{
 
 
 
-@media (min-width: 800px) {
+@media (min-width: 574px) {
   h3.h3-mobile{
+    .back-button {
+      display: none;
+    }
 
   }
 }
@@ -1153,7 +1156,8 @@ ng-select2 span.select2.select2-container.select2-container--default{
     section.transfers-to-bank,
     section.virements-multiples,
     section.paiements,
-    section.page-title{
+    section.page-title,
+    section.dargent{
         .container{
           width: 100%;
           max-width: 100%;
@@ -1171,11 +1175,20 @@ ng-select2 span.select2.select2-container.select2-container--default{
     }
   h3.h3-mobile,
   h2.h2-mobile{
-      background-color: $blue;
+    position: relative;
+    background-color: $blue;
   }
   .row {
     margin-right: 0;
     margin-left: 0;
+  }
+  .back-button {
+    cursor: pointer;
+    color: #fff;
+    position: absolute;
+    left: 20px;
+    padding: 5px;
+    top: 21px;
   }
 }
 
