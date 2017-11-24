@@ -1,6 +1,14 @@
 <main class="gray-bg-citizen coin-bg">
     <section class="compte">
-      <h3 class="h3-mobile">Transfert Сompte à Compte {{header_option}}</h3>
+      <h3 class="h3-mobile">
+        <div *ngIf="transfer_accounts" class="back-button" [routerLink]="['/' +userRole+ '/services']">Back</div>
+        <div *ngIf="transfer_all" class="back-button" (click)="goToAllAccountsFunction()">Back</div>
+        <div *ngIf="transfer_facture" class="back-button" (click)="goToAllTransferFunction()">Back</div>
+        <div *ngIf="transfer_marchand" class="back-button" (click)="goToAllTransferFunction()">Back</div>
+        <div *ngIf="transfer_standart" class="back-button" (click)="goToAllTransferFunction()">Back</div>
+
+        Transfert Сompte à Compte {{header_option}}
+      </h3>
       <div class="container">
 
           <div *ngIf="!transfer_accounts" class="additional-info">
@@ -43,7 +51,7 @@
                     <button class="orange-button blue-button" (click)="goToStandartTransferFunction()">Standart</button>
                     <button class="orange-button blue-button" (click)="goToMarchandTransferFunction()">Paiement Marchand</button>
                     <button class="orange-button blue-button" (click)="goToFactureTransferFunction()" style="margin-bottom:0">Paiement Facture</button>
-                    <div class="orange-angle left-angle" style="display: block; width: 100%; text-align: center; margin-top:0"
+                    <div class="orange-angle left-angle left-angle-mobile" style="display: block; width: 100%; text-align: center; margin-top:0"
                          (click)="goToAllAccountsFunction()">
                       <i class="fa fa-angle-left fa-3x" aria-hidden="true"></i>
                     </div>
@@ -95,7 +103,7 @@
                       <button class="orange-button blue-button" type="submit" style="margin-top: 4px"
                               [disabled]="!(numTel_fromSelect2 && (+amountToReceiver >= 0.01))"
                               (click)="submitTransferCompteFunction()">Send</button>
-                      <div class="orange-angle left-angle" style="display: block; width: 100%; text-align: center; margin-top:0"
+                      <div class="orange-angle left-angle left-angle-mobile" style="display: block; width: 100%; text-align: center; margin-top:0"
                            (click)="goToAllTransferFunction()">
                         <i class="fa fa-angle-left fa-3x" aria-hidden="true"></i>
                       </div>
@@ -162,7 +170,7 @@
                       <button class="orange-button blue-button" type="submit" style="margin-top: 4px"
                               [disabled]="!(numTel_fromSelect2 && (+amountToReceiver >= 0.01))"
                               (click)="submitTransferCompteFunction()">Send</button>
-                      <div class="orange-angle left-angle" style="display: block; width: 100%; text-align: center; margin-top:0"
+                      <div class="orange-angle left-angle left-angle-mobile" style="display: block; width: 100%; text-align: center; margin-top:0"
                            (click)="goToAllTransferFunction()">
                         <i class="fa fa-angle-left fa-3x" aria-hidden="true"></i>
                       </div>
@@ -231,7 +239,7 @@
                       <button class="orange-button blue-button" type="submit" style="margin-top: 4px"
                               [disabled]="!(numTel_fromSelect2 && (+amountToReceiver >= 0.01))"
                               (click)="submitTransferCompteFunction()">Send</button>
-                      <div class="orange-angle left-angle" style="display: block; width: 100%; text-align: center; margin-top:0"
+                      <div class="orange-angle left-angle left-angle-mobile" style="display: block; width: 100%; text-align: center; margin-top:0"
                            (click)="goToAllTransferFunction()">
                         <i class="fa fa-angle-left fa-3x" aria-hidden="true"></i>
                       </div>

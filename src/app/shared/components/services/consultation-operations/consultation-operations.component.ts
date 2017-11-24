@@ -5,7 +5,7 @@ import {ErrorMessageHandlerService} from '../../../../services/error-message-han
 import {GetOperationService} from '../../../../services/api/GetOperation.service';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/takeWhile';
-import 'rxjs/add/operator/takeWhile';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'app-services-consultation-operations',
@@ -25,15 +25,21 @@ export class ConsultationOperationsComponent implements OnInit, OnDestroy {
   currentAccount = this.userDataService.myAccounts[0];
   profileAsAgent = this.userDataService.checkUserRole();
   sender = [this.userDataService.getSender_default()];
+  userRole = '';
   alive = true;
 
 
   constructor(public commonServices: CommonServices,
                 public userDataService: UserDataService,
                 public errorMessageHandlerService: ErrorMessageHandlerService,
-                public getOperationService: GetOperationService) { }
+                public getOperationService: GetOperationService,
+                private activateRoute: ActivatedRoute) { }
 
     ngOnInit() {
+      this.activateRoute.parent.url
+        .takeWhile(() => this.alive)
+        .subscribe(resp =>  this.userRole = resp['0'].path);
+
       if ((this.userDataService.getMyAccounts()).length) {
         console.log('=== MyAccounts\' length ' + this.userDataService.getMyAccounts().length);
       } else {

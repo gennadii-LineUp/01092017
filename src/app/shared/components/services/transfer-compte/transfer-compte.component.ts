@@ -10,6 +10,7 @@ import {GetAllListAccountService} from '../../../../services/api/getAllListAccou
 import 'rxjs/add/operator/takeWhile';
 import {GetFacturiersPaysService} from '../../../../services/api/getFacturiersPays.service';
 import {GetCommercantsPaysService} from '../../../../services/api/getCommercantsPays.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-services-transfer-compte',
@@ -43,6 +44,7 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
   numTel_fromSelect2 = '';
   factures = [];
   marchands = [];
+  userRole = '';
   alive = true;
 
 
@@ -53,9 +55,14 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
               public getCommercantsPaysService: GetCommercantsPaysService,
               public w2WVirementAccountService: W2WVirementAccountService,
               public getCommissionsTTCService: GetCommissionsTTCService,
-              public errorMessageHandlerService: ErrorMessageHandlerService) { }
+              public errorMessageHandlerService: ErrorMessageHandlerService,
+              private activateRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.activateRoute.parent.url
+      .takeWhile(() => this.alive)
+      .subscribe(resp =>  this.userRole = resp['0'].path);
+
     if ((this.userDataService.getMyAccounts()).length) {
       console.log('=== MyAccounts\' length ' + this.userDataService.getMyAccounts().length);
     } else {

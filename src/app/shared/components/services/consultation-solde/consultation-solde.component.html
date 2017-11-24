@@ -1,6 +1,9 @@
 <main class="gray-bg-citizen coin-bg">
   <section *ngIf="!showRequestResult"  class="consult-sold">
-    <h3 class="h3-mobile">Consultation Solde</h3>
+    <h3 class="h3-mobile">
+      <div *ngIf="!showRequestResult" class="back-button" [routerLink]="['/' +userRole+ '/services']">Back</div>
+      Consultation Solde
+    </h3>
     <div class="container">
 
       <div class="row">
@@ -40,7 +43,10 @@
 
 
   <section *ngIf="showRequestResult" class="consult-sold-history">
-    <h3 class="h3-mobile">Consultation Solde</h3>
+    <h3 class="h3-mobile">
+      <div *ngIf="showRequestResult" class="back-button" (click)="showRequestResult=false">Back</div>
+      Consultation Solde
+    </h3>
     <div class="container">
       <div class="row">
         <div class="col-sm-12 col-md-6 ml-md-auto mr-md-auto wrapper">
@@ -76,7 +82,7 @@
             </div>
           </div>
 
-          <div class="orange-angle left-angle" style="display: block; width: 100%; text-align: center" (click)="submitSoldeFunction()">
+          <div class="orange-angle left-angle left-angle-mobile" style="display: block; width: 100%; text-align: center" (click)="showRequestResult=false">
             <i class="fa fa-angle-left fa-3x" aria-hidden="true"></i>
           </div>
 

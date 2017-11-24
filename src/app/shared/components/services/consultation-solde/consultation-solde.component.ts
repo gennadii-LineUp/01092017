@@ -4,6 +4,7 @@ import {UserDataService} from '../../../../models/user-data';
 import {ErrorMessageHandlerService} from '../../../../services/error-message-handler.service';
 import {W2ISoldeService} from '../../../../services/api/W2ISolde.service';
 import 'rxjs/add/operator/takeWhile';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-services-consultation-solde',
@@ -25,15 +26,21 @@ export class ConsultationSoldeComponent implements OnInit, OnDestroy {
   sender = [this.userDataService.getSender_default()];
 
   showRequestResult = false;
+  userRole = '';
   alive = true;
 
 
   constructor(public commonServices: CommonServices,
               public userDataService: UserDataService,
               public errorMessageHandlerService: ErrorMessageHandlerService,
-              public w2ISoldeService: W2ISoldeService) { }
+              public w2ISoldeService: W2ISoldeService,
+              private activateRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.activateRoute.parent.url
+      .takeWhile(() => this.alive)
+      .subscribe(resp =>  this.userRole = resp['0'].path);
+
     if ((this.userDataService.getMyAccounts()).length) {
       console.log('=== MyAccounts\' length ' + this.userDataService.getMyAccounts().length);
     } else {
