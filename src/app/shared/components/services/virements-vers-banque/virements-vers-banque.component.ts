@@ -5,6 +5,7 @@ import {ErrorMessageHandlerService} from '../../../../services/error-message-han
 import {GetMyBeneficiariesService} from '../../../../services/api/getMyBeneficiaries.service';
 import {VirementSicaService} from '../../../../services/api/virementSica.service';
 import * as moment from 'moment';
+import {ActivatedRoute} from '@angular/router';
 
 export class BeneficiaryClass {
   banque: string;
@@ -50,6 +51,7 @@ export class VirementsVersBanqueComponent implements OnInit, OnDestroy {
   beneficiary = new BeneficiaryClass('', '', '', '', '', '', '');
   amountToReceiver: number;
   activeSelect: string;
+  userRole = '';
   alive = true;
 
   @ViewChild('amount') amountInput: any;
@@ -59,10 +61,15 @@ export class VirementsVersBanqueComponent implements OnInit, OnDestroy {
               public commonServices: CommonServices,
               public getMyBeneficiariesService: GetMyBeneficiariesService,
               public virementSicaService: VirementSicaService,
-              public errorMessageHandlerService: ErrorMessageHandlerService) {
+              public errorMessageHandlerService: ErrorMessageHandlerService,
+              public activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit() {
+    this.activatedRoute.parent.url
+      .takeWhile(() => this.alive)
+      .subscribe(resp =>  this.userRole = resp['0'].path);
+
     if ((this.userDataService.getMyAccounts()).length) {
       console.log('=== MyAccounts\' length ' + this.userDataService.getMyAccounts().length);
     } else {
