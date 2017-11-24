@@ -37,7 +37,7 @@ import { SuccessMessageComponent } from './components/success-message/success-me
 import { PaginationComponent } from './components/pagination/pagination.component';
 import {MobileSettingsComponent} from './components/mobile/settings/settings.component';
 import {MobileShareComponent} from './components/mobile/share/share.component';
-import { GetUserIdComponent } from './components/get-user-id/get-user-id.component';
+import { GetUserIdComponent } from './components/forms/get-user-id/get-user-id.component';
 import {FromServerDateMomentPipe} from './pipes/dateFromServerMoment.pipe';
 import { NgSelect2Module } from 'ng-select2';
 import {FromServerTimeMomentPipe} from './pipes/timeFromServerMoment.pipe';

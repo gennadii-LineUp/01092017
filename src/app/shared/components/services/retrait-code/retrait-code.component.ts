@@ -111,6 +111,7 @@ export class RetraitCodeComponent implements OnInit, OnDestroy {
 
   public setAmountAndBeneficiareIdFunction() {
     this.setAmountAndBeneficiareId = true;
+
   }
 
   public retrieveCashFunction() {
