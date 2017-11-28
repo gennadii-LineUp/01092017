@@ -9,6 +9,12 @@ export class SliderComponent implements OnInit {
 
   constructor() { }
 
+    config: SwiperOptions = {
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
+        spaceBetween: 30
+    };
+
   ngOnInit() {
   }
 

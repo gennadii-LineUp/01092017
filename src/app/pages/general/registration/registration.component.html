@@ -13,6 +13,12 @@
   <section *ngIf="!successMessage"class="registration-page">
     <div class="container">
       <div class="row">
+        <div class="col authorisation-page__caption only-mobile">
+          Already have cash transfer account?
+          <a href="javascript:void(0);" [routerLink]="['/authorisation']">Log In</a>
+        </div>
+      </div>
+      <div class="row">
         <div class="col col-lg-8 ml-md-auto mr-md-auto">
           <form #user_registrationForm="ngForm" novalidate>
             <div class="wrapper-half-input">

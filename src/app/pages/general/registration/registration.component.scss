@@ -121,6 +121,9 @@
     padding-left: 13px;
   }
   .registration-page {
+    form {
+      padding: 0;
+    }
     .pass-caption {
       font-size: 1.9rem;
       text-align: right;

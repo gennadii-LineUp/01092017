@@ -23,7 +23,9 @@ import { NgSelect2Module } from 'ng-select2';
 
 
 @NgModule({
-  declarations: [OnlyNumberDirective],
+  declarations: [
+      OnlyNumberDirective,
+  ],
   imports: [
     AlertModule.forRoot(),
     BrowserModule,
@@ -32,7 +34,6 @@ import { NgSelect2Module } from 'ng-select2';
     AppRoutingModule,
     PagesModule,
     NgSelect2Module
-
   ],
   providers: [
     AuthGuard, AgentGuard, CitizenGuard, CustomerGuard,

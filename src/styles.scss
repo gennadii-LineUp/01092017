@@ -615,6 +615,18 @@ input[type=checkbox]:checked + label:after {
   }
 }
 
+.swiper-pagination-bullet {
+  height: 13px;
+  width: 13px;
+  margin: 0 15px;
+  opacity: .33;
+  background-color: #4ba0ff;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #4ba0ff;
+  opacity: 1;
+}
 
 ///////////////////////////////////////////////////////////////////////
 //   _sitizen.scss:
@@ -1098,6 +1110,17 @@ input[type=checkbox]:checked + label:after {
 //   _sitizen.scss   END
 ///////////////////////////////////////////////////////////////////////
 
+@media (min-width: 800px) {
+  .only-mobile {
+    display: none;
+  }
+  .top-header {
+    .back-button {
+      display: none;
+    }
+  }
+}
+
 @media (max-width: 992px) {
   .transfers-to-bank {
     form {
@@ -1132,26 +1155,7 @@ ng-select2 span.select2.select2-container.select2-container--default{
   }
 }
 
-
-
-@media (min-width: 575px) {
-  h3.h3-mobile{
-    .back-button {
-      display: none;
-    }
-  }
-}
-
-
 @media (max-width: 575px) {
-  .back-button {
-    cursor: pointer;
-    color: #fff;
-    position: absolute;
-    left: 20px;
-    padding: 5px;
-    top: 21px;
-  }
   div.orange-angle.left-angle.left-angle-mobile {
     display: none !important;
   }
@@ -1164,8 +1168,10 @@ ng-select2 span.select2.select2-container.select2-container--default{
 }
 
 @media (max-width: 800px) {
+  body {
+    padding: 89px 0 77px;
+  }
   main {
-    section.page-title,
     section.profile,
     section.depot-sitizen,
     section.compte,
@@ -1190,13 +1196,26 @@ ng-select2 span.select2.select2-container.select2-container--default{
       }
     }
   }
+  .top-header {
+    color: #fff !important;
+    font-size: 31px !important;
+    font-family: $raleM;
+    background: $blue;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    padding: 26px 0 !important;
+    .back-button {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
   .not-mobile {
     display: none;
-  }
-  h3.h3-mobile,
-  h2.h2-mobile{
-    position: relative;
-    background-color: $blue;
   }
   .row {
     margin-right: 0;
@@ -1217,6 +1236,7 @@ ng-select2 span.select2.select2-container.select2-container--default{
   .orange-button {
     font-size: 2.7rem;
     height: 103px;
+    line-height: 103px;
     border-radius: 3px;
   }
   .checkbox-wrapper {
@@ -1299,6 +1319,18 @@ ng-select2 span.select2.select2-container.select2-container--default{
 }
 
 @media (max-width: 576px) {
+  body {
+    padding: 45px 0 46px;
+  }
+  .top-header {
+    font-size: 15px !important;
+    padding: 13px 0 !important;
+  }
+  .swiper-pagination-bullet {
+    height: 6.5px;
+    width: 6.5px;
+    margin: 0 7.5px;
+  }
   .container {
     padding-left: 12.5px;
     padding-right: 12.5px;
@@ -1307,6 +1339,7 @@ ng-select2 span.select2.select2-container.select2-container--default{
     font-size: 1.35rem;
     border-radius: 0;
     height: 50px;
+    line-height: 50px;
   }
   .checkbox-wrapper {
     font-size: 1.05rem;
