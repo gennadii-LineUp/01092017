@@ -41,11 +41,17 @@ import { GetUserIdComponent } from './components/forms/get-user-id/get-user-id.c
 import {FromServerDateMomentPipe} from './pipes/dateFromServerMoment.pipe';
 import { NgSelect2Module } from 'ng-select2';
 import {FromServerTimeMomentPipe} from './pipes/timeFromServerMoment.pipe';
+import { GMapComponent } from './components/services/geolocalisation-agent/g-map/g-map.component';
+import {AgmCoreModule} from 'angular2-google-maps/core';
+
+const googleMapsCore = AgmCoreModule.forRoot({
+  apiKey : 'AIzaSyDajrkQUo7gxEhGlfBhCrYOc4oPu-szoXA',
+});
 
 
 @NgModule({
   imports: [
-    CommonModule, BrowserModule, FormsModule, AppRoutingModule, NgSelect2Module
+    CommonModule, BrowserModule, FormsModule, AppRoutingModule, NgSelect2Module, googleMapsCore
   ],
   declarations: [
     HeaderGeneralComponent, HeaderAllUsersComponent,
@@ -68,7 +74,7 @@ import {FromServerTimeMomentPipe} from './pipes/timeFromServerMoment.pipe';
     SelectSenderComponent,
     SuccessMessageComponent,
     PaginationComponent,
-    MobileSettingsComponent, MobileShareComponent, GetUserIdComponent
+    MobileSettingsComponent, MobileShareComponent, GetUserIdComponent, GMapComponent
   ],
   exports: [
     HeaderGeneralComponent, HeaderAllUsersComponent,

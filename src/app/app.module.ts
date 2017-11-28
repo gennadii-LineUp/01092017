@@ -32,7 +32,6 @@ import { NgSelect2Module } from 'ng-select2';
     AppRoutingModule,
     PagesModule,
     NgSelect2Module
-
   ],
   providers: [
     AuthGuard, AgentGuard, CitizenGuard, CustomerGuard,
