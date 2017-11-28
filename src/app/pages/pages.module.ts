@@ -77,6 +77,7 @@ import {CustomerProfilePageComponent} from './customer/menu-top/customer-profile
 import { AMobileShareComponent } from './agent/menu-user/mobile/a-share/a-share.component';
 import { CMobileShareComponent } from './citizen/menu-user/mobile/c-share/c-share.component';
 import { CustMobileShareComponent } from './customer/menu-user/mobile/cust-share/cust-share.component';
+import { SliderComponent } from './general/slider/slider.component';
 
 
 @NgModule({
@@ -112,7 +113,8 @@ import { CustMobileShareComponent } from './customer/menu-user/mobile/cust-share
         CServicesPageComponent,
       AMobileShareComponent,
       CMobileShareComponent,
-      CustMobileShareComponent
+      CustMobileShareComponent,
+      SliderComponent
 
 
     ],
@@ -154,7 +156,8 @@ import { CustMobileShareComponent } from './customer/menu-user/mobile/cust-share
       CServicesPageComponent,
       AMobileShareComponent,
       CMobileShareComponent,
-      CustMobileShareComponent
+      CustMobileShareComponent,
+        SliderComponent
 
     ],
     providers: [],

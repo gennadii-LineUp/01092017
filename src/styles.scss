@@ -157,6 +157,7 @@ footer {
       height: 50px;
       border: none;
       border-bottom: 2px solid #e6e5e5;
+      padding-right: 45px;
       &:focus,
       &:not(:focus):valid {
         padding-top: 20px;
@@ -1143,44 +1144,6 @@ ng-select2 span.select2.select2-container.select2-container--default{
 
 
 @media (max-width: 575px) {
-  main {
-    section.page-title,
-    section.profile,
-    section.depot-sitizen,
-    section.compte,
-    section.consult-sold,
-    section.consult-sold-history,
-    section.consult-oper,
-    section.geo-agent,
-    section.transfers-to-bank,
-    section.virements-multiples,
-    section.paiements,
-    section.page-title,
-    section.dargent{
-        .container{
-          width: 100%;
-          max-width: 100%;
-          padding-right: 0;
-          padding-left: 0;
-          .col-sm-12{
-            padding-right: 0;
-            padding-left: 0;
-          }
-        }
-    }
-  }
-  .not-mobile {
-      display: none;
-    }
-  h3.h3-mobile,
-  h2.h2-mobile{
-    position: relative;
-    background-color: $blue;
-  }
-  .row {
-    margin-right: 0;
-    margin-left: 0;
-  }
   .back-button {
     cursor: pointer;
     color: #fff;
@@ -1198,10 +1161,47 @@ ng-select2 span.select2.select2-container.select2-container--default{
   div.compte__wrapper.compte__facture{
     padding-bottom: 20px !important;
   }
-
 }
 
 @media (max-width: 800px) {
+  main {
+    section.page-title,
+    section.profile,
+    section.depot-sitizen,
+    section.compte,
+    section.consult-sold,
+    section.consult-sold-history,
+    section.consult-oper,
+    section.geo-agent,
+    section.transfers-to-bank,
+    section.virements-multiples,
+    section.paiements,
+    section.page-title,
+    section.dargent{
+      .container{
+        width: 100%;
+        max-width: 100%;
+        padding-right: 0;
+        padding-left: 0;
+        .col-sm-12{
+          padding-right: 0;
+          padding-left: 0;
+        }
+      }
+    }
+  }
+  .not-mobile {
+    display: none;
+  }
+  h3.h3-mobile,
+  h2.h2-mobile{
+    position: relative;
+    background-color: $blue;
+  }
+  .row {
+    margin-right: 0;
+    margin-left: 0;
+  }
   body:after {
     display: none;
   }
@@ -1211,8 +1211,8 @@ ng-select2 span.select2.select2-container.select2-container--default{
   }
   .container {
     width: 100%;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 25px;
+    padding-right: 25px;
   }
   .orange-button {
     font-size: 2.7rem;
@@ -1222,9 +1222,22 @@ ng-select2 span.select2.select2-container.select2-container--default{
   .checkbox-wrapper {
     font-size: 2.1rem;
     max-width: 100%;
+    p {
+      text-align: justify;
+    }
+    a {
+      white-space: inherit;
+    }
   }
   .checkbox {
+    height: 20px;
+    min-width: 20px;
     margin-right: 25px;
+    background-color: #fff;
+    label {
+      left: 1px;
+      top: 4px;
+    }
   }
   .floating-block {
     margin-bottom: 16px;
@@ -1286,6 +1299,10 @@ ng-select2 span.select2.select2-container.select2-container--default{
 }
 
 @media (max-width: 576px) {
+  .container {
+    padding-left: 12.5px;
+    padding-right: 12.5px;
+  }
   .orange-button {
     font-size: 1.35rem;
     border-radius: 0;
@@ -1296,6 +1313,12 @@ ng-select2 span.select2.select2-container.select2-container--default{
   }
   .checkbox {
     margin-right: 12.5px;
+    height: 15px;
+    min-width: 15px;
+    label {
+      left: 0px;
+      top: 2px;
+    }
   }
   .floating-block {
     margin-bottom: 8px;
@@ -1317,9 +1340,8 @@ ng-select2 span.select2.select2-container.select2-container--default{
     .floating-input input {
       height: 37px;
       min-height: 37px;
-      padding-left: 10px;
       font-size: 12px;
-      padding-top: 16px;
+      padding: 16px 25px 0 10px;
       &:focus,
       &:not(:focus):valid {
         padding-top: 15px
