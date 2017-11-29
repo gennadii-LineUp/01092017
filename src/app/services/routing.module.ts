@@ -81,7 +81,7 @@ import {CustMobileShareComponent} from '../pages/customer/menu-user/mobile/cust-
 
 const routes: Routes = [
   // { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '', component: GeneralAuthorisationComponent },
+  { path: '', component: LoginStartPageComponent },
   { path: 'about-us', component: GeneralAboutUsPageComponent},
   { path: 'terms-conditions', component: GeneralTermsPageComponent },
   { path: 'faq', component: GeneralFaqPageComponent },

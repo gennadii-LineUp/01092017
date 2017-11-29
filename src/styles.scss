@@ -782,7 +782,8 @@ input[type=checkbox]:checked + label:after {
         font-size: 2.5rem;
         position: absolute;
         right: 0;
-        top: 13px;
+        top: 50%;
+        transform: translateY(-50%);
         transition: .2s all ease;
       }
     }
@@ -1169,7 +1170,15 @@ ng-select2 span.select2.select2-container.select2-container--default{
 
 @media (max-width: 800px) {
   body {
+    background-color: #fff;
+  }
+  // Padding for fixed menu
+  main {
     padding: 89px 0 77px;
+  }
+  // No menu
+  main.non-auth-main {
+    padding: 0 !important;
   }
   main {
     section.profile,
@@ -1207,6 +1216,7 @@ ng-select2 span.select2.select2-container.select2-container--default{
     top: 0;
     z-index: 100;
     padding: 26px 0 !important;
+    text-align: center;
     .back-button {
       position: absolute;
       left: 0;
@@ -1319,7 +1329,7 @@ ng-select2 span.select2.select2-container.select2-container--default{
 }
 
 @media (max-width: 576px) {
-  body {
+  main {
     padding: 45px 0 46px;
   }
   .top-header {

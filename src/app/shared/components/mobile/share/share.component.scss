@@ -1,7 +1,79 @@
 @import "../../../../../assets/sass/variables";
 
 @media (max-width: 800px) {
-  h2 {
-    background-color: $blue;
+  .share-mobile {
+    padding-left: 30px;
+    &__h3 {
+      color: #303030;
+      font-size: 31px;
+      font-family: $raleSM;
+      padding-top: 45px;
+      line-height: 45px;
+      + div {
+        color: #a8a8a8;
+        font-size: 25px;
+        font-family: $raleM;
+        padding-bottom: 35px;
+      }
+    }
+    ul {
+      font-size: 29px;
+      font-family: $raleM;
+      li {
+        padding: 22px 0;
+        border-bottom: 1px solid #dddde0;
+        &:first-child {
+          border-top: 1px solid #dddde0;
+        }
+      }
+      a {
+        display: block;
+      }
+      span {
+        font-size: 30px;
+        margin: 0 15px 0 -10px;
+      }
+      .facebook {
+        a {
+          color: #3a589b;
+        }
+        .fa-circle {
+          color: #3a589b;
+        }
+      }
+      .twitter {
+        a {
+          color: #4ba0ff;
+        }
+        .fa-circle {
+          color: #598dca;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .share-mobile {
+    padding-left: 15px;
+    &__h3 {
+      font-size: 15.5px;
+      padding-top: 22.5px;
+      line-height: 22.5px;
+      + div {
+        font-size: 12.5px;
+        padding-bottom: 17.5px;
+      }
+    }
+    ul {
+      font-size: 15px;
+      li {
+        padding: 11px 0;
+      }
+      span {
+        font-size: 15px;
+        margin: 0 7.5px 0 -5px;
+      }
+    }
   }
 }

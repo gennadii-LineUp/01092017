@@ -6,6 +6,7 @@ import {ErrorMessageHandlerService} from '../../../services/error-message-handle
 import {CommonServices} from '../../../services/common.service';
 import {CountryCode} from '../../../models/country-code';
 import {Router} from '@angular/router';
+import {AuthGuard} from "../../../guards/auth-guard.service";
 
 @Component({
   selector: 'app-registration',
@@ -18,6 +19,7 @@ export class GeneralRegistrationComponent implements OnInit {
   errorMessage = '';
   loading = false;
   disabled = false;
+  loggedin = false;
 
   registration = new RegistrationClass('Michael', 'Jackson', 221, '123456789', 'test@mail.fr', '123456789', '123456789', 'Citizen', true);
 
@@ -27,9 +29,11 @@ export class GeneralRegistrationComponent implements OnInit {
               public errorMessageHandlerService: ErrorMessageHandlerService,
               public commonServices: CommonServices,
               public countryCode: CountryCode,
-              public router: Router) { }
+              public router: Router,
+              public authGuard: AuthGuard) { }
 
   ngOnInit() {
+    this.loggedin = this.authGuard.canActivate();
   }
 
   public registrationSubmitFunction() {

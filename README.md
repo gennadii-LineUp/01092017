@@ -30,12 +30,10 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 =================== C O R D O V A : ==============================================================
 
-from the folder "cordova-android":
-
-cordova run android
+2 from the folder "cordova-android":      cordova run android
 
 
-ng build --target=production --environment=prod --output-path cordova-android/www/
+1 ng build --target=production --environment=prod --output-path cordova-android/www/
 
 cordova run android
 
