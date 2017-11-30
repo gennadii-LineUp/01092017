@@ -93,22 +93,18 @@
   }
 }
 
-
-@media (max-width: 575px) {
-  main {
-    section.profile {
-      .container {
-        //padding-left: 0;
-        //padding-right: 0;
-        .row{
-          margin-right: 0;
-          margin-left: 0;
-          .col{
-            max-width: 100%;
-          }
-        }
-
+@media (max-width: 800px) {
+  .profile {
+    .col {
+      max-width: 100%;
+    }
+    &__logo {
+      display: block;
+      margin: 0 auto;
+      + div {
+        width: 100%;
       }
     }
   }
+
 }

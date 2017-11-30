@@ -54,6 +54,7 @@ $menu-icons: 'cards', 'coin', 'depot', 'geo', 'list', 'manage', 'transfer', 'use
 
 @media (max-width: 800px) {
   .services {
+    padding: 10px 0 ;
     &__wrapper {
       padding: 0 15px;
     }

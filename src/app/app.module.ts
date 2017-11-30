@@ -23,7 +23,9 @@ import { NgSelect2Module } from 'ng-select2';
 
 
 @NgModule({
-  declarations: [OnlyNumberDirective],
+  declarations: [
+      OnlyNumberDirective,
+  ],
   imports: [
     AlertModule.forRoot(),
     BrowserModule,

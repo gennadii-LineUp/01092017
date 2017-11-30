@@ -2,8 +2,8 @@
 <app-header-general></app-header-general>
 
 
-<main>
-  <section class="page-title">
+<main [ngClass]="loggedin ? 'non-auth-main' : ''">
+  <section class="page-title not-mobile">
     <div class="container">
       <div class="row">
         <h2>Authorisation</h2>

@@ -5,6 +5,7 @@ import {AuthorisationClass} from '../../../models/authorisation-class';
 import {CommonServices} from '../../../services/common.service';
 import {UserDataService} from '../../../models/user-data';
 import 'rxjs/add/operator/takeWhile';
+import {AuthGuard} from "../../../guards/auth-guard.service";
 
 @Component({
   selector: 'app-authorisation',
@@ -16,6 +17,7 @@ export class GeneralAuthorisationComponent implements OnInit, OnDestroy {
   errorMessage = '';
   loading = false;
   alive = true;
+  loggedin = false;
   // authorisation = new AuthorisationClass('wari', 'wari', 'APP');
   authorisation = new AuthorisationClass('7722222222', 'passer', 'APP'); // CITIZEN
   // authorisation = new AuthorisationClass('tresor', 'tresor', 'APP');        // CUSTOMER = CLIENT
@@ -23,9 +25,11 @@ export class GeneralAuthorisationComponent implements OnInit, OnDestroy {
   constructor(public loginService: LoginService,
               public userDataService: UserDataService,
               public errorMessageHandlerService: ErrorMessageHandlerService,
-              public commonServices: CommonServices) { }
+              public commonServices: CommonServices,
+              public authGuard: AuthGuard) { }
 
   ngOnInit() {
+    this.loggedin = this.authGuard.canActivate();
   }
 
   ngOnDestroy() {

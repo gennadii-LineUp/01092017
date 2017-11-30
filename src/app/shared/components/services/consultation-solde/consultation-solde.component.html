@@ -1,6 +1,6 @@
 <main class="gray-bg-citizen coin-bg">
   <section *ngIf="!showRequestResult"  class="consult-sold">
-    <h3 class="h3-mobile">
+    <h3 class="top-header">
       <div *ngIf="!showRequestResult" class="back-button" [routerLink]="['/' +userRole+ '/services']">Back</div>
       Consultation Solde
     </h3>
@@ -43,7 +43,7 @@
 
 
   <section *ngIf="showRequestResult" class="consult-sold-history">
-    <h3 class="h3-mobile">
+    <h3 class="top-header">
       <div *ngIf="showRequestResult" class="back-button" (click)="showRequestResult=false">Back</div>
       Consultation Solde
     </h3>

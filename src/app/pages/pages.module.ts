@@ -78,6 +78,7 @@ import { AMobileShareComponent } from './agent/menu-user/mobile/a-share/a-share.
 import { CMobileShareComponent } from './citizen/menu-user/mobile/c-share/c-share.component';
 import { CustMobileShareComponent } from './customer/menu-user/mobile/cust-share/cust-share.component';
 import { SliderComponent } from './general/slider/slider.component';
+import { SwiperModule } from 'angular2-useful-swiper';
 
 
 @NgModule({
@@ -115,14 +116,13 @@ import { SliderComponent } from './general/slider/slider.component';
       CMobileShareComponent,
       CustMobileShareComponent,
       SliderComponent
-
-
     ],
     imports: [
         CommonModule,
         FormsModule,
         AppRoutingModule,
-        SharedModule
+        SharedModule,
+        SwiperModule
     ],
     exports: [
       AppComponent,
@@ -157,7 +157,7 @@ import { SliderComponent } from './general/slider/slider.component';
       AMobileShareComponent,
       CMobileShareComponent,
       CustMobileShareComponent,
-        SliderComponent
+      SliderComponent
 
     ],
     providers: [],
