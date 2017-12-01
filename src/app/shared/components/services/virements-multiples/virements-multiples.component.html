@@ -1,6 +1,9 @@
 <main class="gray-bg-citizen coin-bg">
   <section class="virements-multiples">
-    <h3 class="top-header">Virements multiples</h3>
+    <h3 class="top-header">
+      <div *ngIf="contract_to_find"  class="back-button" [routerLink]="['/' +userRole+ '/services']">Back</div>
+      <div *ngIf="contract_found" class="back-button" (click)="gotoContractToFindFunction()">Back</div>
+      Virements multiples</h3>
     <div class="container">
 
       <!-- First page-->

@@ -5,6 +5,7 @@ import {XW2WService} from '../../../../services/api/XW2W.service';
 import {ErrorMessageHandlerService} from '../../../../services/error-message-handler.service';
 import {GetAllListAccountService} from '../../../../services/api/getAllListAccount.service';
 import {CommonServices} from '../../../../services/common.service';
+import {ActivatedRoute} from '@angular/router';
 
 @ Component({
   selector: 'app-services-paiements',
@@ -18,14 +19,20 @@ export class PaiementsComponent implements OnInit, OnDestroy {
   errorMessage = '';
   loading = false;
   operations = [];
+  userRole = '';
   alive = true;
 
   constructor(public userDataService: UserDataService,
               public commonServices: CommonServices,
+              public activatedRoute: ActivatedRoute,
               public xW2WService: XW2WService,
               public errorMessageHandlerService: ErrorMessageHandlerService) { }
 
   ngOnInit() {
+    this.activatedRoute.parent.url
+      .takeWhile(() => this.alive)
+      .subscribe(resp =>  this.userRole = resp['0'].path);
+
     const profil = ((<any>this.userDataService.getUser).profil) ? (<any>this.userDataService.getUser).profil :
       localStorage.getItem('profil');
     console.log(profil);

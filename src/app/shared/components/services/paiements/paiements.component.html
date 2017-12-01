@@ -1,6 +1,9 @@
 <main class="gray-bg-citizen coin-bg">
   <section class="paiements">
-    <h3 class="top-header"> Paiements de masses reçus (XW2W)</h3>
+    <h3 class="top-header">
+      <div *ngIf="contract_to_select"  class="back-button" [routerLink]="['/' +userRole+ '/services']">Back</div>
+      <div *ngIf="!contract_to_select" class="back-button" (click)="contract_to_select=true">Back</div>
+      Paiements de masses reçus (XW2W)</h3>
     <div class="container">
 
       <!-- First page-->
