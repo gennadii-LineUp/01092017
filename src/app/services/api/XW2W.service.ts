@@ -9,7 +9,7 @@ export class XW2WService {
   constructor(public backendService: BackendService) {}
 
 
-  public paiementsRecus(accountId: string): Observable<any> {
+  public paiementsRecus(accountId: string, idContrat: string): Observable<any> {
     const token = localStorage.token;
 
     const body =
@@ -19,6 +19,7 @@ export class XW2WService {
             <run:XW2W>
                <sessionId>` + token + `</sessionId>
                <accountId>` + accountId + `</accountId>
+               <idContrat>` + idContrat + `</idContrat>
             </run:XW2W>
          </soapenv:Body>
       </soapenv:Envelope>`;
