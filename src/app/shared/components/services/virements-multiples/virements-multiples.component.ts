@@ -41,12 +41,6 @@ export class VirementsMultiplesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.gotoContractToFindFunction();
-    if ((this.userDataService.getAllContracts()).length) {
-      console.log('=== AllContracts\' length ' + this.userDataService.getAllContracts().length);
-    } else {
-      console.log('=== AllContracts are empty ===');
-      this.userDataService.setAllContracts();
-    }
 
     const profil = ((<any>this.userDataService.getUser).profil) ? (<any>this.userDataService.getUser).profil :
       localStorage.getItem('profil');

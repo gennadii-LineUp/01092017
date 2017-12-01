@@ -7,51 +7,7 @@
       <div *ngIf="contract_to_find">
         <div class="row">
           <div class="col-sm-12 col-md-6 ml-auto mr-auto">
-            <div class="compte_finder">
-              <div class="header">Insert customer’s information</div>
-              <div class="content">
-                <h4>Select a contract of the connected customer</h4>
-                <ng-select2 name="select2_contracts"
-                            [(ngModel)]="contract_fromSelect2"
-                            [data]="userDataService.getContractsForSelect2()"
-                            [placeholder]="'Please select...'"
-                            (valueChanged)="chooseContractFunction($event)">
-                </ng-select2>
-
-                <!--<div class="floating-block border-hover">-->
-                  <!--<div class="orange-angle" style="display: block" (click)="findContractFunction()">-->
-                    <!--<i class="fa fa-angle-right" aria-hidden="true"></i>-->
-                  <!--</div>-->
-                  <!--<div class="floating-input">-->
-                    <!--<input id="contract_number_1" name="contract_number_1" placeholder="contract number" required-->
-                           <!--type="text" [(ngModel)]="contract_number"-->
-                           <!--(keyup.enter)="findContractFunction()">-->
-                  <!--</div>-->
-
-                <!--</div>-->
-                <div *ngIf="errorMessage_contract" class="errorTextClass">{{errorMessage_contract}}</div>
-                <p *ngIf="!errorMessage_contract" style="margin: 0; text-align: center; height: 16px"><img *ngIf="loading_contract" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>
-
-                <!-- C O N T R A C T S -->
-                <!--<div>-->
-                  <!--<div class="virements-multiples__choose">-->
-                    <!--<div class="virements-multiples__header">-->
-                      <!--Сhoose contract:-->
-                      <!--&lt;!&ndash;<div class="blue-angle">Choose</div>&ndash;&gt;-->
-                    <!--</div>-->
-                    <!--<div *ngFor="let contract of userDataService.getAllContracts()" class="virements-multiples__choose-item"-->
-                         <!--(click)="chooseContractFunction(contract)">-->
-                      <!--<div>-->
-                        <!--Contract reference: {{contract.reference}}, from {{contract.dateCreation | dateFromServerMoment}}.<br>-->
-                        <!--<span>Valid from {{contract.debut | dateFromServerMoment}}. Type - {{contract.type}}. {{contract.statut}}.</span>-->
-                      <!--</div>-->
-                    <!--</div>-->
-                  <!--</div>-->
-                <!--</div>-->
-                <!-- end  C O N T R A C T S -->
-
-              </div>
-            </div>
+            <app-contracts-list (contract_defined)="chooseContractFunction($event)"></app-contracts-list>
           </div>
         </div>
       </div>
@@ -84,7 +40,7 @@
                   </div>
 
                   <div *ngIf="!contractsCustomer" class="virements-multiples__header">
-                    No customers for this contract <br>
+                    No customers for this contract
                   </div>
 
                   <div  *ngIf="contractsCustomer" class="virements-multiples__footer">

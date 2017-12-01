@@ -25,26 +25,55 @@ export class PaiementsComponent implements OnInit, OnDestroy {
               public errorMessageHandlerService: ErrorMessageHandlerService) { }
 
   ngOnInit() {
-    if ((this.userDataService.getMyAccounts()).length) {
-      this.paiementsRecusFunction((this.userDataService.getMyAccounts()['0']).id_account);
+    if ((this.userDataService.getAllContracts()).length) {
+      console.log('=== AllContracts\' length ' + this.userDataService.getAllContracts().length);
     } else {
-      this.loading = true;
-      this.getAllListAccountService.getMyAccounts(localStorage.telephone)
-        .takeWhile(() => this.alive)
-        .subscribe(result => {
-          const response1 = this.commonServices.xmlResponseParcer_complex(result._body);
-          const accounts = response1.accounts;
-          if (accounts && accounts.length && accounts['0'].status === 'ACTIF') {
-           this.paiementsRecusFunction('' + accounts['0'].id);
-          }
-        }, err => {
-          this.loading = false;
-          this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
-          if (!this.errorMessage) {
-            this.errorMessage = this.errorMessageHandlerService._getMessageEquivalent(err._body);
-          }
-        });
+      console.log('=== AllContracts are empty ===');
+      this.userDataService.setAllContracts();
     }
+
+    const profil = ((<any>this.userDataService.getUser).profil) ? (<any>this.userDataService.getUser).profil :
+      localStorage.getItem('profil');
+    console.log(profil);
+
+    if ((this.userDataService.getMyAccounts()).length) {
+      console.log('=== MyAccounts\' length ' + this.userDataService.getMyAccounts().length);
+    } else {
+      console.log('=== MyAccounts\' is empty ===');
+      this.userDataService.setMyAccounts();
+    }
+
+    //
+    // if ((this.userDataService.getMyAccounts()).length) {
+    //   if ((this.userDataService.getAllContracts()).length) {
+    //     console.log('=== AllContracts\' length ' + this.userDataService.getAllContracts().length);
+    //   } else {
+    //     console.log('=== AllContracts are empty ===');
+    //     this.userDataService.setAllContracts();
+    //   }
+    //
+    //  // this.paiementsRecusFunction((this.userDataService.getMyAccounts()['0']).id_account);
+    // } else {
+    //
+    //
+    //   this.loading = true;
+    //   this.getAllListAccountService.getMyAccounts(localStorage.telephone)
+    //     .takeWhile(() => this.alive)
+    //     .subscribe(result => {
+    //       const response1 = this.commonServices.xmlResponseParcer_complex(result._body);
+    //       const accounts = response1.accounts;
+    //       if (accounts && accounts.length && accounts['0'].status === 'ACTIF') {
+    //
+    //        this.paiementsRecusFunction('' + accounts['0'].id);
+    //       }
+    //     }, err => {
+    //       this.loading = false;
+    //       this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+    //       if (!this.errorMessage) {
+    //         this.errorMessage = this.errorMessageHandlerService._getMessageEquivalent(err._body);
+    //       }
+    //     });
+    // }
   }
 
   ngOnDestroy() {
