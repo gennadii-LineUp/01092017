@@ -19,7 +19,7 @@
         <div class="col-sm-12 col-md-6 ml-auto  mr-auto">
           <div class="paiements__wrapper">
             <div class="paiements__header">
-              <div>Contract <span style="color: red">BD012345678910</span></div>
+              <div>Contract <span>{{contract_current.reference}}</span></div>
               <div class="blue-angle" (click)="chooseAnotherContractFunction()">Choose</div>
             </div>
             <div *ngIf="!operations" class="paiements__header">

@@ -14,6 +14,7 @@ import {CommonServices} from '../../../../services/common.service';
 })
 export class PaiementsComponent implements OnInit, OnDestroy {
   contract_to_select = true;
+  contract_current = '';
   errorMessage = '';
   loading = false;
   operations = [];
@@ -42,6 +43,11 @@ export class PaiementsComponent implements OnInit, OnDestroy {
   }
 
   public chooseContractFunction(contract: any) {
+    const contracts = this.userDataService.getAllContracts();
+    console.log(contract);
+    console.log(contracts);
+    this.contract_current = (contracts.filter(x => x.id === contract.value))['0'];
+    console.log(this.contract_current);
     if (contract.data && contract.data['0'].id) {
       this.paiementsRecusFunction((this.userDataService.getMyAccounts()['0']).id_account, contract.data['0'].id);
     }
@@ -72,5 +78,6 @@ export class PaiementsComponent implements OnInit, OnDestroy {
 
   public chooseAnotherContractFunction() {
     this.contract_to_select = true;
+    this.contract_current = '';
   }
 }
