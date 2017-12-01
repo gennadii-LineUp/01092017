@@ -10,13 +10,14 @@ export class VirementSicaService {
   constructor(public backendService: BackendService) {}
 
 
-  public virementsVersBanque(beneficiaireId: number, montant: number): Observable<any> {
+  public virementsVersBanque(idCitizen: number, beneficiaireId: number, montant: number): Observable<any> {
     const body =
       `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:run="http://runtime.services.cash.innov.sn/">
          <soapenv:Header/>
            <soapenv:Body>
               <run:virementSica>
                  <sessionId>` + this.token + `</sessionId>
+                 <idCitizen>` + idCitizen + `</idCitizen>
                  <beneficiaireId>` + beneficiaireId + `</beneficiaireId>
                  <montant>` + montant + `</montant>
               </run:virementSica>
