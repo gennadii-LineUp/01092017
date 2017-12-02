@@ -48,8 +48,6 @@ export class DepotClientComponent implements OnInit, OnDestroy {
     this.firstStepMode();
     // this.secondStepMode();
 
-    if (!this.userDataService.getClients().length) {this.userDataService.setClients(); }
-    setTimeout(() => this.userDataService.setReceiversForSelect2(this.userDataService.getClients()), 500);
   }
 
   ngOnDestroy() {
@@ -119,16 +117,16 @@ export class DepotClientComponent implements OnInit, OnDestroy {
   }
 
   public setBeneficiaryFunction(beneficiary: any) {
+    console.log(beneficiary);
     this.client_fromSelect2 = beneficiary.value;
     this.receiverToFind = this.client_fromSelect2;
     this.secondStepMode();
-    console.log(this.newReceiver);
   }
 
   public firstStepMode() {
     this.clearSearch();
     this.receiverExist = true;
-    this.client_fromSelect2 = ';'
+    this.client_fromSelect2 = ';';
     this.amount_depotClient = undefined;
     this.commonServices.unSelectAllReceiversFunction();
   }
