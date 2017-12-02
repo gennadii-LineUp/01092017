@@ -1169,6 +1169,9 @@ ng-select2 span.select2.select2-container.select2-container--default{
 }
 
 @media (max-width: 800px) {
+  .only-desktop {
+    display: none;
+  }
   body {
     background-color: #fff;
   }
@@ -1222,6 +1225,7 @@ ng-select2 span.select2.select2-container.select2-container--default{
       left: 16px;
       top: 50%;
       transform: translateY(-50%);
+      cursor: pointer;
     }
   }
   .not-mobile {
@@ -1272,7 +1276,7 @@ ng-select2 span.select2.select2-container.select2-container--default{
   .floating-block {
     margin-bottom: 16px;
     &.border-hover .clean-input {
-      top: 10px
+      top: 0; // 10px
     }
     .floating-icon {
       width: 70px;

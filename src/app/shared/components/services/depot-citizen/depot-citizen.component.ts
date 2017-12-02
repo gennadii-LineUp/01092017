@@ -6,6 +6,8 @@ import {GetCommissionsTTCService} from '../../../../services/api/getCommissionsT
 import {EnvoyeurClass} from '../../../../models/envoyeur-class';
 import {C2WDepotTransactionService} from '../../../../services/api/C2WDepotTransaction.service';
 import 'rxjs/add/operator/takeWhile';
+import {ReceiverClass} from '../../../../models/receiver-class';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-services-depot-citizen',
@@ -19,6 +21,7 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
   errorMessage = '';
   receiverExist = false;
   createNewReceiver = true;
+  createNewReceiver_mobile_amount = true;
   receiverStatus = '';
   receiverToFind = '';
   amount_depotCitizen: number;
@@ -26,19 +29,25 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
   successMessage_2 = '';
   commission = [];
   envoyeur = new EnvoyeurClass('KANE', 'MOMAR', '773151459', 'DAKAR', 'CNI', 'SEN', '1619198107350', '01/01/2016', '01/01/2017');
+  envoyeur_default = new ReceiverClass('', '', '', '', 0, '', '', '', '', '', '');
   citizen_fromSelect2 = '';
+  userRole = '';
   alive = true;
 
-  @ViewChild('amount2') amount2: any;
+  @ViewChild('amount_mobile') amount_input_mobile: any;
 
   constructor(public userDataService: UserDataService,
               public commonServices: CommonServices,
               public errorMessageHandlerService: ErrorMessageHandlerService,
               public getCommissionsTTCService: GetCommissionsTTCService,
-              public c2WDepotTransactionService: C2WDepotTransactionService) { }
+              public c2WDepotTransactionService: C2WDepotTransactionService,
+              private activateRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.firstStepMode();
+    this.activateRoute.parent.url
+      .takeWhile(() => this.alive)
+      .subscribe(resp =>  this.userRole = resp['0'].path);
   }
 
   ngOnDestroy() {
@@ -120,16 +129,19 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
   public secondStepMode() {
     this.clearSearch();
     const beneficiaire = this.userDataService.getReceiverFromSelect2(this.citizen_fromSelect2);
-     console.log(beneficiaire);
+    this.envoyeur_default = beneficiaire;
     this.receiverStatus = (beneficiaire.nom) ? (beneficiaire.nom) : '';
     this.receiverStatus += (beneficiaire.prenom) ? (' ' + beneficiaire.prenom) : '';
     // this.receiverStatus += (beneficiaire.nom || beneficiaire.prenom) ? (', ') : '';
     // this.receiverStatus += (beneficiaire.telephone) ? (beneficiaire.telephone) : '';
     this.createNewReceiver = true;
+    this.createNewReceiver_mobile_amount = true;
+    setTimeout(() => { this.amount_input_mobile.nativeElement.focus(); }, 10);
+  }
 
-    this.envoyeur.nom = (beneficiaire.nom) ? beneficiaire.nom : '';
-    this.envoyeur.prenom = (beneficiaire.prenom) ? beneficiaire.prenom : '';
-    this.envoyeur.cellulaire = (beneficiaire.numTel) ? beneficiaire.numTel : '';
+  private setEnvoyeurFromForm(envoyeur: EnvoyeurClass) {
+    this.envoyeur = envoyeur;
+    console.log(this.envoyeur);
   }
 
   public clearAmount() {this.amount_depotCitizen = undefined; }
