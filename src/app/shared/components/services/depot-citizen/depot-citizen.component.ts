@@ -39,9 +39,6 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.firstStepMode();
-
-    if (!this.userDataService.getCitizens().length) {this.userDataService.setCitizens(); }
-    setTimeout(() => this.userDataService.setReceiversForSelect2(this.userDataService.getCitizens()), 500);
   }
 
   ngOnDestroy() {

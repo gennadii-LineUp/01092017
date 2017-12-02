@@ -44,6 +44,8 @@ import {FromServerTimeMomentPipe} from './pipes/timeFromServerMoment.pipe';
 import { GMapComponent } from './components/services/geolocalisation-agent/g-map/g-map.component';
 import {AgmCoreModule} from 'angular2-google-maps/core';
 import { ContractsListComponent } from './components/forms/contracts-list/contracts-list.component';
+import { SelectCitizenComponent } from './components/forms/select-citizen/select-citizen.component';
+import { SelectClientComponent } from './components/forms/select-client/select-client.component';
 
 const googleMapsCore = AgmCoreModule.forRoot({
   apiKey : 'AIzaSyDajrkQUo7gxEhGlfBhCrYOc4oPu-szoXA',
@@ -75,7 +77,8 @@ const googleMapsCore = AgmCoreModule.forRoot({
     SelectSenderComponent,
     SuccessMessageComponent,
     PaginationComponent,
-    MobileSettingsComponent, MobileShareComponent, GetUserIdComponent, GMapComponent, ContractsListComponent
+    MobileSettingsComponent, MobileShareComponent, GetUserIdComponent, GMapComponent, ContractsListComponent,
+    SelectCitizenComponent, SelectClientComponent, SelectCitizenComponent, SelectClientComponent
   ],
   exports: [
     HeaderGeneralComponent, HeaderAllUsersComponent,
