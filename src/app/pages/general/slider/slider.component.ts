@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-slider',
@@ -6,16 +6,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./slider.component.scss']
 })
 export class SliderComponent implements OnInit {
+  config: SwiperOptions = {
+    pagination: '.swiper-pagination',
+    paginationClickable: true,
+    spaceBetween: 30
+  };
+
+  @Output() showSlider = new EventEmitter<string>();
 
   constructor() { }
 
-    config: SwiperOptions = {
-        pagination: '.swiper-pagination',
-        paginationClickable: true,
-        spaceBetween: 30
-    };
 
   ngOnInit() {
   }
 
+  public setSliderVisibility() {
+    sessionStorage.setItem('show-slider', '1');
+    this.showSlider.emit('1');
+   // this.contract_defined.emit(contract);
+  }
 }
