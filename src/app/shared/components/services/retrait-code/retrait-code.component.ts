@@ -24,7 +24,7 @@ export class RetraitCodeComponent implements OnInit, OnDestroy {
   retraitCode_valid = false;
   retraitCode_errorMessage = false;
   setAmountAndBeneficiareId = false;
-  retraitCode = '391040042'; // '219120516'; // string;
+  retraitCode = '866256775'; // '219120516'; // string;
   serverResponse = {
     code: '',
     date: '',

@@ -30,6 +30,7 @@ export class LoginService {
    </soapenv:Body>
    </soapenv:Envelope>`;
 
+    console.log(body);
     return this.backendService.login(UrlParams.backendUrl, body);
   }
 

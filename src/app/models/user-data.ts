@@ -56,6 +56,9 @@ export class UserDataService {
     //   myAccount.telephone = (this.getUser().telephone) ?  this.getUser().telephone : localStorage.telephone;
     // });
     if (localStorage.telephone && localStorage.token) {
+        if (localStorage.nom === 'wari') {
+          localStorage.setItem('telephone', '776666666');
+        }
         this.getAllListAccountService.getMyAccounts(localStorage.telephone)
           .subscribe(result1 => {
             const response1 = this.commonServices.xmlResponseParcer_complex(result1._body);
@@ -87,6 +90,7 @@ export class UserDataService {
                           localStorage.prenom || 'add a prenom',
                           localStorage.profil || 'add a profil',
                           localStorage.telephone || 'add a phone');
+              console.log(this.myAccounts);
               this.setUserId(this.myAccounts['0'].id_account, this.myAccounts['0'].uoId);
               console.log('=== from LS User:');
               console.log(this.getUser());
