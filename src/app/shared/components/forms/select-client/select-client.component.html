@@ -1,7 +1,7 @@
 <!--<div class="content">-->
   <h3>Select client’s account</h3>
 
-  <ng-select2 [(ngModel)]="client_fromSelect2"
+  <ng-select2 [(ngModel)]="beneficiary_fromSelect2"
               [data]="userDataService.getReceiversForSelect2()"
               [placeholder]="'Please select...'"
               (valueChanged)="setBeneficiaryFunction($event)">

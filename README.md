@@ -30,10 +30,18 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 =================== C O R D O V A : ==============================================================
 
-2 from the folder "cordova-android":      cordova run android
+1. ng build --target=production --environment=prod --output-path cordova-android/www/
 
+2. in file cash-transfer\cordova-android\www\index.html
+    replace   <base href="/">  by  <base href="./">
+    
+3. in folder cash-transfer\cordova-android\www  replace image links:
+    from ../../../../../assets/img/ => ... /assets/img/
+    by assets/img/
+    
 
-1 ng build --target=production --environment=prod --output-path cordova-android/www/
+4. from the folder "cordova-android":      cordova run android
+
 
 cordova run android
 
