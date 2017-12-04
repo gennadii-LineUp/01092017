@@ -106,3 +106,62 @@
     line-height: 40px;
   }
 }
+
+
+@media (max-width: 800px) {
+  .depot-sitizen {
+    font-size: 18px;
+    .help {
+      font-size: 18px;
+    }
+    .content {
+      padding: 20px;
+      h3 {
+        font-size: 22px;
+        line-height: 30px;
+      }
+      .amount-wrapper {
+        .currency {
+          font-size: 22px;
+          margin-left: 10px;
+          line-height: 74px;
+        }
+      }
+    }
+    .amount {
+      padding: 0;
+    }
+    .blue-button__wrapper .blue-button {
+      height: 103px;
+      line-height: 103px;
+      max-width: 100%;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .depot-sitizen {
+    font-size: 14px;
+    .help {
+      font-size: 14px;
+    }
+    .content {
+      padding: 10px;
+      h3 {
+        font-size: 14px;
+        line-height: 20px;
+      }
+      .amount-wrapper {
+        .currency {
+          font-size: 15px;
+          margin-left: 5px;
+          line-height: 30px;
+        }
+      }
+    }
+    .blue-button__wrapper .blue-button {
+      height: 50px;
+      line-height: 50px;
+    }
+  }
+}

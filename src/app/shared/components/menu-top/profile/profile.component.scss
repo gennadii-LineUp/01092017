@@ -105,6 +105,16 @@
         width: 100%;
       }
     }
+    &__info {
+      .floating-block {
+        height: inherit;
+        align-items: center;
+      }
+      .floating-desc {
+        font-size: 18px;
+        min-width: 125px;
+      }
+    }
   }
 
 }

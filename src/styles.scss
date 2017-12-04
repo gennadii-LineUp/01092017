@@ -822,7 +822,7 @@ input[type=checkbox]:checked + label:after {
       }
     }
     .radio-wrapper {
-      width: 100%;
+      width: calc(100% - 25px);
       margin-left: 25px;
       color: #636363;
       font-size: 1.4rem;
@@ -1073,11 +1073,6 @@ input[type=checkbox]:checked + label:after {
       float: left;
     }
   }
-  img {
-    //width: 30px;
-    //height: 30px;
-    //border-radius: 50%;
-  }
   .tel {
     color: #afafaf;
     font-size: 1.2rem;
@@ -1113,7 +1108,7 @@ input[type=checkbox]:checked + label:after {
 
 @media (min-width: 800px) {
   .only-mobile {
-    display: none;
+    display: none !important;
   }
   .top-header {
     .back-button {
@@ -1157,9 +1152,6 @@ ng-select2 span.select2.select2-container.select2-container--default{
 }
 
 @media (max-width: 575px) {
-  div.orange-angle.left-angle.left-angle-mobile {
-    display: none !important;
-  }
   div.dargent__wrapper,
   div.compte__wrapper.compte__select,
   div.compte__wrapper.compte__marchand,
@@ -1169,11 +1161,27 @@ ng-select2 span.select2.select2-container.select2-container--default{
 }
 
 @media (max-width: 800px) {
+  * {
+    user-select: none
+  }
+  div.orange-angle.left-angle.left-angle-mobile {
+    display: none !important;
+  }
   .only-desktop {
     display: none;
   }
   body {
     background-color: #fff;
+  }
+  .gray-bg-citizen {
+    background-color: transparent;
+    h3 {
+      font-size: 20px;
+      padding: 15px 0;
+    }
+    &.coin-bg {
+      background-image: none;
+    }
   }
   // Padding for fixed menu
   main {
@@ -1182,31 +1190,6 @@ ng-select2 span.select2.select2-container.select2-container--default{
   // No menu
   main.non-auth-main {
     padding: 0 !important;
-  }
-  main {
-    section.profile,
-    section.depot-sitizen,
-    section.compte,
-    section.consult-sold,
-    section.consult-sold-history,
-    section.consult-oper,
-    section.geo-agent,
-    section.transfers-to-bank,
-    section.virements-multiples,
-    section.paiements,
-    section.page-title,
-    section.dargent{
-      .container{
-        width: 100%;
-        max-width: 100%;
-        padding-right: 0;
-        padding-left: 0;
-        .col-sm-12{
-          padding-right: 0;
-          padding-left: 0;
-        }
-      }
-    }
   }
   .top-header {
     color: #fff !important;
@@ -1219,13 +1202,25 @@ ng-select2 span.select2.select2-container.select2-container--default{
     top: 0;
     z-index: 100;
     padding: 26px 0 !important;
-    text-align: center;
+    text-align: center !important;
     .back-button {
       position: absolute;
       left: 16px;
       top: 50%;
       transform: translateY(-50%);
       cursor: pointer;
+      padding-left: 40px;
+      &:before {
+        content: "\F104";
+        font-family: FontAwesome;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: inherit;
+        position: absolute;
+        top: -3px;
+        left: 0;
+        font-size: 40px;
+      }
     }
   }
   .not-mobile {
@@ -1239,6 +1234,8 @@ ng-select2 span.select2.select2-container.select2-container--default{
     display: none;
   }
   [class*="col-"] {
+    flex: 0 0 100%;
+    max-width: 100%;
     padding-left: 0 !important;
     padding-right: 0 !important;
   }
@@ -1246,6 +1243,25 @@ ng-select2 span.select2.select2-container.select2-container--default{
     width: 100%;
     padding-left: 25px;
     padding-right: 25px;
+  }
+  section {
+    .container {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+  .little-title,
+  .block__header {
+    font-size: 20px;
+    padding: 30px 20px 20px 20px;
+  }
+  .blue-angle {
+    font-size: 20px;
+    &:before {
+      top: -1px;
+      right: 10px;
+      font-size: 3rem;
+    }
   }
   .orange-button {
     font-size: 2.7rem;
@@ -1267,7 +1283,6 @@ ng-select2 span.select2.select2-container.select2-container--default{
     height: 20px;
     min-width: 20px;
     margin-right: 25px;
-    background-color: #fff;
     label {
       left: 1px;
       top: 4px;
@@ -1276,30 +1291,31 @@ ng-select2 span.select2.select2-container.select2-container--default{
   .floating-block {
     margin-bottom: 16px;
     &.border-hover .clean-input {
-      top: 0; // 10px
+      top: 10px;
     }
     .floating-icon {
       width: 70px;
       min-width: 70px;
       min-height: 74px;
+      background-size: 23px;
       + .floating-input {
         width: calc(100% - 70px);
       }
     }
     .floating-input input {
-      height: 74px;
-      min-height: 74px;
+      height: 74px !important;
+      min-height: 74px !important;
       padding-left: 20px;
-      font-size: 24px;
+      font-size: 24px !important;
       padding-top: 32px;
       &:focus,
       &:not(:focus):valid {
-        padding-top: 30px
+        padding-top: 30px;
       }
       &:focus ~ .floating-label,
       &:not(:focus):valid ~ .floating-label {
-        top:12px;
-        font-size:18px;
+        top: 12px;
+        font-size: 18px;
       }
     }
     .floating-label {
@@ -1308,9 +1324,9 @@ ng-select2 span.select2.select2-container.select2-container--default{
       font-size: 24px;
     }
     .pass-forget {
-      right: 20px;
-      line-height: 77px;
-      font-size: 21px;
+      right: 5px !important;
+      line-height: 73px !important;
+      font-size: 16px !important;
     }
   }
   .authorisation-page {
@@ -1336,9 +1352,33 @@ ng-select2 span.select2.select2-container.select2-container--default{
   main {
     padding: 45px 0 46px;
   }
+  .gray-bg-citizen {
+    h3 {
+      font-size: 14px;
+      padding: 7px 0;
+    }
+  }
   .top-header {
     font-size: 15px !important;
     padding: 13px 0 !important;
+    .back-button {
+      padding-left: 20px;
+      &:before {
+        font-size: 20px;
+      }
+    }
+  }
+  .blue-angle {
+    font-size: 15px;
+    &:before {
+      right: 20px;
+      font-size: 20px;
+    }
+  }
+  .little-title,
+  .block__header {
+    font-size: 12px;
+    padding: 20px 10px 10px 10px;
   }
   .swiper-pagination-bullet {
     height: 6.5px;
@@ -1380,15 +1420,16 @@ ng-select2 span.select2.select2-container.select2-container--default{
       width: 35px;
       min-width: 35px;
       min-height: 37px;
+      background-size: 15px;
       + .floating-input {
         width: calc(100% - 35px);
       }
     }
     .floating-input input {
-      height: 37px;
-      min-height: 37px;
-      font-size: 12px;
-      padding: 16px 25px 0 10px;
+      height: 37px !important;
+      min-height: 37px !important;
+      font-size: 12px !important;
+      padding: 16px 40px 0 10px;
       &:focus,
       &:not(:focus):valid {
         padding-top: 15px
@@ -1405,9 +1446,9 @@ ng-select2 span.select2.select2-container.select2-container--default{
       font-size: 12px;
     }
     .pass-forget {
-      right: 7px;
-      line-height: 37px;
-      font-size: 10.5px;
+      right: 7px !important;
+      line-height: 37px !important;
+      font-size: 10.5px !important;
     }
   }
   .authorisation-page {
