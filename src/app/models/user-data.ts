@@ -12,6 +12,7 @@ import {Select2optionClass} from './select2option-class';
 
 @Injectable()
 export class UserDataService {
+  errorMessage = '';
   user = new ReceiverClass('', '', '', '', 0, '', '', '', '', '', '');
   sender_default = [new ReceiverClass('skype', 'gena_ukr79', '', '', 0, '', '', '', '', '', '')];
   citizens = [];
@@ -20,8 +21,8 @@ export class UserDataService {
   receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 1, 'citizen', '', '', '', '', ''),
                 new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 2, 'citizen', '', '', '', '', ''),
                 new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 3, 'citizen', '', '', '', '', '')];
-  receiversForSelect2 = [new Select2optionClass('', '')];
-  contractsForSelect2 = [new Select2optionClass('', '')];
+  receiversForSelect2 = Array<Select2optionClass>(0);
+  contractsForSelect2 = Array<Select2optionClass>(0);
   allContracts = [];
 
   myAccounts = [
@@ -92,6 +93,7 @@ export class UserDataService {
             }
           }, (err) => {
             console.log(err);
+            this.setErrorMessage(err);
           });
     } else {
       this.logOut();
@@ -110,7 +112,7 @@ export class UserDataService {
         console.log(response);
         this.allContracts = response;
         this.setContractsForSelect2(response);
-      }, (err) => {console.log(err); });
+      }, (err) => {console.log(err); this.setErrorMessage(err); });
   }
 
   public getAllContracts(): any {
@@ -154,7 +156,7 @@ export class UserDataService {
           this.receivers = this.citizens;
           console.log('=== CITIZENs created ===');
           console.log(this.citizens);
-        }, (err) => {console.log(err); });
+        }, (err) => {console.log(err); this.setErrorMessage(err); });
   }
   public getCitizens(): any {
     return this.citizens;
@@ -222,7 +224,7 @@ export class UserDataService {
         this.receivers = this.clients;
         console.log('=== CUSTOMERs created ===');
         console.log(this.clients);
-      }, (err) => {console.log(err); });
+      }, (err) => {console.log(err); this.setErrorMessage(err); });
   }
   public getClients(): any {
     return this.clients;
@@ -295,6 +297,12 @@ export class UserDataService {
     }
   }
 
+  public setErrorMessage(message: string) {
+    this.errorMessage = message;
+  }
+  public getErrorMessage(): string {
+    return this.errorMessage;
+  }
 
   public logOut() {
     this.router.navigate(['/authorisation']);

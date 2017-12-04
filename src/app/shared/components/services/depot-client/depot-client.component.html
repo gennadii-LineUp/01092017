@@ -1,6 +1,11 @@
 <main class="gray-bg-citizen coin-bg">
   <section class="depot-sitizen">
-    <h3 class="top-header">Depot client</h3>
+    <h3 class="top-header">
+      <div  *ngIf="receiverExist" class="back-button" [routerLink]="['/' +userRole+ '/services']">Back</div>
+      <div  *ngIf="!receiverExist && createNewReceiver_mobile_amount" class="back-button" (click)="firstStepMode()">Back</div>
+      <div  *ngIf="!receiverExist && !createNewReceiver_mobile_amount" class="back-button" (click)="createNewReceiver_mobile_amount=true">Back</div>
+      Depot client
+    </h3>
     <div class="container">
 
 
@@ -14,88 +19,13 @@
             <div>Client</div>
           </div>
           <div class="content">
-            <h3>Select client’s account</h3>
-
-            <ng-select2 [(ngModel)]="client_fromSelect2"
-                        [data]="userDataService.getReceiversForSelect2()"
-                        [placeholder]="'Please select...'"
-                        (valueChanged)="setBeneficiaryFunction($event)">
-            </ng-select2>
-
-            <div class="new-acc" style="padding-bottom: 0">
-                  <span>
-                    The client’s account you’re looking for is not in the system?
-                    <span class="create">Create it now.</span>
-                  </span>
-            </div>
-
-            <!--<div class="floating-block border-hover">-->
-              <!--Need to hide this item when input empty, when input have value: show angle, onclick angle show right drop -->
-              <!--<div class="orange-angle" style="display: block;"><i class="fa fa-angle-right" aria-hidden="true"></i></div>-->
-              <!--<div class="floating-input">-->
-                <!--<input id="firstname1" name="firstname1" placeholder="Type here" required="" type="text" [(ngModel)]="receiverToFind">-->
-              <!--</div>-->
-              <!--Right drop for show-->
-              <!--<div *ngIf="false" class="right-drop" style="display: block;">-->
-                <!--<div class="right-drop__item">-->
-                  <!--<div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>-->
-                  <!--<div>-->
-                    <!--Clark Kenwood-->
-                    <!--<span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>-->
-                  <!--</div>-->
-                <!--</div>-->
-                <!--<div class="right-drop__item">-->
-                  <!--<div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>-->
-                  <!--<div>-->
-                    <!--Clark Kenwood-->
-                    <!--<span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>-->
-                  <!--</div>-->
-                <!--</div>-->
-                <!--<div class="right-drop__item">-->
-                  <!--<div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>-->
-                  <!--<div>-->
-                    <!--Clark Kenwood-->
-                    <!--<span><i class="fa fa-phone" aria-hidden="true"></i>380 (050) 000-00-00</span>-->
-                  <!--</div>-->
-                <!--</div>-->
-              <!--</div>-->
-            <!--</div>-->
-
-            <!--<div *ngIf="receivers.length" class="content search">-->
-              <!--<div  *ngFor="let client of userDataService.getClients()" #{{receiver.id_receiver}} id="{{client.id_account}}"-->
-                    <!--class="search__user" (click)="commonServices.defineReceiversFunction($event); setBeneficiaryFunction(client)">-->
-                <!--<div>-->
-                  <!--<span class="logo" style="background-image: url('../../../../../assets/img/user.png')"></span>-->
-                  <!--<div>-->
-                    <!--<div>{{client.nom}} {{client.prenom}}</div>-->
-                    <!--<span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>{{client.numTel}}</span>-->
-                  <!--</div>-->
-                <!--</div>-->
-                <!--<div class="circle-check"></div>-->
-              <!--</div>-->
-
-              <!-- *** M U L T I P L E   S E L E C T *** -->
-              <!--<div  *ngFor="let myAccount of userDataService.getMyAccounts()" #{{receiver.id_receiver}} id="{{myAccount.id_account}}"-->
-              <!--class="search__user" (click)="commonServices.defineReceiversFunction($event)">-->
-              <!--<div>-->
-              <!--<span class="logo" style="background-image: url('../../../../../assets/img/user.png')"></span>-->
-              <!--<div>-->
-              <!--<div>{{myAccount.nom}} {{myAccount.prenom}}</div>-->
-              <!--<span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>{{myAccount.login}}</span>-->
-              <!--</div>-->
-              <!--</div>-->
-              <!--<div class="circle-check"></div>-->
-              <!--</div>-->
-
-
-            <!--</div>-->
-
+            <app-select-client (beneficiary_defined)="setBeneficiaryFunction($event)"></app-select-client>
           </div>
         </div>
 
 
         <!-- R I G H T   B L O C K -->
-        <div class="col-md-6 col-lg-4">
+        <div class="col-md-6 col-lg-4  only-desktop">
           <div class="block__header">
             <span>{{receiverStatus}}</span>
             <!--<span>New</span>-->
@@ -107,7 +37,7 @@
 
           <div class="content amount">
             <!--<form #agent_depoCitizen_existReceiver="ngForm" novalidate>-->
-            <div class="amount-wrapper" style="margin-top: 70px; position: relative">
+            <div class="amount-wrapper" style="margin-top: 60px; position: relative">
               <h3>Amount</h3>
               <div class="floating-block border-hover">
                 <div class="floating-input">
@@ -148,7 +78,7 @@
       <div *ngIf="createNewReceiver" class="row" style="min-height: 280px">
 
         <!-- L E F T   B L O C K -->
-        <div class="col-md-6 col-lg-4">
+        <div class="col-md-6 col-lg-4  only-desktop">
           <div class="block__header">
             <div>Insert receiver’s information</div>
             <div>Client</div>
@@ -159,7 +89,7 @@
               <!--Need to hide this item when input empty, when input have value: show angle, onclick angle show right drop -->
               <!--<div class="orange-angle" style="display: block;"><i class="fa fa-angle-right" aria-hidden="true"></i></div>-->
               <div class="floating-input search-wrapper">
-                <input id="firstname2" name="firstname2" placeholder="Type here" readonly
+                <input id="firstname_desktop" name="firstname_desktop" placeholder="Type here" readonly
                        style="border-bottom: 2px solid white; padding-left: 15px"
                        type="text" [(ngModel)]="receiverToFind">
               </div>
@@ -174,7 +104,7 @@
                   <h3>Amount</h3>
                   <div class="floating-block border-hover">
                     <div class="floating-input">
-                      <input id="amount2" name="amount2" placeholder="00.00" required type="text"
+                      <input id="amount_desktop" #amount_desktop name="amount2" placeholder="00.00" required type="text"
                              [(ngModel)]="amount_depotClient"
                              (keyup.enter)='submitDepotClient()'
                              onkeydown="return ( event.ctrlKey || event.altKey
@@ -200,76 +130,113 @@
 
 
         <!-- R I G H T   B L O C K -->
-        <div class="col-md-6 col-lg-4">
+        <div class="col-md-6 col-lg-4  only-desktop">
           <div class="block__header" style="padding-left: 0">
             <span>{{receiverStatus}}</span>
             <div class="blue-angle" style="padding-bottom: 1px" (click)="firstStepMode()">Change</div>
           </div>
 
-          <form *ngIf="createNewReceiver" #agent_depoCitizen_envoyeurData="ngForm" novalidate>
-            <div class="content" style="padding-bottom: 0">
-              <h3>Firstname</h3>
-              <div class="floating-block border-hover">
-                <div class="floating-input">
-                  <input type="text" placeholder="Type here"
-                         #firstName="ngModel" id="firstName" name='firstName' required [(ngModel)]="envoyeur.nom" />
-                  <div class="clean-input" (click)="clearEnvoyeur('nom')"></div>
-                </div>
-              </div>
-              <h3>Lastname</h3>
-              <div class="floating-block border-hover">
-                <div class="floating-input">
-                  <input type="text" placeholder="Type here"
-                         #lastName="ngModel" id="lastName" name='lastName' required [(ngModel)]="envoyeur.prenom" />
-                  <div class="clean-input" (click)="clearEnvoyeur('prenom')"></div>
-                </div>
-              </div>
-              <h3>Cellulaire</h3>
-              <div class="floating-block border-hover">
-                <div class="floating-input">
-                  <input type="text" placeholder="Type here"
-                         #id_telephone="ngModel" id="id_telephone" name='id_telephone' required [(ngModel)]="envoyeur.cellulaire" />
-                  <div class="clean-input" (click)="clearEnvoyeur('telephone')"></div>
-                </div>
-              </div>
-              <h3>ID type</h3>
-              <div class="floating-block border-hover">
-                <div class="floating-input">
-                  <input type="text" placeholder="Type here"
-                         #id_type="ngModel" id="id_type" name='id_type' required [(ngModel)]="envoyeur.id_type" />
-                  <div class="clean-input" (click)="clearEnvoyeur('id_type')"></div>
-                </div>
-              </div>
-              <h3>ID valeur</h3>
-              <div class="floating-block border-hover">
-                <div class="floating-input">
-                  <input type="text" placeholder="Type here"
-                         #id_valeur="ngModel" id="id_valeur" name='id_valeur' required [(ngModel)]="envoyeur.id_valeur" />
-                  <div class="clean-input" (click)="clearEnvoyeur('id_valeur')"></div>
-                </div>
-              </div>
-              <h3>ID debut</h3>
-              <div class="floating-block border-hover">
-                <div class="floating-input">
-                  <input type="text" placeholder="Type here"
-                         #id_debut="ngModel" id="id_debut" name='id_debut' required [(ngModel)]="envoyeur.id_debut" />
-                  <div class="clean-input" (click)="clearEnvoyeur('id_debut')"></div>
-                </div>
-              </div>
-              <h3>ID fin</h3>
-              <div class="floating-block border-hover">
-                <div class="floating-input">
-                  <input type="text" placeholder="Type here"
-                         #id_fin="ngModel" id="id_fin" name='id_fin' required [(ngModel)]="envoyeur.id_fin" />
-                  <div class="clean-input" (click)="clearEnvoyeur('id_fin')"></div>
-                  <!--(click)="clearEnvoyeur('id_fin')"-->
-                </div>
+          <div style="padding: 0 18px">
+            <app-get-user-id (userData)="setEnvoyeurFromForm($event)"
+                             [setUserNom]="envoyeur_default.nom"
+                             [setUserPrenom]="envoyeur_default.prenom"
+                             [setUserCellulaire]="envoyeur_default.numTel">
+            </app-get-user-id>
+          </div>
+        </div>
+
+
+        <!-- L E F T   B L O C K -->
+        <div *ngIf="createNewReceiver_mobile_amount" class="col-md-6 col-lg-4  only-mobile">
+          <div class="block__header">
+            <div>Insert receiver’s information</div>
+            <div>Client</div>
+          </div>
+          <div class="content"  style="padding-bottom: 0">
+            <h3>Select client’s account</h3>
+            <div class="floating-block border-hover">
+              <!--Need to hide this item when input empty, when input have value: show angle, onclick angle show right drop -->
+              <!--<div class="orange-angle" style="display: block;"><i class="fa fa-angle-right" aria-hidden="true"></i></div>-->
+              <div class="floating-input search-wrapper">
+                <input id="firstname2" name="firstname2" placeholder="Type here" readonly
+                       style="border-bottom: 2px solid white; padding-left: 15px"
+                       type="text" [(ngModel)]="receiverToFind">
               </div>
             </div>
-          </form>
+            <div *ngIf="createNewReceiver" class="help">It seems we don’t have this number in the client database.
+              <span>New account will be created.</span>
+            </div>
+
+            <div *ngIf="createNewReceiver" class="content amount" style="margin-top: 15px; padding-bottom: 0">
+              <form #agent_depoCitizen_newReceiverAmount="ngForm" novalidate>
+                <div class="amount-wrapper" style="position: relative">
+                  <h3>Amount</h3>
+                  <div class="floating-block border-hover">
+                    <div class="floating-input">
+                      <input id="amount_mobile" #amount_mobile name="amount_mobile" placeholder="00.00" required type="text"
+                             [(ngModel)]="amount_depotClient"
+                             (keyup.enter)='createNewReceiver_mobile_amount=false'
+                             onkeydown="return ( event.ctrlKey || event.altKey
+                                                                || (47<event.keyCode && event.keyCode<58 && event.shiftKey==false)
+                                                                || (95<event.keyCode && event.keyCode<106)
+                                                                || (event.keyCode===8) || (event.keyCode===9)
+                                                                || (event.keyCode>34 && event.keyCode<40)
+                                                                || (event.keyCode===46) || (event.keyCode===110))"/>
+                      <div class="clean-input" (click)="clearAmount()"></div>
+                    </div>
+                    <div class="currency">Usd</div>
+                  </div>
+                  <div *ngIf="errorMessage" class="errorTextClass" style="position: absolute">{{errorMessage}}</div>
+                  <p *ngIf="!errorMessage" style="margin: 0; text-align: center; height: 16px; margin-bottom: 12px; margin-top: 24px">
+                    <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                  </p>
+                </div>
+              </form>
+
+              <div class="col-md-12 col-lg-8 blue-button__wrapper">
+                <button class="orange-button blue-button" style="margin-top: 8px"
+                        [disabled]="!(+amount_depotClient >= 0.01)"
+                        (click)="createNewReceiver_mobile_amount=false">Next step
+                </button>
+              </div>
+
+            </div>
+
+          </div>
         </div>
+
+
+        <!-- R I G H T   B L O C K -->
+        <div *ngIf="!createNewReceiver_mobile_amount" class="col-md-6 col-lg-4  only-mobile">
+          <div class="block__header" style="padding-left: 0">
+            <span>{{receiverStatus}}</span>
+            <div class="blue-angle" style="padding-bottom: 1px" (click)="firstStepMode()">Change</div>
+          </div>
+
+          <div style="padding: 0 18px">
+            <app-get-user-id (userData)="setEnvoyeurFromForm($event)"
+                             [setUserNom]="envoyeur_default.nom"
+                             [setUserPrenom]="envoyeur_default.prenom"
+                             [setUserCellulaire]="envoyeur_default.numTel">
+            </app-get-user-id>
+          </div>
+
+          <div *ngIf="createNewReceiver" class="row only-mobile">
+            <div class="col-md-12 col-lg-8 blue-button__wrapper">
+              <button class="orange-button blue-button" style="margin-top: 8px"
+                      [disabled]="!((+amount_depotClient >= 0.01)
+                            && client_fromSelect2
+                            && (envoyeur.id_fin && envoyeur.id_debut && envoyeur.nom && envoyeur.prenom && envoyeur.cellulaire
+                            && envoyeur.addresse && envoyeur.id_type && envoyeur.id_pays && envoyeur.id_valeur))"
+                      (click)="submitDepotClient()">Send
+              </button>
+            </div>
+          </div>
+
+        </div>
+
       </div>
-      <div *ngIf="createNewReceiver" class="row">
+      <div *ngIf="createNewReceiver" class="row only-desktop">
         <div class="col-md-12 col-lg-8 blue-button__wrapper">
           <button class="orange-button blue-button" style="margin-top: 8px"
                   [disabled]="!((+amount_depotClient >= 0.01)

@@ -8,6 +8,7 @@ import {W2XWalletService} from '../../../../services/api/W2XWallet.service';
 import {ErrorMessageHandlerService} from '../../../../services/error-message-handler.service';
 import {GetCitizenContractService} from '../../../../services/api/getCitizenContract.service';
 import {GetAllListAccountService} from '../../../../services/api/getAllListAccount.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-virements-multiples',
@@ -28,11 +29,13 @@ export class VirementsMultiplesComponent implements OnInit, OnDestroy {
   contract_number_valid: string;
   contractsCustomer = [];
   contract_fromSelect2 = '';
+  userRole = '';
   alive = true;
 
   amount_virementsMultiples: number;
 
   constructor(public commonServices: CommonServices,
+              public activatedRoute: ActivatedRoute,
               public userDataService: UserDataService,
               public w2XWalletService: W2XWalletService,
               public getCitizenContractService: GetCitizenContractService,
@@ -41,12 +44,10 @@ export class VirementsMultiplesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.gotoContractToFindFunction();
-    if ((this.userDataService.getAllContracts()).length) {
-      console.log('=== AllContracts\' length ' + this.userDataService.getAllContracts().length);
-    } else {
-      console.log('=== AllContracts are empty ===');
-      this.userDataService.setAllContracts();
-    }
+
+    this.activatedRoute.parent.url
+      .takeWhile(() => this.alive)
+      .subscribe(resp =>  this.userRole = resp['0'].path);
 
     const profil = ((<any>this.userDataService.getUser).profil) ? (<any>this.userDataService.getUser).profil :
       localStorage.getItem('profil');

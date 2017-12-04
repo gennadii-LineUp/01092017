@@ -1,0 +1,58 @@
+@import "../../../../../../assets/sass/variables";
+
+.sebm-google-map-container {
+  height: 600px;
+
+  /* Styles for info messages (IMPORTANT) */
+  .map_content img {
+    height: 28px;
+    width: 28px;
+    border-radius: 50%;
+    margin-right: 7px;
+  }
+  .map_content {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    width: 175px;
+    padding: 10px;
+    text-decoration: none;
+    position: relative;
+  }
+  .map_content:before {
+    content: '';
+    display: block;
+    width: 17px;
+    height: 17px;
+    position: absolute;
+    left: -5px;
+    top: -3px;
+    background-image: url('../../../../../../assets/img/buble.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+  .map_content:after {
+    content: "\f105";
+    color: #0095fd;
+    font-family: FontAwesome;
+    position: absolute;
+    right: 0;
+    top: 10px;
+    font-size: 25px;
+  }
+  .map_content h3,
+  .map_content p {
+    color: #838383;
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 110px;
+  }
+  .map_content h3 {
+    color: #0095fd;
+  }
+}

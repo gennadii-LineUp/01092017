@@ -126,7 +126,9 @@ export class VirementsVersBanqueComponent implements OnInit, OnDestroy {
     this.clearAll();
     this.loading = true;
 
-    this.virementSicaService.virementsVersBanque(+this.beneficiary.id, this.amountToReceiver)
+    this.virementSicaService.virementsVersBanque(+this.userDataService.getMyAccounts()['0'].uoId,
+                                                  +this.beneficiary.id,
+                                                  this.amountToReceiver)
       .takeWhile( () => this.alive)
       .subscribe( (result) => {
         this.loading = false;

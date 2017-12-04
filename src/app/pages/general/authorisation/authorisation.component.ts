@@ -18,8 +18,8 @@ export class GeneralAuthorisationComponent implements OnInit, OnDestroy {
   loading = false;
   alive = true;
   loggedin = false;
-  // authorisation = new AuthorisationClass('wari', 'wari', 'APP');
-  authorisation = new AuthorisationClass('7722222222', 'passer', 'APP'); // CITIZEN
+  authorisation = new AuthorisationClass('wari', 'wari', 'APP');
+  // authorisation = new AuthorisationClass('7722222222', 'passer', 'APP'); // CITIZEN
   // authorisation = new AuthorisationClass('tresor', 'tresor', 'APP');        // CUSTOMER = CLIENT
 
   constructor(public loginService: LoginService,
@@ -55,11 +55,17 @@ export class GeneralAuthorisationComponent implements OnInit, OnDestroy {
             localStorage.setItem('nom', response.nom);
             localStorage.setItem('prenom', response.prenom);
             localStorage.setItem('profil', response.profil);
-            localStorage.setItem('telephone', response.telephone);
-            this.loginService.usersRouting(response.profil);
-            this.userDataService.setUser(response.nom, response.prenom, response.profil, response.telephone);
 
-            this.userDataService.setMyAccounts();
+            this.loginService.usersRouting(response.profil);
+
+            if (response.nom === 'wari') {
+              localStorage.setItem('telephone', '776666666');
+              this.userDataService.setUser(response.nom, response.prenom, response.profil, '776666666');
+            } else {
+              localStorage.setItem('telephone', response.telephone);
+              this.userDataService.setUser(response.nom, response.prenom, response.profil, response.telephone);
+              this.userDataService.setMyAccounts();
+            }
           } else {
             this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
           }

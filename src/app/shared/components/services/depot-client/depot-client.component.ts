@@ -7,6 +7,7 @@ import {V2WDepotClientTransactionService} from '../../../../services/api/V2WDepo
 import {EnvoyeurClass} from '../../../../models/envoyeur-class';
 import {ReceiverClass} from '../../../../models/receiver-class';
 import 'rxjs/add/operator/takeWhile';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-services-depot-client',
@@ -22,6 +23,7 @@ export class DepotClientComponent implements OnInit, OnDestroy {
   newReceiver = new ReceiverClass('', '', '', '', 0, '', '', '', '', '', '');
   receiverExist = false;
   createNewReceiver = true;
+  createNewReceiver_mobile_amount = true;
   receiverStatus = '';
   receiverToFind = '';
   successMessage_1 = '';
@@ -29,27 +31,30 @@ export class DepotClientComponent implements OnInit, OnDestroy {
 
   commission = [];
   envoyeur = new EnvoyeurClass('KANE', 'MOMAR', '773151459', 'DAKAR', 'CNI', 'SEN', '1619198107350', '01/01/2016', '01/01/2017');
+  envoyeur_default = new ReceiverClass('', '', '', '', 0, '', '', '', '', '', '');
   receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 1, 'citizen', '', '', '', '', ''),
               new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 2, 'citizen', '', '', '', '', ''),
               new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 3, 'citizen', '', '', '', '', '')];
   client_fromSelect2 = '';
+  userRole = '';
   alive = true;
 
-  @ViewChild('amount2') amount2: any;
+  @ViewChild('amount_mobile') amount_input_mobile: any;
 
 
   constructor(public userDataService: UserDataService,
               public commonServices: CommonServices,
               public errorMessageHandlerService: ErrorMessageHandlerService,
               public getCommissionsTTCService: GetCommissionsTTCService,
-              public v2WDepotClientTransactionService: V2WDepotClientTransactionService) { }
+              public v2WDepotClientTransactionService: V2WDepotClientTransactionService,
+              private activateRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.firstStepMode();
     // this.secondStepMode();
-
-    if (!this.userDataService.getClients().length) {this.userDataService.setClients(); }
-    setTimeout(() => this.userDataService.setReceiversForSelect2(this.userDataService.getClients()), 500);
+    this.activateRoute.parent.url
+      .takeWhile(() => this.alive)
+      .subscribe(resp =>  this.userRole = resp['0'].path);
   }
 
   ngOnDestroy() {
@@ -119,36 +124,39 @@ export class DepotClientComponent implements OnInit, OnDestroy {
   }
 
   public setBeneficiaryFunction(beneficiary: any) {
+    console.log(beneficiary);
     this.client_fromSelect2 = beneficiary.value;
     this.receiverToFind = this.client_fromSelect2;
     this.secondStepMode();
-    console.log(this.newReceiver);
   }
 
   public firstStepMode() {
     this.clearSearch();
     this.receiverExist = true;
-    this.client_fromSelect2 = ';'
+    this.client_fromSelect2 = ';';
     this.amount_depotClient = undefined;
     this.commonServices.unSelectAllReceiversFunction();
   }
   public secondStepMode() {
     this.clearSearch();
     const beneficiaire = this.userDataService.getReceiverFromSelect2(this.client_fromSelect2);
+    this.envoyeur_default = beneficiaire;
     this.receiverStatus = (beneficiaire.nom) ? (beneficiaire.nom) : '';
     this.receiverStatus += (beneficiaire.prenom) ? (' ' + beneficiaire.prenom) : '';
     // this.receiverStatus += (beneficiaire.nom || beneficiaire.prenom) ? (', ') : '';
     // this.receiverStatus += (beneficiaire.telephone) ? (beneficiaire.telephone) : '';
 
-    this.envoyeur.nom = (beneficiaire.nom) ? beneficiaire.nom : '';
-    this.envoyeur.prenom = (beneficiaire.prenom) ? beneficiaire.prenom : '';
-    this.envoyeur.cellulaire = (beneficiaire.numTel) ? beneficiaire.numTel : '';
-
     this.createNewReceiver = true;
-    // setTimeout(() => { this.amount2.nativeElement.focus(); this.amount2.nativeElement.focus(); }, 1000);
+    this.createNewReceiver_mobile_amount = true;
+    setTimeout(() => { this.amount_input_mobile.nativeElement.focus(); }, 10);
   }
 
   public clearEnvoyeur(field: string) {this.envoyeur[field] = undefined; }
+
+  private setEnvoyeurFromForm(envoyeur: EnvoyeurClass) {
+    this.envoyeur = envoyeur;
+    console.log(this.envoyeur);
+  }
 
   public clearSearch() {
     // this.amount_depotClient = undefined;
