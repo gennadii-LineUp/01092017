@@ -121,6 +121,7 @@
     padding-left: 13px;
   }
   .registration-page {
+    background-color: #f1f1f3;
     &:before {
       content: '';
       width: 100%;
@@ -145,10 +146,12 @@
       font-size: 24px;
     }
     .floating-block.pass {
-
+      .floating-input input:focus + .clean-input,
+      .floating-input input:not(:focus):valid + .clean-input {
+        display: none;
+      }
     }
   }
-
 }
 
 @media (max-width: 576px) {
