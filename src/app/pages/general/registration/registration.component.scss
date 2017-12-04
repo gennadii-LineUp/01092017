@@ -121,6 +121,7 @@
     padding-left: 13px;
   }
   .registration-page {
+    min-height: 100vh;
     background-color: #f1f1f3;
     &:before {
       content: '';

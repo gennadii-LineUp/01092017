@@ -49,6 +49,7 @@
     }
     .logo {
       width: 45px;
+      min-width: 45px;
       height: 45px;
       border-radius: 50%;
       background-repeat: no-repeat;
@@ -131,15 +132,38 @@
   }
 }
 
+@media (max-width: 800px) {
+  .consult-sold {
+    &__header {
+      font-size: 20px;
+      padding: 30px 20px 20px 20px;
+    }
+  }
+}
 
-@media (max-width: 575px) {
-  main {
-    section{
-      .container{
-        .row{
-          margin-right: 0;
-          margin-left: 0;
-        }
+@media (max-width: 576px) {
+  .consult-sold {
+    &__header {
+      font-size: 12px;
+      padding: 20px 10px 10px 10px;
+    }
+  }
+  .consult-sold-history {
+    margin-bottom: 0;
+    &__user {
+      padding: 8px 20px;
+      font-size: 1.2rem;
+      .logo {
+        width: 30px;
+        min-width: 30px;
+        height: 30px;
+        margin-right: 5px;
+      }
+    }
+    .balance {
+      b {
+        padding-right: 5px;
+        font-size: 1.6rem;
       }
     }
   }

@@ -54,13 +54,18 @@ $menu-icons: 'cards', 'coin', 'depot', 'geo', 'list', 'manage', 'transfer', 'use
 
 @media (max-width: 800px) {
   .services {
-    padding: 10px 0 ;
+    padding: 20px 0;
+    background-color: #efeff5;
+    min-height: 100vh;
     &__wrapper {
       padding: 0 15px;
     }
     &__item {
       flex-basis: 33.33%;
       min-width: 33.33%;
+      &:last-child {
+        border-right: 2px solid #efeff5;
+      }
     }
   }
 }

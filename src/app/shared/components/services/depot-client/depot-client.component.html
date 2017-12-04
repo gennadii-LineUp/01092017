@@ -219,20 +219,18 @@
                              [setUserPrenom]="envoyeur_default.prenom"
                              [setUserCellulaire]="envoyeur_default.numTel">
             </app-get-user-id>
-          </div>
-
-          <div *ngIf="createNewReceiver" class="row only-mobile">
-            <div class="col-md-12 col-lg-8 blue-button__wrapper">
-              <button class="orange-button blue-button" style="margin-top: 8px"
-                      [disabled]="!((+amount_depotClient >= 0.01)
+            <div *ngIf="createNewReceiver" class="row only-mobile">
+              <div class="col-md-12 col-lg-8 blue-button__wrapper">
+                <button class="orange-button blue-button" style="margin-top: 8px"
+                        [disabled]="!((+amount_depotClient >= 0.01)
                             && client_fromSelect2
                             && (envoyeur.id_fin && envoyeur.id_debut && envoyeur.nom && envoyeur.prenom && envoyeur.cellulaire
                             && envoyeur.addresse && envoyeur.id_type && envoyeur.id_pays && envoyeur.id_valeur))"
-                      (click)="submitDepotClient()">Send
-              </button>
+                        (click)="submitDepotClient()">Send
+                </button>
+              </div>
             </div>
           </div>
-
         </div>
 
       </div>
