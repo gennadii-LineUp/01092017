@@ -5,6 +5,7 @@ import {ErrorMessageHandlerService} from '../../../../services/error-message-han
 import {W2CRetraitTransactionService} from '../../../../services/api/W2CRetraitTransaction.service';
 import {EnvoyeurClass} from '../../../../models/envoyeur-class';
 import 'rxjs/add/operator/takeWhile';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-services-retrait-code',
@@ -33,7 +34,7 @@ export class RetraitCodeComponent implements OnInit, OnDestroy {
     montant: ''
   };
   // beneficiaire = new EnvoyeurClass('Ivan', 'Petrov', '773151459', 'DAKAR', 'CNI', 'SEN', '1619198107350', '01/01/2016', '01/01/2019');
-
+  userRole = '';
   alive = true;
 
   @Input() beneficiaire: any; // ('', '', '', '', '', '', '', '', '');
@@ -44,10 +45,14 @@ export class RetraitCodeComponent implements OnInit, OnDestroy {
   constructor(public w2CCheckOrdreRetraitService: W2CCheckOrdreRetraitService,
               public w2CRetraitTransactionService: W2CRetraitTransactionService,
               public commonServices: CommonServices,
-              public errorMessageHandlerService: ErrorMessageHandlerService) { }
+              public errorMessageHandlerService: ErrorMessageHandlerService,
+              private activateRoute: ActivatedRoute) { }
 
   ngOnInit() {
     setTimeout(() => { this.mainInput.nativeElement.focus(); }, 1);
+    this.activateRoute.parent.url
+      .takeWhile(() => this.alive)
+      .subscribe(resp =>  this.userRole = resp['0'].path);
   }
 
   ngOnDestroy() {

@@ -25,7 +25,7 @@ export class SelectCitizenComponent implements OnInit {
     this.beneficiary_defined.emit(beneficiary);
   }
 
-  private setReceivers() {
+  public setReceivers() {
     if (!this.userDataService.getReceiversForSelect2().length) {
       this.userDataService.setReceiversForSelect2(this.userDataService.getCitizens());
     }
