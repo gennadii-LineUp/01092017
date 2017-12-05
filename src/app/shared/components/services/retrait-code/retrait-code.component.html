@@ -11,7 +11,7 @@
 
 
         <div class="col-md-6 col-lg-4">
-          <div class="retrail-code__header"
+          <div class="retrail-code__header little-title"
                (click)="retraitCode_errorMessage = !retraitCode_errorMessage">Validate the retrait</div>
           <div class="retrail-code__content">
             <h3>Insert code</h3>
@@ -36,7 +36,7 @@
 
 
         <div *ngIf="retraitCode_valid && !successMessage_1" class="col-md-6 col-lg-4">
-          <div class="retrail-code__header">Information
+          <div class="retrail-code__header little-title">Information
             <span style="float: right; margin-right: 20px">beneficiaire</span>
           </div>
           <div *ngIf="!setAmountAndBeneficiareId"  class="retrail-code__content info">
