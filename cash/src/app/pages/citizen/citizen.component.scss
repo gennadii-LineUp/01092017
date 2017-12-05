@@ -1,0 +1,94 @@
+@import "../../../assets/sass/variables";
+
+
+.transfers-to-bank {
+  margin-bottom: 60px;
+  .col {
+    padding: 0;
+    background-color: #fff;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  &__header {
+    color: $content;
+    font-size: 1.4rem;
+    font-family: $sf;
+    padding: 15px 0 4px 20px;
+    border-bottom: 2px solid $coin;
+  }
+  h4 {
+    color: #3c3c3c;
+    font-size: 1.6rem;
+    font-family: $raleM;
+    margin-bottom: 2px;
+  }
+  form {
+    display: flex;
+    padding: 17px 20px 7px 20px;
+    > div {
+      display: inline-block;
+      width: calc(33.333333333% - 20px);
+      &:not(:last-child) {
+        margin-right: 30px;
+      }
+    }
+    .floating-block {
+      margin-bottom: 15px;
+      .floating-input input {
+        padding-left: 0;
+        font-family: $raleR;
+        font-size: 1.4rem;
+        height: 40px;
+        min-height: 40px;
+        line-height: 40px;
+      }
+    }
+  }
+  .blue-button {
+    display: block;
+    margin: 0 auto 20px;
+    min-width: 335px;
+    height: 55px;
+  }
+}
+
+.consult-user {
+  color: $mainText;
+  font-size: 1.6rem;
+  font-family: $raleSM;
+  .logo {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin-right: 15px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+  a {
+    font-size: 1.4rem;
+    color: #bababa;
+    font-family: $raleM;
+    &:hover,
+    &:focus {
+      color: #bababa;
+    }
+  }
+  i {
+    color: #f6a100;
+    font-size: 3rem;
+    transition: .2s all ease;
+  }
+}
+
+@media (max-width: 992px) {
+  .transfers-to-bank {
+    form {
+      > div {
+        display: inline-block;
+        width: 100%;
+        margin-right: 0;
+      }
+    }
+  }
+}

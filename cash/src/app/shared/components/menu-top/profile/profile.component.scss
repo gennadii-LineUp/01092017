@@ -1,0 +1,120 @@
+@import "../../../../../assets/sass/variables";
+
+.profile {
+  padding-bottom: 60px;
+  .col {
+    padding: 0;
+    margin: 0 auto;
+    max-width: 515px;
+    background-color: #fff;
+  }
+  &__info {
+    padding-bottom: 20px;
+    border-bottom: 2px solid $line;
+    .floating-desc {
+      color: #161616;
+      font-size: 1.4rem;
+      font-family: $raleM;
+      min-width: 80px;
+      line-height: 50px;
+      text-align: left;
+      height: 47px;
+    }
+    .floating-block {
+      margin-bottom: 0;
+      height: 47px;
+      .pass-forget {
+        right: 12px;
+        color: #0078ff;
+      }
+      &.border-hover .floating-input input {
+        padding-left: 0;
+        font-family: $raleR;
+        font-size: 1.4rem;
+        height: 47px;
+        min-height: 47px;
+      }
+    }
+  }
+  &__logo {
+    color: #161616;
+    font-size: 1.4rem;
+    text-align: center;
+    font-family: $raleM;
+    display: inline-block;
+    width: 160px;
+    margin-right: 32px;
+    vertical-align: super;
+    + div {
+      width: 305px;
+      display: inline-block;
+    }
+    span {
+      color: $blueBright;
+    }
+    .logo {
+      height: 128px;
+      width: 128px;
+      position: relative;
+      background-repeat: no-repeat;
+      background-position: center;
+      border-radius: 50%;
+      margin: 0 auto 15px;
+    }
+    &-add {
+      width: 27px;
+      height: 27px;
+      bottom: 0;
+      right: 0;
+      cursor: pointer;
+      position: absolute;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      background-image: url('../../../../../assets/img/icon-photo.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-color: $blueBright;
+    }
+  }
+  &__logout {
+    color: $red;
+    font-size: 1.4rem;
+    font-family: $raleSM;
+    text-align: center;
+    cursor: pointer;
+    height: 50px;
+    line-height: 50px;
+    border-top: 2px solid $line;
+  }
+  .accordionWrapper .accordionItem {
+    &.close-item {
+      max-height: 50px;
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  .profile {
+    .col {
+      max-width: 100%;
+    }
+    &__logo {
+      display: block;
+      margin: 0 auto;
+      + div {
+        width: 100%;
+      }
+    }
+    &__info {
+      .floating-block {
+        height: inherit;
+        align-items: center;
+      }
+      .floating-desc {
+        font-size: 18px;
+        min-width: 125px;
+      }
+    }
+  }
+
+}

@@ -1,0 +1,45 @@
+<header class="unaut-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-2">
+        <a href="javascript:void(0);" [routerLink]="['/']">
+          <img src="../../../../../assets/img/logo.png" alt="cashTransfer">
+        </a>
+      </div>
+
+      <div class="col-md-8 col-lg-6 ml-md-auto mr-md-auto nav-left" style="padding-left: 0">
+        <a href="javascript:void(0);" routerLinkActive="link-active" [routerLink]="['/' +userRole+ '/about-us']">About us </a>
+        <a href="javascript:void(0);" routerLinkActive="link-active" [routerLink]="['/' +userRole+ '/terms-conditions']">Terms & Conditions</a>
+        <a href="javascript:void(0);" routerLinkActive="link-active" [routerLink]="['/' +userRole+ '/faq']">FAQ</a>
+        <a href="javascript:void(0);" routerLinkActive="link-active" [routerLink]="['/' +userRole+ '/privacy-policy']">Privacy policy</a>
+        <a href="javascript:void(0);" routerLinkActive="link-active" [routerLink]="['/' +userRole+ '/cancellation-refund']">Cancellation & Refund</a>
+      </div>
+      <div class="col-md-2 ml-md-auto aut-header__user pull-right">
+        <span class="logo" style="background-image: url('../../../../../assets/img/logo.png')"></span>
+        <span [routerLink]="['/' +userRole+ '/profile']">{{user.nom || nom}} {{user.prenom || prenom}}, {{user.profil || profil}}</span> <!--Username-->
+      </div>
+    </div>
+    <div class="row toolbar">
+      <div class="col-md-10 col-lg-8 ml-md-auto mr-md-auto" style="width: 100%">
+        <a href="" class="sprite-icon-services" routerLinkActive="user-menu-active" [routerLink]="['/' +userRole+ '/services']">
+          <span class="sprite"></span><span>Services</span>
+        </a>
+        <a href="" class="sprite-icon-notif" routerLinkActive="user-menu-active" [routerLink]="['/' +userRole+ '/notifications']">
+          <span class="sprite"></span><span>Notifications</span>
+        </a>
+        <a href="" class="sprite-icon-operation" routerLinkActive="user-menu-active" [routerLink]="['/' +userRole+ '/operations']">
+          <span class="sprite"></span><span>Operations</span>
+        </a>
+        <a href="" class="sprite-icon-param" routerLinkActive="user-menu-active" [routerLink]="['/' +userRole+ '/parameters']">
+          <span class="sprite"></span><span>Parameters</span>
+        </a>
+        <a href="" class="sprite-icon-user" routerLinkActive="user-menu-active" [routerLink]="['/' +userRole+ '/settings']">
+          <span class="sprite"></span><span>Settings</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+
+</header>

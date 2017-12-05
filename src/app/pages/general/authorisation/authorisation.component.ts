@@ -23,15 +23,15 @@ export class GeneralAuthorisationComponent implements OnInit {
 
   ngOnInit() {
     this.loggedin = this.authGuard.canActivate();
-    console.log(sessionStorage.getItem('show-slider'));
-    console.log(!!sessionStorage.getItem('show-slider'));
-    this.show_slider = !(sessionStorage.getItem('show-slider') && sessionStorage.getItem('show-slider') === '1');
+    console.log(localStorage.getItem('show-slider'));
+    console.log(!!localStorage.getItem('show-slider'));
+    this.show_slider = !(localStorage.getItem('show-slider') && localStorage.getItem('show-slider') === '1');
     console.log(this.show_slider);
   }
 
   public setSliderVisibility(value: string) {
     this.show_slider = !value;
-    console.log(sessionStorage);
+    console.log(localStorage);
     console.log(this.show_slider);
   }
 

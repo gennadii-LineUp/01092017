@@ -1,0 +1,41 @@
+@import "../../../../../assets/sass/variables";
+
+.geo-agent {
+  .row {
+    justify-content: center;
+    > div {
+      padding: 0;
+    }
+  }
+  .map-img {
+    width: 100%;
+  }
+  .search__user {
+    position: relative;
+    background-color: #f7f7ff;
+    margin: 0;
+    padding: 0 0 0 10px;
+    &.active,
+    &:hover {
+      background-color: #fff;
+      .chat {
+        display: block;
+      }
+    }
+    .chat {
+      display: none;
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      font-size: 14px;
+      color: #00a1ff;
+      text-align: center;
+      cursor: pointer;
+      transform: translateY(-50%);
+      img {
+        display: block;
+        margin: 0 auto;
+      }
+    }
+  }
+}

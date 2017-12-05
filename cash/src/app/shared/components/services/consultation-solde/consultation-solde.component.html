@@ -1,0 +1,95 @@
+<main class="gray-bg-citizen coin-bg">
+  <section *ngIf="!showRequestResult"  class="consult-sold">
+    <h3 class="top-header">
+      <div *ngIf="!showRequestResult" class="back-button" [routerLink]="['/' +userRole+ '/services']">Back</div>
+      Consultation Solde
+    </h3>
+    <div class="container">
+
+      <div class="row">
+        <!--<div class="col-md-6 col-lg-4 ml-md-auto mr-md-auto consult-sold__wrapper">-->
+        <!--<div *ngIf="profileAsAgent" class="col-sm-12 col-md-6 col-lg-4 ml-md-auto mr-md-auto consult-sold__wrapper">-->
+          <!--<app-select-sender (senderDefined)="setSenderFunction($event)"></app-select-sender>-->
+        <!--</div>-->
+
+        <div  class="col-sm-12 col-md-6 col-lg-4 ml-md-auto mr-md-auto consult-sold__wrapper">
+          <div class="consult-sold__header">Choose account</div>
+          <div class="accordionWrapper">
+            <div *ngFor="let myAccount of userDataService.getMyAccounts()" class="accordionItem close-item"
+                 (click)="commonServices.accordionToggleItemFunction($event); $event.stopPropagation(); chooseAccount(myAccount)">
+                      <div class="consult-user accordionItemHeading">
+                        <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
+                        <div style="line-height: 25px">
+                          <div style="line-height: 19px">{{myAccount.nom}} {{myAccount.prenom}}</div>
+                          <!--<div *ngIf="myAccount.email!==''" >Email: <span class="mail">{{myAccount.email}}</span></div>-->
+                          <div  *ngIf="myAccount.email!==''" style="display: inline-block;line-height: 19px">Email: <span>{{myAccount.email}}.</span></div>
+                          <div style="display: inline-block;line-height: 19px">{{myAccount.type}}, <span></span></div>
+                          <div style="display: inline-block;line-height: 19px"> id {{myAccount.id_account}}.<span class="mail"></span></div>
+                        </div>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                      </div>
+                      <div class="accordionItemContent" (click)="$event.stopImmediatePropagation()">
+                        <div *ngIf="errorMessage" class="errorTextClass">{{errorMessage}}</div>
+                        <p *ngIf="!errorMessage" style="margin: 0; text-align: center"><img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>
+                        <button class="orange-button blue-button" type="submit" style="margin-top: 4px"
+                                (click)="submitSoldeFunction()">Send a request</button>
+                      </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section *ngIf="showRequestResult" class="consult-sold-history">
+    <h3 class="top-header">
+      <div *ngIf="showRequestResult" class="back-button" (click)="showRequestResult=false">Back</div>
+      Consultation Solde
+    </h3>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-6 ml-md-auto mr-md-auto wrapper">
+          <div class="little-title">Latest transactions</div>
+          <div *ngIf="transactions_history.length" class="consult-sold-history__user">
+            <div>
+              <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
+              <div>
+                <div>Lex Luthor</div>
+                <!--<div class="card-data"   style="color: red"><span style="color: red">****</span><span>****</span><span>****</span><span style="color: red">1212</span></div>-->
+              </div>
+            </div>
+            <div class="balance pull-right"><b>{{solde | number : '1.2-2'}}</b> USD</div>
+          </div>
+          <div *ngIf="successMessage" class="consult-sold-history__user">
+            <div class="succesTextClass">{{successMessage}}</div>
+          </div>
+          <div *ngIf="errorMessagHistory" class="errorTextClass">{{errorMessagHistory}}</div>
+          <p *ngIf="!errorMessagHistory" style="margin: 0; text-align: center"><img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>
+
+          <div *ngIf="transactions_history.length">
+            <div class="little-title history">History <span class="float-right">({{totalOperations}} operations)</span></div>
+            <div *ngFor="let tr of transactions_history" class="history-item">
+              <div>
+                <div *ngIf="tr.nom">Receiver: <span>{{tr.nom}}</span> <span>{{tr.prenom}}</span></div>
+                <div *ngIf="!tr.nom"><span> </span></div>
+                <!--<div class="card-data"><span></span><span> </span><span></span><span></span></div>-->
+                <div *ngIf="tr.sens==='CREDIT'" class="balance"><b style="color: #4ca0ff">{{tr.sens | debitCreditSign}}{{tr.montant | number : '1.2-2'}}</b> USD</div>
+                <div *ngIf="!(tr.sens==='CREDIT')" class="balance"><b style="color: #ed4f4f">{{tr.sens | debitCreditSign}}{{tr.montant | number : '1.2-2'}}</b> USD</div>
+              </div>
+
+              <div><span>{{tr.date | dateFromServerMoment}}</span><span>{{tr.date | timeFromServerMoment}}</span></div>
+            </div>
+          </div>
+
+          <div class="orange-angle left-angle left-angle-mobile" style="display: block; width: 100%; text-align: center" (click)="showRequestResult=false">
+            <i class="fa fa-angle-left fa-3x" aria-hidden="true"></i>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+

@@ -1,0 +1,151 @@
+<main class="gray-bg-citizen coin-bg">
+  <section class="transfers-to-bank">
+    <h3 class="top-header">
+      <div class="back-button" [routerLink]="['/' +userRole+ '/services']">Back</div>
+      Virements vers Banque
+    </h3>
+    <div class="container">
+
+      <div class="row">
+        <div class="col">
+          <div class="transfers-to-bank__header">
+            Saisie ordre de virement format SICA-UEMOA. Choisissez le bénéficiaire entre différents comptes.
+          </div>
+          <form>
+
+              <div>
+                <h4>Banque</h4>
+                <div class="floating-block border-hover">
+                  <div class="floating-input">
+                    <input type="text" name="Bank" id="Bank" readonly="true" [ngModel]="beneficiary.banque"/>
+                  </div>
+                </div>
+                <h4>Clé RIB</h4>
+                <div class="floating-block border-hover">
+                  <div class="floating-input">
+                    <input type="text" name="RIB" id="RIB" readonly="true" [ngModel]="beneficiary.rib"/>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h4>Compte</h4>
+                <div class="floating-block border-hover">
+                  <div class="floating-input">
+                    <input type="text" name="Account" id="Account" readonly="true" [ngModel]="beneficiary.compte"/>
+                  </div>
+                </div>
+
+                <h4>Nom Beneficiaire</h4>
+                <select name="selectCompte" [(ngModel)]="activeSelect"  (change)="showNextBeneficiary(activeSelect)" id="selectCompte">
+                  <option *ngFor="let benef of beneficiaries" [value]="benef.id">
+                    {{benef.nom}}
+                  </option>
+                </select>
+
+                <div *ngIf="errorMessage" class="errorTextClass">{{errorMessage}}</div>
+                <p *ngIf="!errorMessage" style="margin: 0; text-align: center; height: 18px"><img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>
+
+                <!--<h4>Nom Beneficiaire</h4>-->
+                <!--<div class="floating-block border-hover">-->
+                  <!--<div class="floating-input">-->
+                    <!--<input type="text" name="recipient" id="recipient" readonly="true" [ngModel]="nomClient"/>-->
+                  <!--</div>-->
+                <!--</div>-->
+              </div>
+
+            <div>
+              <h4>Guichet</h4>
+              <div class="floating-block border-hover">
+                <div class="floating-input">
+                  <input type="text" name="Counter" id="Counter" readonly="true" [ngModel]="beneficiary.guichet"/>
+                </div>
+              </div>
+              <h4>Montant du virement</h4>
+              <div class="floating-block border-hover">
+                <div class="floating-input">
+                  <input #amount id="amount" name="amount" placeholder="00.00" required type="text"
+                         [(ngModel)]="amountToReceiver" min="0.01"
+                         (keyup.enter)='submitVirementsVersBank()'
+                         onkeydown="return ( event.ctrlKey || event.altKey
+                                                                || (47<event.keyCode && event.keyCode<58 && event.shiftKey==false)
+                                                                || (95<event.keyCode && event.keyCode<106)
+                                                                || (event.keyCode===8) || (event.keyCode===9)
+                                                                || (event.keyCode>34 && event.keyCode<40)
+                                                                || (event.keyCode===46) || (event.keyCode===110))"/>
+                  <div class="clean-input" (click)="clearAmount()"></div>
+                </div>
+              </div>
+            </div>
+
+          </form>
+
+          <!--<form>-->
+            <!--<div>-->
+              <!--<h4>Référence de l’opération</h4>-->
+              <!--<div class="floating-block border-hover">-->
+                <!--<div class="floating-input">-->
+                  <!--<input type="text" name="operationReference" id="operationReference" placeholder="Type here" required>-->
+                  <!--<div class="clean-input" onclick="operationReference.value = ''"></div>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<h4>Compte</h4>-->
+              <!--<div class="floating-block border-hover">-->
+                <!--<div class="floating-input">-->
+                  <!--<input type="text" name="Account" id="Account" placeholder="Type here" required>-->
+                  <!--<div class="clean-input" onclick="Account.value = ''"></div>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<h4>Nom Beneficiaire</h4>-->
+              <!--<div class="floating-block border-hover">-->
+                <!--<div class="floating-input">-->
+                  <!--<input type="text" name="recipient" id="recipient" placeholder="Type here" required>-->
+                  <!--<div class="clean-input" onclick="recipient.value = ''"></div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div>-->
+              <!--<h4>Banque</h4>-->
+              <!--<div class="floating-block border-hover">-->
+                <!--<div class="floating-input">-->
+                  <!--<input type="text" name="Bank" id="Bank" placeholder="Type here" required>-->
+                  <!--<div class="clean-input" onclick="Bank.value = ''"></div>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<h4>Clé RIB</h4>-->
+              <!--<div class="floating-block border-hover">-->
+                <!--<div class="floating-input">-->
+                  <!--<input type="text" name="RIB" id="RIB" placeholder="Type here" required>-->
+                  <!--<div class="clean-input" onclick="RIB.value = ''"></div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div>-->
+              <!--<h4>Guichet</h4>-->
+              <!--<div class="floating-block border-hover">-->
+                <!--<div class="floating-input">-->
+                  <!--<input type="text" name="Counter" id="Counter" placeholder="Type here" required>-->
+                  <!--<div class="clean-input" onclick="Counter.value = ''"></div>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<h4>Montant du virement</h4>-->
+              <!--<div class="floating-block border-hover">-->
+                <!--<div class="floating-input">-->
+                  <!--<input type="text" name="Amount" id="Amount" placeholder="Type here" required>-->
+                  <!--<div class="clean-input" onclick="Amount.value = ''"></div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</form>-->
+
+          <button class="blue-button orange-button" type="submit"
+                  [disabled]="!(+amountToReceiver >= 0.01)"
+                  (click)="submitVirementsVersBank()">Valider l’ordre</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <app-success-message [message_firstLine]="successMessage_1" [message_secondLine]="successMessage_2"></app-success-message>
+
+</main>

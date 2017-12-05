@@ -1,0 +1,259 @@
+<main class="gray-bg-citizen coin-bg">
+    <section class="compte">
+      <h3 class="top-header">
+        <div *ngIf="transfer_accounts" class="back-button" [routerLink]="['/' +userRole+ '/services']">Back</div>
+        <div *ngIf="transfer_all" class="back-button" (click)="goToAllAccountsFunction()">Back</div>
+        <div *ngIf="transfer_facture" class="back-button" (click)="goToAllTransferFunction()">Back</div>
+        <div *ngIf="transfer_marchand" class="back-button" (click)="goToAllTransferFunction()">Back</div>
+        <div *ngIf="transfer_standart" class="back-button" (click)="goToAllTransferFunction()">Back</div>
+
+        Transfert Сompte à Compte {{header_option}}
+      </h3>
+      <div class="container">
+
+          <div *ngIf="!transfer_accounts" class="additional-info">
+              account {{myAccount.nom}}<span *ngIf="myAccount.prenom"> </span>{{myAccount.prenom}}<span *ngIf="myAccount.email">, </span>{{myAccount.email}}
+          </div>
+
+            <!--<div *ngIf="profileAsAgent" class="col-sm-12 col-md-6 col-lg-4 ml-auto mr-auto">-->
+              <!--<app-select-sender (senderDefined)="setSenderFunction($event)"></app-select-sender>-->
+            <!--</div>-->
+
+            <!-- Null page-->
+            <div *ngIf="transfer_accounts" class="col-sm-12 col-md-6 col-lg-4 ml-auto mr-auto">
+            <!--<div *ngIf="transfer_accounts" class="col-sm-8 col-md-6 col-lg-4 ml-auto mr-auto">-->
+              <div class="dargent__wrapper">
+                <div class="block__header" style="background-color: #fff">Choose your account</div>
+                <div *ngFor="let myAccount of userDataService.getMyAccounts()" class="consult-user"
+                     (click)="fillReceiverInfoFunction(myAccount, $event); $event.stopPropagation();
+                              goToAllTransferFunction()"
+                     id="{{myAccount.id_account}}" #{{myAccount.id_account}}>
+                  <div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>
+                  <div>
+                    <div>{{myAccount.nom}} {{myAccount.prenom}}</div>
+                    <div  *ngIf="myAccount.email!==''" style="display: inline-block">Email: <span>{{myAccount.email}}.</span></div>
+                    <div style="display: inline-block">{{myAccount.type}}, <span></span></div>
+                    <div style="display: inline-block"> id {{myAccount.id_account}}.<span></span></div>
+                  </div>
+                  <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+            <!-- END Null page-->
+
+            <!-- First page-->
+            <div *ngIf="transfer_all">
+              <!--<h3>Transfert Сompte à Compte</h3>-->
+              <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-4 ml-auto mr-auto">
+                  <div class="compte__wrapper compte__select" style="padding-bottom:0">
+                    <h2>Select paiement</h2>
+                    <button class="orange-button blue-button" (click)="goToStandartTransferFunction()">Standart</button>
+                    <button class="orange-button blue-button" (click)="goToMarchandTransferFunction()">Paiement Marchand</button>
+                    <button class="orange-button blue-button" (click)="goToFactureTransferFunction()" style="margin-bottom:0">Paiement Facture</button>
+                    <div class="orange-angle left-angle left-angle-mobile" style="display: block; width: 100%; text-align: center; margin-top:0"
+                         (click)="goToAllAccountsFunction()">
+                      <i class="fa fa-angle-left fa-3x" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- END First page-->
+
+            <!-- Second page-->
+            <div *ngIf="transfer_facture">
+              <!--<h3>Transfert Сompte à Compte (Paiement Facture)</h3>-->
+              <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-4 ml-auto mr-auto">
+                  <div class="compte__wrapper compte__facture">
+                    <div class="header">Insert paiement facture</div>
+                    <div class="content" style="padding-bottom: 0">
+                      <h4>Type paiement facture</h4>
+                      <ng-select2 name="select2_facture"
+                                  [(ngModel)]="numTel_fromSelect2"
+                                  [data]="userDataService.getReceiversForSelect2()"
+                                  [placeholder]="'Please select...'">
+                      </ng-select2>
+                      <!--<div class="floating-block border-hover">-->
+                        <!--<div class="floating-input">-->
+                          <!--<input placeholder="placeholder" required="" type="text">-->
+                        <!--</div>-->
+                      <!--</div>-->
+                      <div class="compte__amount">
+                        <h4>Amount</h4>
+                        <div class="floating-block border-hover">
+                          <div class="floating-input" style="margin-bottom: 0">
+                            <input id="amountFacture" name="amountFacture" placeholder="00.00" required type="text"
+                                   [(ngModel)]="amountToReceiver" min="0.01"
+                                   (keyup.enter)='submitTransferCompteFunction()'
+                                   onkeydown="return ( event.ctrlKey || event.altKey
+                                                                || (47<event.keyCode && event.keyCode<58 && event.shiftKey==false)
+                                                                || (95<event.keyCode && event.keyCode<106)
+                                                                || (event.keyCode===8) || (event.keyCode===9)
+                                                                || (event.keyCode>34 && event.keyCode<40)
+                                                                || (event.keyCode===46) || (event.keyCode===110))"/>
+                            <div class="clean-input" (click)="clearAmount()"></div>
+                          </div>
+                          <div class="currency">Usd</div>
+                        </div>
+                      </div>
+                      <div *ngIf="errorMessage" class="errorTextClass">{{errorMessage}}</div>
+                      <p *ngIf="!errorMessage" style="margin: 0; text-align: center; height: 16px"><img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>
+                      <button class="orange-button blue-button" type="submit" style="margin-top: 4px"
+                              [disabled]="!(numTel_fromSelect2 && (+amountToReceiver >= 0.01))"
+                              (click)="submitTransferCompteFunction()">Send</button>
+                      <div class="orange-angle left-angle left-angle-mobile" style="display: block; width: 100%; text-align: center; margin-top:0"
+                           (click)="goToAllTransferFunction()">
+                        <i class="fa fa-angle-left fa-3x" aria-hidden="true"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- END Second page-->
+
+            <!-- Third page-->
+            <div *ngIf="transfer_marchand">
+              <!--<h3>Transfert Сompte à Compte (Paiement Marchand)</h3>-->
+              <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-4 ml-auto mr-auto">
+                  <div class="compte__wrapper compte__marchand">
+                    <div class="header">Insert customer’s information</div>
+                    <div class="content" style="padding-bottom: 0">
+                      <h4>Select customer’s account</h4>
+                      <ng-select2 name="select2_marchand"
+                                  [(ngModel)]="numTel_fromSelect2"
+                                  [data]="userDataService.getReceiversForSelect2()"
+                                  [placeholder]="'Please select...'">
+                      </ng-select2>
+
+                      <!--<div class="floating-block border-hover">-->
+                        <!--&lt;!&ndash;Need to hide this item when input empty, when input have value show angle, onclick angle show right drop &ndash;&gt;-->
+                        <!--<div class="orange-angle" style="display: block;"><i class="fa fa-angle-right" aria-hidden="true"></i></div>-->
+                        <!--<div class="floating-input">-->
+                          <!--<input placeholder="placeholder" required="" type="text">-->
+                        <!--</div>-->
+                        <!--Right drop for show-->
+                        <!--<div *ngIf="!(+newReceiver.id_account > 0)" class="right-drop" style="display: block;">-->
+                          <!--<div *ngFor="let receiver of receivers" class="right-drop__item" (click)="setBeneficiaryFunction(receiver)">-->
+                            <!--<div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>-->
+                            <!--<div>-->
+                              <!--{{receiver.nom}} {{receiver.prenom}}-->
+                              <!--<span><i class="fa fa-phone" aria-hidden="true"></i>{{receiver.numTel}}</span>-->
+                            <!--</div>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                      <!--</div>-->
+
+                      <div class="compte__amount">
+                        <h4>Amount</h4>
+                        <div class="floating-block border-hover">
+                          <div class="floating-input" style="margin-bottom: 0">
+                            <input id="amountMarchand" name="amountMarchand" placeholder="00.00" required type="text"
+                                   [(ngModel)]="amountToReceiver" min="0.01"
+                                   (keyup.enter)='submitTransferCompteFunction()'
+                                   onkeydown="return ( event.ctrlKey || event.altKey
+                                                                || (47<event.keyCode && event.keyCode<58 && event.shiftKey==false)
+                                                                || (95<event.keyCode && event.keyCode<106)
+                                                                || (event.keyCode===8) || (event.keyCode===9)
+                                                                || (event.keyCode>34 && event.keyCode<40)
+                                                                || (event.keyCode===46) || (event.keyCode===110))"/>
+                            <div class="clean-input" (click)="clearAmount()"></div>
+                          </div>
+                          <div class="currency">Usd</div>
+                        </div>
+                      </div>
+                      <div *ngIf="errorMessage" class="errorTextClass">{{errorMessage}}</div>
+                      <p *ngIf="!errorMessage" style="margin: 0; text-align: center; height: 16px"><img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>
+                      <button class="orange-button blue-button" type="submit" style="margin-top: 4px"
+                              [disabled]="!(numTel_fromSelect2 && (+amountToReceiver >= 0.01))"
+                              (click)="submitTransferCompteFunction()">Send</button>
+                      <div class="orange-angle left-angle left-angle-mobile" style="display: block; width: 100%; text-align: center; margin-top:0"
+                           (click)="goToAllTransferFunction()">
+                        <i class="fa fa-angle-left fa-3x" aria-hidden="true"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- END Third page-->
+
+            <!-- Fourth page-->
+            <div *ngIf="transfer_standart">
+              <!--<h3>Transfert Сompte à Compte (Standart)</h3>-->
+              <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-4 ml-auto mr-auto">
+                  <div class="compte__wrapper compte__marchand">
+                    <div class="header">Insert customer’s information</div>
+                    <div class="content" style="padding-bottom: 0">
+                      <h4>Select customer’s account</h4>
+                      <ng-select2 name="select2_standart"
+                                  [(ngModel)]="numTel_fromSelect2"
+                                  [data]="userDataService.getReceiversForSelect2()"
+                                  [placeholder]="'Please select...'">
+                      </ng-select2>
+
+                      <!--<div class="floating-block border-hover">-->
+                        <!--&lt;!&ndash;Need to hide this item when input empty, when input have value show angle, onclick angle show right drop &ndash;&gt;-->
+                        <!--<div class="orange-angle" style="display: block;"><i class="fa fa-angle-right" aria-hidden="true"></i></div>-->
+                        <!--<div class="floating-input">-->
+                          <!--<input id="" name="" placeholder="placeholder ID" required="" type="text" [(ngModel)]="newReceiver.numTel">-->
+                        <!--</div>-->
+
+                        <!--&lt;!&ndash;Right drop for show&ndash;&gt;-->
+                        <!--<div *ngIf="!(+newReceiver.id_account > 0)" class="right-drop" style="display: block;">-->
+                          <!--<div *ngFor="let receiver of receivers" class="right-drop__item" (click)="setBeneficiaryFunction(receiver)">-->
+                            <!--<div class="logo" style="background-image: url('../../../../../assets/img/user.png')"></div>-->
+                            <!--<div>-->
+                              <!--{{receiver.nom}} {{receiver.prenom}}-->
+                              <!--<span><i class="fa fa-phone" aria-hidden="true"></i>{{receiver.numTel}}</span>-->
+                            <!--</div>-->
+                          <!--</div>-->
+
+                        <!--</div>-->
+                      <!--</div>-->
+
+                      <div class="compte__amount">
+                        <h4>Amount</h4>
+                        <div class="floating-block border-hover">
+                          <div class="floating-input" style="margin-bottom: 0">
+                            <input id="amountStandart" name="amountStandart" placeholder="00.00" required type="text"
+                                   [(ngModel)]="amountToReceiver" min="0.01"
+                                   (keyup.enter)='submitTransferCompteFunction()'
+                                   onkeydown="return ( event.ctrlKey || event.altKey
+                                                                || (47<event.keyCode && event.keyCode<58 && event.shiftKey==false)
+                                                                || (95<event.keyCode && event.keyCode<106)
+                                                                || (event.keyCode===8) || (event.keyCode===9)
+                                                                || (event.keyCode>34 && event.keyCode<40)
+                                                                || (event.keyCode===46) || (event.keyCode===110))"/>
+                            <div class="clean-input" (click)="clearAmount()"></div>
+                          </div>
+                          <div class="currency">Usd</div>
+                        </div>
+                      </div>
+                      <div *ngIf="errorMessage" class="errorTextClass">{{errorMessage}}</div>
+                      <p *ngIf="!errorMessage" style="margin: 0; text-align: center; height: 16px"><img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>
+                      <button class="orange-button blue-button" type="submit" style="margin-top: 4px"
+                              [disabled]="!(numTel_fromSelect2 && (+amountToReceiver >= 0.01))"
+                              (click)="submitTransferCompteFunction()">Send</button>
+                      <div class="orange-angle left-angle left-angle-mobile" style="display: block; width: 100%; text-align: center; margin-top:0"
+                           (click)="goToAllTransferFunction()">
+                        <i class="fa fa-angle-left fa-3x" aria-hidden="true"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- END Fourth page-->
+
+
+        </div>
+    </section>
+
+  <app-success-message [message_firstLine]="successMessage_1" [message_secondLine]="successMessage_2"></app-success-message>
+
+</main>

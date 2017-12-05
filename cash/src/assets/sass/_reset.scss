@@ -1,0 +1,51 @@
+/*---Global Reset---*/
+
+html,
+body,
+div,
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+b,
+u,
+i,
+ol,
+ul,
+li,
+footer,
+header,
+menu,
+nav {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+article,
+footer,
+header,
+menu,
+nav,
+section {
+  display: block;
+}
+
+ol,
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Remove outline on the forms and links */
+:active, :hover, :focus {
+  outline: 0;
+  outline-offset: 0;
+}

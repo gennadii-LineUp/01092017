@@ -1,0 +1,79 @@
+@import "../../../../../assets/sass/variables";
+
+.paiements {
+  .col-sm-8 {
+    padding: 0;
+  }
+  &__header {
+    font-size: 14px;
+    border-bottom: 1px solid $line;
+    font-family: $sf;
+    padding: 17px 0 5px 21px;
+    display: flex;
+    justify-content: space-between;
+    span {
+      color: #bababa;
+      font-weight: 300;
+      font-family: $sfL;
+      padding-left: 15px;
+    }
+  }
+  &__item {
+    margin: 0 10px;
+    font-size: 1.4rem;
+    font-family: $raleM;
+    padding: 18px 15px 18px 25px;
+    border-bottom: 1px solid $line;
+    position: relative;
+    &:before {
+      content: "\f105";
+      font-family: FontAwesome;
+      font-style: normal;
+      font-weight: normal;
+      text-decoration: inherit;
+      /*--adjust as necessary--*/
+      color: #00a9f2;
+      position: absolute;
+      left: 7px;
+      top: 15%;
+      font-size: 2.7rem;
+    }
+    > div {
+      display: flex;
+      justify-content: space-between;
+    }
+    .profit {
+      color: #00a9f2;
+      font-size: 1.8rem;
+      font-family: $sf;
+    }
+    .lesion {
+      color: #ff0000;
+      font-size: 1.8rem;
+      font-family: $sf;
+    }
+    .curr {
+      color: #b9b9b9;
+      padding-left: 10px;
+      font-family: $raleM;
+      font-size: 1.4rem;
+    }
+  }
+  &__wrapper {
+    background-color: #fff;
+  }
+}
+
+
+@media (max-width: 575px) {
+  main {
+    section{
+      .container{
+        .row{
+          margin-right: 0;
+          margin-left: 0;
+        }
+      }
+    }
+  }
+}

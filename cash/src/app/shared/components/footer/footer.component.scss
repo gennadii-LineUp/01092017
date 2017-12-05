@@ -1,0 +1,50 @@
+@import "../../../../assets/sass/_variables.scss";
+
+
+footer {
+  border-top: 1px solid $line;
+  .container,
+  .row {
+    height: 100%;
+  }
+}
+.footer {
+  color: $footer;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: $raleR;
+  &__social {
+    a {
+      padding-left:10px;
+    }
+    .fb {
+      .fa-circle {
+        color: $fb;
+        transition: .3s all ease;
+      }
+      &:hover .fa-circle {
+        transition: .3s all ease;
+        color: darken($fb, 5%);
+      }
+    }
+    .tw {
+      .fa-circle {
+        color: $tw;
+        transition: .3s all ease;
+      }
+      &:hover .fa-circle {
+        transition: .3s all ease;
+        color: darken($tw, 5%);
+      }
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  // Need to change footer
+  footer {
+    display: none;
+  }
+}
