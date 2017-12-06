@@ -37,7 +37,6 @@ import {CustNotificationsPageComponent} from '../pages/customer/menu-user/cust-n
 import {CustOperationsPageComponent} from '../pages/customer/menu-user/cust-operations-page/cust-operations-page.component';
 import {CustParametersPageComponent} from '../pages/customer/menu-user/cust-parameters-page/cust-parameters-page.component';
 import {CustSettingsPageComponent} from '../pages/customer/menu-user/cust-settings-page/cust-settings-page.component';
-import {GeneralRegistrationComponent} from '../pages/general/registration/registration.component';
 import {CServicesTransferDargentPageComponent} from '../pages/citizen/menu-user/c-services-page/items/c-services-transfer-dargent-page.component';
 import {CServicesTransferComptePageComponent} from '../pages/citizen/menu-user/c-services-page/items/c-services-transfer-compte-page.component';
 import {CServicesConsultationSoldePageComponent} from '../pages/citizen/menu-user/c-services-page/items/c-services-consultation-solde-page.component';
@@ -77,6 +76,7 @@ import {CustomerGuard} from '../guards/customer-guard.service';
 import {AMobileShareComponent} from '../pages/agent/menu-user/mobile/a-share/a-share.component';
 import {CMobileShareComponent} from '../pages/citizen/menu-user/mobile/c-share/c-share.component';
 import {CustMobileShareComponent} from '../pages/customer/menu-user/mobile/cust-share/cust-share.component';
+import {GeneralRegistrationComponent} from '../pages/general/registration/registration.component';
 
 
 const routes: Routes = [
