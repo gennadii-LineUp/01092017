@@ -21,7 +21,7 @@ export class SliderComponent implements OnInit {
   }
 
   public setSliderVisibility() {
-    sessionStorage.setItem('show-slider', '1');
+    localStorage.setItem('show-slider', '1');
     this.showSlider.emit('1');
    // this.contract_defined.emit(contract);
   }
