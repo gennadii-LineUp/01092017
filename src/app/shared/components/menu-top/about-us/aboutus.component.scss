@@ -51,7 +51,7 @@
 
 @media (max-width: 800px) {
   .about-us {
-    padding: 0;
+    padding: 0 20px;
     background-color: #fff;
     &__content.col {
       font-size: 27px;
@@ -61,7 +61,7 @@
         padding: 0;
       }
       h3 {
-        padding: 50px 0;
+        padding: 50px 0 0;
         font-size: 30px;
         text-align: left;
       }
@@ -82,10 +82,11 @@
 
 @media (max-width: 576px) {
   .about-us {
+    padding: 0 15px;
     &__content.col {
       font-size: 13.5px;
       h3 {
-        padding: 25px 0;
+        padding: 25px 0 0;
         font-size: 15px;
       }
       p {

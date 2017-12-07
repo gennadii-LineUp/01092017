@@ -77,7 +77,9 @@
                 </div>
               </div>
             </div>
-
+            <button class="blue-button orange-button" type="submit"
+                    [disabled]="!(+amountToReceiver >= 0.01)"
+                    (click)="submitVirementsVersBank()">Valider l’ordre</button>
           </form>
 
           <!--<form>-->
@@ -137,10 +139,6 @@
               <!--</div>-->
             <!--</div>-->
           <!--</form>-->
-
-          <button class="blue-button orange-button" type="submit"
-                  [disabled]="!(+amountToReceiver >= 0.01)"
-                  (click)="submitVirementsVersBank()">Valider l’ordre</button>
         </div>
       </div>
     </div>

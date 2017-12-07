@@ -139,6 +139,11 @@
       padding: 30px 20px 20px 20px;
     }
   }
+  .accordionItem {
+    i {
+      display: block;
+    }
+  }
 }
 
 @media (max-width: 576px) {

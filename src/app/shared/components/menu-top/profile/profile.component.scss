@@ -103,6 +103,7 @@
       margin: 0 auto;
       + div {
         width: 100%;
+        padding: 0 20px;
       }
     }
     &__info {
@@ -113,6 +114,18 @@
       .floating-desc {
         font-size: 18px;
         min-width: 125px;
+      }
+    }
+  }
+
+}
+
+@media (max-width: 576px) {
+  .profile {
+    &__info {
+      .floating-desc {
+        font-size: 14px;
+        min-width: 100px;
       }
     }
   }

@@ -134,7 +134,7 @@
       background-size: 100%;
     }
     form {
-      padding: 0;
+      padding: 0 20px;
     }
     .pass-caption {
       font-size: 1.9rem;
@@ -163,8 +163,12 @@
     padding-left: 5px;
   }
   .registration-page {
+    padding: 0 10px;
     &:before {
       height: 175px;
+    }
+    form {
+      padding: 0 10px;
     }
      .pass-caption {
       font-size: 9.5px;

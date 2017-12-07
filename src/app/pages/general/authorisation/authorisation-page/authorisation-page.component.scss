@@ -13,6 +13,11 @@
 
 @media (max-width: 800px) {
   .authorisation-page {
+    min-height: 100vh;
+    background-color: #f1f1f3;
+    form {
+      padding: 0 20px;
+    }
     &:before {
       content: '';
       width: 100%;
@@ -32,6 +37,9 @@
 
 @media (max-width: 576px) {
   .authorisation-page {
+    form {
+      padding: 0 10px;
+    }
     &:before {
       height: 250px;
     }
