@@ -90,3 +90,19 @@
     }
   }
 }
+
+@media (max-width: 800px) {
+  .compte {
+    &__select {
+      font-size: 26px;
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  .compte {
+    &__select {
+      font-size: 18px;
+    }
+  }
+}

@@ -156,6 +156,14 @@
 }
 
 
+@media (max-width: 800px) {
+  .accordionItem {
+    i {
+      display: block;
+    }
+  }
+}
+
 @media (max-width: 575px) {
   main {
     section{

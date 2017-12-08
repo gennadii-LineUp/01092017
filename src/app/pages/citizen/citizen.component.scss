@@ -92,3 +92,11 @@
     }
   }
 }
+
+@media (max-width: 992px) {
+  .transfers-to-bank {
+    .blue-button {
+      min-width: 100%;
+    }
+  }
+}

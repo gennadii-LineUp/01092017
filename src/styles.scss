@@ -1201,8 +1201,11 @@ ng-select2 span.select2.select2-container.select2-container--default{
     left: 0;
     top: 0;
     z-index: 100;
-    padding: 26px 0 !important;
+    padding: 26px 130px  !important;
     text-align: center !important;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     .back-button {
       position: absolute;
       left: 16px;
@@ -1254,9 +1257,14 @@ ng-select2 span.select2.select2-container.select2-container--default{
   .block__header {
     font-size: 20px !important;
     padding: 30px 20px 20px 20px !important;
+    position: relative;
   }
   .blue-angle {
     font-size: 20px;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
     &:before {
       top: -1px;
       right: 10px;
@@ -1345,12 +1353,28 @@ ng-select2 span.select2.select2-container.select2-container--default{
       margin-bottom: 77px !important;
     }
   }
-
+  .consult-user {
+    height: 80px;
+    font-size: 18px;
+  }
+  .accordionWrapper {
+    .accordionItemHeading {
+      font-size: 18px;
+      .toggleHeading {
+        font-size: 16px;
+      }
+    }
+    .accordionItemContent.change-password {
+      .floating-block {
+        align-items: flex-end;
+      }
+    }
+  }
 }
 
 @media (max-width: 576px) {
   main {
-    padding: 45px 0 46px;
+    padding: 43px 0 46px;
   }
   .gray-bg-citizen {
     h3 {
@@ -1360,7 +1384,7 @@ ng-select2 span.select2.select2-container.select2-container--default{
   }
   .top-header {
     font-size: 15px !important;
-    padding: 13px 0 !important;
+    padding: 13px 70px!important;
     .back-button {
       padding-left: 20px;
       &:before {
@@ -1458,6 +1482,24 @@ ng-select2 span.select2.select2-container.select2-container--default{
       a {
         padding-left: 3px;
       }
+    }
+  }
+  .consult-user {
+    height: 65px;
+    font-size: 15px;
+  }
+  .transfers-to-bank .blue-button {
+    min-width: 100%;
+  }
+  .accordionWrapper {
+    .accordionItemHeading {
+      font-size: 14px;
+      .toggleHeading {
+        font-size: 13px;
+      }
+    }
+    .accordionItemContent.change-password {
+      display: block;
     }
   }
 }

@@ -81,7 +81,7 @@ import {GeneralRegistrationComponent} from '../pages/general/registration/regist
 
 const routes: Routes = [
   // { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '', component: LoginStartPageComponent },
+  { path: '', component: (screen.width > 800) ? LoginStartPageComponent : GeneralAuthorisationComponent},
   { path: 'about-us', component: GeneralAboutUsPageComponent},
   { path: 'terms-conditions', component: GeneralTermsPageComponent },
   { path: 'faq', component: GeneralFaqPageComponent },
