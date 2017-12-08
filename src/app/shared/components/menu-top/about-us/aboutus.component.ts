@@ -12,6 +12,6 @@ export class AboutUsComponent implements OnInit {
   constructor(public authGuard: AuthGuard) { }
 
   ngOnInit() {
-      // this.loggedin = this.authGuard.canActivate();
+      this.loggedin = this.authGuard.canActivate();
   }
 }
