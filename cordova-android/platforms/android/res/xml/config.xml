@@ -19,17 +19,18 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-    <allow-intent href="market:*" />
-    <icon density="ldpi" src="res/screen/android/splash.png" />
-    <icon density="mdpi" src="res/screen/android/splash.png" />
-    <icon density="hdpi" src="res/screen/android/splash.png" />
-    <icon density="xhdpi" src="res/screen/android/splash.png" />
     <splash density="port-hdpi" src="res/screen/android/splash.png" />
     <splash density="port-ldpi" src="res/screen/android/splash.png" />
     <splash density="port-mdpi" src="res/screen/android/splash.png" />
     <splash density="port-xhdpi" src="res/screen/android/splash.png" />
     <splash density="port-xxhdpi" src="res/screen/android/splash.png" />
     <splash density="port-xxxhdpi" src="res/screen/android/splash.png" />
+    <allow-intent href="market:*" />
+    <icon density="ldpi" src="res/screen/android/splash.png" />
+    <icon density="mdpi" src="res/screen/android/splash.png" />
+    <icon density="hdpi" src="res/screen/android/splash.png" />
+    <icon density="xhdpi" src="res/screen/android/splash.png" />
     <preference name="loglevel" value="DEBUG" />
     <preference name="Orientation" value="portrait" />
+    <preference name="SplashScreen" value="screen" />
 </widget>
