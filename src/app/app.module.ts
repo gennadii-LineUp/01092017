@@ -20,6 +20,7 @@ import {GetAllCitizenService} from './services/api/getAllCitizen.service';
 import {GetAllCustomerService} from './services/api/getAllCustomer.service';
 import {GetAllContractsService} from './services/api/getAllContracts.service';
 import { NgSelect2Module } from 'ng-select2';
+import {AutorizationGuardService} from './guards/autorization-guard.service';
 
 
 @NgModule({
@@ -36,7 +37,7 @@ import { NgSelect2Module } from 'ng-select2';
     NgSelect2Module
   ],
   providers: [
-    AuthGuard, AgentGuard, CitizenGuard, CustomerGuard,
+    AuthGuard, AgentGuard, CitizenGuard, CustomerGuard, AutorizationGuardService,
     ErrorMessageHandlerService, BackendService, CommonServices, UserDataService, GetAllListAccountService,
     GetAllCustomerService, GetAllCitizenService, GetAllContractsService
   ],

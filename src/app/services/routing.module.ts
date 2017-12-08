@@ -77,6 +77,7 @@ import {AMobileShareComponent} from '../pages/agent/menu-user/mobile/a-share/a-s
 import {CMobileShareComponent} from '../pages/citizen/menu-user/mobile/c-share/c-share.component';
 import {CustMobileShareComponent} from '../pages/customer/menu-user/mobile/cust-share/cust-share.component';
 import {GeneralRegistrationComponent} from '../pages/general/registration/registration.component';
+import {AutorizationGuardService} from '../guards/autorization-guard.service';
 
 
 const routes: Routes = [
@@ -88,7 +89,7 @@ const routes: Routes = [
   { path: 'privacy-policy', component: GeneralPrivacyPageComponent },
   { path: 'cancellation', component: GeneralCancellationPageComponent },
   { path: 'refund-policy', component: GeneralRefundPageComponent },
-  { path: 'authorisation', component: GeneralAuthorisationComponent },
+  { path: 'authorisation', component: GeneralAuthorisationComponent,   canActivate: [AutorizationGuardService] },
   { path: 'create-account', component: GeneralRegistrationComponent },
   { path: 'agent', component: AgentComponent,   canActivate: [AuthGuard, AgentGuard],
     children: [
