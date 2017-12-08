@@ -33,7 +33,7 @@ export class GeneralRegistrationComponent implements OnInit {
               public authGuard: AuthGuard) { }
 
   ngOnInit() {
-    this.loggedin = this.authGuard.canActivate();
+    // this.loggedin = this.authGuard.canActivate();
   }
 
   public registrationSubmitFunction() {

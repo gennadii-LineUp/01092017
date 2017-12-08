@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthGuard} from "../../../../guards/auth-guard.service";
+import {AuthGuard} from '../../../../guards/auth-guard.service';
 
 @Component({
   selector: 'app-aboutus',
@@ -12,6 +12,6 @@ export class AboutUsComponent implements OnInit {
   constructor(public authGuard: AuthGuard) { }
 
   ngOnInit() {
-      this.loggedin = this.authGuard.canActivate();
+      // this.loggedin = this.authGuard.canActivate();
   }
 }
