@@ -4,6 +4,7 @@
 /dist
 /tmp
 /out-tsc
+/cordova-android/www
 
 # dependencies
 /node_modules

@@ -8,10 +8,10 @@ export class CustomerGuard implements CanActivate {
 
   canActivate() {
 
-    if (localStorage.profil === 'CLIENT') {
+    if (localStorage.profil === 'client') {
       return true;
     }
-    this.router.navigate(['/authorisation']);
+    // this.router.navigate(['/authorisation']);
     localStorage.clear();
     return false;
   }

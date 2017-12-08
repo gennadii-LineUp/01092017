@@ -8,10 +8,10 @@ export class AgentGuard implements CanActivate {
 
   canActivate() {
 
-    if (localStorage.profil === 'AGENT') {
+    if (localStorage.profil === 'agent') {
       return true;
     }
-    this.router.navigate(['/authorisation']);
+    // this.router.navigate(['/authorisation']);
     localStorage.clear();
     return false;
   }

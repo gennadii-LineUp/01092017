@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthGuard} from "../../../../guards/auth-guard.service";
+import {AuthGuard} from '../../../../guards/auth-guard.service';
 
 @Component({
   selector: 'app-aboutus',

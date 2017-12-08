@@ -241,17 +241,17 @@ export class UserDataService {
 
 
     switch (profil) {
-      case 'CITIZEN': {
+      case 'citizen': {
         if (!this.citizens.length) {
           this.setCitizens();
         } break;
       }
-      case 'CLIENT': {
+      case 'client': {
         if (!this.clients.length) {
           this.setClients();
         } break;
       }
-      case 'AGENT': {
+      case 'agent': {
         // if (!this.citizensClients.length) {
         //   if (!this.clients.length) { this.setClients(); }
         //   if (!this.citizens.length) { this.setCitizens(); }
@@ -293,10 +293,10 @@ export class UserDataService {
       if (localStorage.profil) {
         if (active_profil !== localStorage.profil) {this.logOut(); }
       }
-      if (active_profil === 'AGENT') {return true; }
+      if (active_profil === 'agent') {return true; }
       return false;
     } else { // after page refreshed
-      if (localStorage.profil && (localStorage.profil === 'AGENT')) {return true; }
+      if (localStorage.profil && (localStorage.profil === 'agent')) {return true; }
       return false;
     }
   }

@@ -1,9 +1,0 @@
-<main>
-    <section class="settings-mobile">
-        <h2 class="top-header">Settings</h2>
-        <div *ngFor="let item of menuItems" class="consult-user" [routerLink]="['/' +userRole+ item.routing]">
-            <div>{{item.caption}}</div>
-            <i class="fa fa-angle-right" aria-hidden="true"></i>
-        </div>
-    </section>
-</main>

@@ -47,16 +47,16 @@ export class AuthorisationPageComponent implements OnInit, OnDestroy {
           localStorage.setItem('token', response.token);
           localStorage.setItem('nom', response.nom);
           localStorage.setItem('prenom', response.prenom);
-          localStorage.setItem('profil', response.profil);
+          localStorage.setItem('profil', response.profil.toLowerCase());
 
-          this.loginService.usersRouting(response.profil);
+          this.loginService.usersRouting((response.profil).toLowerCase());
 
           if (response.nom === 'wari') {
             localStorage.setItem('telephone', '776666666');
-            this.userDataService.setUser(response.nom, response.prenom, response.profil, '776666666');
+            this.userDataService.setUser(response.nom, response.prenom, response.profil.toLowerCase(), '776666666');
           } else {
             localStorage.setItem('telephone', response.telephone);
-            this.userDataService.setUser(response.nom, response.prenom, response.profil, response.telephone);
+            this.userDataService.setUser(response.nom, response.prenom, response.profil.toLowerCase(), response.telephone);
             this.userDataService.setMyAccounts();
           }
         } else {

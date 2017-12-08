@@ -52,13 +52,13 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
     console.log(profil);
 
     switch (profil) {
-      case 'CITIZEN': {
+      case 'citizen': {
         if (!this.userDataService.getCitizens().length) {this.userDataService.setCitizens(); }
         setTimeout(() => this.userDataService.setReceiversForSelect2(this.userDataService.getCitizens()), 500);
         break;
       }
-      case 'CLIENT':
-      case 'AGENT': {
+      case 'client':
+      case 'agent': {
         if (!this.userDataService.getClients().length) {this.userDataService.setClients(); }
         if (!this.userDataService.getCitizens().length) {this.userDataService.setCitizens(); }
         setTimeout(() => {

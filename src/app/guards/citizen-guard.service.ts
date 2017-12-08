@@ -8,10 +8,10 @@ export class CitizenGuard implements CanActivate {
 
   canActivate() {
 
-    if (localStorage.profil === 'CITIZEN') {
+    if (localStorage.profil === 'citizen') {
       return true;
     }
-    this.router.navigate(['/authorisation']);
+    // this.router.navigate(['/authorisation']);
     localStorage.clear();
     return false;
   }
