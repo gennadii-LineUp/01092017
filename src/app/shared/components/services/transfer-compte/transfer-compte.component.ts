@@ -105,15 +105,15 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
   }
   public goToStandartTransferFunction() {
     switch (this.profil) {
-      case 'CITIZEN': {
+      case 'citizen': {
         this.userDataService.setReceiversForSelect2(this.userDataService.getClients());
         // SKYPE 20.11.2017:
         // 2. citizen send only to citizen for "transfert d'argent". if they want to send something to customers they will use W2W
         // 3-customer can send money to customer + citizen
         break;
       }
-      case 'CLIENT':
-      case 'AGENT': {
+      case 'client':
+      case 'agent': {
         this.userDataService.setCitizensClients((this.userDataService.getClients()).concat(this.userDataService.getCitizens()));
         this.userDataService.setReceiversForSelect2(this.userDataService.getCitizensClients());
         break;
