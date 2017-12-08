@@ -164,14 +164,11 @@
   }
 }
 
-@media (max-width: 575px) {
-  main {
-    section{
-      .container{
-        .row{
-          margin-right: 0;
-          margin-left: 0;
-        }
+@media (max-width: 576px) {
+  .consult-sold-history {
+    .balance {
+      b {
+        font-size: 16px;
       }
     }
   }

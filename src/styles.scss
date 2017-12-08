@@ -1195,7 +1195,7 @@ ng-select2 span.select2.select2-container.select2-container--default{
     color: #fff !important;
     font-size: 31px !important;
     font-family: $raleM;
-    background: $blue;
+    background: $blue !important;
     position: fixed;
     width: 100%;
     left: 0;
@@ -1206,6 +1206,7 @@ ng-select2 span.select2.select2-container.select2-container--default{
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    display: block !important;
     .back-button {
       position: absolute;
       left: 16px;
@@ -1262,9 +1263,9 @@ ng-select2 span.select2.select2-container.select2-container--default{
   .blue-angle {
     font-size: 20px;
     position: absolute;
-    top: 50%;
+    top: 50% !important;
     right: 0;
-    transform: translateY(-50%);
+    transform: translateY(-50%) !important;
     &:before {
       top: -1px;
       right: 10px;
@@ -1272,9 +1273,9 @@ ng-select2 span.select2.select2-container.select2-container--default{
     }
   }
   .orange-button {
-    font-size: 2.7rem !important;
-    height: 103px !important;
-    line-height: 103px !important;
+    font-size: 2.4rem !important;
+    height: 80px !important;
+    line-height: 80px !important;
     border-radius: 3px !important;
   }
   .checkbox-wrapper {
@@ -1337,6 +1338,12 @@ ng-select2 span.select2.select2-container.select2-container--default{
       font-size: 16px !important;
     }
   }
+  .compte_finder {
+    h4 {
+      padding: 10px 0 20px;
+      font-size: 20px;
+    }
+  }
   .authorisation-page {
     &__caption {
       padding: 30px 0;
@@ -1369,6 +1376,9 @@ ng-select2 span.select2.select2-container.select2-container--default{
         align-items: flex-end;
       }
     }
+  }
+  .accordionWrapper .accordionItemHeading > div:not(.logo) > div {
+    font-size: 18px;
   }
 }
 
@@ -1484,6 +1494,12 @@ ng-select2 span.select2.select2-container.select2-container--default{
       }
     }
   }
+  .compte_finder {
+    h4 {
+      padding: 7.5px 0 15px;
+      font-size: 16px;
+    }
+  }
   .consult-user {
     height: 65px;
     font-size: 15px;
@@ -1496,6 +1512,9 @@ ng-select2 span.select2.select2-container.select2-container--default{
       font-size: 14px;
       .toggleHeading {
         font-size: 13px;
+      }
+      > div:not(.logo) > div {
+        font-size: 14px;
       }
     }
     .accordionItemContent.change-password {

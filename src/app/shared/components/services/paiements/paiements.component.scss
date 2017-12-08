@@ -64,16 +64,18 @@
   }
 }
 
+@media (max-width: 800px) {
+  .paiements {
+    &__item {
+      font-size: 18px;
+    }
+  }
+}
 
-@media (max-width: 575px) {
-  main {
-    section{
-      .container{
-        .row{
-          margin-right: 0;
-          margin-left: 0;
-        }
-      }
+@media (max-width: 576px) {
+  .paiements {
+    &__item {
+      font-size: 14px;
     }
   }
 }

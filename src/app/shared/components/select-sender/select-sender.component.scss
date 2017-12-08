@@ -60,3 +60,12 @@
     }
   }
 }
+
+
+@media (max-width: 800px) {
+  .virements-multiples {
+    &__header {
+      text-align: left;
+    }
+  }
+}

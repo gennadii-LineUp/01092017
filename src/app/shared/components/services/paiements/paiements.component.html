@@ -21,12 +21,12 @@
       <div *ngIf="!contract_to_select" class="row">
         <div class="col-sm-12 col-md-6 ml-auto  mr-auto">
           <div class="paiements__wrapper">
-            <div class="paiements__header">
+            <div class="paiements__header top-header">
               <div>Contract <span>{{contract_current.reference}}</span></div>
               <div class="blue-angle" (click)="chooseAnotherContractFunction()">Choose</div>
             </div>
-            <div *ngIf="!operations" class="paiements__header">
-              No operations available <br><br>
+            <div *ngIf="!operations" class="paiements__header top-header">
+              No operations available
             </div>
             <div *ngFor="let operation of operations" class="paiements__item">
               <div>

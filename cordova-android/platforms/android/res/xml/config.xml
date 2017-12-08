@@ -4,7 +4,7 @@
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
-    <name>HelloCordova</name>
+    <name>CashTransfer</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>
@@ -20,5 +20,16 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <allow-intent href="market:*" />
+    <icon density="ldpi" src="res/screen/android/splash.png" />
+    <icon density="mdpi" src="res/screen/android/splash.png" />
+    <icon density="hdpi" src="res/screen/android/splash.png" />
+    <icon density="xhdpi" src="res/screen/android/splash.png" />
+    <splash density="port-hdpi" src="res/screen/android/splash.png" />
+    <splash density="port-ldpi" src="res/screen/android/splash.png" />
+    <splash density="port-mdpi" src="res/screen/android/splash.png" />
+    <splash density="port-xhdpi" src="res/screen/android/splash.png" />
+    <splash density="port-xxhdpi" src="res/screen/android/splash.png" />
+    <splash density="port-xxxhdpi" src="res/screen/android/splash.png" />
     <preference name="loglevel" value="DEBUG" />
+    <preference name="Orientation" value="portrait" />
 </widget>

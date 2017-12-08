@@ -21,7 +21,7 @@
         <div class="row">
           <div class="col-sm-12 col-md-8 ml-auto mr-auto">
             <div class="virements-multiples__item">
-              <div class="virements-multiples__header">
+              <div class="virements-multiples__header block__header">
                 Contract <span>{{contract_number}}</span>
                 <div class="blue-angle" (click)="gotoContractToFindFunction()">Change</div>
               </div>
@@ -42,7 +42,7 @@
                     <div class="circle-check"></div>
                   </div>
 
-                  <div *ngIf="!contractsCustomer" class="virements-multiples__header">
+                  <div *ngIf="!contractsCustomer" class="virements-multiples__header block__header">
                     No customers for this contract
                   </div>
 
