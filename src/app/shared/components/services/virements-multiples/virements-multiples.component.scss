@@ -138,5 +138,19 @@
     &__header {
       text-align: left;
     }
+    &__amount {
+      padding: 18px !important;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .virements-multiples {
+    &__header {
+      padding-right: 100px !important;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 }

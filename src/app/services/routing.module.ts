@@ -79,7 +79,6 @@ import {CustMobileShareComponent} from '../pages/customer/menu-user/mobile/cust-
 import {GeneralRegistrationComponent} from '../pages/general/registration/registration.component';
 import {AutorizationGuardService} from '../guards/autorization-guard.service';
 
-
 const routes: Routes = [
   // { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '', component: (screen.width < 800) ? GeneralAuthorisationComponent : LoginStartPageComponent},
