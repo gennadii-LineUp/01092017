@@ -49,7 +49,7 @@ export class LoginService {
         case 'agent': this.router.navigate(['/agent/services']);
           break;
 
-        case 'client': this.router.navigate(['/customer/services']);
+        case 'client': this.router.navigate(['/client/services']);
           break;
 
         default:

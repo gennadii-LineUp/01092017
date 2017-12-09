@@ -16,9 +16,11 @@ export class GeneralAboutUsPageComponent implements OnInit {
 
 
   ngOnInit() {
-    this.userRole = ((<any>this.userDataService.getUser).profil) ?
-                                            (<any>this.userDataService.getUser).profil.toLowerCase() :
-                                            (localStorage.getItem('profil')).toLowerCase();
+    if (this.userDataService.getUser().profil || localStorage.getItem('profil')) {
+      this.userRole = ((<any>this.userDataService.getUser).profil) ?
+        (<any>this.userDataService.getUser).profil.toLowerCase() :
+        (localStorage.getItem('profil')).toLowerCase();
+    }
   }
 
 }

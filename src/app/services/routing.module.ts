@@ -89,7 +89,7 @@ const routes: Routes = [
   { path: 'cancellation', component: GeneralCancellationPageComponent },
   { path: 'refund-policy', component: GeneralRefundPageComponent },
   { path: 'authorisation', component: GeneralAuthorisationComponent,   canActivate: [AutorizationGuardService] },
-  { path: 'create-account', component: GeneralRegistrationComponent },
+  { path: 'create-account', component: GeneralRegistrationComponent,   canActivate: [AutorizationGuardService] },
   { path: 'agent', component: AgentComponent,   canActivate: [AuthGuard, AgentGuard],
     children: [
       { path: 'about-us', component: AgentAboutUsPageComponent },
@@ -142,7 +142,7 @@ const routes: Routes = [
         { path: 'share', component: CMobileShareComponent },
     ]
   },
-  { path: 'customer', component: CustomerComponent,   canActivate: [AuthGuard, CustomerGuard],
+  { path: 'client', component: CustomerComponent,   canActivate: [AuthGuard, CustomerGuard],
     children: [
       { path: 'about-us', component: CustomerAboutUsPageComponent },
       { path: 'terms-conditions', component: CustomerTermsPageComponent },

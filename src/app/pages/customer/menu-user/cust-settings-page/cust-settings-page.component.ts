@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cust-settings-page.component.scss']
 })
 export class CustSettingsPageComponent implements OnInit {
-  userRole = 'customer';
+  userRole = 'client';
 
   constructor() { }
 
