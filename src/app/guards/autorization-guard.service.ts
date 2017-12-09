@@ -13,7 +13,11 @@ export class AutorizationGuardService implements CanActivate {
     }
 
     // this.router.navigate(['/authorisation']);
-    // localStorage.clear();
+    // localStorage.removeItem('token');
+    // localStorage.removeItem('nom');
+    // localStorage.removeItem('prenom');
+    // localStorage.removeItem('profil');
+    // localStorage.removeItem('telephone');
     return true;
   }
 }

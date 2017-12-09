@@ -53,6 +53,13 @@ export class AuthorisationPageComponent implements OnInit, OnDestroy {
 
           if (response.nom === 'wari') {
             localStorage.setItem('telephone', '776666666');
+
+            localStorage.removeItem('token');
+            localStorage.removeItem('nom');
+            localStorage.removeItem('prenom');
+            localStorage.removeItem('profil');
+            localStorage.removeItem('telephone');
+
             this.userDataService.setUser(response.nom, response.prenom, response.profil.toLowerCase(), '776666666');
           } else {
             localStorage.setItem('telephone', response.telephone);

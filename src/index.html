@@ -25,5 +25,12 @@
 </head>
 <body>
   <app-root></app-root>
+  <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+  <script>
+    document.addEventListener("deviceready", function(){
+      navigator.splashscreen.hide();
+    },true);
+  </script>
+
 </body>
 </html>

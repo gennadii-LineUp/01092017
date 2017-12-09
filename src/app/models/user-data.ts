@@ -310,7 +310,11 @@ export class UserDataService {
 
   public logOut() {
     this.router.navigate(['/authorisation']);
-    localStorage.clear();
+    localStorage.removeItem('token');
+    localStorage.removeItem('nom');
+    localStorage.removeItem('prenom');
+    localStorage.removeItem('profil');
+    localStorage.removeItem('telephone');
     this.user = new ReceiverClass('', '', '', '', 0, '', '', '', '', '', '');
   }
 }

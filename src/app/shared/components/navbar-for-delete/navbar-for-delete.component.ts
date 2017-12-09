@@ -13,7 +13,11 @@ export class NavbarForDeleteComponent implements OnInit {
   }
 
   public clearLS() {
-    localStorage.clear();
+    localStorage.removeItem('token');
+    localStorage.removeItem('nom');
+    localStorage.removeItem('prenom');
+    localStorage.removeItem('profil');
+    localStorage.removeItem('telephone');
     console.log(localStorage);
   }
 

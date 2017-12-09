@@ -11,7 +11,11 @@ export class AuthGuard implements CanActivate {
     if (localStorage.length && localStorage.getItem('token') ) {
       return true;
     }
-    localStorage.clear();
+    localStorage.removeItem('token');
+    localStorage.removeItem('nom');
+    localStorage.removeItem('prenom');
+    localStorage.removeItem('profil');
+    localStorage.removeItem('telephone');
     return false;
   }
 }
