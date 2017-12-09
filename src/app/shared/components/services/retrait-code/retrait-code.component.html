@@ -72,7 +72,7 @@
                 </div>
               </div>
 
-              <app-get-user-id (userData)="onChanged($event)" [setUserNom]="'OOO'"></app-get-user-id>
+              <app-get-user-id (userData)="onChanged($event)" ></app-get-user-id>
 
               <div class="info-item">
                 <div *ngIf="errorMessage_retrieve" class="errorTextClass">{{errorMessage_retrieve}}</div>

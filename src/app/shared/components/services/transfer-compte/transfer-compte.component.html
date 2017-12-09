@@ -67,7 +67,10 @@
               <div class="row">
                 <div class="col-sm-12 col-md-6 col-lg-4 ml-auto mr-auto">
                   <div class="compte__wrapper compte__facture">
-                    <div class="header">Insert paiement facture</div>
+                    <div class="header">
+                      <div *ngIf="transfer_facture" class="back-button only-mobile" (click)="goToAllTransferFunction()">Back</div>
+                      Insert paiement facture
+                    </div>
                     <div class="content" style="padding-bottom: 0">
                       <h4>Type paiement facture</h4>
                       <ng-select2 name="select2_facture"
@@ -120,7 +123,10 @@
               <div class="row">
                 <div class="col-sm-12 col-md-6 col-lg-4 ml-auto mr-auto">
                   <div class="compte__wrapper compte__marchand">
-                    <div class="header top-header">Insert customer’s information</div>
+                    <div class="header top-header">
+                      <div *ngIf="transfer_marchand" class="back-button only-mobile" (click)="goToAllTransferFunction()">Back</div>
+                      Insert customer’s information
+                    </div>
                     <div class="content" style="padding-bottom: 0">
                       <h4>Select customer’s account</h4>
                       <ng-select2 name="select2_marchand"
@@ -187,7 +193,9 @@
               <div class="row">
                 <div class="col-sm-12 col-md-6 col-lg-4 ml-auto mr-auto">
                   <div class="compte__wrapper compte__marchand">
-                    <div class="header top-header">Insert customer’s information</div>
+                    <div class="header top-header">
+                      <div *ngIf="transfer_standart" class="back-button only-mobile" (click)="goToAllTransferFunction()">Back</div>
+                      Insert customer’s information</div>
                     <div class="content" style="padding-bottom: 0">
                       <h4>Select customer’s account</h4>
                       <ng-select2 name="select2_standart"
