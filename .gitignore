@@ -5,6 +5,7 @@
 /tmp
 /out-tsc
 /cordova-android/www
+/cordova-android/platforms
 
 # dependencies
 /node_modules
