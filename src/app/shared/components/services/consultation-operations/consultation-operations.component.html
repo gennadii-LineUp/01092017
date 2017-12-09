@@ -14,7 +14,9 @@
 
 
                 <div  *ngIf="!showTransactions" class="col-sm-12 col-md-6 col-lg-4 consult-oper__wrapper">
-                    <div class="consult-oper__header top-header">Choose account</div>
+                    <div class="consult-oper__header top-header">
+                      <div  *ngIf="!showTransactions" class="back-button" [routerLink]="['/' +userRole+ '/services']">Back</div>
+                      Choose account</div>
                     <div class="accordionWrapper">
                         <div *ngFor="let myAccount of userDataService.getMyAccounts()" class="accordionItem close-item"
                              (click)="chooseAccount(myAccount); commonServices.accordionToggleItemFunction($event); $event.stopPropagation()">
