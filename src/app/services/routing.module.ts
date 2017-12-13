@@ -81,7 +81,7 @@ import {AutorizationGuardService} from '../guards/autorization-guard.service';
 
 const routes: Routes = [
   // { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '', component: (screen.width < 800) ? GeneralAuthorisationComponent : LoginStartPageComponent},
+  { path: '', component: (window.innerWidth < 800) ? GeneralAuthorisationComponent : LoginStartPageComponent},
   { path: 'about-us', component: GeneralAboutUsPageComponent},
   { path: 'terms-conditions', component: GeneralTermsPageComponent },
   { path: 'faq', component: GeneralFaqPageComponent },

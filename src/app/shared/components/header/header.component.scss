@@ -11,15 +11,23 @@ header {
   font-family: $raleR;
   background-color: #fff;
   img {
-    width: 100%;
+    max-width: 100%;
+    max-height: 45px;
   }
   .col-md-2 {
     display: flex;
     align-items: center;
-    padding: 27px 0;
+    justify-content: center;
+    padding: 10px 0;
+    a {
+      color: #555;
+      &:hover {
+        color: #555;
+      }
+    }
   }
   .nav-left {
-    padding-left: 10%;
+    padding-left: 5%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -124,56 +132,25 @@ header {
     .sprite {
       background-position: -10px -10px;
     }
-    &.user-menu-active,
-    &:hover {
-      .sprite {
-        opacity: 1;
-        background-position: -90px -10px;
-      }
-    }
   }
   .sprite-icon-user {
     .sprite {
       background-position: -650px -10px;
-    }
-    &.user-menu-active,
-    &:hover {
-      .sprite {
-        background-position: -730px -10px;
-      }
     }
   }
   .sprite-icon-services {
     .sprite {
       background-position: -490px -10px;
     }
-    &.user-menu-active,
-    &:hover {
-      .sprite {
-        background-position: -570px -10px;
-      }
-    }
   }
   .sprite-icon-param {
     .sprite {
       background-position: -330px -10px;
     }
-    &.user-menu-active,
-    &:hover {
-      .sprite {
-        background-position: -410px -10px;
-      }
-    }
   }
   .sprite-icon-operation{
     .sprite {
       background-position: -170px -10px;
-    }
-    &.user-menu-active,
-    &:hover {
-      .sprite {
-        background-position: -250px -10px;
-      }
     }
   }
 }
@@ -185,6 +162,52 @@ header {
 .toolbar a.user-menu-active {
   color: $orange;
   transition: .2s all ease;
+}
+
+@media (min-width: 800px) {
+  .toolbar {
+    .sprite-icon-notif {
+      &.user-menu-active,
+      &:hover {
+        .sprite {
+          opacity: 1;
+          background-position: -90px -10px;
+        }
+      }
+    }
+    .sprite-icon-user {
+      &.user-menu-active,
+      &:hover {
+        .sprite {
+          background-position: -730px -10px;
+        }
+      }
+    }
+    .sprite-icon-services {
+      &.user-menu-active,
+      &:hover {
+        .sprite {
+          background-position: -570px -10px;
+        }
+      }
+    }
+    .sprite-icon-param {
+      &.user-menu-active,
+      &:hover {
+        .sprite {
+          background-position: -410px -10px;
+        }
+      }
+    }
+    .sprite-icon-operation {
+      &.user-menu-active,
+      &:hover {
+        .sprite {
+          background-position: -250px -10px;
+        }
+      }
+    }
+  }
 }
 
 @media (max-width: 1200px) {
@@ -228,10 +251,17 @@ header {
     left: 0;
     z-index: 100;
     margin: 0;
-    background-color: #f7f7f7;
+    background-color: $orange;
     border-top: 1px solid #b1b1b1;
     .sprite {
       transform: scale(.8);
+      background-image: url('../../../../assets/img/toolbar-mobile.png');
+    }
+    a {
+      color: #fff;
+      &:hover {
+        color: #fff;
+      }
     }
   }
 }
