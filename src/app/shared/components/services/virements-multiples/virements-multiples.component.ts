@@ -63,6 +63,7 @@ export class VirementsMultiplesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.alive = false;
+    this.commonServices.removeEmptySelect2OnDestroy();
   }
 
 

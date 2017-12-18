@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {CommonServices} from '../../../../../services/common.service';
 
 @Component({
   selector: 'app-services-items-citiz',
@@ -7,8 +8,10 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class ServicesCitizComponent implements OnInit {
 
-  constructor() { }
+  constructor(public commonServices: CommonServices) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.commonServices.removeEmptySelect2fromServices();
+  }
 
 }

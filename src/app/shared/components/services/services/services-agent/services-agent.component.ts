@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {CommonServices} from '../../../../../services/common.service';
 
 @Component({
   selector: 'app-services-items-agent',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ServicesAgentComponent implements OnInit {
 
-  constructor() { }
+  constructor(public commonServices: CommonServices) { }
 
   ngOnInit() {
+    this.commonServices.removeEmptySelect2fromServices();
   }
 
 }

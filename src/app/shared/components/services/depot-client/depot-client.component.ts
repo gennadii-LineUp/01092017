@@ -8,6 +8,7 @@ import {EnvoyeurClass} from '../../../../models/envoyeur-class';
 import {ReceiverClass} from '../../../../models/receiver-class';
 import 'rxjs/add/operator/takeWhile';
 import {ActivatedRoute} from '@angular/router';
+declare var $: any;
 
 @Component({
   selector: 'app-services-depot-client',
@@ -55,10 +56,16 @@ export class DepotClientComponent implements OnInit, OnDestroy {
     this.activateRoute.parent.url
       .takeWhile(() => this.alive)
       .subscribe(resp =>  this.userRole = resp['0'].path);
+    // const select2 = <HTMLCollection>window.document.getElementsByClassName('select2-container select2-container--default');
+    // if (select2 && select2['0'] && select2['0'].style) {
+    //   select2['0'].style.cssText = 'select2-container select2-container--default select2-container--close';
+    // }
+
   }
 
   ngOnDestroy() {
     this.alive = false;
+    this.commonServices.removeEmptySelect2OnDestroy();
   }
 
 

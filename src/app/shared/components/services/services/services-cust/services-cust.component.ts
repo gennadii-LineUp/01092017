@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {CommonServices} from '../../../../../services/common.service';
 
 @Component({
   selector: 'app-services-items-cust',
@@ -9,8 +10,10 @@ export class ServicesCustComponent implements OnInit {
 
   @Input() userRole: string;
 
-  constructor() { }
+  constructor(public commonServices: CommonServices) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.commonServices.removeEmptySelect2fromServices();
+  }
 
 }

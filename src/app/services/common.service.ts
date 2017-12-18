@@ -305,5 +305,29 @@ export class CommonServices {
     return moment(stringDate).local().format('HH:mm:ss');
   }
 
+  public removeEmptySelect2OnDestroy() {
+    const select2 = <HTMLCollection>window.document.getElementsByClassName('select2-container');
+    console.log(select2.length);
+    if (select2) {
+      for (let i = 0; i < select2.length; i++) {
+        if (select2[i] && select2[i].classList.contains('select2-container--open')) {
+          select2[i].classList.remove('select2-container--open');
+          console.log('removed');
+        }
+      }
+    }
+  }
+  public removeEmptySelect2fromServices() {
+    const select2 = <HTMLCollection>window.document.getElementsByClassName('select2-container');
+    console.log('SERVICES: count select2 --> ' + select2.length);
+    if (select2 && select2.length > 0) {
+      for (let i = 0; i < select2.length; i++) {
+        window.document.body.removeChild(select2[i]);
+      }
+    }
+    const _select2 = <HTMLCollection>window.document.getElementsByClassName('select2-container');
+    console.log('SERVICES: after rmv - count select2 --> ' + _select2.length);
+  }
+
 
 }
