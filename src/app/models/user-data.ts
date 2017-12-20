@@ -327,5 +327,6 @@ export class UserDataService {
     this.receiversForSelect2 = Array<Select2optionClass>(0);
     this.contractsForSelect2 = Array<Select2optionClass>(0);
     this.allContracts = [];
+    this.myAccounts = [];
   }
 }

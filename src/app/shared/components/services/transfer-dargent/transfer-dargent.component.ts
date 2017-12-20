@@ -16,7 +16,7 @@ import {ActivatedRoute} from '@angular/router';
 export class TransferDargentComponent implements OnInit, OnDestroy {
   loading = false;
   profileAsAgent = this.userDataService.checkUserRole();
-  sender = [this.userDataService.getSender_default()];
+  sender = [];
   myAccount: any;
   newReceiver = new ReceiverClass('', '', '', '', 0, '', '', '', '', '', '');
   amountToReceiver: number;

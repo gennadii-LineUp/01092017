@@ -23,7 +23,7 @@ export class ConsultationSoldeComponent implements OnInit, OnDestroy {
   transactions_history = [];
   myAccount: any;
   profileAsAgent = this.userDataService.checkUserRole();
-  sender = [this.userDataService.getSender_default()];
+  sender = [];
 
   showRequestResult = false;
   userRole = '';

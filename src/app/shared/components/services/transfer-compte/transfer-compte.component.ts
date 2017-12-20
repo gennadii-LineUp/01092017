@@ -40,7 +40,7 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
   commission = [];
   receivers = this.userDataService.getReceivers();
   profileAsAgent = this.userDataService.checkUserRole();
-  sender = [this.userDataService.getSender_default()];
+  sender = [];
   numTel_fromSelect2 = '';
   factures = [];
   marchands = [];
