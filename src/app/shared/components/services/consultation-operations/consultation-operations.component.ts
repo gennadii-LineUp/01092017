@@ -19,12 +19,12 @@ export class ConsultationOperationsComponent implements OnInit, OnDestroy {
   errorMessage = '';
   solde: number;
   transactions_all = [];
-  transactions_current = []
+  transactions_current = [];
   totalOperations = 0;
   showTransactions = false;
   currentAccount = this.userDataService.myAccounts[0];
   profileAsAgent = this.userDataService.checkUserRole();
-  sender = [this.userDataService.getSender_default()];
+  sender = [];
   userRole = '';
   alive = true;
 

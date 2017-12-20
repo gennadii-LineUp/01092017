@@ -14,13 +14,14 @@ import {Select2optionClass} from './select2option-class';
 export class UserDataService {
   errorMessage = '';
   user = new ReceiverClass('', '', '', '', 0, '', '', '', '', '', '');
-  sender_default = [new ReceiverClass('skype', 'gena_ukr79', '', '', 0, '', '', '', '', '', '')];
+  // sender_default = [new ReceiverClass('skype', 'gena_ukr79', '', '', 0, '', '', '', '', '', '')];
   citizens = [];
   clients = [];
   citizensClients = [];
-  receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 1, 'citizen', '', '', '', '', ''),
-                new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 2, 'citizen', '', '', '', '', ''),
-                new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 3, 'citizen', '', '', '', '', '')];
+  receivers = [];
+  // receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 1, 'citizen', '', '', '', '', ''),
+  //               new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 2, 'citizen', '', '', '', '', ''),
+  //               new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 3, 'citizen', '', '', '', '', '')];
   receiversForSelect2 = Array<Select2optionClass>(0);
   contractsForSelect2 = Array<Select2optionClass>(0);
   allContracts = [];
@@ -39,7 +40,7 @@ export class UserDataService {
   ];
 
   // Observable string sources
-  private caseNumber = new Subject<any>();
+  // private caseNumber = new Subject<any>();
   // Observable string streams
   // caseNumber$ = this.caseNumber.asObservable();
 
@@ -56,9 +57,9 @@ export class UserDataService {
     //   myAccount.telephone = (this.getUser().telephone) ?  this.getUser().telephone : localStorage.telephone;
     // });
     if (localStorage.telephone && localStorage.token) {
-        if (localStorage.nom === 'wari') {
-          localStorage.setItem('telephone', '776666666');
-        }
+        // if (localStorage.nom === 'wari') {
+        //   localStorage.setItem('telephone', '776666666');
+        // }
         this.getAllListAccountService.getMyAccounts(localStorage.telephone)
           .subscribe(result1 => {
             const response1 = this.commonServices.xmlResponseParcer_complex(result1._body);
@@ -123,9 +124,9 @@ export class UserDataService {
     return this.allContracts;
   }
 
-  public publishData(data: Object) {
-    this.caseNumber.next(data);
-  }
+  // public publishData(data: Object) {
+  //   this.caseNumber.next(data);
+  // }
 
   public setUser(nom: string, prenom: string, profil: string, telephone: string) {
     // this.user['nom'] = nom;
@@ -137,7 +138,7 @@ export class UserDataService {
     this.user.profil = profil;
     this.user.telephone = telephone;
     // console.log(this.user);
-    this.publishData(this.user);
+    // this.publishData(this.user);
     // this.setMyAccounts();
   }
   public setUserId(id_account: string, uoId: string) {
@@ -282,9 +283,9 @@ export class UserDataService {
     return this.citizensClients;
   }
 
-  public getSender_default(): any {
-    return this.sender_default;
-  }
+  // public getSender_default(): any {
+  //   return this.sender_default;
+  // }
 
 
   public checkUserRole(): boolean {
@@ -315,6 +316,16 @@ export class UserDataService {
     localStorage.removeItem('prenom');
     localStorage.removeItem('profil');
     localStorage.removeItem('telephone');
+    this.clearAll();
+  }
+
+  public clearAll() {
     this.user = new ReceiverClass('', '', '', '', 0, '', '', '', '', '', '');
+    this.citizens = [];
+    this.clients = [];
+    this.citizensClients = [];
+    this.receiversForSelect2 = Array<Select2optionClass>(0);
+    this.contractsForSelect2 = Array<Select2optionClass>(0);
+    this.allContracts = [];
   }
 }

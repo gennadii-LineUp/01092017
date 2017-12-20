@@ -51,14 +51,14 @@ export class AuthorisationPageComponent implements OnInit, OnDestroy {
 
           this.loginService.usersRouting((response.profil).toLowerCase());
 
-          if (response.nom === 'wari') {
-            localStorage.setItem('telephone', '776666666');
-            this.userDataService.setUser(response.nom, response.prenom, response.profil.toLowerCase(), '776666666');
-          } else {
+          // if (response.nom === 'wari') {
+          //   localStorage.setItem('telephone', '776666666');
+          //   this.userDataService.setUser(response.nom, response.prenom, response.profil.toLowerCase(), '776666666');
+          // } else {
             localStorage.setItem('telephone', response.telephone);
             this.userDataService.setUser(response.nom, response.prenom, response.profil.toLowerCase(), response.telephone);
             this.userDataService.setMyAccounts();
-          }
+          // }
         } else {
           this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
         }

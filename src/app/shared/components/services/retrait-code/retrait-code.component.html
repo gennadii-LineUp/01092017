@@ -41,7 +41,8 @@
           </div>
           <div *ngIf="!setAmountAndBeneficiareId"  class="retrail-code__content info">
               <div class="info-item">
-                <b>Nom</b>{{serverResponse.beneficiaire.nom}} {{serverResponse.beneficiaire.prenom}}
+                <b>Nom</b><span *ngIf="serverResponse.beneficiaire.nom">{{serverResponse.beneficiaire.nom}}</span>
+                <span *ngIf="serverResponse.beneficiaire.prenom">{{serverResponse.beneficiaire.prenom}}</span>
                 <div class="code" >{{retraitCode}}</div>
               </div>
               <div class="info-item"><b>Montant</b>{{serverResponse.montant}}</div>

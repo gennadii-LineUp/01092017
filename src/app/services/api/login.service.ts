@@ -58,6 +58,7 @@ export class LoginService {
   }
 
   public logout(): void {
+    this.userDataService.clearAll();
     localStorage.removeItem('token');
     localStorage.removeItem('nom');
     localStorage.removeItem('prenom');
