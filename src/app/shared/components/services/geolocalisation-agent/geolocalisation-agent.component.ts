@@ -1,5 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {MarkerClass} from '../../../../models/marker-class';
 
 @Component({
   selector: 'app-services-geolocalisation-agent',
@@ -9,7 +10,7 @@ import {ActivatedRoute} from '@angular/router';
 export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
   userRole = '';
   alive = true;
-
+  agentsMarkers: Array<MarkerClass>;
 
   constructor(public activatedRoute: ActivatedRoute) { }
 
@@ -21,6 +22,11 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.alive = false;
+  }
+
+  public setAgentsMarkersFunction(markers: Array<MarkerClass>) {
+    this.agentsMarkers = markers;
+    console.log(this.agentsMarkers);
   }
 
 }

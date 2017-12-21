@@ -2,14 +2,14 @@
     <sebm-google-map-marker *ngFor="let m of markers"
       [latitude]="m.latitude"
       [longitude]="m.longitude"
-      [title]="m.title">
+      [title]="m.nom">
 
       <sebm-google-map-info-window>
         <a class="map_content" (click)="markerClicked(m)">
           <img src="{{m.iconUrl}}" alt="">
           <div>
-            <h3>{{m.title}}</h3>
-            <p><i class="fa fa-phone" aria-hidden="true"></i>111 (111) 111-11</p>
+            <h3>{{m.nom}}</h3>
+            <p><i class="fa fa-phone" aria-hidden="true"></i>{{m.telephone}}</p>
           </div>
         </a>
       </sebm-google-map-info-window>

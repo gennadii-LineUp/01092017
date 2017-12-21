@@ -1,33 +1,16 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {GetCoordonneesByCellularService} from '../../../../../services/api/getCoordonneesByCellular.service';
 import {CommonServices} from '../../../../../services/common.service';
 import {ErrorMessageHandlerService} from '../../../../../services/error-message-handler.service';
 import {UserDataService} from '../../../../../models/user-data';
-
-export class MarkerClass {
-  latitude: number;
-  longitude: number;
-  title: string;
-  iconUrl: string;
-
-  constructor(latitude: number,
-              longitude: number,
-              title: string,
-              iconUrl: string) {
-
-    this.latitude = latitude;
-    this.longitude = longitude;
-    this.title = title;
-    this.iconUrl = iconUrl;
-  }
-}
-
+import {GetCoordonneesAllAgentService} from '../../../../../services/api/getCoordonneesAllAgent.service';
+import {MarkerClass} from '../../../../../models/marker-class';
 
 @Component({
   selector: 'app-g-map',
   templateUrl: './g-map.component.html',
   styleUrls: ['./g-map.component.scss'],
-  providers: [ErrorMessageHandlerService, GetCoordonneesByCellularService]
+  providers: [ErrorMessageHandlerService, GetCoordonneesByCellularService, GetCoordonneesAllAgentService]
 })
 export class GMapComponent implements OnInit, OnDestroy {
   successMessage = '';
@@ -35,14 +18,17 @@ export class GMapComponent implements OnInit, OnDestroy {
   lat = 15.0458118;
   lng = -16.858833;
   draggable: true;
-  zoom = 7;
-  markers = [new MarkerClass(14.7955497, -15.6452902, 'AA', '../../../../../../assets/img/user.png'),
-              new MarkerClass(14.9268314, -16.2581422, 'BB', '../../../../../../assets/img/logo.png')
+  zoom = 8;
+  markers = [new MarkerClass(14.7955497, -15.6452902, '', 'AA', '../../../../../../assets/img/user.png'),
+              new MarkerClass(14.9268314, -16.2581422, '', 'BB', '../../../../../../assets/img/logo.png')
   ];
   alive = true;
 
+  @Output() onAgentsMarkersAdded = new EventEmitter<Array<MarkerClass>>();
+
   constructor(public userDataService: UserDataService,
               public getCoordonneesByCellularService: GetCoordonneesByCellularService,
+              public getCoordonneesAllAgentService: GetCoordonneesAllAgentService,
               public commonServices: CommonServices,
               public errorMessageHandlerService: ErrorMessageHandlerService) { }
 
@@ -58,6 +44,7 @@ export class GMapComponent implements OnInit, OnDestroy {
       localStorage.getItem('telephone');
 
     this.loadMyCoordonees(phone + '');
+    this.loadAgentsCoordonees();
   }
 
   ngOnDestroy() {
@@ -75,7 +62,6 @@ export class GMapComponent implements OnInit, OnDestroy {
           this.lat = +response.lattitude;
           this.lng = +response.longitude;
           console.log(this.lat + '  ' + this.lng);
-          this.markers.push(new MarkerClass(this.lat, this.lng, 'Gena', '../../../../../../assets/img/user.png'))
         } else {
           this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
         }
@@ -84,7 +70,29 @@ export class GMapComponent implements OnInit, OnDestroy {
         console.log(err);
         if (err._body.type) {this.errorMessage += '  ' + this.errorMessageHandlerService.getMessageEquivalent(err._body.type); }
       });
+  }
 
+  public loadAgentsCoordonees() {
+    this.getCoordonneesAllAgentService.getCoordonneesAllAgents()
+      .takeWhile(() => this.alive)
+      .subscribe(result => {
+        // this.loading = false;
+        const response = this.commonServices.xmlResponseParcer_complex( result._body );
+        console.dir( response );
+        if (+response.error === 0 && response.listAgents.length) {
+          this.markers = [];
+          response.listAgents.forEach(item => {
+            this.markers.push(new MarkerClass(item.lattitude, item.longitude, item.nom, item.telephone, ''));
+          });
+          this.onAgentsMarkersAdded.emit(this.markers);
+        } else {
+          this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
+        }
+      }, (err) => {
+        // this.loading = false;
+        console.log(err);
+        if (err._body.type) {this.errorMessage += '  ' + this.errorMessageHandlerService.getMessageEquivalent(err._body.type); }
+      });
   }
 
   public markerClicked(title: any) {

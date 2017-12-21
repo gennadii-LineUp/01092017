@@ -6,32 +6,20 @@
     <div class="container">
 
       <div class="row">
-        <div class="col-sm-12 col-md-8 col-lg-6">
+        <div class="col-sm-12 col-md-12 col-lg-10">
           <!--<img src="../../../../../assets/img/map.png" class="map-img" alt="">-->
 
-          <app-g-map></app-g-map>
+          <app-g-map (onAgentsMarkersAdded)="setAgentsMarkersFunction($event)"></app-g-map>
 
         </div>
-        <div class="col-sm-12 col-md-4 col-lg-2">
-          <div class="search__user active">
+        <div *ngIf="agentsMarkers && agentsMarkers.length" class="col-sm-12 col-md-12 col-lg-2">
+          <div *ngFor="let agent of agentsMarkers" class="search__user active">
+          <!--<div class="search__user active">-->
             <div>
               <span class="logo" style="background-image: url('../../../../../assets/img/user.png')"></span>
               <div>
-                <div>Elizabeth Swann</div>
-                <span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>121 (360) 985-15</span>
-              </div>
-            </div>
-            <div class="chat">
-              <img src="../../../../../assets/img/icon-chat.png" alt="Chat">
-              Chat message
-            </div>
-          </div>
-          <div class="search__user">
-            <div>
-              <span class="logo" style="background-image: url('../../../../../assets/img/user.png')"></span>
-              <div>
-                <div>Elizabeth Swann</div>
-                <span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>121 (360) 985-15</span>
+                <div>{{agent.nom}}</div>
+                <span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>{{agent.telephone}}</span>
               </div>
             </div>
             <div class="chat">
