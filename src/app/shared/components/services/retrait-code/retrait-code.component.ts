@@ -120,22 +120,27 @@ export class RetraitCodeComponent implements OnInit, OnDestroy {
   }
 
   public retrieveCashFunction() {
-    this.loading_retrieve = true;
-    // console.log(this.beneficiaire);
-    this.w2CRetraitTransactionService.retrieveCash(this.serverResponse.code, this.amount_retraitCode, 0, this.beneficiaire)
-      .takeWhile(() => this.alive)
-      .subscribe(result => {
-        this.loading_retrieve = false;
-        console.log(result._body);
-        const response = this.commonServices.xmlResponseParcer_complex( result._body );
-        console.log(response);
-        this.retraitCode_valid = false;
-        this.successMessage_1 = response.message;
-      }, (err) => {
-        this.loading_retrieve = false;
-        console.log(err);
-        this.errorMessage_retrieve = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
-      });
+    if (this.amount_retraitCode && this.beneficiaire.nom && this.beneficiaire.prenom
+      && this.beneficiaire.cellulaire && this.beneficiaire.id_type
+      && this.beneficiaire.id_pays
+      && this.beneficiaire.id_valeur && this.beneficiaire.id_debut) {
+      this.loading_retrieve = true;
+      // console.log(this.beneficiaire);
+      this.w2CRetraitTransactionService.retrieveCash(this.serverResponse.code, this.amount_retraitCode, 0, this.beneficiaire)
+        .takeWhile(() => this.alive)
+        .subscribe(result => {
+          this.loading_retrieve = false;
+          console.log(result._body);
+          const response = this.commonServices.xmlResponseParcer_complex(result._body);
+          console.log(response);
+          this.retraitCode_valid = false;
+          this.successMessage_1 = response.message;
+        }, (err) => {
+          this.loading_retrieve = false;
+          console.log(err);
+          this.errorMessage_retrieve = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+        });
+    } else {return false; }
   }
 
   public clearSearch() {

@@ -78,6 +78,8 @@ import {CMobileShareComponent} from '../pages/citizen/menu-user/mobile/c-share/c
 import {CustMobileShareComponent} from '../pages/customer/menu-user/mobile/cust-share/cust-share.component';
 import {GeneralRegistrationComponent} from '../pages/general/registration/registration.component';
 import {AutorizationGuardService} from '../guards/autorization-guard.service';
+import {CustServicesGeolocalisationAgentPageComponent} from '../pages/customer/menu-user/cust-services-page/items/cust-services-geolocalisation-agent-page.component';
+import {CustServicesVirementsVersBankPageComponent} from '../pages/customer/menu-user/cust-services-page/items/cust-services-virements-vers-bank-page.component';
 
 const routes: Routes = [
   // { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -158,6 +160,8 @@ const routes: Routes = [
             { path: 'services/consultation-operations', component: CustServicesConsultationOperationsPageComponent },
             { path: 'services/virements-multiples', component: CustServicesVirementsMultiplesPageComponent },
             { path: 'services/paiements', component: CustServicesPaiementsPageComponent },
+            { path: 'services/geolocalisation-agent', component: CustServicesGeolocalisationAgentPageComponent },
+            { path: 'services/virements-vers-bank', component: CustServicesVirementsVersBankPageComponent },
             { path: 'services/bank-to-wallet', component: CustServicesBankToWalletPageComponent },
         { path: 'notifications', component: CustNotificationsPageComponent },
         { path: 'operations', component: CustOperationsPageComponent },

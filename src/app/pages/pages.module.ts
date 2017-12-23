@@ -80,6 +80,8 @@ import { CustMobileShareComponent } from './customer/menu-user/mobile/cust-share
 import { SliderComponent } from './general/slider/slider.component';
 import { SwiperModule } from 'angular2-useful-swiper';
 import { AuthorisationPageComponent } from './general/authorisation/authorisation-page/authorisation-page.component';
+import {CustServicesGeolocalisationAgentPageComponent} from './customer/menu-user/cust-services-page/items/cust-services-geolocalisation-agent-page.component';
+import {CustServicesVirementsVersBankPageComponent} from './customer/menu-user/cust-services-page/items/cust-services-virements-vers-bank-page.component';
 
 
 @NgModule({
@@ -107,7 +109,7 @@ import { AuthorisationPageComponent } from './general/authorisation/authorisatio
         CustServicesPaiementsPageComponent, CServicesTransferDargentPageComponent, CServicesTransferComptePageComponent,
         CServicesConsultationSoldePageComponent,
         CServicesConsultationOperationsPageComponent, CServicesGeolocalisationAgentPageComponent, CServicesVirementsVersBankPageComponent,
-        CServicesBankToWalletPageComponent,
+        CServicesBankToWalletPageComponent, CustServicesGeolocalisationAgentPageComponent, CustServicesVirementsVersBankPageComponent,
         AgentServicesPageComponent, AServicesTransferDargentPageComponent, AServicesVirementsVersBankPageComponent,
         AServicesTransferComptePageComponent, AServicesConsultationSoldePageComponent, AServicesConsultationOperationsPageComponent,
         AServicesGeolocalisationAgentPageComponent, AServicesBankToWalletPageComponent, AServicesDepotCitizenPageComponent,
@@ -150,7 +152,7 @@ import { AuthorisationPageComponent } from './general/authorisation/authorisatio
       CustServicesPaiementsPageComponent, CServicesTransferDargentPageComponent, CServicesTransferComptePageComponent,
       CServicesConsultationSoldePageComponent,
       CServicesConsultationOperationsPageComponent, CServicesGeolocalisationAgentPageComponent, CServicesVirementsVersBankPageComponent,
-      CServicesBankToWalletPageComponent,
+      CServicesBankToWalletPageComponent, CustServicesGeolocalisationAgentPageComponent, CustServicesVirementsVersBankPageComponent,
       AgentServicesPageComponent, AServicesTransferDargentPageComponent, AServicesVirementsVersBankPageComponent,
       AServicesTransferComptePageComponent, AServicesConsultationSoldePageComponent, AServicesConsultationOperationsPageComponent,
       AServicesGeolocalisationAgentPageComponent, AServicesBankToWalletPageComponent, AServicesDepotCitizenPageComponent,

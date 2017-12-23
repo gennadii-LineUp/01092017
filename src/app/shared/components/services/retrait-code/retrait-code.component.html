@@ -60,7 +60,6 @@
                   <div class="floating-input">
                     <input id="amount1" name="amount1" placeholder="00.00"
                            type="text" [(ngModel)]="amount_retraitCode"
-                           (keyup.enter)='submitDepotClient()'
                            onkeydown="return ( event.ctrlKey || event.altKey
                                                                 || (47<event.keyCode && event.keyCode<58 && event.shiftKey==false)
                                                                 || (95<event.keyCode && event.keyCode<106)

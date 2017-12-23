@@ -134,7 +134,7 @@ export class DepotClientComponent implements OnInit, OnDestroy {
           console.log(err);
           this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
         });
-    } else {return false};
+    } else {return false; }
   }
 
   public setBeneficiaryFunction(beneficiary: any) {
