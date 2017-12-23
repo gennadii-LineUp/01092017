@@ -5,12 +5,13 @@ import {ErrorMessageHandlerService} from '../../../../services/error-message-han
 import {W2ISoldeService} from '../../../../services/api/W2ISolde.service';
 import 'rxjs/add/operator/takeWhile';
 import {ActivatedRoute} from '@angular/router';
+import {GetHistorySoldeService} from '../../../../services/api/getHistorySolde.service';
 
 @Component({
   selector: 'app-services-consultation-solde',
   templateUrl: './consultation-solde.component.html',
   styleUrls: ['./consultation-solde.component.scss'],
-  providers: [ErrorMessageHandlerService, W2ISoldeService]
+  providers: [ErrorMessageHandlerService, W2ISoldeService, GetHistorySoldeService]
 })
 export class ConsultationSoldeComponent implements OnInit, OnDestroy {
   loading = false;
@@ -34,6 +35,7 @@ export class ConsultationSoldeComponent implements OnInit, OnDestroy {
               public userDataService: UserDataService,
               public errorMessageHandlerService: ErrorMessageHandlerService,
               public w2ISoldeService: W2ISoldeService,
+              public getHistorySoldeService: GetHistorySoldeService,
               private activateRoute: ActivatedRoute) { }
 
   ngOnInit() {
@@ -59,33 +61,28 @@ export class ConsultationSoldeComponent implements OnInit, OnDestroy {
     this.errorMessage = '';
     this.successMessage = '';
 
-    this.w2ISoldeService.getSolde(this.myAccount.id_account)
-      .takeWhile(() => this.alive)
-      .subscribe(result => {
-        this.loading = false;
-        console.log(result._body);
-        const response = this.commonServices.xmlResponseParcer_simple( result._body );
-
-        console.dir( response );
-        if (+response.error === 0) {
-          this.showRequestResult = !this.showRequestResult;
-          this.solde = +response.solde;
+    // this.w2ISoldeService.getSolde(this.myAccount.id_account)
+    //   .takeWhile(() => this.alive)
+    //   .subscribe(result => {
+    //     this.loading = false;
+    //     console.log(result._body);
+    //     const response = this.commonServices.xmlResponseParcer_simple( result._body );
+    //
+    //     console.dir( response );
+    //     if (+response.error === 0) {
+    //       this.showRequestResult = !this.showRequestResult;
+    //       this.solde = +response.solde;
           /////////////////////////////
-          this.w2ISoldeService.getHistorySolde(this.myAccount.id_account)
+          this.getHistorySoldeService.getHistorySolde(this.myAccount.id_account)
             .takeWhile(() => this.alive)
             .subscribe(resulHistory => {
+              this.loading = false;
               const responsHistory = this.commonServices.xmlResponseParcer_complex( resulHistory._body );
               console.dir( responsHistory );
-              if (+responsHistory.error === 0 && responsHistory.total) {
-                this.totalOperations = responsHistory.total;
-                if (responsHistory.operation && +responsHistory.total > 0) {
-                  this.transactions_history = responsHistory.operation;
-                  // this.showHistorySolde = true;
-                }
-                if (+responsHistory.total === 0) {
-                  // this.showRequestResult = false;
-                  this.successMessage = responsHistory.message;
-                }
+              if (+responsHistory.error === 0 && responsHistory.histories.length > 0) {
+                this.showRequestResult = !this.showRequestResult;
+                this.transactions_history = responsHistory.histories;
+                this.solde = responsHistory.histories[0].solde;
               } else {
                 this.errorMessagHistory = this.errorMessageHandlerService.getMessageEquivalent(responsHistory.errorMessage);
               }
@@ -96,16 +93,16 @@ export class ConsultationSoldeComponent implements OnInit, OnDestroy {
               this.errorMessagHistory = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
             });
           /////////////////////////
-        } else {
-          if (response.errorMessage) {this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.errorMessage); }
-          if (response.message) {this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message); }
-        }
-
-      }, (err) => {
-        this.loading = false;
-        console.log(err);
-        this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
-      });
+      //   } else {
+      //     if (response.errorMessage) {this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.errorMessage); }
+      //     if (response.message) {this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message); }
+      //   }
+      //
+      // }, (err) => {
+      //   this.loading = false;
+      //   console.log(err);
+      //   this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+      // });
   }
 
 
