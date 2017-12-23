@@ -28,14 +28,15 @@
               <div class="row">
                 <div class="col-md-6 virements-multiples__search">
                   <div *ngIf="contractsCustomer" class="search-wrapper">
-                    <input type="text" placeholder="Search" readonly [(ngModel)]="contract_number_valid">
+                    <input type="text" placeholder="Search" readonly [(ngModel)]="contract_number_valid" style="height:44px">
                   </div>
                   <div *ngFor="let receiver of contractsCustomer" [attr.id]="'receiver_'+receiver.id"
+                       style="min-height: 68px"
                        class="search__user" (click)="commonServices.defineReceiversFunction($event)">
                     <div>
                       <span class="logo" style="background-image: url('../../../../../assets/img/user.png')"></span>
                       <div>
-                        <div>{{receiver.nom}} {{receiver.prenom}}, _{{receiver.id}}</div>
+                        <div>{{receiver.nom}} {{receiver.prenom}}</div>
                         <span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>{{receiver.numTel}}</span>
                       </div>
                     </div>
@@ -71,6 +72,7 @@
                     <div class="floating-input" style="margin-bottom:0">
                       <input id="amount" name="amount" placeholder="00.00" required type="text"
                              [(ngModel)]="amount_virementsMultiples"
+                             (ngModelChange)="setNewAmounttoAll()"
                              onkeydown="return ( event.ctrlKey || event.altKey
                                                               || (47<event.keyCode && event.keyCode<58 && event.shiftKey===false)
                                                               || (95<event.keyCode && event.keyCode<106)
@@ -88,6 +90,7 @@
                       <div class="floating-input" style="margin-bottom:0">
                         <input [attr.id]="'amount_to_'+amount.id" [attr.name]="'amount_to_'+amount.id"
                                placeholder="00.00" required type="text"
+                               [ngModel]="amount.lastlastAmountContract"
                                [ngModel]="amount_virementsMultiples"
                                (keyup.enter)='submitFunction()'
                                onkeydown="return ( event.ctrlKey || event.altKey

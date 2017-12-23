@@ -139,32 +139,44 @@ export class VirementsMultiplesComponent implements OnInit, OnDestroy {
   }
 
   public submitFunction() {
-    this.loading_virements = true;
-    console.dir(this.commonServices.getSelectedReceivers());
-    console.log(this.makeBeneficiaryToSend());
+    if (this.commonServices.getSelectedReceivers().length) {
+      this.loading_virements = true;
+      console.dir(this.commonServices.getSelectedReceivers());
+      console.log(this.makeBeneficiaryToSend());
 
-    this.w2XWalletService.virementsMultiplesW2XW(+((this.userDataService.getMyAccounts())['0'].uoId), this.makeBeneficiaryToSend())
-      .takeWhile(() => this.alive)
-      .subscribe((result) => {
-          this.loading_virements = false;
-          console.log(result._body);
-          const response = this.commonServices.xmlResponseParcer_simple( result._body );
-          console.dir( response );
-          if (+response.error === 0) {
-            this.successMessage_1 = 'Bravo !';
-            this.successMessage_2 = response.message;
-            this.gotoContractToFindFunction();
-          } else {
-            this.errorMessage_virements = response.message;
-          }
-        },
-        (err) => {
-          this.loading_virements = false;
-          console.log(err);
-          if (err._body.type) {this.errorMessage_virements = this.errorMessageHandlerService.getMessageEquivalent(err._body.type); }
-          if (err.statusText) {this.errorMessage_virements = this.errorMessageHandlerService.getMessageEquivalent(err.statusText); }
-        });
+      this.w2XWalletService.virementsMultiplesW2XW(+((this.userDataService.getMyAccounts())['0'].uoId), this.makeBeneficiaryToSend())
+        .takeWhile(() => this.alive)
+        .subscribe((result) => {
+            this.loading_virements = false;
+            console.log(result._body);
+            const response = this.commonServices.xmlResponseParcer_simple(result._body);
+            console.dir(response);
+            if (+response.error === 0) {
+              this.successMessage_1 = 'Bravo !';
+              this.successMessage_2 = response.message;
+              this.gotoContractToFindFunction();
+            } else {
+              this.errorMessage_virements = response.message;
+            }
+          },
+          (err) => {
+            this.loading_virements = false;
+            console.log(err);
+            if (err._body.type) {
+              this.errorMessage_virements = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+            }
+            if (err.statusText) {
+              this.errorMessage_virements = this.errorMessageHandlerService.getMessageEquivalent(err.statusText);
+            }
+          });
+    } else {return false; }
+  }
 
+  public setNewAmounttoAll() {
+    console.log(this.amount_virementsMultiples);
+    this.contractsCustomer.forEach((obj) => {
+      obj.lastlastAmountContract = this.amount_virementsMultiples;
+    });
   }
 
   public clearSearch() {
@@ -172,6 +184,7 @@ export class VirementsMultiplesComponent implements OnInit, OnDestroy {
     this.errorMessage_virements = '';
     this.successMessage_1 = '';
     this.successMessage_2 = '';
+    this.amount_virementsMultiples = undefined;
   }
 
 }
