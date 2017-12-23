@@ -64,60 +64,67 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
 
 
   public submitDepotSitizen() {
-    console.log(this.amount_depotCitizen + '  to send');
-    console.dir(this.commonServices.getSelectedReceivers());
+    if ((+this.amount_depotCitizen >= 0.01)
+      && this.citizen_fromSelect2
+      && (this.envoyeur.id_fin && this.envoyeur.id_debut && this.envoyeur.nom && this.envoyeur.prenom && this.envoyeur.cellulaire
+        && this.envoyeur.addresse && this.envoyeur.id_type && this.envoyeur.id_pays && this.envoyeur.id_valeur)) {
+      console.log(this.amount_depotCitizen + '  to send');
+      console.dir(this.commonServices.getSelectedReceivers());
 
-    this.loading = true;
-    this.successMessage = '';
-    this.errorMessage = '';
+      this.loading = true;
+      this.successMessage = '';
+      this.errorMessage = '';
 
-    const beneficiaire = this.userDataService.getReceiverFromSelect2(this.citizen_fromSelect2);
-    // console.log(this.myAccount);
-    this.getCommissionsTTCService.getCommission(this.amount_depotCitizen, 'C2W')
-      .takeWhile(() => this.alive)
-      .subscribe(result => {
-        console.log(result._body);
-        const response = this.commonServices.xmlResponseParcer_simple( result._body );
+      const beneficiaire = this.userDataService.getReceiverFromSelect2(this.citizen_fromSelect2);
+      // console.log(this.myAccount);
+      this.getCommissionsTTCService.getCommission(this.amount_depotCitizen, 'C2W')
+        .takeWhile(() => this.alive)
+        .subscribe(result => {
+          console.log(result._body);
+          const response = this.commonServices.xmlResponseParcer_simple(result._body);
 
-        console.dir( response );
-        if (+response.error === 0) {
-          // this.errorMessage = response.message + ' - ' + response.commission;
-          this.commission.push(+response.commission);
-          console.log(this.commission);
-          /////////////////////////////
-          this.c2WDepotTransactionService.makeDepotSitizen(beneficiaire.numTel,
-            +this.amount_depotCitizen, +response.commission, this.envoyeur)
-            .subscribe(_result => {
-              this.loading = false;
-              console.log(_result._body);
-              const _response = this.commonServices.xmlResponseParcer_simple( _result._body );
+          console.dir(response);
+          if (+response.error === 0) {
+            // this.errorMessage = response.message + ' - ' + response.commission;
+            this.commission.push(+response.commission);
+            console.log(this.commission);
+            /////////////////////////////
+            this.c2WDepotTransactionService.makeDepotSitizen(beneficiaire.numTel,
+              +this.amount_depotCitizen, +response.commission, this.envoyeur)
+              .subscribe(_result => {
+                this.loading = false;
+                console.log(_result._body);
+                const _response = this.commonServices.xmlResponseParcer_simple(_result._body);
 
-              console.dir( _response );
-              if (+_response.error === 0) {
-                this.successMessage_1 = response.message + ' - ' + response.commission +
-                                        ' pour le montant ' + this.amount_depotCitizen + ' usd';
-                this.successMessage_2 = _response.message;
-              } else {
-                this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(_response.message);
-              }
-              this.firstStepMode();
-            }, (err) => {
-              this.loading = false;
-              console.log(err);
-              if (err._body.type) {this.errorMessage += '  ' + this.errorMessageHandlerService.getMessageEquivalent(err._body.type); }
-            });
+                console.dir(_response);
+                if (+_response.error === 0) {
+                  this.successMessage_1 = response.message + ' - ' + response.commission +
+                    ' pour le montant ' + this.amount_depotCitizen + ' usd';
+                  this.successMessage_2 = _response.message;
+                } else {
+                  this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(_response.message);
+                }
+                this.firstStepMode();
+              }, (err) => {
+                this.loading = false;
+                console.log(err);
+                if (err._body.type) {
+                  this.errorMessage += '  ' + this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+                }
+              });
 
-          /////////////////////////////
-        } else {
+            /////////////////////////////
+          } else {
+            this.loading = false;
+            this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
+          }
+
+        }, (err) => {
           this.loading = false;
-          this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
-        }
-
-      }, (err) => {
-        this.loading = false;
-        console.log(err);
-        this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
-      });
+          console.log(err);
+          this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+        });
+    } else {return false}
   }
 
   public setBeneficiaryFunction(beneficiary: any) {
@@ -145,6 +152,8 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
     this.createNewReceiver = true;
     this.createNewReceiver_mobile_amount = true;
     setTimeout(() => { this.amount_input_mobile.nativeElement.focus(); }, 10);
+    this.successMessage_1 = '';
+    this.successMessage_2 = '';
   }
 
   private setEnvoyeurFromForm(envoyeur: EnvoyeurClass) {
@@ -167,7 +176,5 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
     this.successMessage = '';
     this.errorMessage = '';
     this.commission = [];
-    // this.successMessage_1 = '';
-    // this.successMessage_2 = '';
   }
 }

@@ -72,62 +72,69 @@ export class DepotClientComponent implements OnInit, OnDestroy {
   public clearAmount() {this.amount_depotClient = undefined; }
 
   public submitDepotClient() {
-    console.log(this.amount_depotClient + '  to send');
-    console.dir(this.commonServices.getSelectedReceivers());
-    const beneficiaire = this.userDataService.getReceiverFromSelect2(this.client_fromSelect2);
+    if ((+this.amount_depotClient >= 0.01)
+        && this.client_fromSelect2
+        && (this.envoyeur.id_fin && this.envoyeur.id_debut && this.envoyeur.nom && this.envoyeur.prenom && this.envoyeur.cellulaire
+          && this.envoyeur.addresse && this.envoyeur.id_type && this.envoyeur.id_pays && this.envoyeur.id_valeur)) {
+      console.log(this.amount_depotClient + '  to send');
+      console.dir(this.commonServices.getSelectedReceivers());
+      const beneficiaire = this.userDataService.getReceiverFromSelect2(this.client_fromSelect2);
 
-    this.loading = true;
-    this.successMessage = '';
-    this.errorMessage = '';
+      this.loading = true;
+      this.successMessage = '';
+      this.errorMessage = '';
 
-    // console.log(this.myAccount);
-    this.getCommissionsTTCService.getCommission(this.amount_depotClient, 'C2W')
-      .takeWhile(() => this.alive)
-      .subscribe(result => {
-        console.log(result._body);
-        const response = this.commonServices.xmlResponseParcer_simple( result._body );
+      // console.log(this.myAccount);
+      this.getCommissionsTTCService.getCommission(this.amount_depotClient, 'C2W')
+        .takeWhile(() => this.alive)
+        .subscribe(result => {
+          console.log(result._body);
+          const response = this.commonServices.xmlResponseParcer_simple(result._body);
 
-        console.dir( response );
-        if (+response.error === 0) {
-         // this.errorMessage = response.message + ' - ' + response.commission;
-          this.commission.push(+response.commission);
-          console.log(this.commission);
-          /////////////////////////////
-          this.v2WDepotClientTransactionService.makeDepotClient(beneficiaire.numTel,
-                                                                +this.amount_depotClient,
-                                                                +response.commission,
-                                                                this.envoyeur)
-            .subscribe(_result => {
-              this.loading = false;
-              console.log(_result._body);
-              const _response = this.commonServices.xmlResponseParcer_simple( _result._body );
+          console.dir(response);
+          if (+response.error === 0) {
+            // this.errorMessage = response.message + ' - ' + response.commission;
+            this.commission.push(+response.commission);
+            console.log(this.commission);
+            /////////////////////////////
+            this.v2WDepotClientTransactionService.makeDepotClient(beneficiaire.numTel,
+              +this.amount_depotClient,
+              +response.commission,
+              this.envoyeur)
+              .subscribe(_result => {
+                this.loading = false;
+                console.log(_result._body);
+                const _response = this.commonServices.xmlResponseParcer_simple(_result._body);
 
-              console.dir( _response );
-              if (+_response.error === 0) {
-                this.successMessage_1 = response.message + ' - ' + response.commission +
-                  ' pour le montant ' + this.amount_depotClient + ' usd';
-                this.successMessage_2 = _response.message;
-              } else {
-                this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(_response.message);
-              }
-              this.firstStepMode();
-            }, (err) => {
-              this.loading = false;
-              console.log(err);
-              if (err._body.type) {this.errorMessage += '  ' + this.errorMessageHandlerService.getMessageEquivalent(err._body.type); }
-            });
+                console.dir(_response);
+                if (+_response.error === 0) {
+                  this.successMessage_1 = response.message + ' - ' + response.commission +
+                    ' pour le montant ' + this.amount_depotClient + ' usd';
+                  this.successMessage_2 = _response.message;
+                } else {
+                  this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(_response.message);
+                }
+                this.firstStepMode();
+              }, (err) => {
+                this.loading = false;
+                console.log(err);
+                if (err._body.type) {
+                  this.errorMessage += '  ' + this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+                }
+              });
 
-          /////////////////////////////
-        } else {
+            /////////////////////////////
+          } else {
+            this.loading = false;
+            this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
+          }
+
+        }, (err) => {
           this.loading = false;
-          this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
-        }
-
-      }, (err) => {
-        this.loading = false;
-        console.log(err);
-        this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
-      });
+          console.log(err);
+          this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+        });
+    } else {return false};
   }
 
   public setBeneficiaryFunction(beneficiary: any) {
@@ -152,7 +159,8 @@ export class DepotClientComponent implements OnInit, OnDestroy {
     this.receiverStatus += (beneficiaire.prenom) ? (' ' + beneficiaire.prenom) : '';
     // this.receiverStatus += (beneficiaire.nom || beneficiaire.prenom) ? (', ') : '';
     // this.receiverStatus += (beneficiaire.telephone) ? (beneficiaire.telephone) : '';
-
+    this.successMessage_1 = '';
+    this.successMessage_2 = '';
     this.createNewReceiver = true;
     this.createNewReceiver_mobile_amount = true;
     setTimeout(() => { this.amount_input_mobile.nativeElement.focus(); }, 10);

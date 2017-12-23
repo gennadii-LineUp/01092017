@@ -7,7 +7,7 @@ import {EnvoyeurClass} from '../../../../models/envoyeur-class';
   styleUrls: ['./get-user-id.component.scss']
 })
 export class GetUserIdComponent implements OnInit {
-  envoyeur = new EnvoyeurClass('Piter', 'Pen', '773151459', 'Holywood', 'CNI', 'SEN', '1619198107350', '01/01/2016', '01/01/2017');
+  envoyeur = new EnvoyeurClass('', '', '', '', '', '', '', '', '');
   @Output()
   userData = new EventEmitter<EnvoyeurClass>();
 
