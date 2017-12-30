@@ -6,7 +6,7 @@ import {ErrorMessageHandlerService} from '../../../services/error-message-handle
 import {CommonServices} from '../../../services/common.service';
 import {CountryCode} from '../../../models/country-code';
 import {Router} from '@angular/router';
-import {AuthGuard} from "../../../guards/auth-guard.service";
+import {AuthGuard} from '../../../guards/auth-guard.service';
 
 @Component({
   selector: 'app-registration',

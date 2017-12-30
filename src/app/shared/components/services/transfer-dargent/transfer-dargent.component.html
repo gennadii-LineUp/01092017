@@ -1,4 +1,4 @@
-<main class="gray-bg-citizen coin-bg">
+<main class="gray-bg-citizen coin-bg" xmlns="">
     <section class="dargent">
       <h3 class="top-header">
         <div *ngIf="!showReceiverInfo" class="back-button" [routerLink]="['/' +userRole+ '/services']">Back</div>
@@ -37,14 +37,16 @@
                         <div class="block__header">Insert receiver’s information</div>
                         <div class="content">
                           <form #agent_depoClient="ngForm" novalidate>
-                            <h4>Phone number</h4>
+                            <h4 *ngIf="!createNew">Phone number</h4>
 
+                            <div *ngIf="!createNew">
+                              <ng-select2 name="select2"
+                                          [(ngModel)]="numTel_fromSelect2"
+                                          [data]="userDataService.getReceiversForSelect2()"
+                                          [placeholder]="'Please select...'">
+                              </ng-select2>
                             <!--<select2 [data]="userDataService.getCitizens()"></select2>-->
-                            <ng-select2 name="select2"
-                              [(ngModel)]="numTel_fromSelect2"
-                              [data]="userDataService.getReceiversForSelect2()"
-                              [placeholder]="'Please select...'">
-                            </ng-select2>
+                            </div>
 
                             <!--<div class="floating-block border-hover">-->
                                 <!--<div class="floating-input">-->
@@ -53,9 +55,39 @@
                                   <!--<div class="clean-input" onclick="phone.value = ''"></div>-->
                                 <!--</div>-->
                             <!--</div>-->
-                            <span class="help">
-                                      It seems we don’t have this number in the citizen database. <b>New account will be created.</b>
-                                    </span>
+                            <span *ngIf="!createNew" (click)="createNew=true" class="help" style="cursor:pointer; margin-bottom:12px">
+                              <b>Create New receiver's account.</b>
+                            </span>
+
+                            <div  *ngIf="createNew">
+                              <h3 style="padding: 0">Add new receiver:</h3>
+                              <h4 style="margin-top: 16px">Firstname</h4>
+                              <div class="floating-block border-hover">
+                                <div class="floating-input">
+                                  <input type="text" placeholder="Type here"
+                                         #firstName="ngModel" id="firstName" name='firstName' required [(ngModel)]="newReceiver.nom"/>
+                                  <div class="clean-input" (click)="clearReceiver('nom')"></div>
+                                </div>
+                              </div>
+                              <h4>Lastname</h4>
+                              <div class="floating-block border-hover">
+                                <div class="floating-input">
+                                  <input type="text" placeholder="Type here"
+                                         #lastName="ngModel" id="lastName" name='lastName' required [(ngModel)]="newReceiver.prenom" />
+                                  <div class="clean-input" (click)="clearReceiver('prenom')"></div>
+                                </div>
+                              </div>
+                              <h4>Cellulaire</h4>
+                              <div class="floating-block border-hover">
+                                <div class="floating-input">
+                                  <input type="text" placeholder="Type here"
+                                         #id_telephone="ngModel" id="id_telephone" name='id_telephone' required [(ngModel)]="newReceiver.telephone" />
+                                  <div class="clean-input" (click)="clearReceiver('cellulaire')"></div>
+                                </div>
+                              </div>
+
+                            </div>
+
                             <h4>Amount</h4>
                             <div class="floating-block border-hover">
                                 <div class="floating-input" style="margin-bottom: 0">
@@ -74,10 +106,15 @@
                             </div>
                             <div *ngIf="errorMessage" class="errorTextClass">{{errorMessage}}</div>
                             <p *ngIf="!errorMessage" style="margin: 0; text-align: center; height: 16px"><img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>
-                            <button class="orange-button blue-button"
-                                    [disabled]="!(numTel_fromSelect2 && (+amountToReceiver >= 0.01))"
+                            <button *ngIf="!createNew" class="orange-button blue-button"
+                                    [disabled]="!(numTel_fromSelect2 && (+amountToReceiver >= 0.01)) || !(newReceiver.nom)"
                                     (click)="submitTransferDargentFunction()"
                                     type="submit">Send</button>
+                            <button *ngIf="createNew" class="orange-button blue-button"
+                                    [disabled]="!(newReceiver.nom && newReceiver.prenom && newReceiver.telephone && (+amountToReceiver >= 0.01))"
+                                    (click)="submitTransferDargentFunction()"
+                                    type="submit">Send</button>
+                            <!---->
                           </form>
                         </div>
                     </div>

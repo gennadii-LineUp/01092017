@@ -6,19 +6,22 @@ import {CommonServices} from '../../../../services/common.service';
 import {ErrorMessageHandlerService} from '../../../../services/error-message-handler.service';
 import 'rxjs/add/operator/takeWhile';
 import {ActivatedRoute} from '@angular/router';
+import {RegistrationClass} from '../../../../models/registration-class';
+import {CreateNewAccountService} from '../../../../services/api/createNewAccount.service';
+declare let $: any;
 
 @Component({
   selector: 'app-services-transfer-dargent',
   templateUrl: './transfer-dargent.component.html',
   styleUrls: ['./transfer-dargent.component.scss'],
-  providers: [W2COrdreRetraitService]
+  providers: [W2COrdreRetraitService, CreateNewAccountService]
 })
 export class TransferDargentComponent implements OnInit, OnDestroy {
   loading = false;
   profileAsAgent = this.userDataService.checkUserRole();
   sender = [];
   myAccount: any;
-  newReceiver = new ReceiverClass('', '', '', '', 0, '', '', '', '', '', '');
+  newReceiver = new RegistrationClass('', '', 221, '', 'AUTO', 'AUTO', 'AUTO', 'AUTO', true);
   amountToReceiver: number;
   showReceiverInfo = false;
   successMessage_1 = '';
@@ -27,11 +30,13 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
   alive = true;
   numTel_fromSelect2 = '';
   userRole = '';
+  createNew = false;
 
 
   constructor(public userDataService: UserDataService,
               public w2COrdreRetraitService: W2COrdreRetraitService,
               public commonServices: CommonServices,
+              public createNewAccountService: CreateNewAccountService,
               public errorMessageHandlerService: ErrorMessageHandlerService,
               private activateRoute: ActivatedRoute) { }
 
@@ -69,12 +74,29 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
       }
       default:  console.log('=== there is a new type of user ! ===');
     }
+    // this.select2F();
   }
 
   ngOnDestroy() {
     this.alive = false;
     this.commonServices.removeEmptySelect2OnDestroy();
   }
+
+  select2F() {
+    $(() => {
+      $('select').select2({
+        language: {
+          noResults: function() {
+            return '<div>It seems we don’t have this number in the database. <br>New account have to be created.</div>';
+          }// onclick="createNewUser()"
+        },
+        escapeMarkup: function (markup) {
+          return markup;
+        }
+      });
+    });
+  }
+
 
 
   public fillReceiverInfoFunction(myAccount: any, e: any) {
@@ -90,6 +112,7 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
 
     // setTimeout(() => { this.showReceiverInfo = true; }, 500);
     this.showReceiverInfo = true;
+    this.select2F();
   }
 
   public setSenderFunction(sender: any) {
@@ -108,54 +131,91 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
 
 
   public submitTransferDargentFunction() {
-    if (this.numTel_fromSelect2 && (+this.amountToReceiver >= 0.01)) {
-      this.loading = true;
-      this.successMessage_1 = '';
-      this.successMessage_2 = '';
-      this.errorMessage = '';
-      const beneficiaire = <ReceiverClass>this.userDataService.getReceiverFromSelect2(this.numTel_fromSelect2);
-      console.log(beneficiaire);
-      console.log(this.numTel_fromSelect2);
-
-      if (this.numTel_fromSelect2) {
-        this.w2COrdreRetraitService.transferDargent(this.myAccount.telephone, this.amountToReceiver, beneficiaire)
-          .takeWhile(() => this.alive)
-          .subscribe(result => {
-            this.loading = false;
-            console.log(result._body);
-            const response = this.commonServices.xmlResponseParcer_simple(result._body);
-
-            console.dir(response);
-            if (+response.error === 0) {
-              this.showReceiverInfo = false;
-              this.clearSearch();
-              this.successMessage_1 = response.message + ';';
-              this.successMessage_2 = 'code: ' + response.code;
-              this.discardReceiverInfoFunction();
-            } else {
-              this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
-            }
-
-          }, (err) => {
-            this.loading = false;
-            console.log(err);
-            this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
-          });
-      } else {
-        this.loading = false;
-        this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent('no cellulaire in the database');
+    if (+this.amountToReceiver >= 0.01) {
+      if (!this.createNew && this.numTel_fromSelect2) {
+        this.makeTransaction();
       }
-    } else {return false; }
+      if (this.createNew && this.newReceiver.nom && this.newReceiver.prenom && this.newReceiver.telephone) {
+        console.log(this.newReceiver);
+            this.createNewAccountService.createNewAccount(this.newReceiver)
+              .subscribe(result => {
+                const response = this.commonServices.xmlResponseParcer_simple( result._body );
+                console.dir( response );
+                if (+response.error === 0
+                  && response.message === 'Succès ! creation compte effectuée') {
+                  console.log = response.message;
+                  this.makeTransaction();
+                } else {
+                  this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
+                }
+              }, (err) => {
+                this.loading = false;
+                console.log(err);
+                this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+                if (!this.errorMessage) {
+                  this.errorMessage = this.errorMessageHandlerService._getMessageEquivalent(err._body);
+                }
+              });
+      } else {return false; }
+    }
   }
 
+  public makeTransaction() {
+    this.loading = true;
+    this.successMessage_1 = '';
+    this.successMessage_2 = '';
+    this.errorMessage = '';
+    let beneficiaire: any;
+    if (!this.createNew) {
+      beneficiaire = <ReceiverClass>this.userDataService.getReceiverFromSelect2(this.numTel_fromSelect2);
+      console.log(beneficiaire);
+    } else {
+      beneficiaire = new ReceiverClass(this.newReceiver.nom, this.newReceiver.prenom,
+                                        this.newReceiver.telephone, 'AUTO', 0, '', '', '', '', '', '');
+      console.log(beneficiaire);
+    }
+    console.log(this.numTel_fromSelect2);
+
+    if (this.numTel_fromSelect2) {
+      this.w2COrdreRetraitService.transferDargent(this.myAccount.telephone, this.amountToReceiver, beneficiaire)
+        .takeWhile(() => this.alive)
+        .subscribe(result => {
+          this.loading = false;
+          console.log(result._body);
+          const response = this.commonServices.xmlResponseParcer_simple(result._body);
+
+          console.dir(response);
+          if (+response.error === 0) {
+            this.showReceiverInfo = false;
+            this.clearSearch();
+            this.successMessage_1 = response.message + ';';
+            this.successMessage_2 = 'code: ' + response.code;
+            this.discardReceiverInfoFunction();
+          } else {
+            this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
+          }
+
+        }, (err) => {
+          this.loading = false;
+          console.log(err);
+          this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+        });
+    } else {
+      this.loading = false;
+      this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent('no cellulaire in the database');
+    }
+  }
+
+  public clearReceiver(field: string) {this.newReceiver[field] = undefined; }
 
   public clearAmount() {this.amountToReceiver = undefined; }
   public clearSearch() {
     this.amountToReceiver = undefined;
-    this.newReceiver = new ReceiverClass('', '', '', '', 0, '', '', '', '', '', '');
+    this.newReceiver = new RegistrationClass('', '', 221, '', 'AUTO', 'AUTO', 'AUTO', 'AUTO', true);
     this.successMessage_1 = '';
     this.successMessage_2 = '';
     this.errorMessage = '';
+    this.createNew = false;
   }
 
 

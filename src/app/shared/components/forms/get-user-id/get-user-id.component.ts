@@ -16,7 +16,7 @@ export class GetUserIdComponent implements OnInit {
   @Input()
   set setUserPrenom(prenom: string) {this.envoyeur.prenom = prenom; }
   @Input()
-  set setUserCellulaire(cellulaire: string) {this.envoyeur.cellulaire = cellulaire; console.log(cellulaire);}
+  set setUserCellulaire(cellulaire: string) {this.envoyeur.cellulaire = cellulaire; console.log(cellulaire); }
 
   // ('Piter', 'Pen', '773151459', 'Holywood', 'CNI', 'SEN', '1619198107350', '01/01/2016', '01/01/2017')
 
