@@ -33,7 +33,7 @@ export class DepotClientComponent implements OnInit, OnDestroy {
 
   commission = [];
   envoyeur = new EnvoyeurClass('KANE', 'MOMAR', '773151459', 'DAKAR', 'CNI', 'SEN', '1619198107350', '01/01/2016', '01/01/2017');
-  envoyeur_default = new ReceiverClass('', '', '', '', 0, '', '', '', '', '', '');
+  envoyeur_default: EnvoyeurClass;
   receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 1, 'citizen', '', '', '', '', ''),
               new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 2, 'citizen', '', '', '', '', ''),
               new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 3, 'citizen', '', '', '', '', '')];
@@ -156,7 +156,9 @@ export class DepotClientComponent implements OnInit, OnDestroy {
   public secondStepMode() {
     this.clearSearch();
     const beneficiaire = this.userDataService.getReceiverFromSelect2(this.client_fromSelect2);
-    this.envoyeur_default = beneficiaire;
+    const addr = (beneficiaire.address) ? beneficiaire.address : 'undefined';
+    this.envoyeur_default = new EnvoyeurClass(beneficiaire.nom, beneficiaire.prenom, beneficiaire.numTel,
+                                              addr, '', 'SEN', '', '', '');
     this.receiverStatus = (beneficiaire.nom) ? (beneficiaire.nom) : '';
     this.receiverStatus += (beneficiaire.prenom) ? (' ' + beneficiaire.prenom) : '';
     // this.receiverStatus += (beneficiaire.nom || beneficiaire.prenom) ? (', ') : '';
@@ -190,4 +192,7 @@ export class DepotClientComponent implements OnInit, OnDestroy {
   }
 
 
+  public clearDefaultUser() {
+    this.envoyeur_default = new EnvoyeurClass('', '', '', '', '', '', '', '', '');
+  }
 }

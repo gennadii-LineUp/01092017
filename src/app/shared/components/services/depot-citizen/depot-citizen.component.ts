@@ -31,7 +31,7 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
   successMessage_2 = '';
   commission = [];
   envoyeur = new EnvoyeurClass('KANE', 'MOMAR', '773151459', 'DAKAR', 'CNI', 'SEN', '1619198107350', '01/01/2016', '01/01/2017');
-  envoyeur_default = new ReceiverClass('', '', '', '', 0, '', '', '', '', '', '');
+  envoyeur_default: EnvoyeurClass;
   citizen_fromSelect2 = '';
   userRole = '';
   alive = true;
@@ -146,7 +146,9 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
   public secondStepMode() {
     this.clearSearch();
     const beneficiaire = this.userDataService.getReceiverFromSelect2(this.citizen_fromSelect2);
-    this.envoyeur_default = beneficiaire;
+    const addr = (beneficiaire.address) ? beneficiaire.address : 'undefined';
+    this.envoyeur_default = new EnvoyeurClass(beneficiaire.nom, beneficiaire.prenom, beneficiaire.numTel,
+                                              addr, '', 'SEN', '', '', '');
     this.receiverStatus = (beneficiaire.nom) ? (beneficiaire.nom) : '';
     this.receiverStatus += (beneficiaire.prenom) ? (' ' + beneficiaire.prenom) : '';
     // this.receiverStatus += (beneficiaire.nom || beneficiaire.prenom) ? (', ') : '';
@@ -179,4 +181,9 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
     this.errorMessage = '';
     this.commission = [];
   }
+
+  public clearDefaultUser() {
+    this.envoyeur_default = new EnvoyeurClass('', '', '', '', '', '', '', '', '');
+  }
+
 }

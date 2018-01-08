@@ -26,7 +26,7 @@
 
         <!-- R I G H T   B L O C K -->
         <div class="col-md-6 col-lg-4  only-desktop">
-          <div class="block__header">
+          <div class="block__header" style="padding-top: 16px">
             <span>{{receiverStatus}}</span>
             <!--<span>New</span>-->
             <div *ngIf="receiverToFind && commonServices.getSelectedReceivers().length" class="blue-angle"
@@ -92,11 +92,13 @@
                 <input id="firstname_desktop" name="firstname_desktop" placeholder="Type here" readonly
                        style="border-bottom: 2px solid white; padding-left: 15px"
                        type="text" [(ngModel)]="receiverToFind">
+                <div class="blue-angle" style="padding-bottom:1px; float:right; position:absolute; right: 4px; bottom: 21px"
+                     (click)="firstStepMode()">Change</div>
               </div>
             </div>
-            <div *ngIf="createNewReceiver" class="help">It seems we don’t have this number in the client database.
-              <span>New account will be created.</span>
-            </div>
+            <!--<div *ngIf="createNewReceiver" class="help">It seems we don’t have this number in the client database.-->
+              <!--<span>New account will be created.</span>-->
+            <!--</div>-->
 
             <div *ngIf="createNewReceiver" class="content amount" style="margin-top: 15px; padding-bottom: 0">
               <form #agent_depoCitizen_newReceiverAmount="ngForm" novalidate>
@@ -131,16 +133,18 @@
 
         <!-- R I G H T   B L O C K -->
         <div class="col-md-6 col-lg-4  only-desktop">
-          <div class="block__header" style="padding-left: 0">
+          <div class="block__header" style="padding-left: 0; padding-top: 16px">
             <span>{{receiverStatus}}</span>
-            <div class="blue-angle" style="padding-bottom: 1px" (click)="firstStepMode()">Change</div>
+
+            <div class="blue-angle" style="padding-bottom: 1px" (click)="clearDefaultUser()">Clear</div>
           </div>
 
           <div style="padding: 0 18px">
             <app-get-user-id (userData)="setEnvoyeurFromForm($event)"
-                             [setUserNom]="''"
-                             [setUserPrenom]="''"
-                             [setUserCellulaire]="''">
+                             [setDefaultUser]="envoyeur_default">
+              <!--[setUserNom]="''"-->
+              <!--[setUserPrenom]="''"-->
+              <!--[setUserCellulaire]="''"-->
                              <!--[setUserNom]="envoyeur_default.nom"-->
                              <!--[setUserPrenom]="envoyeur_default.prenom"-->
                              <!--[setUserCellulaire]="envoyeur_default.numTel"-->
@@ -164,11 +168,13 @@
                 <input id="firstname2" name="firstname2" placeholder="Type here" readonly
                        style="border-bottom: 2px solid white; padding-left: 15px"
                        type="text" [(ngModel)]="receiverToFind">
+                <div class="blue-angle" style="padding-bottom:1px; float:right; position:absolute; right: 4px; bottom: 20%"
+                     (click)="firstStepMode()">Change</div>
               </div>
             </div>
-            <div *ngIf="createNewReceiver" class="help">It seems we don’t have this number in the client database.
-              <span>New account will be created.</span>
-            </div>
+            <!--<div *ngIf="createNewReceiver" class="help">It seems we don’t have this number in the client database.-->
+              <!--<span>New account will be created.</span>-->
+            <!--</div>-->
 
             <div *ngIf="createNewReceiver" class="content amount" style="margin-top: 15px; padding-bottom: 0">
               <form #agent_depoCitizen_newReceiverAmount="ngForm" novalidate>
@@ -213,14 +219,11 @@
         <div *ngIf="!createNewReceiver_mobile_amount" class="col-md-6 col-lg-4  only-mobile">
           <div class="block__header" style="padding-left: 0">
             <span>{{receiverStatus}}</span>
-            <div class="blue-angle" style="padding-bottom: 1px" (click)="firstStepMode()">Change</div>
+            <div class="blue-angle" style="padding-bottom: 1px" (click)="clearDefaultUser()">Clear</div>
           </div>
 
           <div style="padding: 0 18px">
-            <app-get-user-id (userData)="setEnvoyeurFromForm($event)"
-                             [setUserNom]="''"
-                             [setUserPrenom]="''"
-                             [setUserCellulaire]="''">
+            <app-get-user-id (userData)="setEnvoyeurFromForm($event)" [setDefaultUser]="envoyeur_default">
               <!--[setUserNom]="envoyeur_default.nom"-->
               <!--[setUserPrenom]="envoyeur_default.prenom"-->
               <!--[setUserCellulaire]="envoyeur_default.numTel">-->
