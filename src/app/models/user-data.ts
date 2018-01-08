@@ -178,7 +178,7 @@ export class UserDataService {
       text += (item.numTel) ? (', ' + item.numTel) : '';
 
       let id = (item.numTel) ? (item.numTel) : '';
-      if (!id) {id = (item.telephone) ? (item.telephone) : ''; }
+      if (!id) {id = (item.telephone) ? (item.telephone) : 'undefined'; }
 
       this.receiversForSelect2.push(new Select2optionClass(id, text));
     });
