@@ -31,7 +31,7 @@ export class W2COrdreRetraitService {
         </soapenv:Body>
         </soapenv:Envelope>`;
 
-    console.log(body);
+    // console.log(body);
     return this.backendService.post(UrlParams.backendUrl, body);
   }
 

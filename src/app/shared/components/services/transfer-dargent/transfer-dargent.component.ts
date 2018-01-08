@@ -138,6 +138,7 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
         this.makeTransaction();
       }
       if (this.createNew && this.newReceiver.nom && this.newReceiver.prenom && this.newReceiver.telephone) {
+        this.newReceiver.mail = this.newReceiver.telephone;
         console.log(this.newReceiver);
             this.createNewAccountService.createNewAccount(this.newReceiver)
               .subscribe(result => {
@@ -172,18 +173,19 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
       beneficiaire = <ReceiverClass>this.userDataService.getReceiverFromSelect2(this.numTel_fromSelect2);
       console.log(beneficiaire);
     } else {
-      beneficiaire = new ReceiverClass(this.newReceiver.nom, this.newReceiver.prenom,
-                                        this.newReceiver.telephone, 'AUTO', 0, '', '', '', '', '', '');
-      console.log(beneficiaire);
+      beneficiaire = new ReceiverClass(this.newReceiver.nom, this.newReceiver.prenom, this.newReceiver.telephone,
+                                      'AUTO', 0, '', this.newReceiver.telephone, this.newReceiver.telephone, '', '', '');
+      this.numTel_fromSelect2 = this.newReceiver.telephone;
     }
-    console.log(this.numTel_fromSelect2);
+    // console.log(this.numTel_fromSelect2);
+    // console.log(beneficiaire);
 
     if (this.numTel_fromSelect2) {
       this.w2COrdreRetraitService.transferDargent(this.myAccount.telephone, this.amountToReceiver, beneficiaire)
         .takeWhile(() => this.alive)
         .subscribe(result => {
           this.loading = false;
-          console.log(result._body);
+          // console.log(result._body);
           const response = this.commonServices.xmlResponseParcer_simple(result._body);
 
           console.dir(response);
