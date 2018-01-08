@@ -8,6 +8,7 @@ import {EnvoyeurClass} from '../../../../models/envoyeur-class';
 import {ReceiverClass} from '../../../../models/receiver-class';
 import 'rxjs/add/operator/takeWhile';
 import {ActivatedRoute} from '@angular/router';
+import {CurrencyParams} from '../../../../models/currency_params';
 declare var $: any;
 
 @Component({
@@ -48,7 +49,8 @@ export class DepotClientComponent implements OnInit, OnDestroy {
               public errorMessageHandlerService: ErrorMessageHandlerService,
               public getCommissionsTTCService: GetCommissionsTTCService,
               public v2WDepotClientTransactionService: V2WDepotClientTransactionService,
-              private activateRoute: ActivatedRoute) { }
+              private activateRoute: ActivatedRoute,
+              public currencyParams: CurrencyParams) { }
 
   ngOnInit() {
     this.firstStepMode();
@@ -109,7 +111,7 @@ export class DepotClientComponent implements OnInit, OnDestroy {
                 console.dir(_response);
                 if (+_response.error === 0) {
                   this.successMessage_1 = response.message + ' - ' + response.commission +
-                    ' pour le montant ' + this.amount_depotClient + ' usd';
+                    ' pour le montant ' + this.amount_depotClient + ' ' + this.currencyParams.curXOF();
                   this.successMessage_2 = _response.message;
                 } else {
                   this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(_response.message);

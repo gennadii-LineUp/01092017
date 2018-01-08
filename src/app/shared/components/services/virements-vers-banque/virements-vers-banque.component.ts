@@ -6,6 +6,7 @@ import {GetMyBeneficiariesService} from '../../../../services/api/getMyBeneficia
 import {VirementSicaService} from '../../../../services/api/virementSica.service';
 import * as moment from 'moment';
 import {ActivatedRoute} from '@angular/router';
+import {CurrencyParams} from '../../../../models/currency_params';
 
 export class BeneficiaryClass {
   banque: string;
@@ -62,7 +63,8 @@ export class VirementsVersBanqueComponent implements OnInit, OnDestroy {
               public getMyBeneficiariesService: GetMyBeneficiariesService,
               public virementSicaService: VirementSicaService,
               public errorMessageHandlerService: ErrorMessageHandlerService,
-              public activatedRoute: ActivatedRoute) {
+              public activatedRoute: ActivatedRoute,
+              public currencyParams: CurrencyParams) {
   }
 
   ngOnInit() {
@@ -137,7 +139,7 @@ export class VirementsVersBanqueComponent implements OnInit, OnDestroy {
           const response = this.commonServices.xmlResponseParcer_complex(result._body);
           console.log(response);
 
-          this.successMessage_1 = 'Confirmation de succès pour le montant ' + response.montant + 'usd !';
+          this.successMessage_1 = 'Confirmation de succès pour le montant ' + response.montant + this.currencyParams.curXOF() + ' !';
           this.successMessage_2 = '' + this.commonServices.fromServerDateMoment(response.dateTransaction) + ' à '
             + moment(response.dateTransaction).local().format('HH:mm:ss');
           setTimeout(() => {

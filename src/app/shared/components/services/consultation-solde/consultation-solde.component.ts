@@ -6,6 +6,7 @@ import {W2ISoldeService} from '../../../../services/api/W2ISolde.service';
 import 'rxjs/add/operator/takeWhile';
 import {ActivatedRoute} from '@angular/router';
 import {GetHistorySoldeService} from '../../../../services/api/getHistorySolde.service';
+import {CurrencyParams} from '../../../../models/currency_params';
 
 @Component({
   selector: 'app-services-consultation-solde',
@@ -36,7 +37,8 @@ export class ConsultationSoldeComponent implements OnInit, OnDestroy {
               public errorMessageHandlerService: ErrorMessageHandlerService,
               public w2ISoldeService: W2ISoldeService,
               public getHistorySoldeService: GetHistorySoldeService,
-              private activateRoute: ActivatedRoute) { }
+              private activateRoute: ActivatedRoute,
+              public currencyParams: CurrencyParams) { }
 
   ngOnInit() {
     this.activateRoute.parent.url

@@ -6,6 +6,7 @@ import {ErrorMessageHandlerService} from '../../../../services/error-message-han
 import {GetAllListAccountService} from '../../../../services/api/getAllListAccount.service';
 import {CommonServices} from '../../../../services/common.service';
 import {ActivatedRoute} from '@angular/router';
+import {CurrencyParams} from '../../../../models/currency_params';
 
 @ Component({
   selector: 'app-services-paiements',
@@ -26,7 +27,8 @@ export class PaiementsComponent implements OnInit, OnDestroy {
               public commonServices: CommonServices,
               public activatedRoute: ActivatedRoute,
               public xW2WService: XW2WService,
-              public errorMessageHandlerService: ErrorMessageHandlerService) { }
+              public errorMessageHandlerService: ErrorMessageHandlerService,
+              public currencyParams: CurrencyParams) { }
 
   ngOnInit() {
     this.activatedRoute.parent.url

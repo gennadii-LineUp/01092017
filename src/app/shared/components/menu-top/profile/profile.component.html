@@ -126,7 +126,7 @@
             </div>
             <div class="accordionItem close-item" (click)="commonServices.accordionToggleItemFunction($event); $event.stopPropagation()">
               <div class="accordionItemHeading">
-                <span>Currency <span>USD</span></span>
+                <span>Currency <span>{{currencyParams.curXOF()}}</span></span>
                 <div class="toggleHeading">
                   Change
                   <i class="fa fa-angle-right" aria-hidden="true"></i>

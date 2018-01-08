@@ -6,6 +6,7 @@ import {W2CRetraitTransactionService} from '../../../../services/api/W2CRetraitT
 import {EnvoyeurClass} from '../../../../models/envoyeur-class';
 import 'rxjs/add/operator/takeWhile';
 import {ActivatedRoute} from '@angular/router';
+import {CurrencyParams} from '../../../../models/currency_params';
 
 @Component({
   selector: 'app-services-retrait-code',
@@ -46,7 +47,8 @@ export class RetraitCodeComponent implements OnInit, OnDestroy {
               public w2CRetraitTransactionService: W2CRetraitTransactionService,
               public commonServices: CommonServices,
               public errorMessageHandlerService: ErrorMessageHandlerService,
-              private activateRoute: ActivatedRoute) { }
+              private activateRoute: ActivatedRoute,
+              public currencyParams: CurrencyParams) { }
 
   ngOnInit() {
     setTimeout(() => { this.mainInput.nativeElement.focus(); }, 1);

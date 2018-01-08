@@ -98,7 +98,7 @@
                                                                 || (event.keyCode===46) || (event.keyCode===110))"/>
                             <div class="clean-input" (click)="clearAmount()"></div>
                           </div>
-                          <div class="currency">Usd</div>
+                          <div class="currency">{{currencyParams.curXOF()}}</div>
                         </div>
                       </div>
                       <div *ngIf="errorMessage" class="errorTextClass">{{errorMessage}}</div>
@@ -168,7 +168,7 @@
                                                                 || (event.keyCode===46) || (event.keyCode===110))"/>
                             <div class="clean-input" (click)="clearAmount()"></div>
                           </div>
-                          <div class="currency">Usd</div>
+                          <div class="currency">{{currencyParams.curXOF()}}</div>
                         </div>
                       </div>
                       <div *ngIf="errorMessage" class="errorTextClass">{{errorMessage}}</div>
@@ -239,7 +239,7 @@
                                                                 || (event.keyCode===46) || (event.keyCode===110))"/>
                             <div class="clean-input" (click)="clearAmount()"></div>
                           </div>
-                          <div class="currency">Usd</div>
+                          <div class="currency">{{currencyParams.curXOF()}}</div>
                         </div>
                       </div>
                       <div *ngIf="errorMessage" class="errorTextClass">{{errorMessage}}</div>

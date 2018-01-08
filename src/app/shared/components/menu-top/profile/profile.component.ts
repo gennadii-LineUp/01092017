@@ -3,6 +3,7 @@ import {CommonServices} from '../../../../services/common.service';
 import {UserDataService} from '../../../../models/user-data';
 import {RegistrationClass} from '../../../../models/registration-class';
 import {LoginService} from '../../../../services/api/login.service';
+import {CurrencyParams} from '../../../../models/currency_params';
 
 
 export class NewPasswordClass {
@@ -49,7 +50,8 @@ export class ProfileComponent implements OnInit {
 
   constructor(public commonServices: CommonServices,
               public userDataService: UserDataService,
-              public loginService: LoginService) { }
+              public loginService: LoginService,
+              public currencyParams: CurrencyParams) { }
 
   ngOnInit() {
     this._user = this.userDataService.getUser();

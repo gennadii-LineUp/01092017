@@ -52,7 +52,7 @@
                                                                 || (event.keyCode===46) || (event.keyCode===110))"/>
                   <div class="clean-input" (click)="clearAmount()"></div>
                 </div>
-                <div class="currency">Usd</div>
+                <div class="currency">{{currencyParams.curXOF()}}</div>
               </div>
               <div *ngIf="errorMessage" class="errorTextClass" style="position: absolute">{{errorMessage}}</div>
             </div>
@@ -115,7 +115,7 @@
                                                                 || (event.keyCode===46) || (event.keyCode===110))"/>
                       <div class="clean-input" (click)="clearAmount()"></div>
                     </div>
-                    <div class="currency">Usd</div>
+                    <div class="currency">{{currencyParams.curXOF()}}</div>
                   </div>
                   <div *ngIf="errorMessage" class="errorTextClass" style="position: absolute">{{errorMessage}}</div>
                   <p *ngIf="!errorMessage" style="margin: 0; text-align: center; height: 16px; margin-bottom: 12px; margin-top: 24px">
@@ -187,7 +187,7 @@
                                                                 || (event.keyCode===46) || (event.keyCode===110))"/>
                       <div class="clean-input" (click)="clearAmount()"></div>
                     </div>
-                    <div class="currency">Usd</div>
+                    <div class="currency">{{currencyParams.curXOF()}}</div>
                   </div>
                   <div *ngIf="errorMessage" class="errorTextClass" style="position: absolute">{{errorMessage}}</div>
                   <p *ngIf="!errorMessage" style="margin: 0; text-align: center; height: 16px; margin-bottom: 12px; margin-top: 24px">
@@ -304,7 +304,7 @@
                                                                 <!--|| (event.keyCode===46) || (event.keyCode===110))"/>-->
                 <!--<div class="clean-input" (click)="clearAmount()"></div>-->
               <!--</div>-->
-              <!--<div class="currency">Usd</div>-->
+              <!--<div class="currency">{{currencyParams.curXOF()}}</div>-->
             <!--</div>-->
             <!--<button [disabled]="!(+amount_depotClient >= 0.01)"-->
                     <!--class="orange-button blue-button"-->

@@ -8,6 +8,7 @@ import 'rxjs/add/operator/takeWhile';
 import {ActivatedRoute} from '@angular/router';
 import {RegistrationClass} from '../../../../models/registration-class';
 import {CreateNewAccountService} from '../../../../services/api/createNewAccount.service';
+import {CurrencyParams} from '../../../../models/currency_params';
 declare let $: any;
 
 @Component({
@@ -38,7 +39,8 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
               public commonServices: CommonServices,
               public createNewAccountService: CreateNewAccountService,
               public errorMessageHandlerService: ErrorMessageHandlerService,
-              private activateRoute: ActivatedRoute) { }
+              private activateRoute: ActivatedRoute,
+              public currencyParams: CurrencyParams) { }
 
   ngOnInit() {
     this.activateRoute.parent.url

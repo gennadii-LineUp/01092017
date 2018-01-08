@@ -59,7 +59,7 @@
                         <!--<span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>121 (360) 985-15</span>-->
                       <!--</div>-->
                     <!--</div>-->
-                    <!--<div class="money">580.00 <span>usd</span></div>-->
+                    <!--<div class="money">580.00 <span>{{currencyParams.curXOF()}}</span></div>-->
                     <!--<div class="cancel">Cancel</div>-->
                   <!--</div>-->
                   <!--<div class="virements-multiples__footer add-more">-->
@@ -81,7 +81,7 @@
                                                               || (event.keyCode===46) || (event.keyCode===110))"/>
                       <div class="clean-input" (click)="clearAmount()"></div>
                     </div>
-                    <div class="currency">Usd</div>
+                    <div class="currency">{{currencyParams.curXOF()}}</div>
                   </div>
 
                   <div *ngFor="let amount of contractsCustomer">
@@ -101,7 +101,7 @@
                                                               || (event.keyCode===46) || (event.keyCode===110))"/>
                         <div class="clean-input" (click)="clearIndividualAmount($event)"></div>
                       </div>
-                      <div class="currency">Usd</div>
+                      <div class="currency">{{currencyParams.curXOF()}}</div>
                     </div>
                   </div>
 

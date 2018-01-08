@@ -32,8 +32,15 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 1. ng build --target=production --environment=prod --output-path cordova-android/www/
 
-2. in file cash-transfer\cordova-android\www\index.html
-    replace   <base href="/">  by  <base href="./">
+2. in file cash-transfer\cordova-android\www\index.html:
+    2.1 replace   <base href="/">  by  <base href="./">
+    2.2 uncomment lines:
+            <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+            <script>
+              document.addEventListener("deviceready", function(){
+                navigator.splashscreen.hide();
+              },true);
+            </script>
     
 3. in folder cash-transfer\cordova-android\www  replace image links:
     from ../../../../../assets/img/ => ... /assets/img/

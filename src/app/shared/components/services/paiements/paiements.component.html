@@ -32,10 +32,10 @@
               <div>
                 <span>Receiver: <span class="name">{{operation.nom}} {{operation.prenom}}</span></span>
                 <span *ngIf="operation.sens==='CREDIT'"    class="profit">
-                  {{operation.sens | debitCreditSign}}{{operation.montant | number : '1.2-2'}}<span class="curr">USD</span>
+                  {{operation.sens | debitCreditSign}}{{operation.montant | number : '1.2-2'}}<span class="curr">{{currencyParams.curXOF()}}</span>
                 </span>
                 <span *ngIf="!(operation.sens==='CREDIT')" class="lesion">
-                  {{operation.sens | debitCreditSign}}{{operation.montant | number : '1.2-2'}}<span class="curr">USD</span>
+                  {{operation.sens | debitCreditSign}}{{operation.montant | number : '1.2-2'}}<span class="curr">{{currencyParams.curXOF()}}</span>
                 </span>
               </div>
               <div>

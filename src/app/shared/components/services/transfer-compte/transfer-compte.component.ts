@@ -11,6 +11,7 @@ import 'rxjs/add/operator/takeWhile';
 import {GetFacturiersPaysService} from '../../../../services/api/getFacturiersPays.service';
 import {GetCommercantsPaysService} from '../../../../services/api/getCommercantsPays.service';
 import {ActivatedRoute} from '@angular/router';
+import {CurrencyParams} from '../../../../models/currency_params';
 
 @Component({
   selector: 'app-services-transfer-compte',
@@ -56,7 +57,8 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
               public w2WVirementAccountService: W2WVirementAccountService,
               public getCommissionsTTCService: GetCommissionsTTCService,
               public errorMessageHandlerService: ErrorMessageHandlerService,
-              private activateRoute: ActivatedRoute) { }
+              private activateRoute: ActivatedRoute,
+              public currencyParams: CurrencyParams) { }
 
   ngOnInit() {
     this.activateRoute.parent.url

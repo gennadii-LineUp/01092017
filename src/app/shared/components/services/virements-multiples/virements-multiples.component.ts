@@ -9,6 +9,7 @@ import {ErrorMessageHandlerService} from '../../../../services/error-message-han
 import {GetCitizenContractService} from '../../../../services/api/getCitizenContract.service';
 import {GetAllListAccountService} from '../../../../services/api/getAllListAccount.service';
 import {ActivatedRoute} from '@angular/router';
+import {CurrencyParams} from '../../../../models/currency_params';
 
 @Component({
   selector: 'app-virements-multiples',
@@ -40,7 +41,8 @@ export class VirementsMultiplesComponent implements OnInit, OnDestroy {
               public w2XWalletService: W2XWalletService,
               public getCitizenContractService: GetCitizenContractService,
               public getAllListAccountService: GetAllListAccountService,
-              public errorMessageHandlerService: ErrorMessageHandlerService) {}
+              public errorMessageHandlerService: ErrorMessageHandlerService,
+              public currencyParams: CurrencyParams) {}
 
   ngOnInit() {
     this.gotoContractToFindFunction();

@@ -21,6 +21,7 @@ import {GetAllCustomerService} from './services/api/getAllCustomer.service';
 import {GetAllContractsService} from './services/api/getAllContracts.service';
 import { NgSelect2Module } from 'ng-select2';
 import {AutorizationGuardService} from './guards/autorization-guard.service';
+import {CurrencyParams} from './models/currency_params';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import {AutorizationGuardService} from './guards/autorization-guard.service';
   providers: [
     AuthGuard, AgentGuard, CitizenGuard, CustomerGuard, AutorizationGuardService,
     ErrorMessageHandlerService, BackendService, CommonServices, UserDataService, GetAllListAccountService,
-    GetAllCustomerService, GetAllCitizenService, GetAllContractsService
+    GetAllCustomerService, GetAllCitizenService, GetAllContractsService,
+    CurrencyParams
   ],
   bootstrap: [AppComponent]
 })

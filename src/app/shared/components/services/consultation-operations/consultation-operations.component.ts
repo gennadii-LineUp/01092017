@@ -6,6 +6,7 @@ import {GetOperationService} from '../../../../services/api/GetOperation.service
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/takeWhile';
 import {ActivatedRoute} from '@angular/router';
+import {CurrencyParams} from '../../../../models/currency_params';
 
 @Component({
     selector: 'app-services-consultation-operations',
@@ -33,7 +34,8 @@ export class ConsultationOperationsComponent implements OnInit, OnDestroy {
                 public userDataService: UserDataService,
                 public errorMessageHandlerService: ErrorMessageHandlerService,
                 public getOperationService: GetOperationService,
-                private activateRoute: ActivatedRoute) { }
+                private activateRoute: ActivatedRoute,
+                public currencyParams: CurrencyParams) { }
 
     ngOnInit() {
       this.activateRoute.parent.url

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {CurrencyParams} from '../../../../models/currency_params';
 
 @Component({
   selector: 'app-services-bank-to-wallet',
@@ -12,8 +13,8 @@ export class BankToWalletComponent implements OnInit {
 
 
   constructor(
-    public activatedRoute: ActivatedRoute
-  ) { }
+    public activatedRoute: ActivatedRoute,
+    public currencyParams: CurrencyParams) { }
 
   ngOnInit() {
     this.activatedRoute.parent.url
