@@ -3,7 +3,7 @@
     <h3 style="margin-top: 16px">Firstname</h3>
     <div class="floating-block border-hover">
       <div class="floating-input">
-        <input type="text" placeholder="Type here" (ngModelChange)="sendData($event)"
+        <input type="text" placeholder="Type here" (ngModelChange)="sendData()"
                #firstName="ngModel" id="firstName" name='firstName' required [ngModel]="envoyeur.nom"/>
         <div class="clean-input" (click)="clearEnvoyeur('nom')"></div>
       </div>
@@ -11,7 +11,7 @@
     <h3>Lastname</h3>
     <div class="floating-block border-hover">
       <div class="floating-input">
-        <input type="text" placeholder="Type here" (ngModelChange)="sendData($event)"
+        <input type="text" placeholder="Type here" (ngModelChange)="sendData()"
                #lastName="ngModel" id="lastName" name='lastName' required [ngModel]="envoyeur.prenom" />
         <div class="clean-input" (click)="clearEnvoyeur('prenom')"></div>
       </div>
@@ -19,7 +19,7 @@
     <h3>Cellulaire</h3>
     <div class="floating-block border-hover">
       <div class="floating-input">
-        <input type="text" placeholder="Type here" (ngModelChange)="sendData($event)"
+        <input type="text" placeholder="Type here" (ngModelChange)="sendData()"
                #id_telephone="ngModel" id="id_telephone" name='id_telephone' required [ngModel]="envoyeur.cellulaire" />
         <div class="clean-input" (click)="clearEnvoyeur('cellulaire')"></div>
       </div>
@@ -27,7 +27,7 @@
     <h3>ID type</h3>
     <div class="floating-block border-hover">
       <div class="floating-input">
-        <input type="text" placeholder="Type here" (ngModelChange)="sendData($event)"
+        <input type="text" placeholder="Type here" (ngModelChange)="sendData()"
                #id_type="ngModel" id="id_type" name='id_type' required [ngModel]="envoyeur.id_type" />
         <div class="clean-input" (click)="clearEnvoyeur('id_type')"></div>
       </div>
@@ -35,7 +35,7 @@
     <h3>ID valeur</h3>
     <div class="floating-block border-hover">
       <div class="floating-input">
-        <input type="text" placeholder="Type here" (ngModelChange)="sendData($event)"
+        <input type="text" placeholder="Type here" (ngModelChange)="sendData()"
                #id_valeur="ngModel" id="id_valeur" name='id_valeur' required [ngModel]="envoyeur.id_valeur" />
         <div class="clean-input" (click)="clearEnvoyeur('id_valeur')"></div>
       </div>
@@ -43,7 +43,7 @@
     <h3>ID debut</h3>
     <div class="floating-block border-hover">
       <div class="floating-input">
-        <input type="text" placeholder="Type here" (ngModelChange)="sendData($event)"
+        <input type="text" placeholder="Type here" (ngModelChange)="sendData()"
                #id_debut="ngModel" id="id_debut" name='id_debut' required [ngModel]="envoyeur.id_debut" />
         <div class="clean-input" (click)="clearEnvoyeur('id_debut')"></div>
       </div>
@@ -51,7 +51,7 @@
     <h3>ID fin</h3>
     <div class="floating-block border-hover">
       <div class="floating-input">
-        <input type="text" placeholder="Type here" (ngModelChange)="sendData($event)"
+        <input type="text" placeholder="Type here" (ngModelChange)="sendData()"
                #id_fin="ngModel" id="id_fin" name='id_fin' required [ngModel]="envoyeur.id_fin" />
         <div class="clean-input" (click)="clearEnvoyeur('id_fin')"></div>
         <!--(click)="clearEnvoyeur('id_fin')"-->
