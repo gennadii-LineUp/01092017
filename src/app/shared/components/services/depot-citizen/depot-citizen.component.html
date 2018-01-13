@@ -36,7 +36,7 @@
 
           <div class="content amount">
             <!--<form #agent_depoCitizen_existReceiver="ngForm" novalidate>-->
-                <div class="amount-wrapper" style="margin-top: 70px; position: relative">
+                <div class="amount-wrapper" style="margin-top: 68px; position: relative">
                   <h3>Amount</h3>
                   <div class="floating-block border-hover">
                     <div class="floating-input">
@@ -127,6 +127,16 @@
               </form>
             </div>
 
+            <div class="floating-input">
+              <h3 style="cursor:pointer" (click)='setDeposantSameAsBeneficiary($event); false'>
+                <input type="checkbox" id="checkbox_same_benef"
+                       style="visibility:visible; float:left; cursor:pointer; margin:2px 10px 20px 0; height:15px; width:15px"
+                       [(ngModel)]="checkboxSameBenef" [checked]='checkboxSameBenef'
+                       name='checkbox_same_benef' />
+                <span class="control__indicator"></span>
+                The deposant and the beneficiary are the same person
+              </h3>
+            </div>
           </div>
         </div>
 
@@ -202,6 +212,16 @@
                 </div>
               </form>
 
+              <div class="floating-input">
+                <h3 style="cursor:pointer" (click)='setDeposantSameAsBeneficiary($event); false'>
+                  <input type="checkbox" id="checkbox_same_benef_m"
+                         style="visibility:visible; float:left; cursor:pointer; margin:2px 10px 20px 0; height:15px; width:15px"
+                         [(ngModel)]="checkboxSameBenef" [checked]='checkboxSameBenef'
+                         name='checkbox_same_benef_m' />
+                  <span class="control__indicator"></span>
+                  The deposant and the beneficiary are the same person
+                </h3>
+              </div>
               <div class="col-md-12 col-lg-8 blue-button__wrapper">
                 <button class="orange-button blue-button" style="margin-top: 8px"
                         [disabled]="!(+amount_depotCitizen >= 0.01)"

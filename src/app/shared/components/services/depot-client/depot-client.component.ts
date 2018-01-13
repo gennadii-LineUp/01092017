@@ -34,6 +34,8 @@ export class DepotClientComponent implements OnInit, OnDestroy {
   commission = [];
   envoyeur = new EnvoyeurClass('KANE', 'MOMAR', '773151459', 'DAKAR', 'CNI', 'SEN', '1619198107350', '01/01/2016', '01/01/2017');
   envoyeur_default: EnvoyeurClass;
+  _envoyeur_default: EnvoyeurClass;
+  checkboxSameBenef = true;
   receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 1, 'citizen', '', '', '', '', ''),
               new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 2, 'citizen', '', '', '', '', ''),
               new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 3, 'citizen', '', '', '', '', '')];
@@ -157,8 +159,8 @@ export class DepotClientComponent implements OnInit, OnDestroy {
     this.clearSearch();
     const beneficiaire = this.userDataService.getReceiverFromSelect2(this.client_fromSelect2);
     const addr = (beneficiaire.address) ? beneficiaire.address : 'undefined';
-    this.envoyeur_default = new EnvoyeurClass(beneficiaire.nom, beneficiaire.prenom, beneficiaire.numTel,
-                                              addr, '', 'SEN', '', '', '');
+    this.envoyeur_default = new EnvoyeurClass(beneficiaire.nom, beneficiaire.prenom, beneficiaire.numTel, addr, '', 'SEN', '', '', '');
+    this._envoyeur_default = new EnvoyeurClass(beneficiaire.nom, beneficiaire.prenom, beneficiaire.numTel, addr, '', 'SEN', '', '', '');
     this.receiverStatus = (beneficiaire.nom) ? (beneficiaire.nom) : '';
     this.receiverStatus += (beneficiaire.prenom) ? (' ' + beneficiaire.prenom) : '';
     // this.receiverStatus += (beneficiaire.nom || beneficiaire.prenom) ? (', ') : '';
@@ -174,6 +176,7 @@ export class DepotClientComponent implements OnInit, OnDestroy {
 
   private setEnvoyeurFromForm(envoyeur: EnvoyeurClass) {
     this.envoyeur = envoyeur;
+    console.log(this.envoyeur.nom);
     console.log(this.envoyeur);
   }
 
@@ -191,8 +194,18 @@ export class DepotClientComponent implements OnInit, OnDestroy {
     this.commission = [];
   }
 
+  public setDeposantSameAsBeneficiary(e) {
+    this.checkboxSameBenef = !this.checkboxSameBenef;
+    console.log(this.checkboxSameBenef);
+    if (this.checkboxSameBenef) {
+      this.envoyeur_default = this._envoyeur_default;
+    } else {
+      this.envoyeur_default = new EnvoyeurClass('', '', '', '', '', '', '', '', '');
+    }
+  }
 
   public clearDefaultUser() {
+    this.checkboxSameBenef = false;
     this.envoyeur_default = new EnvoyeurClass('', '', '', '', '', '', '', '', '');
   }
 }

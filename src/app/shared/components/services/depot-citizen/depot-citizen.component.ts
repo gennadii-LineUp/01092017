@@ -32,8 +32,10 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
   commission = [];
   envoyeur = new EnvoyeurClass('KANE', 'MOMAR', '773151459', 'DAKAR', 'CNI', 'SEN', '1619198107350', '01/01/2016', '01/01/2017');
   envoyeur_default: EnvoyeurClass;
+  _envoyeur_default: EnvoyeurClass;
   citizen_fromSelect2 = '';
   userRole = '';
+  checkboxSameBenef = true;
   alive = true;
 
   @ViewChild('amount_mobile') amount_input_mobile: any;
@@ -147,8 +149,8 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
     this.clearSearch();
     const beneficiaire = this.userDataService.getReceiverFromSelect2(this.citizen_fromSelect2);
     const addr = (beneficiaire.address) ? beneficiaire.address : 'undefined';
-    this.envoyeur_default = new EnvoyeurClass(beneficiaire.nom, beneficiaire.prenom, beneficiaire.numTel,
-                                              addr, '', 'SEN', '', '', '');
+    this.envoyeur_default = new EnvoyeurClass(beneficiaire.nom, beneficiaire.prenom, beneficiaire.numTel, addr, '', 'SEN', '', '', '');
+    this._envoyeur_default = new EnvoyeurClass(beneficiaire.nom, beneficiaire.prenom, beneficiaire.numTel, addr, '', 'SEN', '', '', '');
     this.receiverStatus = (beneficiaire.nom) ? (beneficiaire.nom) : '';
     this.receiverStatus += (beneficiaire.prenom) ? (' ' + beneficiaire.prenom) : '';
     // this.receiverStatus += (beneficiaire.nom || beneficiaire.prenom) ? (', ') : '';
@@ -161,10 +163,34 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
   }
 
   private setEnvoyeurFromForm(envoyeur: EnvoyeurClass) {
+    console.log('was');
+    console.log(this.envoyeur);
+    console.log('become');
+    console.log(envoyeur);
     this.envoyeur = envoyeur;
     console.log(this.envoyeur);
+    console.log(this.envoyeur.nom + ' - ' + this._envoyeur_default.nom);
+    console.log(this.envoyeur.prenom + ' - ' + this._envoyeur_default.prenom);
+    console.log(this.envoyeur.cellulaire + ' - ' + this._envoyeur_default.cellulaire);
+    if (this.envoyeur.nom === this._envoyeur_default.nom
+      && this.envoyeur.prenom === this._envoyeur_default.prenom
+      && this.envoyeur.cellulaire === this._envoyeur_default.cellulaire) {
+      this.checkboxSameBenef = true;
+      console.log(this.checkboxSameBenef);
+    } else {this.checkboxSameBenef = false; console.log(this.checkboxSameBenef); }
+console.log('------------------------------');
   }
 
+  public setDeposantSameAsBeneficiary(e) {
+    this.checkboxSameBenef = !this.checkboxSameBenef;
+    console.log(this.checkboxSameBenef);
+    console.log(this._envoyeur_default);
+    if (this.checkboxSameBenef) {
+      this.envoyeur_default = this._envoyeur_default;
+    } else {
+      this.envoyeur_default = new EnvoyeurClass('', '', '', '', '', '', '', '', '');
+    }
+  }
   public clearAmount() {this.amount_depotCitizen = undefined; }
   public clearEnvoyeur(field: string) {this.envoyeur[field] = undefined; }
 
@@ -183,6 +209,7 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
   }
 
   public clearDefaultUser() {
+    this.checkboxSameBenef = false;
     this.envoyeur_default = new EnvoyeurClass('', '', '', '', '', '', '', '', '');
   }
 
