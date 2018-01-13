@@ -9,7 +9,7 @@ export class GetAllContractsService {
   constructor(public backendService: BackendService) {}
 
 
-  public getAllContracts(): Observable<any> {
+  public getAllContracts(uoId: string): Observable<any> {
     const token = localStorage.token;
 
     const body =
@@ -18,6 +18,7 @@ export class GetAllContractsService {
            <soapenv:Body>
               <run:getAllContracts>
                   <sessionId>` + token + `</sessionId>
+                  <uoId>` + uoId + `</uoId>
               </run:getAllContracts>
            </soapenv:Body>
       </soapenv:Envelope>`;

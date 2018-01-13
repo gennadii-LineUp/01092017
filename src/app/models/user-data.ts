@@ -111,15 +111,39 @@ export class UserDataService {
 
   public setAllContracts() {
     this.allContracts = [];
-    this.getAllContractsService.getAllContracts()
-      .subscribe(result => {
-        const response = (this.commonServices.xmlResponseParcer_complex(result._body)).contract;
-        if (response) {
-          console.log(response);
-          this.allContracts = response;
-          this.setContractsForSelect2(response);
-        }
-      }, (err) => {console.log(err); this.setErrorMessage(err); });
+    if (this.myAccounts['0'] && this.myAccounts['0'].uoId) {
+      this.getAllContractsService.getAllContracts(this.myAccounts['0'].uoId)
+        .subscribe(result => {
+          const response = (this.commonServices.xmlResponseParcer_complex(result._body)).contract;
+          if (response) {
+            console.log(response);
+            this.allContracts = response;
+            this.setContractsForSelect2(response);
+          }
+        }, (err) => {console.log(err); this.setErrorMessage(err); });
+    } else {
+      this.getAllListAccountService.getMyAccounts(localStorage.telephone)
+        .subscribe(result1 => {
+          const response1 = this.commonServices.xmlResponseParcer_complex(result1._body);
+          const accounts = response1.accounts;
+          if (accounts && accounts.length) {
+            if (accounts['0'].status === 'ACTIF') {
+                  this.getAllContractsService.getAllContracts(accounts['0'].uoId)
+                    .subscribe(result => {
+                      const response = (this.commonServices.xmlResponseParcer_complex(result._body)).contract;
+                      if (response) {
+                        console.log(response);
+                        this.allContracts = response;
+                        this.setContractsForSelect2(response);
+                      }
+                    }, (err) => {console.log(err); this.setErrorMessage(err); });
+              }
+            }
+        }, (err) => {
+          console.log(err);
+          this.setErrorMessage(err);
+        });
+    }
   }
 
   public getAllContracts(): any {
