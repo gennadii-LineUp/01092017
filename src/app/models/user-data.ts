@@ -63,7 +63,7 @@ export class UserDataService {
         this.getAllListAccountService.getMyAccounts(localStorage.telephone)
           .subscribe(result1 => {
             const response1 = this.commonServices.xmlResponseParcer_complex(result1._body);
-            console.log(response1);
+
             const accounts = response1.accounts;
             if (accounts && accounts.length) {
               if (accounts['0'].status === 'ACTIF') {
@@ -114,9 +114,11 @@ export class UserDataService {
     this.getAllContractsService.getAllContracts()
       .subscribe(result => {
         const response = (this.commonServices.xmlResponseParcer_complex(result._body)).contract;
-        console.log(response);
-        this.allContracts = response;
-        this.setContractsForSelect2(response);
+        if (response) {
+          console.log(response);
+          this.allContracts = response;
+          this.setContractsForSelect2(response);
+        }
       }, (err) => {console.log(err); this.setErrorMessage(err); });
   }
 
@@ -191,17 +193,20 @@ export class UserDataService {
 
   public setContractsForSelect2(contracts: Array<any>) {
     this.contractsForSelect2 = [];
-    contracts.forEach(item => {
-      let text = (item.reference) ? (item.reference) : '';
-      text += (item.dateCreation) ? (' de ' + this.commonServices.fromServerDateMoment(item.dateCreation)) : '';
-      text += (item.debut) ? ('. Valide à partir de ' + this.commonServices.fromServerDateMoment(item.debut)) : '';
-      text += (item.statut) ? ('. ' + item.statut) : '';
-      text += (item.banque) ? ('. ' + item.banque + ' banque.') : '';
-      const id = (item.id) ? (item.id) : '';
+    if (contracts && contracts.length > 0) {
+      contracts.forEach(item => {
+        let text = (item.reference) ? (item.reference) : '';
+        text += (item.dateCreation) ? (' de ' + this.commonServices.fromServerDateMoment(item.dateCreation)) : '';
+        text += (item.debut) ? ('. Valide à partir de ' + this.commonServices.fromServerDateMoment(item.debut)) : '';
+        text += (item.statut) ? ('. ' + item.statut) : '';
+        text += (item.banque) ? ('. ' + item.banque + ' banque.') : '';
+        const id = (item.id) ? (item.id) : '';
 
-      this.contractsForSelect2.push(new Select2optionClass(id, text));
-    });
-    console.log(this.contractsForSelect2);
+        this.contractsForSelect2.push(new Select2optionClass(id, text));
+      });
+      console.log(this.contractsForSelect2);
+    }
+
   }
   public getContractsForSelect2(): Array<Select2optionClass> {
     return this.contractsForSelect2;
@@ -215,6 +220,7 @@ export class UserDataService {
         receiver = this.getReceivers()[key];
       }
     });
+    console.log(receiver);
     return receiver;
   }
 

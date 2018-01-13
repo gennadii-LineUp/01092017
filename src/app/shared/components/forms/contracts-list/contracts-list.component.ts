@@ -8,7 +8,7 @@ import {Select2optionClass} from '../../../../models/select2option-class';
   styleUrls: ['./contracts-list.component.scss']
 })
 export class ContractsListComponent implements OnInit {
-  errorMessage_contract = '';
+  errorMessage_contract = 'There is no contracts in the database. Please, ask the admin to create them.';
   contract_fromSelect2 = '';
   @Output() contract_defined = new EventEmitter<Select2optionClass>();
 
