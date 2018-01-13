@@ -131,7 +131,7 @@
               <h3 style="cursor:pointer" (click)='setDeposantSameAsBeneficiary($event); false'>
                 <input type="checkbox" id="checkbox_same_benef"
                        style="visibility:visible; float:left; cursor:pointer; margin:2px 10px 20px 0; height:15px; width:15px"
-                       [(ngModel)]="checkboxSameBenef" [checked]='checkboxSameBenef'
+                       [checked]='checkboxSameBenef'
                        name='checkbox_same_benef' />
                 <span class="control__indicator"></span>
                 The deposant and the beneficiary are the same person
@@ -150,6 +150,7 @@
           </div>
 
           <div style="padding: 0 18px">
+            <!--<app-get-user-id [(envoyeur)]="envoyeur_default"></app-get-user-id>-->
             <app-get-user-id (userData)="setEnvoyeurFromForm($event)" [setDefaultUser]="envoyeur_default">
                              <!--[setUserNom]="envoyeur_default.nom"-->
                              <!--[setUserPrenom]="envoyeur_default.prenom"-->
@@ -244,6 +245,7 @@
           </div>
 
           <div style="padding: 0 18px">
+            <!--<app-get-user-id [(envoyeur)]="envoyeur_default"></app-get-user-id>-->
             <app-get-user-id (userData)="setEnvoyeurFromForm($event)" [setDefaultUser]="envoyeur_default">
                              <!--[setUserNom]="''"-->
                              <!--[setUserPrenom]="''"-->

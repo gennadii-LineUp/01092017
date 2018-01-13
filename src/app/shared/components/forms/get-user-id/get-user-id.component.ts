@@ -13,6 +13,23 @@ export class GetUserIdComponent implements OnInit {
 
   @Input()
   set setDefaultUser(defaultEnvoyeur: EnvoyeurClass) {this.envoyeur = defaultEnvoyeur; }
+
+// ---------------
+  // @Input() envoyeur: EnvoyeurClass;
+  // @Output() userData = new EventEmitter<EnvoyeurClass>();
+  //
+  // public clearEnvoyeur(field: string) {this.envoyeur[field] = undefined; }
+  //
+  // public sendData(model: EnvoyeurClass) {
+  //   this.envoyeur = model;
+  //   this.userData.emit(model);
+  //   console.dir(this.envoyeur);
+  // }
+// ---------------
+
+  // @Input()
+  // set setDefaultUser(defaultEnvoyeur: EnvoyeurClass) {this.envoyeur = defaultEnvoyeur; }
+
   // @Input()
   // set setUserNom(nom: string) {this.envoyeur.nom = nom; }
   // @Input()
