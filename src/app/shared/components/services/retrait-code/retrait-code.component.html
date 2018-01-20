@@ -72,7 +72,7 @@
                 </div>
               </div>
 
-              <app-get-user-id (userData)="onChanged($event)" ></app-get-user-id>
+              <app-get-user-id (userData)="onChanged($event)" [setDefaultUser]="serverResponse.beneficiaire"></app-get-user-id>
 
               <div class="info-item">
                 <div *ngIf="errorMessage_retrieve" class="errorTextClass">{{errorMessage_retrieve}}</div>
@@ -80,9 +80,9 @@
                 <button class="orange-button blue-button"
                         [disabled]="!(amount_retraitCode && beneficiaire.nom && beneficiaire.prenom
                                                         && beneficiaire.cellulaire && beneficiaire.id_type
-                                                        && beneficiaire.id_pays
                                                         && beneficiaire.id_valeur && beneficiaire.id_debut)"
                         (click)="retrieveCashFunction()">Retirer le cash</button>
+                <!--&& beneficiaire.id_pays-->
               </div>
           </div>
         </div>

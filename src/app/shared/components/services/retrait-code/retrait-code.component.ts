@@ -25,7 +25,7 @@ export class RetraitCodeComponent implements OnInit, OnDestroy {
   retraitCode_valid = false;
   retraitCode_errorMessage = false;
   setAmountAndBeneficiareId = false;
-  retraitCode = '866256775'; // '219120516'; // string;
+  retraitCode = '173478790'; // '192075136'; // string;
   serverResponse = {
     code: '',
     date: '',
@@ -82,8 +82,8 @@ export class RetraitCodeComponent implements OnInit, OnDestroy {
           this.retraitCode_valid = true;
           this.serverResponse['code'] = response.code;
           this.serverResponse['date'] = response.date;
-          this.serverResponse['envoyeur'] = response.envoyeur[0];
-          this.serverResponse['beneficiaire'] = response.envoyeur[1];
+          this.serverResponse['envoyeur'] = response.envoyeur[1];
+          this.serverResponse['beneficiaire'] = response.envoyeur[0];
           this.serverResponse['message'] = response.errorMessage;
           this.serverResponse['montant'] = response.montant;
           this.amount_retraitCode = response.montant;
@@ -112,6 +112,7 @@ export class RetraitCodeComponent implements OnInit, OnDestroy {
 
   public onChanged(beneficiaire: EnvoyeurClass) {
     this.beneficiaire = beneficiaire;
+    console.log(this.beneficiaire);
   }
 
   public clearAmount() {this.amount_retraitCode = undefined; }
@@ -124,7 +125,7 @@ export class RetraitCodeComponent implements OnInit, OnDestroy {
   public retrieveCashFunction() {
     if (this.amount_retraitCode && this.beneficiaire.nom && this.beneficiaire.prenom
       && this.beneficiaire.cellulaire && this.beneficiaire.id_type
-      && this.beneficiaire.id_pays
+      // && this.beneficiaire.id_pays
       && this.beneficiaire.id_valeur && this.beneficiaire.id_debut) {
       this.loading_retrieve = true;
       // console.log(this.beneficiaire);
