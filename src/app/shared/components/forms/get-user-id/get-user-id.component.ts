@@ -8,6 +8,13 @@ import {EnvoyeurClass} from '../../../../models/envoyeur-class';
 })
 export class GetUserIdComponent implements OnInit {
   envoyeur = new EnvoyeurClass('', '', '', '', '', '', '', '', '');
+  select_id_type_values = [
+    { value: 'CARTE D\'IDENTITE',  display: 'CARTE D\'IDENTITE' },
+    { value: 'PASSEPORT', display: 'PASSEPORT' },
+    { value: 'PERMIS DE CONDUIRE', display: 'PERMIS DE CONDUIRE' },
+    { value: 'AUTRE', display: 'AUTRE'}
+  ];
+
   @Output()
   userData = new EventEmitter<EnvoyeurClass>();
 

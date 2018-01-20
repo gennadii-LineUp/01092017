@@ -89,7 +89,7 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
 
           console.dir(response);
           if (+response.error === 0) {
-            // this.errorMessage = response.message + ' - ' + response.commission;
+            // this.errorMessage = response.message + ': ' + response.commission;
             this.commission.push(+response.commission);
             console.log(this.commission);
             /////////////////////////////
@@ -102,7 +102,7 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
 
                 console.dir(_response);
                 if (+_response.error === 0) {
-                  this.successMessage_1 = response.message + ' - ' + response.commission +
+                  this.successMessage_1 = response.message + ': ' + response.commission +
                     ' pour le montant ' + this.amount_depotCitizen + ' ' + this.currencyParams.curXOF();
                   this.successMessage_2 = _response.message;
                 } else {

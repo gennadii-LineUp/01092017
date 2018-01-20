@@ -258,7 +258,7 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
                         console.dir(_response);
                         if (+_response.error === 0) {
                           this.errorMessage = '';
-                          this.successMessage_1 = response.message + ' - ' + response.commission;
+                          this.successMessage_1 = response.message + ': ' + response.commission;
                           this.successMessage_2 = _response.message;
                         } else {
                           this.errorMessage += '  ' + this.errorMessageHandlerService.getMessageEquivalent(_response.message);
@@ -283,7 +283,7 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
                   });
               } else {
                 this.loading = false;
-                this.errorMessage = response.message + ' - ' + response.commission;
+                this.errorMessage = response.message + ': ' + response.commission;
                 if (response.message) {
                   this.errorMessage += this.errorMessageHandlerService.getMessageEquivalent(response.message);
                 }

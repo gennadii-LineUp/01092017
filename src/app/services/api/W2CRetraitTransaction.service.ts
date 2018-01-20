@@ -13,6 +13,7 @@ export class W2CRetraitTransactionService {
   public retrieveCash(code: string, principal: number,
                       commission: number, beneficiaire: EnvoyeurClass): Observable<any> {
     const token = localStorage.token;
+    const pays = 221;
 
     const body =
       `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:run="http://runtime.services.cash.innov.sn/">
@@ -26,12 +27,12 @@ export class W2CRetraitTransactionService {
                   <beneficiaire>
                       <nom>` + beneficiaire.nom + `</nom>
                       <prenom>` + beneficiaire.prenom + `</prenom>
-                      <adresse>` + (beneficiaire.addresse) + `</adresse>
+                      <adresse>` + ((beneficiaire.addresse) ? beneficiaire.addresse : undefined) + `</adresse>
                       <cellulaire>` + (beneficiaire.cellulaire) + `</cellulaire>
                   </beneficiaire>
                   <beneficiaireID>
                       <type>` + beneficiaire.id_type + `</type>
-                      <pays>` + beneficiaire.id_pays + `</pays>
+                      <pays>` + ((beneficiaire.id_pays) ? beneficiaire.id_pays : pays) + `</pays>
                       <valeur>` + beneficiaire.id_valeur + `</valeur>
                       <debut>` + beneficiaire.id_debut + `</debut>
                       <fin>` + beneficiaire.id_fin + `</fin>
