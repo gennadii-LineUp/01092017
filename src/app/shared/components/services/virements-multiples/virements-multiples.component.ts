@@ -181,6 +181,10 @@ export class VirementsMultiplesComponent implements OnInit, OnDestroy {
     });
   }
 
+  public receiverWasSelectedByUser(id: number): boolean {
+    return ((this.commonServices.getIDSelectedReceivers()).indexOf(+id) !== -1);
+  }
+
   public clearSearch() {
     this.errorMessage_contract = '';
     this.errorMessage_virements = '';

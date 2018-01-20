@@ -19,7 +19,7 @@
       <!-- Second page-->
       <div *ngIf="contract_found">
         <div class="row">
-          <div class="col-sm-12 col-md-8 ml-auto mr-auto">
+          <div class="col-sm-12 col-md-10 ml-auto mr-auto">
             <div class="virements-multiples__item">
               <div class="virements-multiples__header block__header">
                 Contract <span>{{contract_number}}</span>
@@ -67,8 +67,8 @@
                   <!--</div>-->
                 </div>
                 <div class="col-md-6 virements-multiples__amount" style="padding-top: 0; position: relative;">
-                  <h3 *ngIf="contractsCustomer">Amount (same to all) :</h3>
-                  <div *ngIf="contractsCustomer" class="floating-block border-hover" style="margin-bottom: 12px">
+                  <h3 *ngIf="contractsCustomer" style="margin-top:4px">Amount (same to all) :</h3>
+                  <div *ngIf="contractsCustomer" class="floating-block border-hover" style="margin-bottom: 9px">
                     <div class="floating-input" style="margin-bottom:0">
                       <input id="amount" name="amount" placeholder="00.00" required type="text"
                              [(ngModel)]="amount_virementsMultiples"
@@ -84,9 +84,11 @@
                     <div class="currency">{{currencyParams.curXOF()}}</div>
                   </div>
 
+                  <!--checkedDrLicenses.indexOf(+type.id) != -1-->
+
                   <div *ngFor="let amount of contractsCustomer">
-                    <h3>Amount to {{amount.nom}} {{amount.prenom}}:</h3>
-                    <div class="floating-block border-hover">
+                    <h3 *ngIf="receiverWasSelectedByUser(+amount.id)">Amount to {{amount.nom}} {{amount.prenom}}:</h3>
+                    <div *ngIf="receiverWasSelectedByUser(+amount.id)" class="floating-block border-hover">
                       <div class="floating-input" style="margin-bottom:0">
                         <input [attr.id]="'amount_to_'+amount.id" [attr.name]="'amount_to_'+amount.id"
                                placeholder="00.00" required type="text"
@@ -110,7 +112,7 @@
                   <button *ngIf="contractsCustomer"
                           [disabled]="!( commonServices.getSelectedReceivers().length)"
                           class="orange-button blue-button"
-                          (click)="submitFunction()">Save</button>
+                          (click)="submitFunction()">Send</button>
                 </div>
               </div>
             </div>

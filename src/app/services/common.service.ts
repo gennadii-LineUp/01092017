@@ -72,6 +72,15 @@ export class CommonServices {
   public getSelectedReceivers(): any {
     return this.selectedReceivers;
   }
+  public getIDSelectedReceivers(): any {
+    let _selectedReceivers = [];
+    this.selectedReceivers.forEach(item => {
+      const id = (item.split('receiver_'))[1] || 0;
+      _selectedReceivers.push(+id);
+    });
+    return _selectedReceivers;
+  }
+
   public setSelectedReceivers(value: any) {
     this.selectedReceivers = value;
   }
