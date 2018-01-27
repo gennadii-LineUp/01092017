@@ -26,11 +26,13 @@ export class VirementsMultiplesComponent implements OnInit, OnDestroy {
   loading_virements = false;
   contract_to_find = true;
   contract_found = true;
+  confirm_amounts = false;
   contract_number: string;
   contract_number_valid: string;
   contractsCustomer = [];
   contract_fromSelect2 = '';
   userRole = '';
+  beneficiaryToSend = [];
   alive = true;
 
   amount_virementsMultiples: number;
@@ -89,28 +91,37 @@ export class VirementsMultiplesComponent implements OnInit, OnDestroy {
     this.getContractsCustomerFunction(contract.data['0'].id);
   }
   public gotoContractToFindFunction() {
+    this.commonServices.unSelectAllReceiversFunction();
     this.contract_to_find = true;
     this.contract_found = false;
+    this.confirm_amounts = false;
     this.contract_number = undefined;
     this.contract_number_valid = undefined;
   }
   public gotoContractFoundFunction() {
+    this.commonServices.unSelectAllReceiversFunction();
     this.contract_to_find = false;
     this.contract_found = true;
+    this.confirm_amounts = false;
+  }
+  public gotoConfirmAmountsFunction() {
+    this.makeBeneficiaryToSend();
+    this.contract_to_find = false;
+    this.contract_found = false;
+    this.confirm_amounts = true;
   }
 
-  public makeBeneficiaryToSend(): any {
-    const beneficiaryToSend = [];
+  public makeBeneficiaryToSend() {
+    this.beneficiaryToSend = [];
     (this.commonServices.getSelectedReceivers()).forEach(item => {
       const name = (item.split('receiver_'))[1] || '';
       const value = ((window.document.getElementById('amount_to_' + name) as HTMLInputElement).value )
                    ? +(window.document.getElementById('amount_to_' + name) as HTMLInputElement).value : 0;
+      const beneficiary_about = (this.contractsCustomer.filter(x => x.id === name))['0'];
       const _id = (this.contractsCustomer.filter(x => x.id === name))['0'].__id;
-      console.log((this.contractsCustomer.filter(x => x.id === name))['0'].__id);
-      beneficiaryToSend.push({beneficiary_id: name, montant: value, __id: _id});
+      this.beneficiaryToSend.push({beneficiary_id: name, montant: value, __id: _id, beneficiary_about: beneficiary_about});
     });
-    console.log(beneficiaryToSend);
-    return beneficiaryToSend;
+    console.log(this.beneficiaryToSend);
   }
 
   public getContractsCustomerFunction(idContract: number) {
@@ -143,10 +154,8 @@ export class VirementsMultiplesComponent implements OnInit, OnDestroy {
   public submitFunction() {
     if (this.commonServices.getSelectedReceivers().length) {
       this.loading_virements = true;
-      console.dir(this.commonServices.getSelectedReceivers());
-      console.log(this.makeBeneficiaryToSend());
 
-      this.w2XWalletService.virementsMultiplesW2XW(+((this.userDataService.getMyAccounts())['0'].uoId), this.makeBeneficiaryToSend())
+      this.w2XWalletService.virementsMultiplesW2XW(+((this.userDataService.getMyAccounts())['0'].uoId), this.beneficiaryToSend)
         .takeWhile(() => this.alive)
         .subscribe((result) => {
             this.loading_virements = false;

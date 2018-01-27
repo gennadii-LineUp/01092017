@@ -3,6 +3,7 @@
     <h3 class="top-header">
       <div *ngIf="contract_to_find"  class="back-button" [routerLink]="['/' +userRole+ '/services']">Back</div>
       <div *ngIf="contract_found" class="back-button" (click)="gotoContractToFindFunction()">Back</div>
+      <div *ngIf="confirm_amounts" class="back-button" (click)="gotoContractFoundFunction()">Back</div>
       Virements multiples</h3>
     <div class="container">
 
@@ -112,7 +113,7 @@
                   <button *ngIf="contractsCustomer"
                           [disabled]="!( commonServices.getSelectedReceivers().length)"
                           class="orange-button blue-button"
-                          (click)="submitFunction()">Send</button>
+                          (click)="gotoConfirmAmountsFunction()">Send</button>
                 </div>
               </div>
             </div>
@@ -120,6 +121,81 @@
         </div>
       </div>
       <!-- END Second page-->
+
+      <!-- Third page-->
+      <div *ngIf="confirm_amounts">
+        <div class="row">
+          <div class="col-sm-12 col-md-10 ml-auto mr-auto">
+            <div class="virements-multiples__item">
+              <div class="virements-multiples__header block__header">
+                Contract <span>{{contract_number}}</span>
+                <div class="blue-angle" (click)="gotoContractFoundFunction()">Change</div>
+              </div>
+
+              <div *ngIf="beneficiaryToSend.length > 0" class="row">
+                <div class="col-md-6 virements-multiples__search">
+                  <h3 style="margin-top:4px; padding: 26px 0 16px 0">Destinataires sélectionné:</h3>
+                  <div *ngFor="let receiver of beneficiaryToSend" style="min-height: 68px" class="search__user active">
+                    <div>
+                      <span class="logo" style="background-image: url('../../../../../assets/img/user.png')"></span>
+                      <div>
+                        <div>{{receiver.beneficiary_about.nom}} {{receiver.beneficiary_about.prenom}}</div>
+                        <span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>{{receiver.beneficiary_about.numTel}}</span>
+
+                      </div>
+                    </div>
+                    <div class="only-mobile"
+                         style="height:74px !important; min-height:74px !important;
+                                    padding-left: 20px; font-size: 24px !important;
+                                    position: absolute; right: 52px; margin-top: 22px">
+                      <div style="display: inline-block; color: #ec964a; font-family: 'SFUID', sans-serif">
+                        {{receiver.montant}}
+                      </div>
+                      <div class="currency" style="display: inline-block; color: #c2c2c2">{{currencyParams.curXOF()}}</div>
+                    </div>
+                    <div class="circle-check"></div>
+                  </div>
+
+                  <div class="col-md-6 virements-multiples__amount only-mobile" style="padding-top: 0; position: relative;">
+                    <div *ngIf="errorMessage_virements" class="errorTextClass">{{errorMessage_virements}}</div>
+                    <p *ngIf="!errorMessage_virements" style="margin: 0; text-align: center; height: 16px"><img *ngIf="loading_virements" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>
+                    <button *ngIf="contractsCustomer" style="border-radius: 5px"
+                            [disabled]="!( commonServices.getSelectedReceivers().length)"
+                            class="orange-button blue-button"
+                            (click)="submitFunction()">Send</button>
+                  </div>
+                </div>
+
+                <div class="col-md-6 virements-multiples__amount only-desktop" style="padding-top: 0; position: relative;">
+                  <h3 style="margin-top:4px; font-size:1.8rem; color:#414141; font-family:'SFUID',sans-serif;
+                              padding: 26px 0 16px 0; text-align:center; margin-bottom:0">
+                    Confirmez les montants:
+                  </h3>
+                  <div *ngFor="let amount of beneficiaryToSend" style="margin-top: 9px">
+                    <h3>Amount to {{amount.beneficiary_about.nom}} {{amount.beneficiary_about.prenom}}:</h3>
+                    <div class="floating-block border-hover">
+                      <div class="floating-input" style="margin-bottom:0">
+                        <input [attr.name]="'amount_to_'+amount.id"
+                               type="text" style="padding-left:16px"
+                               [ngModel]="amount.montant" [disabled]="true"/>
+                      </div>
+                      <div class="currency">{{currencyParams.curXOF()}}</div>
+                    </div>
+                  </div>
+
+                  <div *ngIf="errorMessage_virements" class="errorTextClass">{{errorMessage_virements}}</div>
+                  <p *ngIf="!errorMessage_virements" style="margin: 0; text-align: center; height: 16px"><img *ngIf="loading_virements" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>
+                  <button *ngIf="contractsCustomer"
+                          [disabled]="!( commonServices.getSelectedReceivers().length)"
+                          class="orange-button blue-button"
+                          (click)="submitFunction()">Send</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END Third page-->
 
     </div>
   </section>
