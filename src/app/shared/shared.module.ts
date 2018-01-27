@@ -47,6 +47,7 @@ import { ContractsListComponent } from './components/forms/contracts-list/contra
 import { SelectCitizenComponent } from './components/forms/select-citizen/select-citizen.component';
 import { SelectClientComponent } from './components/forms/select-client/select-client.component';
 import { ChooseAccountNormComponent } from './components/forms/choose-account-norm/choose-account-norm.component';
+import { NewReceiverSmallComponent } from './components/forms/new-receiver-small/new-receiver-small.component';
 
 const googleMapsCore = AgmCoreModule.forRoot({
   apiKey : 'AIzaSyDajrkQUo7gxEhGlfBhCrYOc4oPu-szoXA',
@@ -79,7 +80,8 @@ const googleMapsCore = AgmCoreModule.forRoot({
     SuccessMessageComponent,
     PaginationComponent,
     MobileSettingsComponent, MobileShareComponent, GetUserIdComponent, GMapComponent, ContractsListComponent,
-    SelectCitizenComponent, SelectClientComponent, SelectCitizenComponent, SelectClientComponent, ChooseAccountNormComponent
+    SelectCitizenComponent, SelectClientComponent, SelectCitizenComponent, SelectClientComponent, ChooseAccountNormComponent,
+    NewReceiverSmallComponent
   ],
   exports: [
     HeaderGeneralComponent, HeaderAllUsersComponent,
@@ -101,7 +103,8 @@ const googleMapsCore = AgmCoreModule.forRoot({
     FormatTextByThreeCharPipe, SelectSenderComponent,
     SuccessMessageComponent,
     PaginationComponent,
-    MobileSettingsComponent, MobileShareComponent, GetUserIdComponent, ContractsListComponent, ChooseAccountNormComponent
+    MobileSettingsComponent, MobileShareComponent, GetUserIdComponent, ContractsListComponent, ChooseAccountNormComponent,
+    NewReceiverSmallComponent
   ],
   providers: [
 

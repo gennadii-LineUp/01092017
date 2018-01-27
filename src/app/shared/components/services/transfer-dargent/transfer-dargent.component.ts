@@ -99,13 +99,16 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
     });
   }
 
-
+  public onChanged(newReceiver: RegistrationClass) {
+    this.newReceiver = newReceiver;
+    console.log(this.newReceiver );
+  }
 
   public fillReceiverInfoFunction(myAccount: any, e: any) {
     // this.showReceiverInfo = false;
     this.clearSearch();
     this.myAccount = myAccount;
-    console.log(myAccount);
+    // console.log(myAccount);
     const allItems: NodeListOf<Element> = window.document.querySelectorAll('div.consult-user');
     for (let i = 0; i < allItems.length; i++) {
       allItems[i].className = 'consult-user';

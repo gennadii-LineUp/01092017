@@ -60,32 +60,7 @@
                             </span>
 
                             <div  *ngIf="createNew">
-                              <h3 style="padding: 0">Add new receiver:</h3>
-                              <h4 style="margin-top: 16px">Firstname</h4>
-                              <div class="floating-block border-hover">
-                                <div class="floating-input">
-                                  <input type="text" placeholder="Type here"
-                                         #firstName="ngModel" id="firstName" name='firstName' required [(ngModel)]="newReceiver.nom"/>
-                                  <div class="clean-input" (click)="clearReceiver('nom')"></div>
-                                </div>
-                              </div>
-                              <h4>Lastname</h4>
-                              <div class="floating-block border-hover">
-                                <div class="floating-input">
-                                  <input type="text" placeholder="Type here"
-                                         #lastName="ngModel" id="lastName" name='lastName' required [(ngModel)]="newReceiver.prenom" />
-                                  <div class="clean-input" (click)="clearReceiver('prenom')"></div>
-                                </div>
-                              </div>
-                              <h4>Cellulaire</h4>
-                              <div class="floating-block border-hover">
-                                <div class="floating-input">
-                                  <input type="text" placeholder="Type here"
-                                         #id_telephone="ngModel" id="id_telephone" name='id_telephone' required [(ngModel)]="newReceiver.telephone" />
-                                  <div class="clean-input" (click)="clearReceiver('cellulaire')"></div>
-                                </div>
-                              </div>
-
+                              <app-new-receiver-small (receiver_defined)="onChanged($event)"></app-new-receiver-small>
                             </div>
 
                             <h4>Amount</h4>

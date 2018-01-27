@@ -1,0 +1,29 @@
+<div class="dargent__wrapper">
+<div class="content">
+  <h3 style="padding: 0">Add new receiver:</h3>
+  <h4 style="margin-top: 16px">Firstname</h4>
+  <div class="floating-block border-hover">
+    <div class="floating-input">
+      <input type="text" placeholder="Type here" (ngModelChange)="onChanged()"
+             #firstName="ngModel" id="firstName" name='firstName' required [(ngModel)]="newReceiver.nom"/>
+      <div class="clean-input" (click)="clearReceiver('nom')"></div>
+    </div>
+  </div>
+  <h4>Lastname</h4>
+  <div class="floating-block border-hover">
+    <div class="floating-input">
+      <input type="text" placeholder="Type here" (ngModelChange)="onChanged()"
+             #lastName="ngModel" id="lastName" name='lastName' required [(ngModel)]="newReceiver.prenom" />
+      <div class="clean-input" (click)="clearReceiver('prenom')"></div>
+    </div>
+  </div>
+  <h4>Cellulaire</h4>
+  <div class="floating-block border-hover">
+    <div class="floating-input">
+      <input type="text" placeholder="Type here" (ngModelChange)="onChanged()"
+             #id_telephone="ngModel" id="id_telephone" name='id_telephone' required [(ngModel)]="newReceiver.telephone" />
+      <div class="clean-input" (click)="clearReceiver('cellulaire')"></div>
+    </div>
+  </div>
+</div>
+</div>
