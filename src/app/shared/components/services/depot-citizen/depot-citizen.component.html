@@ -18,13 +18,14 @@
             <div>Insert receiver’s information</div>
             <div>Citizen</div>
           </div>
-          <div class="content amount" style="margin-top: 68px; position: relative">
+          <div *ngIf="!citizenDoesntExist" class="content amount" style="margin-top: 68px; position: relative">
             <h3>Select citizen’s account</h3>
             <div class="amount-wrapper">
               <div class="floating-block border-hover">
                 <div class="floating-input" >
                   <input type="text" style="padding-left:16px" placeholder="cellular de destinataire"
                          [(ngModel)]="cellularToFind" (keyup.enter)='findReceiverByTelephone()'/>
+                  <div class="clean-input" (click)="clearNumTel()"></div>
                 </div>
               </div>
               <div *ngIf="errorMessage" class="errorTextClass" >{{errorMessage}}</div>
@@ -34,10 +35,22 @@
             </div>
             <div class="button-wrapper" style="margin-top: 100px">
               <button class="orange-button blue-button"
-                      [disabled]="!(cellularToFind.length>0)"
+                      [disabled]="!(cellularToFind && cellularToFind.length>0)"
                       (click)="findReceiverByTelephone()">Trouver
               </button>
             </div>
+          </div>
+          <div *ngIf="citizenDoesntExist" class="content amount">
+            <div class="help" style="margin-bottom: 12px">It seems we don’t have this number in the database.
+              <br>New account will be created.<!--<span>New account will be created.</span>-->
+            </div>
+            <app-new-receiver-small (receiver_defined)="setNewCitizen($event)"></app-new-receiver-small>
+            <div *ngIf="errorMessage" class="errorTextClass">{{errorMessage}}</div>
+            <p *ngIf="!errorMessage" style="margin: 0; text-align: center; height: 16px"><img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>
+            <button class="orange-button blue-button"
+                    [disabled]="!(newReceiver.nom && newReceiver.prenom && newReceiver.telephone)"
+                    (click)="createNewCitizenFunction()"
+                    type="submit">Create</button>
           </div>
           <!--<div class="content">&ndash;&gt;-->
             <!--<app-select-citizen (beneficiary_defined)="setBeneficiaryFunction($event)"></app-select-citizen>-->
@@ -46,7 +59,7 @@
         </div>
 
         <!-- R I G H T   B L O C K -->
-        <div class="col-md-6 col-lg-4 only-desktop">
+        <div  *ngIf="!citizenDoesntExist" class="col-md-6 col-lg-4 only-desktop">
           <div class="block__header" style="padding-top: 16px">
             <span>{{receiverStatus}}</span>
             <!--<span>New</span>-->

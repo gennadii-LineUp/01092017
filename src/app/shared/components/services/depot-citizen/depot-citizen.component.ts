@@ -10,13 +10,15 @@ import {ReceiverClass} from '../../../../models/receiver-class';
 import {ActivatedRoute} from '@angular/router';
 import {CurrencyParams} from '../../../../models/currency_params';
 import {GetUOByCellularService} from '../../../../services/api/getUOByCellular.service';
+import {RegistrationClass} from '../../../../models/registration-class';
+import {CreateNewAccountService} from '../../../../services/api/createNewAccount.service';
 declare var $: any;
 
 @Component({
   selector: 'app-services-depot-citizen',
   templateUrl: './depot-citizen.component.html',
   styleUrls: ['./depot-citizen.component.scss'],
-  providers: [GetCommissionsTTCService, C2WDepotTransactionService, GetUOByCellularService]
+  providers: [GetCommissionsTTCService, C2WDepotTransactionService, GetUOByCellularService, CreateNewAccountService]
 })
 export class DepotCitizenComponent implements OnInit, OnDestroy {
   successMessage = '';
@@ -28,6 +30,7 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
   receiverStatus = '';
   receiverToFind = '';
   cellularToFind = '773151459';
+  newReceiver = new RegistrationClass('', '', 221, '', 'AUTO', 'AUTO', 'AUTO', 'AUTO', true);
   beneficiaireFound: any;
   amount_depotCitizen: number;
   successMessage_1 = '';
@@ -39,6 +42,7 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
   citizen_fromSelect2 = '';
   userRole = '';
   checkboxSameBenef = true;
+  citizenDoesntExist = false;
   alive = true;
 
   @ViewChild('amount_mobile') amount_input_mobile: any;
@@ -50,7 +54,8 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
               public c2WDepotTransactionService: C2WDepotTransactionService,
               private activateRoute: ActivatedRoute,
               public currencyParams: CurrencyParams,
-              public getUOByCellularService: GetUOByCellularService) { }
+              public getUOByCellularService: GetUOByCellularService,
+              public createNewAccountService: CreateNewAccountService) { }
 
   ngOnInit() {
     this.firstStepMode();
@@ -186,6 +191,39 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
 console.log('------------------------------');
   }
 
+  public setNewCitizen(newReceiver: RegistrationClass) {
+    this.newReceiver = newReceiver;
+    console.log(this.newReceiver );
+  }
+
+  public createNewCitizenFunction() {
+    if (this.citizenDoesntExist && this.newReceiver.nom && this.newReceiver.prenom && this.newReceiver.telephone) {
+      this.createNewAccountService.createNewAccount(this.newReceiver)
+        .subscribe(result => {
+          const response = this.commonServices.xmlResponseParcer_simple( result._body );
+          console.dir( response );
+          if (+response.error === 0
+            && response.message === 'Succès ! creation compte effectuée') {
+            console.log = response.message;
+            this.beneficiaireFound = {nom: (this.newReceiver.nom) ? this.newReceiver.nom : undefined,
+                                      prenom: (this.newReceiver.prenom) ? this.newReceiver.prenom : undefined,
+                                      numTel: this.newReceiver.telephone,
+                                      id: undefined
+            };
+            this.setBeneficiaryFunction({value: this.beneficiaireFound.numTel});
+          } else {
+            this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
+          }
+        }, (err) => {
+          this.loading = false;
+          console.log(err);
+          this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+          if (!this.errorMessage) {
+            this.errorMessage = this.errorMessageHandlerService._getMessageEquivalent(err._body);
+          }
+        });
+    } else {return false; }
+  }
   public findReceiverByTelephone() {
     this.loading = true;
     this.getUOByCellularService.getData(this.cellularToFind)
@@ -202,7 +240,8 @@ console.log('------------------------------');
           this.setBeneficiaryFunction({value: this.beneficiaireFound.numTel});
         } else {
           this.loading = false;
-          this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
+          // this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
+          this.citizenDoesntExist = true;
         }
       }, (err) => {
         this.loading = false;
@@ -222,6 +261,7 @@ console.log('------------------------------');
     }
   }
   public clearAmount() {this.amount_depotCitizen = undefined; }
+  public clearNumTel() {this.cellularToFind = undefined; }
   public clearEnvoyeur(field: string) {this.envoyeur[field] = undefined; }
 
   public clearSearch() {
