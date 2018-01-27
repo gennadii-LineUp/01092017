@@ -9,13 +9,14 @@ import 'rxjs/add/operator/takeWhile';
 import {ReceiverClass} from '../../../../models/receiver-class';
 import {ActivatedRoute} from '@angular/router';
 import {CurrencyParams} from '../../../../models/currency_params';
+import {GetUOByCellularService} from '../../../../services/api/getUOByCellular.service';
 declare var $: any;
 
 @Component({
   selector: 'app-services-depot-citizen',
   templateUrl: './depot-citizen.component.html',
   styleUrls: ['./depot-citizen.component.scss'],
-  providers: [GetCommissionsTTCService, C2WDepotTransactionService]
+  providers: [GetCommissionsTTCService, C2WDepotTransactionService, GetUOByCellularService]
 })
 export class DepotCitizenComponent implements OnInit, OnDestroy {
   successMessage = '';
@@ -26,6 +27,8 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
   createNewReceiver_mobile_amount = true;
   receiverStatus = '';
   receiverToFind = '';
+  cellularToFind = '773151459';
+  beneficiaireFound: any;
   amount_depotCitizen: number;
   successMessage_1 = '';
   successMessage_2 = '';
@@ -46,7 +49,8 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
               public getCommissionsTTCService: GetCommissionsTTCService,
               public c2WDepotTransactionService: C2WDepotTransactionService,
               private activateRoute: ActivatedRoute,
-              public currencyParams: CurrencyParams) { }
+              public currencyParams: CurrencyParams,
+              public getUOByCellularService: GetUOByCellularService) { }
 
   ngOnInit() {
     this.firstStepMode();
@@ -135,6 +139,7 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
     console.log(beneficiary);
     this.citizen_fromSelect2 = beneficiary.value;
     this.receiverToFind = this.citizen_fromSelect2;
+    console.log(this.citizen_fromSelect2);
     this.secondStepMode();
   }
 
@@ -147,12 +152,12 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
   }
   public secondStepMode() {
     this.clearSearch();
-    const beneficiaire = this.userDataService.getReceiverFromSelect2(this.citizen_fromSelect2);
-    const addr = (beneficiaire.address) ? beneficiaire.address : 'undefined';
-    this.envoyeur_default = new EnvoyeurClass(beneficiaire.nom, beneficiaire.prenom, beneficiaire.numTel, addr, '', 'SEN', '', '', '');
-    this._envoyeur_default = new EnvoyeurClass(beneficiaire.nom, beneficiaire.prenom, beneficiaire.numTel, addr, '', 'SEN', '', '', '');
-    this.receiverStatus = (beneficiaire.nom) ? (beneficiaire.nom) : '';
-    this.receiverStatus += (beneficiaire.prenom) ? (' ' + beneficiaire.prenom) : '';
+    // const beneficiaire = this.userDataService.getReceiverFromSelect2(this.citizen_fromSelect2);
+    const addr = (this.beneficiaireFound.address) ? this.beneficiaireFound.address : undefined;
+    this.envoyeur_default = new EnvoyeurClass(this.beneficiaireFound.nom, this.beneficiaireFound.prenom, this.beneficiaireFound.numTel, addr, '', 'SEN', '', '', '');
+    this._envoyeur_default = new EnvoyeurClass(this.beneficiaireFound.nom, this.beneficiaireFound.prenom, this.beneficiaireFound.numTel, addr, '', 'SEN', '', '', '');
+    this.receiverStatus = (this.beneficiaireFound.nom) ? (this.beneficiaireFound.nom) : '';
+    this.receiverStatus += (this.beneficiaireFound.prenom) ? (' ' + this.beneficiaireFound.prenom) : '';
     // this.receiverStatus += (beneficiaire.nom || beneficiaire.prenom) ? (', ') : '';
     // this.receiverStatus += (beneficiaire.telephone) ? (beneficiaire.telephone) : '';
     this.createNewReceiver = true;
@@ -179,6 +184,31 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
       console.log(this.checkboxSameBenef);
     } else {this.checkboxSameBenef = false; console.log(this.checkboxSameBenef); }
 console.log('------------------------------');
+  }
+
+  public findReceiverByTelephone() {
+    this.loading = true;
+    this.getUOByCellularService.getData(this.cellularToFind)
+      .takeWhile(() => this.alive)
+      .subscribe(result => {
+        const response = this.commonServices.xmlResponseParcer_simple(result._body);
+        console.dir(response);
+        if (response.numTel && response.numTel.length) {
+          this.beneficiaireFound = {nom: (response.nom) ? response.nom : undefined,
+                                    prenom: (response.prenom) ? response.prenom : undefined,
+                                    numTel: response.numTel,
+                                    id: (response.id) ? response.id : undefined
+          };
+          this.setBeneficiaryFunction({value: this.beneficiaireFound.numTel});
+        } else {
+          this.loading = false;
+          this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
+        }
+      }, (err) => {
+        this.loading = false;
+        console.log(err);
+        this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+      });
   }
 
   public setDeposantSameAsBeneficiary(e) {
