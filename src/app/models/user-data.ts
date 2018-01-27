@@ -32,19 +32,6 @@ export class UserDataService {
     // { telephone: '4', nom: 'Lex', prenom: 'Luthor', email: 'lexluthor@yahoo.com', id_account: 8 }
   ];
 
-
-  beneficiaires = [
-    { nom: undefined, prenom: undefined, telephone: '773151459',
-      address: undefined, id_account: undefined, profil: undefined, email: '@', numTel: '',
-      status: '', type: '', uoId: ''}
-  ];
-
-  // Observable string sources
-  // private caseNumber = new Subject<any>();
-  // Observable string streams
-  // caseNumber$ = this.caseNumber.asObservable();
-
-
   constructor(public router: Router,
               public getAllListAccountService: GetAllListAccountService,
               public commonServices: CommonServices,

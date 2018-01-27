@@ -9,13 +9,14 @@ import {ReceiverClass} from '../../../../models/receiver-class';
 import 'rxjs/add/operator/takeWhile';
 import {ActivatedRoute} from '@angular/router';
 import {CurrencyParams} from '../../../../models/currency_params';
+import {GetUOByCellularService} from '../../../../services/api/getUOByCellular.service';
 declare var $: any;
 
 @Component({
   selector: 'app-services-depot-client',
   templateUrl: './depot-client.component.html',
   styleUrls: ['./depot-client.component.scss'],
-  providers: [GetCommissionsTTCService, V2WDepotClientTransactionService]
+  providers: [GetCommissionsTTCService, V2WDepotClientTransactionService, GetUOByCellularService]
 })
 export class DepotClientComponent implements OnInit, OnDestroy {
   amount_depotClient: number;
@@ -26,6 +27,8 @@ export class DepotClientComponent implements OnInit, OnDestroy {
   receiverExist = false;
   createNewReceiver = true;
   createNewReceiver_mobile_amount = true;
+  cellularToFind = '773151459';
+  beneficiaireFound: any;
   receiverStatus = '';
   receiverToFind = '';
   successMessage_1 = '';
@@ -52,7 +55,8 @@ export class DepotClientComponent implements OnInit, OnDestroy {
               public getCommissionsTTCService: GetCommissionsTTCService,
               public v2WDepotClientTransactionService: V2WDepotClientTransactionService,
               private activateRoute: ActivatedRoute,
-              public currencyParams: CurrencyParams) { }
+              public currencyParams: CurrencyParams,
+              public getUOByCellularService: GetUOByCellularService) { }
 
   ngOnInit() {
     this.firstStepMode();
@@ -141,6 +145,31 @@ export class DepotClientComponent implements OnInit, OnDestroy {
     } else {return false; }
   }
 
+  public findReceiverByTelephone() {
+    this.loading = true;
+    this.getUOByCellularService.getData(this.cellularToFind)
+      .takeWhile(() => this.alive)
+      .subscribe(result => {
+        const response = this.commonServices.xmlResponseParcer_simple(result._body);
+        console.dir(response);
+        if (response.numTel && response.numTel.length) {
+          this.beneficiaireFound = {nom: (response.nom) ? response.nom : undefined,
+            prenom: (response.prenom) ? response.prenom : undefined,
+            numTel: response.numTel,
+            id: (response.id) ? response.id : undefined
+          };
+          this.setBeneficiaryFunction({value: this.beneficiaireFound.numTel});
+        } else {
+          this.loading = false;
+          this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
+        }
+      }, (err) => {
+        this.loading = false;
+        console.log(err);
+        this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+      });
+  }
+
   public setBeneficiaryFunction(beneficiary: any) {
     console.log(beneficiary);
     this.client_fromSelect2 = beneficiary.value;
@@ -157,12 +186,12 @@ export class DepotClientComponent implements OnInit, OnDestroy {
   }
   public secondStepMode() {
     this.clearSearch();
-    const beneficiaire = this.userDataService.getReceiverFromSelect2(this.client_fromSelect2);
-    const addr = (beneficiaire.address) ? beneficiaire.address : 'undefined';
-    this.envoyeur_default = new EnvoyeurClass(beneficiaire.nom, beneficiaire.prenom, beneficiaire.numTel, addr, '', 'SEN', '', '', '');
-    this._envoyeur_default = new EnvoyeurClass(beneficiaire.nom, beneficiaire.prenom, beneficiaire.numTel, addr, '', 'SEN', '', '', '');
-    this.receiverStatus = (beneficiaire.nom) ? (beneficiaire.nom) : '';
-    this.receiverStatus += (beneficiaire.prenom) ? (' ' + beneficiaire.prenom) : '';
+    // const beneficiaire = this.userDataService.getReceiverFromSelect2(this.client_fromSelect2);
+    const addr = (this.beneficiaireFound.address) ? this.beneficiaireFound.address : 'undefined';
+    this.envoyeur_default = new EnvoyeurClass(this.beneficiaireFound.nom, this.beneficiaireFound.prenom, this.beneficiaireFound.numTel, addr, '', 'SEN', '', '', '');
+    this._envoyeur_default = new EnvoyeurClass(this.beneficiaireFound.nom, this.beneficiaireFound.prenom, this.beneficiaireFound.numTel, addr, '', 'SEN', '', '', '');
+    this.receiverStatus = (this.beneficiaireFound.nom) ? (this.beneficiaireFound.nom) : '';
+    this.receiverStatus += (this.beneficiaireFound.prenom) ? (' ' + this.beneficiaireFound.prenom) : '';
     // this.receiverStatus += (beneficiaire.nom || beneficiaire.prenom) ? (', ') : '';
     // this.receiverStatus += (beneficiaire.telephone) ? (beneficiaire.telephone) : '';
     this.successMessage_1 = '';
