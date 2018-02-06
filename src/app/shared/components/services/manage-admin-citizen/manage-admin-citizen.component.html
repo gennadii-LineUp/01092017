@@ -4,8 +4,30 @@
       <div class="back-button" [routerLink]="['/' +userRole+ '/services']">Back</div>
       Manage admin citizen</h3>
     <div class="container">
-
-
+      <div class="table-responsive">
+        <table class="table table-striped" *ngIf="citizens && (citizens.length > 0)">
+          <thead>
+          <tr>
+            <th>№</th>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>Cellulaire</th>
+            <th>Type</th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let citizen of citizens; let i='index'">
+              <td class="text-center">{{i}}</td>
+              <td class="text-center">{{citizen.id}}</td>
+              <td>{{citizen.nom}}</td>
+              <td>{{citizen.prenom}}</td>
+              <td>{{citizen.numTel}}</td>
+              <td>{{citizen.type}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
 
