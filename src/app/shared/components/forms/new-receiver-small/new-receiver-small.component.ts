@@ -10,6 +10,7 @@ export class NewReceiverSmallComponent {
   newReceiver = new RegistrationClass('', '', 221, '', 'AUTO', 'AUTO', 'AUTO', 'AUTO', true);
   @Input() set telephoneDefault(telephone: string) {
     this.newReceiver.telephone = telephone;
+    this.newReceiver.mail = telephone;
   }
   @Output() receiver_defined = new EventEmitter<RegistrationClass>();
   constructor() { }
