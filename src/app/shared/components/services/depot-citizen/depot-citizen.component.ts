@@ -38,7 +38,7 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
   commission = [];
   envoyeur = new EnvoyeurClass('KANE', 'MOMAR', '773151459', 'DAKAR', 'CNI', 'SEN', '1619198107350', '01/01/2016', '01/01/2017');
   envoyeur_default: EnvoyeurClass;
-  _envoyeur_default: EnvoyeurClass;
+  _envoyeur_default = {};
   citizen_fromSelect2 = '';
   userRole = '';
   checkboxSameBenef = true;
@@ -80,9 +80,9 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
     if ((+this.amount_depotCitizen >= 0.01)
       && this.citizen_fromSelect2
       && (this.envoyeur.id_fin && this.envoyeur.id_debut && this.envoyeur.nom && this.envoyeur.prenom && this.envoyeur.cellulaire
-        && this.envoyeur.addresse && this.envoyeur.id_type && this.envoyeur.id_pays && this.envoyeur.id_valeur)) {
-      console.log(this.amount_depotCitizen + '  to send');
-      console.dir(this.commonServices.getSelectedReceivers());
+        && this.envoyeur.id_type && this.envoyeur.id_pays && this.envoyeur.id_valeur)) {
+      // console.log(this.amount_depotCitizen + '  to send');
+      // console.dir(this.commonServices.getSelectedReceivers());
 
       this.loading = true;
       this.successMessage = '';
@@ -114,10 +114,10 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
                   this.successMessage_1 = response.message + ': ' + response.commission +
                     ' pour le montant ' + this.amount_depotCitizen + ' ' + this.currencyParams.curXOF();
                   this.successMessage_2 = _response.message;
+                  this.firstStepMode();
                 } else {
                   this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(_response.message);
                 }
-                this.firstStepMode();
               }, (err) => {
                 this.loading = false;
                 console.log(err);
@@ -141,10 +141,10 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
   }
 
   public setBeneficiaryFunction(beneficiary: any) {
-    console.log(beneficiary);
+    // console.log(beneficiary);
     this.citizen_fromSelect2 = beneficiary.value;
     this.receiverToFind = this.citizen_fromSelect2;
-    console.log(this.citizen_fromSelect2);
+    // console.log(this.citizen_fromSelect2);
     this.secondStepMode();
   }
 
@@ -160,7 +160,7 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
     // const beneficiaire = this.userDataService.getReceiverFromSelect2(this.citizen_fromSelect2);
     const addr = (this.beneficiaireFound.address) ? this.beneficiaireFound.address : undefined;
     this.envoyeur_default = new EnvoyeurClass(this.beneficiaireFound.nom, this.beneficiaireFound.prenom, this.beneficiaireFound.numTel, addr, '', 'SEN', '', '', '');
-    this._envoyeur_default = new EnvoyeurClass(this.beneficiaireFound.nom, this.beneficiaireFound.prenom, this.beneficiaireFound.numTel, addr, '', 'SEN', '', '', '');
+    this._envoyeur_default = Object.assign({}, this.envoyeur_default);
     this.receiverStatus = (this.beneficiaireFound.nom) ? (this.beneficiaireFound.nom) : '';
     this.receiverStatus += (this.beneficiaireFound.prenom) ? (' ' + this.beneficiaireFound.prenom) : '';
     // this.receiverStatus += (beneficiaire.nom || beneficiaire.prenom) ? (', ') : '';
@@ -173,18 +173,14 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
   }
 
   private setEnvoyeurFromForm(envoyeur: EnvoyeurClass) {
-    console.log('was');
-    console.log(this.envoyeur);
-    console.log('become');
-    console.log(envoyeur);
     this.envoyeur = envoyeur;
     console.log(this.envoyeur);
-    console.log(this.envoyeur.nom + ' - ' + this._envoyeur_default.nom);
-    console.log(this.envoyeur.prenom + ' - ' + this._envoyeur_default.prenom);
-    console.log(this.envoyeur.cellulaire + ' - ' + this._envoyeur_default.cellulaire);
-    if (this.envoyeur.nom === this._envoyeur_default.nom
-      && this.envoyeur.prenom === this._envoyeur_default.prenom
-      && this.envoyeur.cellulaire === this._envoyeur_default.cellulaire) {
+    console.log(this.envoyeur.nom + ' - ' + (<EnvoyeurClass>this._envoyeur_default).nom);
+    console.log(this.envoyeur.prenom + ' - ' + (<EnvoyeurClass>this._envoyeur_default).prenom);
+    console.log(this.envoyeur.cellulaire + ' - ' + (<EnvoyeurClass>this._envoyeur_default).cellulaire);
+    if (this.envoyeur.nom === (<EnvoyeurClass>this._envoyeur_default).nom
+      && this.envoyeur.prenom === (<EnvoyeurClass>this._envoyeur_default).prenom
+      && this.envoyeur.cellulaire === (<EnvoyeurClass>this._envoyeur_default).cellulaire) {
       this.checkboxSameBenef = true;
       console.log(this.checkboxSameBenef);
     } else {this.checkboxSameBenef = false; console.log(this.checkboxSameBenef); }
@@ -253,12 +249,26 @@ console.log('------------------------------');
   public setDeposantSameAsBeneficiary(e) {
     this.checkboxSameBenef = !this.checkboxSameBenef;
     console.log(this.checkboxSameBenef);
-    console.log(this._envoyeur_default);
     if (this.checkboxSameBenef) {
-      this.envoyeur_default = this._envoyeur_default;
+      this.envoyeur_default = new EnvoyeurClass((<EnvoyeurClass>this._envoyeur_default).nom,
+                                                (<EnvoyeurClass>this._envoyeur_default).prenom,
+                                                (<EnvoyeurClass>this._envoyeur_default).cellulaire,
+                                                (<EnvoyeurClass>this._envoyeur_default).addresse,
+                                                (<EnvoyeurClass>this._envoyeur_default).id_type,
+                                                (<EnvoyeurClass>this._envoyeur_default).id_pays,
+                                                (<EnvoyeurClass>this._envoyeur_default).id_valeur,
+                                                (<EnvoyeurClass>this._envoyeur_default).id_debut,
+                                                (<EnvoyeurClass>this._envoyeur_default).id_fin);
+      // this.envoyeur_default = Object.assign({}, this.envoyeur_default);
+
+      // this.envoyeur.nom = (<EnvoyeurClass>this._envoyeur_default).nom;
+      // this.envoyeur.prenom = (<EnvoyeurClass>this._envoyeur_default).prenom;
+      // this.envoyeur.cellulaire = (<EnvoyeurClass>this._envoyeur_default).cellulaire;
     } else {
       this.envoyeur_default = new EnvoyeurClass('', '', '', '', '', '', '', '', '');
     }
+    // console.log(this._envoyeur_default);
+    console.log(this.envoyeur);
   }
   public clearAmount() {this.amount_depotCitizen = undefined; }
   public clearNumTel() {this.cellularToFind = undefined; }
