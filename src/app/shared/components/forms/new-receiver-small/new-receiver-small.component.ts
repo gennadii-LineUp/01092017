@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {RegistrationClass} from '../../../../models/registration-class';
 
 @Component({
@@ -8,6 +8,9 @@ import {RegistrationClass} from '../../../../models/registration-class';
 })
 export class NewReceiverSmallComponent {
   newReceiver = new RegistrationClass('', '', 221, '', 'AUTO', 'AUTO', 'AUTO', 'AUTO', true);
+  @Input() set telephoneDefault(telephone: string) {
+    this.newReceiver.telephone = telephone;
+  }
   @Output() receiver_defined = new EventEmitter<RegistrationClass>();
   constructor() { }
 
