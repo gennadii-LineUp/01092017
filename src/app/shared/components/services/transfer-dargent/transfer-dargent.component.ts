@@ -9,13 +9,14 @@ import {ActivatedRoute} from '@angular/router';
 import {RegistrationClass} from '../../../../models/registration-class';
 import {CreateNewAccountService} from '../../../../services/api/createNewAccount.service';
 import {CurrencyParams} from '../../../../models/currency_params';
+import {GetUOByCellularService} from '../../../../services/api/getUOByCellular.service';
 declare let $: any;
 
 @Component({
   selector: 'app-services-transfer-dargent',
   templateUrl: './transfer-dargent.component.html',
   styleUrls: ['./transfer-dargent.component.scss'],
-  providers: [W2COrdreRetraitService, CreateNewAccountService]
+  providers: [W2COrdreRetraitService, CreateNewAccountService, GetUOByCellularService]
 })
 export class TransferDargentComponent implements OnInit, OnDestroy {
   loading = false;
@@ -32,7 +33,9 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
   numTel_fromSelect2 = '';
   userRole = '';
   createNew = false;
-
+  cellularToFind = '773151459';
+  citizenExist = false;
+  beneficiaireFound: any;
 
   constructor(public userDataService: UserDataService,
               public w2COrdreRetraitService: W2COrdreRetraitService,
@@ -40,7 +43,8 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
               public createNewAccountService: CreateNewAccountService,
               public errorMessageHandlerService: ErrorMessageHandlerService,
               private activateRoute: ActivatedRoute,
-              public currencyParams: CurrencyParams) { }
+              public currencyParams: CurrencyParams,
+              public getUOByCellularService: GetUOByCellularService) { }
 
   ngOnInit() {
     this.activateRoute.parent.url
@@ -99,7 +103,7 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
     });
   }
 
-  public onChanged(newReceiver: RegistrationClass) {
+  public setNewCitizen(newReceiver: RegistrationClass) {
     this.newReceiver = newReceiver;
     console.log(this.newReceiver );
   }
@@ -133,6 +137,44 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
     }
   }
 
+  public findReceiverByTelephone() {
+    this.loading = true;
+    this.getUOByCellularService.getData(this.cellularToFind)
+      .takeWhile(() => this.alive)
+      .subscribe(result => {
+        const response = this.commonServices.xmlResponseParcer_simple(result._body);
+        console.dir(response);
+        this.loading = false;
+        if (response.numTel && response.numTel.length) {
+          this.beneficiaireFound = {nom: (response.nom) ? response.nom : undefined,
+            prenom: (response.prenom) ? response.prenom : undefined,
+            numTel: response.numTel,
+            id: (response.id) ? response.id : undefined
+          };
+          this.newReceiver.nom = (response.nom) ? response.nom : undefined;
+          this.newReceiver.prenom = (response.prenom) ? response.prenom : undefined;
+          this.newReceiver.telephone = response.numTel;
+          this.setBeneficiaryFunction({value: this.beneficiaireFound.numTel});
+          console.log(this.beneficiaireFound);
+          this.citizenExist = true;
+        } else {
+          // this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
+          this.createNew = true;
+        }
+      }, (err) => {
+        this.loading = false;
+        console.log(err);
+        this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+      });
+  }
+
+  public clearNumTel() {this.cellularToFind = undefined; }
+
+  public setBeneficiaryFunction(beneficiary: any) {
+    console.log(beneficiary);
+    this.numTel_fromSelect2 = beneficiary.value;
+    console.log(this.numTel_fromSelect2);
+  }
 
 
   public submitTransferDargentFunction() {
@@ -172,14 +214,14 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
     this.successMessage_2 = '';
     this.errorMessage = '';
     let beneficiaire: any;
-    if (!this.createNew) {
-      beneficiaire = <ReceiverClass>this.userDataService.getReceiverFromSelect2(this.numTel_fromSelect2);
-      console.log(beneficiaire);
-    } else {
+    // if (!this.createNew) {
+    //   beneficiaire = <ReceiverClass>this.userDataService.getReceiverFromSelect2(this.numTel_fromSelect2);
+    //   console.log(beneficiaire);
+    // } else {
       beneficiaire = new ReceiverClass(this.newReceiver.nom, this.newReceiver.prenom, this.newReceiver.telephone,
                                       'AUTO', 0, '', this.newReceiver.telephone, this.newReceiver.telephone, '', '', '');
       this.numTel_fromSelect2 = this.newReceiver.telephone;
-    }
+    // }
     // console.log(this.numTel_fromSelect2);
     // console.log(beneficiaire);
 
@@ -219,10 +261,12 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
   public clearSearch() {
     this.amountToReceiver = undefined;
     this.newReceiver = new RegistrationClass('', '', 221, '', 'AUTO', 'AUTO', 'AUTO', 'AUTO', true);
+    this.beneficiaireFound = {};
     this.successMessage_1 = '';
     this.successMessage_2 = '';
     this.errorMessage = '';
     this.createNew = false;
+    this.citizenExist = false;
   }
 
 

@@ -68,6 +68,17 @@
   }
 }
 
+.justText{
+  width: 100%;
+  color: #414141 !important;
+  padding-left: 0;
+  font-family: $raleR;
+  margin-left: 0 !important;
+  border-bottom: 2px solid $orange !important;
+  min-height: 40px !important;
+  height: 40px !important;
+  line-height: 40px !important;
+}
 @media (max-width: 800px) {
   .dargent {
     .consult-user {

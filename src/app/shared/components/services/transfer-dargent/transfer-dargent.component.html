@@ -34,64 +34,152 @@
                 <!--Show this block for answer-->
                 <div *ngIf="showReceiverInfo" class="col-sm-8 col-md-6 col-lg-4">
                     <div class="dargent__wrapper">
-                        <div class="block__header">Insert receiver’s information</div>
-                        <div class="content">
-                          <form #agent_depoClient="ngForm" novalidate>
-                            <h4 *ngIf="!createNew">Phone number</h4>
-
-                            <div *ngIf="!createNew">
-                              <ng-select2 name="select2"
-                                          [(ngModel)]="numTel_fromSelect2"
-                                          [data]="userDataService.getReceiversForSelect2()"
-                                          [placeholder]="'Please select...'">
-                              </ng-select2>
-                            <!--<select2 [data]="userDataService.getCitizens()"></select2>-->
+                        <div class="block__header">Receiver’s information</div>
+                        <div *ngIf="!createNew && !citizenExist" class="content amount" style="margin-top: 68px; position: relative">
+                          <h3>Select citizen’s account</h3>
+                          <div class="amount-wrapper">
+                            <div class="floating-block border-hover">
+                              <div class="floating-input" >
+                                <input type="text" style="padding-left:16px" placeholder="cellular de destinataire"
+                                       [(ngModel)]="cellularToFind" (keyup.enter)='findReceiverByTelephone()'/>
+                                <div class="clean-input" (click)="clearNumTel()"></div>
+                              </div>
                             </div>
-
-                            <!--<div class="floating-block border-hover">-->
-                                <!--<div class="floating-input">-->
-                                  <!--<input type="text"-->
-                                         <!--#phone="ngModel" id="phone" name='phone' required [(ngModel)]="newReceiver.telephone" />-->
-                                  <!--<div class="clean-input" onclick="phone.value = ''"></div>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                            <span *ngIf="!createNew" (click)="createNew=true" class="help" style="cursor:pointer; margin-bottom:12px">
-                              <b>Create New receiver's account.</b>
-                            </span>
-
-                            <div  *ngIf="createNew">
-                              <app-new-receiver-small (receiver_defined)="onChanged($event)"></app-new-receiver-small>
+                            <div *ngIf="errorMessage" class="errorTextClass" >{{errorMessage}}</div>
+                            <p *ngIf="!errorMessage" style="margin: 0; text-align: center; height: 17.5px">
+                              <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                            </p>
+                          </div>
+                          <div class="button-wrapper" style="margin-top: 100px">
+                            <button class="orange-button blue-button"
+                                    [disabled]="!(cellularToFind && cellularToFind.length>0)"
+                                    (click)="findReceiverByTelephone()">Trouver
+                            </button>
+                          </div>
+                        </div>
+                        <div *ngIf="createNew" class="content amount">
+                            <div class="help" style="margin-bottom: 12px">It seems we don’t have this number in the database.
+                              <br>New account will be created.<!--<span>New account will be created.</span>-->
                             </div>
-
+                            <app-new-receiver-small (receiver_defined)="setNewCitizen($event)"></app-new-receiver-small>
                             <h4>Amount</h4>
                             <div class="floating-block border-hover">
-                                <div class="floating-input" style="margin-bottom: 0">
-                                    <input id="amount" name="amount" placeholder="00.00" required="" type="text"
-                                           [(ngModel)]="amountToReceiver" min="0.01"
-                                           (keyup.enter)='submitTransferDargentFunction()'
-                                           onkeydown="return ( event.ctrlKey || event.altKey
+                              <div class="floating-input" style="margin-bottom: 0">
+                                <input id="amount1" name="amount1" placeholder="00.00" required="" type="text"
+                                     [(ngModel)]="amountToReceiver" min="0.01"
+                                     (keyup.enter)='submitTransferDargentFunction()'
+                                     onkeydown="return ( event.ctrlKey || event.altKey
                                                                 || (47<event.keyCode && event.keyCode<58 && event.shiftKey==false)
                                                                 || (95<event.keyCode && event.keyCode<106)
                                                                 || (event.keyCode===8) || (event.keyCode===9)
                                                                 || (event.keyCode>34 && event.keyCode<40)
                                                                 || (event.keyCode===46) || (event.keyCode===110))"/>
-                                    <div class="clean-input" (click)="clearAmount()"></div>
-                                </div>
-                                <div class="currency">{{currencyParams.curXOF()}}</div>
+                                <div class="clean-input" (click)="clearAmount()"></div>
+                              </div>
+                              <div class="currency">{{currencyParams.curXOF()}}</div>
                             </div>
+
                             <div *ngIf="errorMessage" class="errorTextClass">{{errorMessage}}</div>
                             <p *ngIf="!errorMessage" style="margin: 0; text-align: center; height: 16px"><img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>
                             <button *ngIf="!createNew" class="orange-button blue-button"
-                                    [disabled]="!(numTel_fromSelect2 && (+amountToReceiver >= 0.01))"
-                                    (click)="submitTransferDargentFunction()"
-                                    type="submit">Send</button>
+                                  [disabled]="!(numTel_fromSelect2 && (+amountToReceiver >= 0.01))"
+                                  (click)="submitTransferDargentFunction()"
+                                  type="submit">Send</button>
                             <button *ngIf="createNew" class="orange-button blue-button"
-                                    [disabled]="!(newReceiver.nom && newReceiver.prenom && newReceiver.telephone && (+amountToReceiver >= 0.01))"
-                                    (click)="submitTransferDargentFunction()"
-                                    type="submit">Send</button>
-                            <!---->
-                          </form>
+                                  [disabled]="!(newReceiver.nom && newReceiver.prenom && newReceiver.telephone && (+amountToReceiver >= 0.01))"
+                                  (click)="submitTransferDargentFunction()"
+                                  type="submit">Create and Send</button>
                         </div>
+
+                        <div *ngIf="citizenExist" class="content amount">
+                            <h4 style="margin-bottom: 12px; font-weight: bolder">Account found.</h4>
+                            <h4 *ngIf="beneficiaireFound.nom">Firstname</h4>
+                            <div *ngIf="beneficiaireFound.nom" class="floating-block border-hover">
+                                <div class="currency justText">{{beneficiaireFound.nom}}</div>
+                            </div>
+                            <h4 *ngIf="beneficiaireFound.prenom">Lastname</h4>
+                            <div *ngIf="beneficiaireFound.prenom" class="floating-block border-hover">
+                              <div class="currency justText">{{beneficiaireFound.prenom}}</div>
+                            </div>
+                            <h4 *ngIf="beneficiaireFound.numTel">Cellulaire</h4>
+                            <div *ngIf="beneficiaireFound.numTel" class="floating-block border-hover">
+                              <div class="currency justText">{{beneficiaireFound.numTel}}</div>
+                            </div>
+                            <h4>Amount</h4>
+                            <div class="floating-block border-hover">
+                                <div class="floating-input" style="margin-bottom: 0">
+                                  <input id="amount2" name="amount2" placeholder="00.00" required="" type="text"
+                                       [(ngModel)]="amountToReceiver" min="0.01"
+                                       (keyup.enter)='submitTransferDargentFunction()'
+                                       onkeydown="return ( event.ctrlKey || event.altKey
+                                                                  || (47<event.keyCode && event.keyCode<58 && event.shiftKey==false)
+                                                                  || (95<event.keyCode && event.keyCode<106)
+                                                                  || (event.keyCode===8) || (event.keyCode===9)
+                                                                  || (event.keyCode>34 && event.keyCode<40)
+                                                                  || (event.keyCode===46) || (event.keyCode===110))"/>
+                                  <div class="clean-input" (click)="clearAmount()"></div>
+                                </div>
+                                <div class="currency">{{currencyParams.curXOF()}}</div>
+                            </div>
+
+                            <div *ngIf="errorMessage" class="errorTextClass">{{errorMessage}}</div>
+                            <p *ngIf="!errorMessage" style="margin: 0; text-align: center; height: 16px"><img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>
+                            <button class="orange-button blue-button"
+                                  [disabled]="!(+amountToReceiver >= 0.01)"
+                                  (click)="submitTransferDargentFunction()"
+                                  type="submit">Send</button>
+                        </div>
+
+                        <!--<div class="content">-->
+                          <!--<form #agent_depoClient="ngForm" novalidate>-->
+                            <!--<h4 *ngIf="!createNew">Phone number</h4>-->
+
+                            <!--<div *ngIf="!createNew">-->
+                              <!--<ng-select2 name="select2"-->
+                                          <!--[(ngModel)]="numTel_fromSelect2"-->
+                                          <!--[data]="userDataService.getReceiversForSelect2()"-->
+                                          <!--[placeholder]="'Please select...'">-->
+                              <!--</ng-select2>-->
+                            <!--&lt;!&ndash;<select2 [data]="userDataService.getCitizens()"></select2>&ndash;&gt;-->
+                            <!--</div>-->
+
+                            <!--<span *ngIf="!createNew" (click)="createNew=true" class="help" style="cursor:pointer; margin-bottom:12px">-->
+                              <!--<b>Create New receiver's account.</b>-->
+                            <!--</span>-->
+
+                            <!--<div  *ngIf="createNew">-->
+                              <!--<app-new-receiver-small (receiver_defined)="setNewCitizen($event)"></app-new-receiver-small>-->
+                            <!--</div>-->
+
+                            <!--<h4>Amount</h4>-->
+                            <!--<div class="floating-block border-hover">-->
+                                <!--<div class="floating-input" style="margin-bottom: 0">-->
+                                    <!--<input id="amount1" name="amount1" placeholder="00.00" required="" type="text"-->
+                                           <!--[(ngModel)]="amountToReceiver" min="0.01"-->
+                                           <!--(keyup.enter)='submitTransferDargentFunction()'-->
+                                           <!--onkeydown="return ( event.ctrlKey || event.altKey-->
+                                                                <!--|| (47<event.keyCode && event.keyCode<58 && event.shiftKey==false)-->
+                                                                <!--|| (95<event.keyCode && event.keyCode<106)-->
+                                                                <!--|| (event.keyCode===8) || (event.keyCode===9)-->
+                                                                <!--|| (event.keyCode>34 && event.keyCode<40)-->
+                                                                <!--|| (event.keyCode===46) || (event.keyCode===110))"/>-->
+                                    <!--<div class="clean-input" (click)="clearAmount()"></div>-->
+                                <!--</div>-->
+                                <!--<div class="currency">{{currencyParams.curXOF()}}</div>-->
+                            <!--</div>-->
+                            <!--<div *ngIf="errorMessage" class="errorTextClass">{{errorMessage}}</div>-->
+                            <!--<p *ngIf="!errorMessage" style="margin: 0; text-align: center; height: 16px"><img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>-->
+                            <!--<button *ngIf="!createNew" class="orange-button blue-button"-->
+                                    <!--[disabled]="!(numTel_fromSelect2 && (+amountToReceiver >= 0.01))"-->
+                                    <!--(click)="submitTransferDargentFunction()"-->
+                                    <!--type="submit">Send</button>-->
+                            <!--<button *ngIf="createNew" class="orange-button blue-button"-->
+                                    <!--[disabled]="!(newReceiver.nom && newReceiver.prenom && newReceiver.telephone && (+amountToReceiver >= 0.01))"-->
+                                    <!--(click)="submitTransferDargentFunction()"-->
+                                    <!--type="submit">Send</button>-->
+                            <!---->
+                          <!--</form>-->
+                        <!--</div>-->
                     </div>
                 </div>
             </div>
