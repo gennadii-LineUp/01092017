@@ -8,22 +8,82 @@
         <table class="table table-striped" *ngIf="citizens && (citizens.length > 0)">
           <thead>
           <tr>
-            <th>№</th>
-            <th>ID</th>
-            <th>Nom</th>
-            <th>Prenom</th>
-            <th>Cellulaire</th>
-            <th>Type</th>
+            <th class="text-center">№</th>
+            <th class="text-center">ID</th>
+            <th class="text-center">Nom</th>
+            <th class="text-center">Prenom</th>
+            <th class="text-center">Cellulaire</th>
+            <th class="text-center">Type</th>
           </tr>
           </thead>
           <tbody>
             <tr *ngFor="let citizen of citizens; let i='index'">
               <td class="text-center">{{i}}</td>
-              <td class="text-center">{{citizen.id}}</td>
-              <td>{{citizen.nom}}</td>
-              <td>{{citizen.prenom}}</td>
-              <td>{{citizen.numTel}}</td>
-              <td>{{citizen.type}}</td>
+              <td class="text-center">
+                <div class="floating-block border-hover" style="margin-bottom:0">
+                  <div class="floating-input">
+                    <input type="text" placeholder="cellulaire" name="id_{{i}}" id="id_{{i}}"
+                           style="padding-bottom:0; min-height: 36px; padding-left: 10px; height: 36px; padding-right:8px"
+                           [readonly]="!((editableRow.i === i) && (editableRow.name === 'id'))" [(ngModel)]="citizen.id">
+                  </div>
+                </div>
+              </td>
+              <td style="width: 25%">
+                <div class="floating-block border-hover" style="margin-bottom:0">
+                  <div class="floating-input">
+                    <input type="text" placeholder="nom" name="nom_{{i}}" id="nom_{{i}}"
+                           style="padding-bottom:0; min-height: 36px; padding-left: 16px; height: 36px; padding-right:45px"
+                           [readonly]="!((editableRow.i === i) && (editableRow.name === 'nom'))" [(ngModel)]="citizen.nom">
+                  </div>
+                  <!--<div class="pass-forget" style="right: 44px"><img *ngIf="(editableRow.i !== i)" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" style="height: 16px"/></div>-->
+                  <div *ngIf="!((editableRow.i === i) && (editableRow.name === 'nom'))" class="pass-forget"
+                       (click)="setEditableRow(i, 'nom')">Edit</div>
+                  <div *ngIf="((editableRow.i === i) && (editableRow.name === 'nom'))" class="pass-forget"
+                       (click)="submitFunction(editableRow.name, editableRow.i)">Save</div>
+                </div>
+              </td>
+              <td style="width: 25%">
+                <div class="floating-block border-hover" style="margin-bottom:0">
+                  <div class="floating-input">
+                    <input type="text" placeholder="prenom" name="prenom_{{i}}" id="prenom_{{i}}"
+                           style="padding-bottom:0; min-height: 36px; padding-left: 16px; height: 36px; padding-right:45px"
+                           [readonly]="!((editableRow.i === i) && (editableRow.name === 'prenom'))" [(ngModel)]="citizen.prenom">
+                  </div>
+                  <!--<div class="pass-forget" style="right: 44px"><img *ngIf="(editableRow.i !== i)" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" style="height: 16px"/></div>-->
+                  <div *ngIf="!((editableRow.i === i) && (editableRow.name === 'prenom'))" class="pass-forget"
+                       (click)="setEditableRow(i, 'prenom')">Edit</div>
+                  <div *ngIf="((editableRow.i === i) && (editableRow.name === 'prenom'))" class="pass-forget"
+                       (click)="submitFunction(editableRow.name, editableRow.i)">Save</div>
+                </div>
+              </td>
+              <td style="width: 25%">
+                <div class="floating-block border-hover" style="margin-bottom:0">
+                  <div class="floating-input">
+                    <input type="text" placeholder="cellulaire" name="numTel_{{i}}" id="numTel_{{i}}"
+                           style="padding-bottom:0; min-height: 36px; padding-left: 16px; height: 36px; padding-right:45px"
+                           [readonly]="!((editableRow.i === i) && (editableRow.name === 'numTel'))" [(ngModel)]="citizen.numTel">
+                  </div>
+                  <!--<div class="pass-forget" style="right: 44px"><img *ngIf="(editableRow.i !== i)" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" style="height: 16px"/></div>-->
+                  <div *ngIf="!((editableRow.i === i) && (editableRow.name === 'numTel'))" class="pass-forget"
+                       (click)="setEditableRow(i, 'numTel')">Edit</div>
+                  <div *ngIf="((editableRow.i === i) && (editableRow.name === 'numTel'))" class="pass-forget"
+                       (click)="submitFunction(editableRow.name, editableRow.i)">Save</div>
+                </div>
+              </td>
+              <td>
+                <div class="floating-block border-hover" style="margin-bottom:0">
+                  <div class="floating-input">
+                    <input type="text" placeholder="cellulaire" name="type_{{i}}" id="type_{{i}}"
+                           style="padding-bottom:0; min-height: 36px; padding-left: 10px; height: 36px; padding-right:8px"
+                           [readonly]="!((editableRow.i === i) && (editableRow.name === 'type'))" [(ngModel)]="citizen.type">
+                  </div>
+                  <!--<div class="pass-forget" style="right: 44px"><img *ngIf="(editableRow.i !== i)" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" style="height: 16px"/></div>-->
+                  <!--<div *ngIf="!((editableRow.i === i) && (editableRow.name === 'type'))" class="pass-forget"-->
+                       <!--(click)="setEditableRow(i, 'type')">Edit</div>-->
+                  <!--<div *ngIf="((editableRow.i === i) && (editableRow.name === 'type'))" class="pass-forget"-->
+                       <!--(click)="submitFunction(editableRow.name, editableRow.i)">Save</div>-->
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>

@@ -21,6 +21,15 @@ export class ManageAdminCitizenComponent implements OnInit, OnDestroy {
   userRole = '';
   profil = '';
   citizens = [];
+  loading_nom = false;
+  loading_prenom = false;
+  loading_mail = false;
+  loading_phone = false;
+  _i: number;
+  readOnly_nom = true;
+  readOnly_prenom = true;
+  readOnly_phone = true;
+  editableRow = {i: undefined, name: undefined};
   errorMessage = '';
   alive = true;
 
@@ -67,4 +76,18 @@ export class ManageAdminCitizenComponent implements OnInit, OnDestroy {
           this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
         });
   }
+
+  setEditableRow(i: number, name: string) {
+    this._i = i;
+    this.editableRow.i = i;
+    this.editableRow.name = name;
+  }
+  public submitFunction(name: string, i: number) {
+    this.loading_nom = true;
+    this.editableRow.i = undefined;
+    this.editableRow.name = undefined;
+    setTimeout(() => { this.loading_nom = false; }, 1000);
+    console.log(name, i);
+  }
+
 }
