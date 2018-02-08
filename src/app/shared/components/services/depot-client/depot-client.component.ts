@@ -12,7 +12,6 @@ import {CurrencyParams} from '../../../../models/currency_params';
 import {GetUOByCellularService} from '../../../../services/api/getUOByCellular.service';
 import {RegistrationClass} from '../../../../models/registration-class';
 import {CreateNewAccountService} from '../../../../services/api/createNewAccount.service';
-declare var $: any;
 
 @Component({
   selector: 'app-services-depot-client',

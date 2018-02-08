@@ -1,5 +1,6 @@
+import 'jquery/dist/jquery.js'
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AlertModule } from 'ngx-bootstrap';
@@ -22,6 +23,7 @@ import {GetAllContractsService} from './services/api/getAllContracts.service';
 import { NgSelect2Module } from 'ng-select2';
 import {AutorizationGuardService} from './guards/autorization-guard.service';
 import {CurrencyParams} from './models/currency_params';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -35,7 +37,11 @@ import {CurrencyParams} from './models/currency_params';
     HttpModule,
     AppRoutingModule,
     PagesModule,
-    NgSelect2Module
+    NgSelect2Module,
+    NgbModule.forRoot(),
+  ],
+  exports: [
+    NgbModule,
   ],
   providers: [
     AuthGuard, AgentGuard, CitizenGuard, CustomerGuard, AutorizationGuardService,
@@ -43,6 +49,7 @@ import {CurrencyParams} from './models/currency_params';
     GetAllCustomerService, GetAllCitizenService, GetAllContractsService,
     CurrencyParams
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 })
 export class AppModule { }

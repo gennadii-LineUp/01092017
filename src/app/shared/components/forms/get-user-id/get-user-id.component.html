@@ -34,11 +34,6 @@
             </option>
           </select>
       </div>
-      <!--<div class="floating-input">-->
-        <!--<input type="text" placeholder="Type here" (ngModelChange)="sendData()"-->
-               <!--#id_type="ngModel" id="id_type" name='id_type' required [ngModel]="envoyeur.id_type" />-->
-        <!--<div class="clean-input" (click)="clearEnvoyeur('id_type')"></div>-->
-      <!--</div>-->
     </div>
     <h3>NUMERO</h3>
     <div class="floating-block border-hover">
@@ -51,18 +46,19 @@
     <h3>DATE DELIVRANCE</h3>
     <div class="floating-block border-hover">
       <div class="floating-input">
-        <input type="text" placeholder="Type here" (ngModelChange)="sendData()"
-               #id_debut="ngModel" id="id_debut" name='id_debut' required [(ngModel)]="envoyeur.id_debut" />
-        <div class="clean-input" (click)="clearEnvoyeur('id_debut')"></div>
+        <input class="form-control" placeholder="yyyy-mm-dd" (click)="dpExpiration.close(); dpDebut.toggle()"
+               (ngModelChange)="transformDataToString($event, 'dpDebut')"
+               name="dpDebut" [(ngModel)]="datepickerDebut" ngbDatepicker #dpDebut="ngbDatepicker">
+        <div class="clean-input" (click)="clearDP('dpDebut')"></div>
       </div>
     </div>
     <h3>DATE EXPIRATION</h3>
     <div class="floating-block border-hover">
       <div class="floating-input">
-        <input type="text" placeholder="Type here" (ngModelChange)="sendData()"
-               #id_fin="ngModel" id="id_fin" name='id_fin' required [(ngModel)]="envoyeur.id_fin" />
-        <div class="clean-input" (click)="clearEnvoyeur('id_fin')"></div>
-        <!--(click)="clearEnvoyeur('id_fin')"-->
+        <input class="form-control" placeholder="yyyy-mm-dd" (click)="dpDebut.close(); dpExpiration.toggle()"
+               (ngModelChange)="transformDataToString($event, 'dpExpiration')"
+               name="dpExpiration" [(ngModel)]="datepickerExpiration" ngbDatepicker #dpExpiration="ngbDatepicker">
+        <div class="clean-input" (click)="clearDP('dpExpiration')"></div>
       </div>
     </div>
   </div>

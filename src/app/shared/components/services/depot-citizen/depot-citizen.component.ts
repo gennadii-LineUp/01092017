@@ -67,7 +67,7 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
     //   select2['0'].style.cssText = 'select2-container select2-container--default select2-container--close';
     // }
 
-    console.log($);
+    // console.log($);
   }
 
   ngOnDestroy() {

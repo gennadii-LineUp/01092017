@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
@@ -48,6 +48,7 @@ import { SelectCitizenComponent } from './components/forms/select-citizen/select
 import { SelectClientComponent } from './components/forms/select-client/select-client.component';
 import { ChooseAccountNormComponent } from './components/forms/choose-account-norm/choose-account-norm.component';
 import { NewReceiverSmallComponent } from './components/forms/new-receiver-small/new-receiver-small.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 const googleMapsCore = AgmCoreModule.forRoot({
   apiKey : 'AIzaSyDajrkQUo7gxEhGlfBhCrYOc4oPu-szoXA',
@@ -56,7 +57,7 @@ const googleMapsCore = AgmCoreModule.forRoot({
 
 @NgModule({
   imports: [
-    CommonModule, BrowserModule, FormsModule, AppRoutingModule, NgSelect2Module, googleMapsCore
+    CommonModule, BrowserModule, FormsModule, AppRoutingModule, NgSelect2Module, googleMapsCore, NgbModule
   ],
   declarations: [
     HeaderGeneralComponent, HeaderAllUsersComponent,
@@ -109,7 +110,7 @@ const googleMapsCore = AgmCoreModule.forRoot({
   providers: [
 
   ],
-  bootstrap: []
-
+  bootstrap: [],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 })
 export class SharedModule { }
