@@ -5,6 +5,12 @@
       Manage admin citizen</h3>
     <div class="container">
       <div class="table-responsive">
+        <div class="floating-block border-hover">
+            <div class="floating-input">
+                <input class="form-control" type="text" style="width: 100%; height: 40px"
+                       [(ngModel)]="numTel_fromSelect2" (ngModelChange)="findCitizen()" />
+            </div>
+        </div>
         <table class="table table-striped" *ngIf="citizens && (citizens.length > 0)">
           <thead>
           <tr>
@@ -17,8 +23,20 @@
           </tr>
           </thead>
           <tbody>
+            <!--<tr>-->
+              <!--<td></td>-->
+              <!--<td></td>-->
+              <!--<td colspan="3">-->
+                <!--<ng-select2 name="select2_standart"-->
+                            <!--[(ngModel)]="numTel_fromSelect2"-->
+                            <!--[data]="userDataService.getReceiversForSelect2()"-->
+                            <!--[placeholder]="'Please select citizen...'">-->
+                <!--</ng-select2>-->
+              <!--</td>-->
+              <!--<td></td>-->
+            <!--</tr>-->
             <tr *ngFor="let citizen of citizens; let i='index'">
-              <td class="text-center">{{i}}</td>
+              <td class="text-center" style="vertical-align: middle"><span>{{i+1}}</span></td>
               <td class="text-center">
                 <div class="floating-block border-hover" style="margin-bottom:0">
                   <div class="floating-input">

@@ -10,6 +10,8 @@ import {CommonServices} from '../../../../services/common.service';
 import {ErrorMessageHandlerService} from '../../../../services/error-message-handler.service';
 import {UserDataService} from '../../../../models/user-data';
 import {CurrencyParams} from '../../../../models/currency_params';
+import {ReceiverClass} from '../../../../models/receiver-class';
+import {Select2optionClass} from '../../../../models/select2option-class';
 
 @Component({
   selector: 'app-services-manage-admin-citizen',
@@ -21,6 +23,7 @@ export class ManageAdminCitizenComponent implements OnInit, OnDestroy {
   userRole = '';
   profil = '';
   citizens = [];
+  _citizens = [];
   loading_nom = false;
   loading_prenom = false;
   loading_mail = false;
@@ -31,6 +34,7 @@ export class ManageAdminCitizenComponent implements OnInit, OnDestroy {
   readOnly_phone = true;
   editableRow = {i: undefined, name: undefined};
   errorMessage = '';
+  numTel_fromSelect2 = '';
   alive = true;
 
   constructor(public userDataService: UserDataService,
@@ -57,6 +61,7 @@ export class ManageAdminCitizenComponent implements OnInit, OnDestroy {
     console.log(this.profil);
 
     this.loadCitizens();
+
   }
 
   ngOnDestroy() {
@@ -70,11 +75,34 @@ export class ManageAdminCitizenComponent implements OnInit, OnDestroy {
         .subscribe(result => {
           const response = (this.commonServices.xmlResponseParcer_complex(result._body)).uos;
           this.citizens = (response.length) ? response : [];
+          this._citizens = this.citizens;
           console.log(this.citizens);
+          this.userDataService.setReceiversForSelect2(this.citizens);
         }, (err) => {
           console.log(err);
           this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
         });
+  }
+
+  findCitizen() {
+    let temp = [];
+    const arr = this.userDataService.getReceiversForSelect2();
+
+    if (this.numTel_fromSelect2.length > 0) {
+      arr.forEach((obj) => {
+        if (~(obj.text.toLowerCase()).indexOf(this.numTel_fromSelect2.toLowerCase())) {
+          this.citizens = this._citizens;
+          this.citizens.forEach(citizen => {
+            if (citizen.numTel === obj.id) {
+              temp.push(citizen);
+            }
+          });
+        }
+      });
+      this.citizens = temp;
+    } else {
+      this.citizens = this._citizens;
+    }
   }
 
   setEditableRow(i: number, name: string) {
