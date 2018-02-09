@@ -9,15 +9,15 @@ import {ReceiverClass} from '../../../../models/receiver-class';
 import 'rxjs/add/operator/takeWhile';
 import {ActivatedRoute} from '@angular/router';
 import {CurrencyParams} from '../../../../models/currency_params';
-import {GetUOByCellularService} from '../../../../services/api/getUOByCellular.service';
 import {RegistrationClass} from '../../../../models/registration-class';
 import {CreateNewAccountService} from '../../../../services/api/createNewAccount.service';
+import {GetCustomerByCellularService} from '../../../../services/api/getCustomerByCellular.service';
 
 @Component({
   selector: 'app-services-depot-client',
   templateUrl: './depot-client.component.html',
   styleUrls: ['./depot-client.component.scss'],
-  providers: [GetCommissionsTTCService, V2WDepotClientTransactionService, GetUOByCellularService, CreateNewAccountService]
+  providers: [GetCommissionsTTCService, V2WDepotClientTransactionService, GetCustomerByCellularService, CreateNewAccountService]
 })
 export class DepotClientComponent implements OnInit, OnDestroy {
   amount_depotClient: number;
@@ -29,7 +29,7 @@ export class DepotClientComponent implements OnInit, OnDestroy {
   createNewReceiver = true;
   createNewReceiver_mobile_amount = true;
   clientDoesntExist = false;
-  cellularToFind = '773151459';
+  cellularToFind = '778888889';
   beneficiaireFound: any;
   receiverStatus = '';
   receiverToFind = '';
@@ -58,7 +58,7 @@ export class DepotClientComponent implements OnInit, OnDestroy {
               public v2WDepotClientTransactionService: V2WDepotClientTransactionService,
               private activateRoute: ActivatedRoute,
               public currencyParams: CurrencyParams,
-              public getUOByCellularService: GetUOByCellularService,
+              public getCustomerByCellularService: GetCustomerByCellularService,
               public createNewAccountService: CreateNewAccountService) { }
 
   ngOnInit() {
@@ -150,7 +150,7 @@ export class DepotClientComponent implements OnInit, OnDestroy {
 
   public findReceiverByTelephone() {
     this.loading = true;
-    this.getUOByCellularService.getData(this.cellularToFind)
+    this.getCustomerByCellularService.getCustomerByCellular(this.cellularToFind)
       .takeWhile(() => this.alive)
       .subscribe(result => {
         const response = this.commonServices.xmlResponseParcer_simple(result._body);
@@ -224,7 +224,8 @@ export class DepotClientComponent implements OnInit, OnDestroy {
     this.clearSearch();
     // const beneficiaire = this.userDataService.getReceiverFromSelect2(this.client_fromSelect2);
     const addr = (this.beneficiaireFound.address) ? this.beneficiaireFound.address : 'undefined';
-    this.envoyeur_default = new EnvoyeurClass(this.beneficiaireFound.nom, this.beneficiaireFound.prenom, this.beneficiaireFound.numTel, addr, '', 'SEN', '', '', '');
+    this.envoyeur_default = new EnvoyeurClass(this.beneficiaireFound.nom, this.beneficiaireFound.prenom,
+                                              this.beneficiaireFound.numTel, addr, '', 'SEN', '', '', '');
     this._envoyeur_default = Object.assign({}, this.envoyeur_default);
     this.receiverStatus = (this.beneficiaireFound.nom) ? (this.beneficiaireFound.nom) : '';
     this.receiverStatus += (this.beneficiaireFound.prenom) ? (' ' + this.beneficiaireFound.prenom) : '';

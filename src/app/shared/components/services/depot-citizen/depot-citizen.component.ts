@@ -9,16 +9,16 @@ import 'rxjs/add/operator/takeWhile';
 import {ReceiverClass} from '../../../../models/receiver-class';
 import {ActivatedRoute} from '@angular/router';
 import {CurrencyParams} from '../../../../models/currency_params';
-import {GetUOByCellularService} from '../../../../services/api/getUOByCellular.service';
 import {RegistrationClass} from '../../../../models/registration-class';
 import {CreateNewAccountService} from '../../../../services/api/createNewAccount.service';
+import {GetCitizenByCellularService} from '../../../../services/api/getCitizenByCellular.service';
 declare var $: any;
 
 @Component({
   selector: 'app-services-depot-citizen',
   templateUrl: './depot-citizen.component.html',
   styleUrls: ['./depot-citizen.component.scss'],
-  providers: [GetCommissionsTTCService, C2WDepotTransactionService, GetUOByCellularService, CreateNewAccountService]
+  providers: [GetCommissionsTTCService, C2WDepotTransactionService, GetCitizenByCellularService, CreateNewAccountService]
 })
 export class DepotCitizenComponent implements OnInit, OnDestroy {
   successMessage = '';
@@ -54,7 +54,7 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
               public c2WDepotTransactionService: C2WDepotTransactionService,
               private activateRoute: ActivatedRoute,
               public currencyParams: CurrencyParams,
-              public getUOByCellularService: GetUOByCellularService,
+              public getCitizenByCellularService: GetCitizenByCellularService,
               public createNewAccountService: CreateNewAccountService) { }
 
   ngOnInit() {
@@ -222,7 +222,7 @@ console.log('------------------------------');
   }
   public findReceiverByTelephone() {
     this.loading = true;
-    this.getUOByCellularService.getData(this.cellularToFind)
+    this.getCitizenByCellularService.getCitizenByCellular(this.cellularToFind)
       .takeWhile(() => this.alive)
       .subscribe(result => {
         const response = this.commonServices.xmlResponseParcer_simple(result._body);
