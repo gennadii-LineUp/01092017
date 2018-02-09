@@ -12,12 +12,14 @@ import {CurrencyParams} from '../../../../models/currency_params';
 import {RegistrationClass} from '../../../../models/registration-class';
 import {CreateNewAccountService} from '../../../../services/api/createNewAccount.service';
 import {GetCustomerByCellularService} from '../../../../services/api/getCustomerByCellular.service';
+import {GetContactOfCustomerService} from '../../../../services/api/getContactOfCustomer.service';
 
 @Component({
   selector: 'app-services-depot-client',
   templateUrl: './depot-client.component.html',
   styleUrls: ['./depot-client.component.scss'],
-  providers: [GetCommissionsTTCService, V2WDepotClientTransactionService, GetCustomerByCellularService, CreateNewAccountService]
+  providers: [GetCommissionsTTCService, V2WDepotClientTransactionService, GetCustomerByCellularService,
+              CreateNewAccountService, GetContactOfCustomerService]
 })
 export class DepotClientComponent implements OnInit, OnDestroy {
   amount_depotClient: number;
@@ -29,13 +31,13 @@ export class DepotClientComponent implements OnInit, OnDestroy {
   createNewReceiver = true;
   createNewReceiver_mobile_amount = true;
   clientDoesntExist = false;
-  cellularToFind = '778888889';
+  cellularToFind = '775419345';
   beneficiaireFound: any;
   receiverStatus = '';
   receiverToFind = '';
   successMessage_1 = '';
   successMessage_2 = '';
-
+  client = {id: undefined, nom: undefined, prenom: undefined, numTel: undefined};
   commission = [];
   envoyeur = new EnvoyeurClass('KANE', 'MOMAR', '773151459', 'DAKAR', 'CNI', 'SEN', '1619198107350', '01/01/2016', '01/01/2017');
   envoyeur_default: EnvoyeurClass;
@@ -59,7 +61,8 @@ export class DepotClientComponent implements OnInit, OnDestroy {
               private activateRoute: ActivatedRoute,
               public currencyParams: CurrencyParams,
               public getCustomerByCellularService: GetCustomerByCellularService,
-              public createNewAccountService: CreateNewAccountService) { }
+              public createNewAccountService: CreateNewAccountService,
+              public getContactOfCustomerService: GetContactOfCustomerService) { }
 
   ngOnInit() {
     this.firstStepMode();
@@ -155,10 +158,42 @@ export class DepotClientComponent implements OnInit, OnDestroy {
       .subscribe(result => {
         const response = this.commonServices.xmlResponseParcer_simple(result._body);
         console.dir(response);
-        if (response.numTel && response.numTel.length) {
-          this.beneficiaireFound = {nom: (response.nom) ? response.nom : undefined,
-            prenom: (response.prenom) ? response.prenom : undefined,
-            numTel: response.numTel,
+        this.client.id = response.id;
+        this.client.nom = (response.nom) ? (response.nom) : '';
+        this.client.prenom = (response.prenom) ? (response.prenom) : '';
+        this.client.numTel = (response.numTel) ? (response.numTel) : '';
+        if (response.id) {
+          this.findContactsOfClient(response.id);
+          // this.beneficiaireFound = {nom: (response.nom) ? response.nom : undefined,
+          //   prenom: (response.prenom) ? response.prenom : undefined,
+          //   numTel: response.numTel,
+          //   id: (response.id) ? response.id : undefined
+          // };
+          // this.setBeneficiaryFunction({value: this.beneficiaireFound.numTel});
+        } else {
+          this.loading = false;
+          // this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
+          this.clientDoesntExist = true;
+        }
+      }, (err) => {
+        this.loading = false;
+        console.log(err);
+        this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+      });
+  }
+
+  public findContactsOfClient(uoId: string) {
+    // this.loading = true;
+    this.getContactOfCustomerService.getContactOfCustomer(uoId)
+      .takeWhile(() => this.alive)
+      .subscribe(result => {
+        this.loading = false;
+        const response = this.commonServices.xmlResponseParcer_simple(result._body);
+        console.dir(response);
+        if (response.nomContact && response.telephoneContact) {
+          this.beneficiaireFound = {nom: (response.nomContact) ? response.nomContact : undefined,
+            prenom: (response.prenomContact) ? response.prenomContact : undefined,
+            numTel: response.telephoneContact,
             id: (response.id) ? response.id : undefined
           };
           this.setBeneficiaryFunction({value: this.beneficiaireFound.numTel});
@@ -173,6 +208,7 @@ export class DepotClientComponent implements OnInit, OnDestroy {
         this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
       });
   }
+
   public setNewClient(newReceiver: RegistrationClass) {
     this.newReceiver = newReceiver;
     console.log(this.newReceiver );
@@ -209,7 +245,7 @@ export class DepotClientComponent implements OnInit, OnDestroy {
   public setBeneficiaryFunction(beneficiary: any) {
     console.log(beneficiary);
     this.client_fromSelect2 = beneficiary.value;
-    this.receiverToFind = this.client_fromSelect2;
+    this.receiverToFind = this.client.numTel;
     this.secondStepMode();
   }
 
@@ -227,10 +263,8 @@ export class DepotClientComponent implements OnInit, OnDestroy {
     this.envoyeur_default = new EnvoyeurClass(this.beneficiaireFound.nom, this.beneficiaireFound.prenom,
                                               this.beneficiaireFound.numTel, addr, '', 'SEN', '', '', '');
     this._envoyeur_default = Object.assign({}, this.envoyeur_default);
-    this.receiverStatus = (this.beneficiaireFound.nom) ? (this.beneficiaireFound.nom) : '';
-    this.receiverStatus += (this.beneficiaireFound.prenom) ? (' ' + this.beneficiaireFound.prenom) : '';
-    // this.receiverStatus += (beneficiaire.nom || beneficiaire.prenom) ? (', ') : '';
-    // this.receiverStatus += (beneficiaire.telephone) ? (beneficiaire.telephone) : '';
+    this.receiverStatus = (this.client.nom) ? (this.client.nom) : '';
+    this.receiverStatus += (this.client.prenom) ? (' ' + this.client.prenom) : '';
     this.successMessage_1 = '';
     this.successMessage_2 = '';
     this.createNewReceiver = true;
