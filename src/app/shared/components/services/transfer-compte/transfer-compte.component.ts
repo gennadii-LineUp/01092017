@@ -214,6 +214,7 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
   public submitTransferCompteFunction() {
     if (this.numTel_fromSelect2 && (+this.amountToReceiver >= 0.01)) {
       if (!(this.numTel_fromSelect2 === 'undefined')) {
+        let _numTel_fromSelect2: string;
         this.successMessage_1 = '';
         this.successMessage_2 = '';
         this.errorMessage = '';
@@ -221,11 +222,17 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
 
         console.log(this.myAccount);
         console.log(this.numTel_fromSelect2);
+        if (this.numTel_fromSelect2.indexOf(' ')) {
+          _numTel_fromSelect2 = this.numTel_fromSelect2.split(', ')[1];
+        } else {
+          _numTel_fromSelect2 = this.numTel_fromSelect2;
+        }
+        console.log(_numTel_fromSelect2);
 
-        const beneficiaire = <ReceiverClass>this.userDataService.getReceiverFromSelect2(this.numTel_fromSelect2);
+        const beneficiaire = <ReceiverClass>this.userDataService.getReceiverFromSelect2(_numTel_fromSelect2);
         console.log(beneficiaire);
 
-        if (this.numTel_fromSelect2) {
+        if (_numTel_fromSelect2) {
           this.getCommissionsTTCService.getCommission(this.amountToReceiver, 'W2W')
             .takeWhile(() => this.alive)
             .subscribe(result => {
@@ -235,7 +242,7 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
                 this.commission.push(+response.commission);
                 console.log(response.commission);
 
-                this.getAllListAccountService.getMyAccounts(this.numTel_fromSelect2)
+                this.getAllListAccountService.getMyAccounts(_numTel_fromSelect2)
                   .takeWhile(() => this.alive)
                   .subscribe(result1 => {
                     const response1 = this.commonServices.xmlResponseParcer_complex(result1._body);

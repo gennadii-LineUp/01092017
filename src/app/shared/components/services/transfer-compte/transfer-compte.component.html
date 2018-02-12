@@ -73,7 +73,17 @@
                     </div>
                     <div class="content" style="padding-bottom: 0">
                       <h4>Type paiement facture</h4>
-                      <ng-select2 name="select2_facture"
+                      <div class="floating-block border-hover only-mobile">
+                        <div class="floating-input" >
+                          <select name="select_facture" class="only-mobile"
+                                  [(ngModel)]="numTel_fromSelect2"   id="select_facture">
+                            <option *ngFor="let facture of userDataService.getReceiversForSelect2()" [value]="facture.text">
+                              {{facture.text}}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <ng-select2 name="select2_facture" class="only-desktop"
                                   [(ngModel)]="numTel_fromSelect2"
                                   [data]="userDataService.getReceiversForSelect2()"
                                   [placeholder]="'Please select...'">
@@ -129,7 +139,18 @@
                     </div>
                     <div class="content" style="padding-bottom: 0">
                       <h4>Select customer’s account</h4>
-                      <ng-select2 name="select2_marchand"
+                      <div class="floating-block border-hover only-mobile">
+                        <div class="floating-input" >
+                          <select name="select_marchand" class="only-mobile"
+                                  [(ngModel)]="numTel_fromSelect2"   id="select_marchand">
+                            <option *ngFor="let marchand of userDataService.getReceiversForSelect2()" [value]="marchand.text">
+                              {{marchand.text}}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <ng-select2 name="select2_marchand" class="only-desktop"
                                   [(ngModel)]="numTel_fromSelect2"
                                   [data]="userDataService.getReceiversForSelect2()"
                                   [placeholder]="'Please select...'">
@@ -198,7 +219,17 @@
                       Insert customer’s information</div>
                     <div class="content" style="padding-bottom: 0">
                       <h4>Select customer’s account</h4>
-                      <ng-select2 name="select2_standart"
+                      <div class="floating-block border-hover only-mobile">
+                        <div class="floating-input" >
+                          <select name="select_standart" class="only-mobile"
+                                  [(ngModel)]="numTel_fromSelect2"   id="select_standart">
+                            <option *ngFor="let standart of userDataService.getReceiversForSelect2()" [value]="standart.text">
+                              {{standart.text}}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <ng-select2 name="select2_standart"  class="only-desktop"
                                   [(ngModel)]="numTel_fromSelect2"
                                   [data]="userDataService.getReceiversForSelect2()"
                                   [placeholder]="'Please select...'">

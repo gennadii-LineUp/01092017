@@ -5,7 +5,7 @@
   </h3>
   <div *ngIf="(contractsForSelect2 && (contractsForSelect2.length > 0))" class="content">
     <h4>Select a contract of the connected customer</h4>
-    <div class="floating-block border-hover">
+    <div class="floating-block border-hover only-mobile">
       <div class="floating-input" >
         <select name="select_contracts" class="only-mobile"
                 [(ngModel)]="contract_fromSelect2"  (change)="_chooseContractFunction(contract_fromSelect2)" id="select_contracts">
