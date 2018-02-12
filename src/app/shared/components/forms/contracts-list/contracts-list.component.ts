@@ -18,10 +18,15 @@ export class ContractsListComponent implements OnInit {
   contract_fromSelect2 = '';
   myAccounts = [];
   contractsForSelect2 = [];
+  _contractsForSelect2 = [];
   allContracts = [];
   userRole = '';
   alive = true;
-  @Output() contract_defined = new EventEmitter<Select2optionClass>();
+  obj_select = {
+    value: '',
+    data: [{id: '', text: ''}]
+  };
+  @Output() contract_defined = new EventEmitter<any>();
 
   constructor(public userDataService: UserDataService,
               public activatedRoute: ActivatedRoute,
@@ -145,13 +150,16 @@ export class ContractsListComponent implements OnInit {
     if (contracts && contracts.length > 0) {
       contracts.forEach(item => {
         let text = (item.reference) ? (item.reference) : '';
+        let _text = (item.reference) ? (item.reference) : '';
         text += (item.dateCreation) ? (' de ' + this.commonServices.fromServerDateMoment(item.dateCreation)) : '';
+        _text += (item.dateCreation) ? (' de ' + this.commonServices.fromServerDateMoment(item.dateCreation) + '. ') : '';
         text += (item.debut) ? ('. Valide à partir de ' + this.commonServices.fromServerDateMoment(item.debut)) : '';
         text += (item.statut) ? ('. ' + item.statut) : '';
         text += (item.banque) ? ('. ' + item.banque + ' banque.') : '';
         const id = (item.id) ? (item.id) : '';
 
         this.contractsForSelect2.push(new Select2optionClass(id, text));
+        this._contractsForSelect2.push(new Select2optionClass(id, _text));
       });
       console.log(this.contractsForSelect2);
     }
@@ -161,5 +169,16 @@ export class ContractsListComponent implements OnInit {
     console.log(contract);
     this.contract_defined.emit(contract);
   }
+  public _chooseContractFunction(text: any) {
+    console.log(text);
+    console.log(this.contractsForSelect2.find(x => x.text === text));
+    const temp = this.contractsForSelect2.find(x => x.text === text);
+    this.obj_select.value = '' + temp.id;
+    this.obj_select.data[0].id = '' + temp.id;
+    this.obj_select.data[0].text = temp.text;
+    console.log(this.obj_select);
+    this.contract_defined.emit(this.obj_select);
+  }
+
 
 }

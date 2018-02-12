@@ -5,12 +5,24 @@
   </h3>
   <div *ngIf="(contractsForSelect2 && (contractsForSelect2.length > 0))" class="content">
     <h4>Select a contract of the connected customer</h4>
-    <ng-select2 name="select2_contracts"
+    <div class="floating-block border-hover">
+      <div class="floating-input" >
+        <select name="select_contracts" class="only-mobile"
+                [(ngModel)]="contract_fromSelect2"  (change)="_chooseContractFunction(contract_fromSelect2)" id="select_contracts">
+          <option *ngFor="let contract of _contractsForSelect2" [value]="contract.text">
+            {{contract.text}}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <ng-select2 name="select2_contracts" class="only-desktop"
                 [(ngModel)]="contract_fromSelect2"
                 [data]="contractsForSelect2"
                 [placeholder]="'Please select...'"
                 (valueChanged)="chooseContractFunction($event)">
     </ng-select2>
+  <!--{{contractsForSelect2 | json}}-->
 
     <!--<div class="floating-block border-hover">-->
     <!--<div class="orange-angle" style="display: block" (click)="findContractFunction()">-->
