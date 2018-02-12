@@ -74,6 +74,12 @@ export class DepotClientComponent implements OnInit, OnDestroy {
     // if (select2 && select2['0'] && select2['0'].style) {
     //   select2['0'].style.cssText = 'select2-container select2-container--default select2-container--close';
     // }
+    if ((this.userDataService.getMyAccounts()).length) {
+      console.log('=== MyAccounts\' length ' + this.userDataService.getMyAccounts().length);
+    } else {
+      console.log('=== MyAccounts\' is empty ===');
+      this.userDataService.setMyAccounts();
+    }
 
   }
 
@@ -184,7 +190,7 @@ export class DepotClientComponent implements OnInit, OnDestroy {
 
   public findContactsOfClient(uoId: string) {
     // this.loading = true;
-    this.getContactOfCustomerService.getContactOfCustomer(uoId)
+    this.getContactOfCustomerService.getContactOfCustomer(this.userDataService.getMyAccounts()[0].uoId)
       .takeWhile(() => this.alive)
       .subscribe(result => {
         this.loading = false;
