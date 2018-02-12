@@ -161,7 +161,8 @@ export class ContractsListComponent implements OnInit {
         this.contractsForSelect2.push(new Select2optionClass(id, text));
         this._contractsForSelect2.push(new Select2optionClass(id, _text));
       });
-      console.log(this.contractsForSelect2);
+      // console.log(this.contractsForSelect2);
+      // console.log(this._contractsForSelect2);
     }
 
   }
@@ -171,8 +172,8 @@ export class ContractsListComponent implements OnInit {
   }
   public _chooseContractFunction(text: any) {
     console.log(text);
-    console.log(this.contractsForSelect2.find(x => x.text === text));
-    const temp = this.contractsForSelect2.find(x => x.text === text);
+    // console.log(this.contractsForSelect2.find(x => x.text.indexOf(text)));
+    const temp = this.contractsForSelect2.find(x => x.text.indexOf(text));
     this.obj_select.value = '' + temp.id;
     this.obj_select.data[0].id = '' + temp.id;
     this.obj_select.data[0].text = temp.text;
