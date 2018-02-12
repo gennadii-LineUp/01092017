@@ -1,10 +1,13 @@
 <div class="compte_finder">
-  <div class="header top-header">Insert customer’s information</div>
-  <div *ngIf="(userDataService.getContractsForSelect2() && ((userDataService.getContractsForSelect2()).length > 0))" class="content">
+  <h3 class="top-header">
+    <div class="back-button" [routerLink]="['/' +userRole+ '/services']">Back</div>
+    Insert customer’s information
+  </h3>
+  <div *ngIf="(contractsForSelect2 && (contractsForSelect2.length > 0))" class="content">
     <h4>Select a contract of the connected customer</h4>
     <ng-select2 name="select2_contracts"
                 [(ngModel)]="contract_fromSelect2"
-                [data]="userDataService.getContractsForSelect2()"
+                [data]="contractsForSelect2"
                 [placeholder]="'Please select...'"
                 (valueChanged)="chooseContractFunction($event)">
     </ng-select2>
@@ -43,7 +46,7 @@
 
   </div>
   <div class="content">
-    <div *ngIf="!(userDataService.getContractsForSelect2() && ((userDataService.getContractsForSelect2()).length > 0))"class="errorTextClass">
+    <div *ngIf="!(contractsForSelect2 && (contractsForSelect2.length > 0))"class="errorTextClass">
       {{errorMessage_contract}}
     </div>
   </div>
