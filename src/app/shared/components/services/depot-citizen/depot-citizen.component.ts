@@ -88,7 +88,7 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
       this.successMessage = '';
       this.errorMessage = '';
 
-      const beneficiaire = this.userDataService.getReceiverFromSelect2(this.citizen_fromSelect2);
+      // const beneficiaire = this.userDataService.getReceiverFromSelect2(this.citizen_fromSelect2);
       // console.log(this.myAccount);
       this.getCommissionsTTCService.getCommission(this.amount_depotCitizen, 'C2W')
         .takeWhile(() => this.alive)
@@ -102,7 +102,7 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
             this.commission.push(+response.commission);
             console.log(this.commission);
             /////////////////////////////
-            this.c2WDepotTransactionService.makeDepotSitizen(beneficiaire.numTel,
+            this.c2WDepotTransactionService.makeDepotSitizen(this.beneficiaireFound.numTel,
               +this.amount_depotCitizen, +response.commission, this.envoyeur)
               .subscribe(_result => {
                 this.loading = false;

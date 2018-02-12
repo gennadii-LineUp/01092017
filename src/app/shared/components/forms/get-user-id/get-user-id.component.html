@@ -48,6 +48,7 @@
       <div class="floating-input">
         <input class="form-control" placeholder="yyyy-mm-dd" (click)="dpExpiration.close(); dpDebut.toggle()"
                (ngModelChange)="transformDataToString($event, 'dpDebut')"
+               [minDate]="minDate"
                name="dpDebut" [(ngModel)]="datepickerDebut" ngbDatepicker #dpDebut="ngbDatepicker">
         <div class="clean-input" (click)="clearDP('dpDebut')"></div>
       </div>
@@ -57,6 +58,7 @@
       <div class="floating-input">
         <input class="form-control" placeholder="yyyy-mm-dd" (click)="dpDebut.close(); dpExpiration.toggle()"
                (ngModelChange)="transformDataToString($event, 'dpExpiration')"
+               [minDate]="minDate" [maxDate]="maxDate"
                name="dpExpiration" [(ngModel)]="datepickerExpiration" ngbDatepicker #dpExpiration="ngbDatepicker">
         <div class="clean-input" (click)="clearDP('dpExpiration')"></div>
       </div>

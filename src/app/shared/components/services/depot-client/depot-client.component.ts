@@ -92,7 +92,7 @@ export class DepotClientComponent implements OnInit, OnDestroy {
           && this.envoyeur.id_type && this.envoyeur.id_pays && this.envoyeur.id_valeur)) {
       console.log(this.amount_depotClient + '  to send');
       console.dir(this.commonServices.getSelectedReceivers());
-      const beneficiaire = this.userDataService.getReceiverFromSelect2(this.client_fromSelect2);
+      // const beneficiaire = this.userDataService.getReceiverFromSelect2(this.client_fromSelect2);
 
       this.loading = true;
       this.successMessage = '';
@@ -111,7 +111,7 @@ export class DepotClientComponent implements OnInit, OnDestroy {
             this.commission.push(+response.commission);
             console.log(this.commission);
             /////////////////////////////
-            this.v2WDepotClientTransactionService.makeDepotClient(beneficiaire.numTel,
+            this.v2WDepotClientTransactionService.makeDepotClient(this.client.numTel,
               +this.amount_depotClient,
               +response.commission,
               this.envoyeur)

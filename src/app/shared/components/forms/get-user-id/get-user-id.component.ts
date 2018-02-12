@@ -21,6 +21,8 @@ export class GetUserIdComponent implements OnInit {
   date = '11/13/2016';
   datepickerDebut;
   datepickerExpiration;
+  minDate = {year: 1950, month: 1, day: 1};
+  maxDate = {year: 2060, month: 1, day: 1};
 
   @Output()
   userData = new EventEmitter<EnvoyeurClass>();
