@@ -10,5 +10,11 @@ table {
       right: 16px;
       line-height: 36px;
     }
+    .floating-block .floating-input input {
+      padding-right: 4px !important;
+    }
+    input {
+      padding-right: 4px !important;
+    }
   }
 }
