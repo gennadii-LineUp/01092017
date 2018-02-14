@@ -317,7 +317,7 @@ export class CommonServices {
   public removeEmptySelect2OnDestroy() {
     const select2 = <HTMLCollection>window.document.getElementsByClassName('select2-container');
     console.log(select2.length);
-    if (select2) {
+    if (select2 && select2.length > 0) {
       for (let i = 0; i < select2.length; i++) {
         if (select2[i] && select2[i].classList.contains('select2-container--open')) {
           select2[i].classList.remove('select2-container--open');

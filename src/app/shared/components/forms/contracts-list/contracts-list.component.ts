@@ -167,9 +167,10 @@ export class ContractsListComponent implements OnInit {
     this.contract_defined.emit(contract);
   }
   public _chooseContractFunction(text: any) {
-    console.log(text);
-    // console.log(this.contractsForSelect2.find(x => x.text.indexOf(text)));
-    const temp = this.contractsForSelect2.find(x => x.text.indexOf(text));
+    let temp: any;
+    this.contractsForSelect2.forEach((x) => {
+      if (~(x.text.indexOf(text))) {temp = x; }
+    });
     this.obj_select.value = '' + temp.id;
     this.obj_select.data[0].id = '' + temp.id;
     this.obj_select.data[0].text = temp.text;
