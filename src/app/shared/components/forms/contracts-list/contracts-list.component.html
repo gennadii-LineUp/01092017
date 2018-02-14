@@ -1,6 +1,7 @@
 <div class="compte_finder">
   <h3 class="top-header">
-    <div class="back-button" [routerLink]="['/' +userRole+ '/services']">Back</div>
+    <!--<div class="back-button" [routerLink]="['/' +userRole+ '/services']">Back</div>-->
+    <div class="back-button" [routerLink]="['/client/services']">Back</div>
     Insert customer’s information
   </h3>
   <div *ngIf="(contractsForSelect2 && (contractsForSelect2.length > 0))" class="content">
@@ -58,7 +59,7 @@
 
   </div>
   <div class="content">
-    <div *ngIf="!(contractsForSelect2 && (contractsForSelect2.length > 0))"class="errorTextClass">
+    <div *ngIf="errorMessage_contract" class="errorTextClass">
       {{errorMessage_contract}}
     </div>
   </div>

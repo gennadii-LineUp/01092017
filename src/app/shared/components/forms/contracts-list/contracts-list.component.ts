@@ -14,7 +14,7 @@ import {ActivatedRoute} from '@angular/router';
   providers: [GetAllListAccountService, GetAllContractsService]
 })
 export class ContractsListComponent implements OnInit {
-  errorMessage_contract = 'There is no contracts in the database. Please, ask the admin to create them.';
+  errorMessage_contract = '';
   contract_fromSelect2 = '';
   myAccounts = [];
   contractsForSelect2 = [];
@@ -39,12 +39,6 @@ export class ContractsListComponent implements OnInit {
       .takeWhile(() => this.alive)
       .subscribe(resp =>  this.userRole = resp['0'].path);
 
-    // if ((this.userDataService.getAllContracts()).length) {
-    //   console.log('=== AllContracts\' length ' + this.userDataService.getAllContracts().length);
-    // } else {
-    //   console.log('=== AllContracts are empty ===');
-    //   this.userDataService.setAllContracts();
-    // }
     if ((this.userDataService.getMyAccounts()).length) {
       console.log('=== MyAccounts\' length ' + this.userDataService.getMyAccounts().length);
     } else {
@@ -115,7 +109,8 @@ export class ContractsListComponent implements OnInit {
           }
         }, (err) => {
           console.log(err);
-          // this.setErrorMessage(err);
+          this.errorMessage_contract = 'There is no contracts in the database. Please, ask the admin to create them.';
+          this.errorMessage_contract += err;
         });
     } else {
       this.getAllListAccountService.getMyAccounts(localStorage.telephone)
@@ -134,7 +129,8 @@ export class ContractsListComponent implements OnInit {
                   }
                 }, (err) => {
                   console.log(err);
-                  // this.setErrorMessage(err);
+                  this.errorMessage_contract = 'There is no contracts in the database. Please, ask the admin to create them.';
+                  this.errorMessage_contract += err;
                 });
             }
           }
