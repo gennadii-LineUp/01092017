@@ -155,7 +155,8 @@ export class VirementsMultiplesComponent implements OnInit, OnDestroy {
     if (this.commonServices.getSelectedReceivers().length) {
       this.loading_virements = true;
 
-      this.w2XWalletService.virementsMultiplesW2XW(+((this.userDataService.getMyAccounts())['0'].uoId), this.beneficiaryToSend)
+      // console.log(this.userDataService.getMyAccounts());
+      this.w2XWalletService.virementsMultiplesW2XW(+((this.userDataService.getMyAccounts())['0'].id_account), this.beneficiaryToSend)
         .takeWhile(() => this.alive)
         .subscribe((result) => {
             this.loading_virements = false;
