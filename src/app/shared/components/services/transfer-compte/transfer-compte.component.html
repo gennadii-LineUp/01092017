@@ -73,7 +73,7 @@
                     </div>
                     <div class="content" style="padding-bottom: 0">
                       <h4>Type paiement facture</h4>
-                      <div class="floating-block border-hover only-mobile">
+                      <div class="floating-block border-hover">
                         <div class="floating-input" >
                           <select name="select_facture"
                                   [(ngModel)]="numTel_fromSelect2"   id="select_facture">
@@ -142,7 +142,7 @@
                       <h4>Select customer’s account</h4>
                       <div class="floating-block border-hover">
                         <div class="floating-input" >
-                          <select name="select_marchand" class="only-mobile"
+                          <select name="select_marchand"
                                   [(ngModel)]="numTel_fromSelect2"   id="select_marchand">
                             <option *ngFor="let marchand of userDataService.getReceiversForSelect2()" [value]="marchand.text">
                               {{marchand.text}}
@@ -222,7 +222,7 @@
                       <h4>Select customer’s account</h4>
                       <div class="floating-block border-hover">
                         <div class="floating-input" >
-                          <select name="select_standart" class="only-mobile"
+                          <select name="select_standart"
                                   [(ngModel)]="numTel_fromSelect2"   id="select_standart">
                             <option *ngFor="let standart of userDataService.getReceiversForSelect2()" [value]="standart.text">
                               {{standart.text}}

@@ -21,11 +21,17 @@
       <div *ngIf="!contract_to_select" class="row">
         <div class="col-sm-12 col-md-6 ml-auto  mr-auto">
           <div class="paiements__wrapper">
-            <div class="paiements__header top-header">
+            <div class="paiements__header top-header only-desktop">
               <div *ngIf="contract_to_select"  class="back-button" [routerLink]="['/' +userRole+ '/services']">Back</div>
               <div *ngIf="!contract_to_select" class="back-button" (click)="contract_to_select=true">Back</div>
               <div>Contract <span>{{contract_current}}</span></div>
               <div class="blue-angle" (click)="chooseAnotherContractFunction()">Choose</div>
+            </div>
+            <div class="paiements__header top-header only-mobile" style="padding: 8px 70px !important">
+              <div *ngIf="contract_to_select"  class="back-button" [routerLink]="['/' +userRole+ '/services']">Back</div>
+              <div *ngIf="!contract_to_select" class="back-button" (click)="contract_to_select=true">Back</div>
+              <div>Contract <br><span style="color: black">{{contract_current}}</span></div>
+              <div class="blue-angle" style="color: white" (click)="chooseAnotherContractFunction()">Choose</div>
             </div>
             <div *ngIf="!operations" class="paiements__header top-header">
               <div *ngIf="contract_to_select"  class="back-button" [routerLink]="['/' +userRole+ '/services']">Back</div>

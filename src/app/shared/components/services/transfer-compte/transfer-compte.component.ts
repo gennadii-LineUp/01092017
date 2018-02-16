@@ -222,7 +222,7 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
 
         console.log(this.myAccount);
         console.log(this.numTel_fromSelect2);
-        if (this.numTel_fromSelect2.indexOf(' ')) {
+        if (~(this.numTel_fromSelect2.indexOf(' '))) {
           _numTel_fromSelect2 = this.numTel_fromSelect2.split(', ')[1];
         } else {
           _numTel_fromSelect2 = this.numTel_fromSelect2;
