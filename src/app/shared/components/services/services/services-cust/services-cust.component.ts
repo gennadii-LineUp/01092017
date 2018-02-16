@@ -13,7 +13,7 @@ export class ServicesCustComponent implements OnInit {
   constructor(public commonServices: CommonServices) { }
 
   ngOnInit() {
-    this.commonServices.removeEmptySelect2fromServices();
+    // this.commonServices.removeEmptySelect2fromServices();
   }
 
 }

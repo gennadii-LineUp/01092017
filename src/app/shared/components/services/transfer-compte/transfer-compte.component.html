@@ -75,7 +75,7 @@
                       <h4>Type paiement facture</h4>
                       <div class="floating-block border-hover only-mobile">
                         <div class="floating-input" >
-                          <select name="select_facture" class="only-mobile"
+                          <select name="select_facture"
                                   [(ngModel)]="numTel_fromSelect2"   id="select_facture">
                             <option *ngFor="let facture of userDataService.getReceiversForSelect2()" [value]="facture.text">
                               {{facture.text}}
@@ -83,11 +83,12 @@
                           </select>
                         </div>
                       </div>
-                      <ng-select2 name="select2_facture" class="only-desktop"
-                                  [(ngModel)]="numTel_fromSelect2"
-                                  [data]="userDataService.getReceiversForSelect2()"
-                                  [placeholder]="'Please select...'">
-                      </ng-select2>
+                      <!--<ng-select2 name="select2_facture" class="only-desktop"-->
+                                  <!--[(ngModel)]="numTel_fromSelect2"-->
+                                  <!--[data]="userDataService.getReceiversForSelect2()"-->
+                                  <!--[placeholder]="'Please select...'">-->
+                      <!--</ng-select2>-->
+
                       <!--<div class="floating-block border-hover">-->
                         <!--<div class="floating-input">-->
                           <!--<input placeholder="placeholder" required="" type="text">-->
@@ -139,7 +140,7 @@
                     </div>
                     <div class="content" style="padding-bottom: 0">
                       <h4>Select customer’s account</h4>
-                      <div class="floating-block border-hover only-mobile">
+                      <div class="floating-block border-hover">
                         <div class="floating-input" >
                           <select name="select_marchand" class="only-mobile"
                                   [(ngModel)]="numTel_fromSelect2"   id="select_marchand">
@@ -150,11 +151,11 @@
                         </div>
                       </div>
 
-                      <ng-select2 name="select2_marchand" class="only-desktop"
-                                  [(ngModel)]="numTel_fromSelect2"
-                                  [data]="userDataService.getReceiversForSelect2()"
-                                  [placeholder]="'Please select...'">
-                      </ng-select2>
+                      <!--<ng-select2 name="select2_marchand" class="only-desktop"-->
+                                  <!--[(ngModel)]="numTel_fromSelect2"-->
+                                  <!--[data]="userDataService.getReceiversForSelect2()"-->
+                                  <!--[placeholder]="'Please select...'">-->
+                      <!--</ng-select2>-->
 
                       <!--<div class="floating-block border-hover">-->
                         <!--&lt;!&ndash;Need to hide this item when input empty, when input have value show angle, onclick angle show right drop &ndash;&gt;-->
@@ -219,7 +220,7 @@
                       Insert customer’s information</div>
                     <div class="content" style="padding-bottom: 0">
                       <h4>Select customer’s account</h4>
-                      <div class="floating-block border-hover only-mobile">
+                      <div class="floating-block border-hover">
                         <div class="floating-input" >
                           <select name="select_standart" class="only-mobile"
                                   [(ngModel)]="numTel_fromSelect2"   id="select_standart">
@@ -229,11 +230,11 @@
                           </select>
                         </div>
                       </div>
-                      <ng-select2 name="select2_standart"  class="only-desktop"
-                                  [(ngModel)]="numTel_fromSelect2"
-                                  [data]="userDataService.getReceiversForSelect2()"
-                                  [placeholder]="'Please select...'">
-                      </ng-select2>
+                      <!--<ng-select2 name="select2_standart"  class="only-desktop"-->
+                                  <!--[(ngModel)]="numTel_fromSelect2"-->
+                                  <!--[data]="userDataService.getReceiversForSelect2()"-->
+                                  <!--[placeholder]="'Please select...'">-->
+                      <!--</ng-select2>-->
 
                       <!--<div class="floating-block border-hover">-->
                         <!--&lt;!&ndash;Need to hide this item when input empty, when input have value show angle, onclick angle show right drop &ndash;&gt;-->
