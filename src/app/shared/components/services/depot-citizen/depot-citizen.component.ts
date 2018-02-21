@@ -29,7 +29,7 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
   createNewReceiver_mobile_amount = true;
   receiverStatus = '';
   receiverToFind = '';
-  cellularToFind = '773151458';
+  cellularToFind = '773151459';
   newReceiver = new RegistrationClass('', '', 221, '', 'AUTO', 'AUTO', 'AUTO', 'AUTO', true);
   beneficiaireFound: any;
   amount_depotCitizen: number;
