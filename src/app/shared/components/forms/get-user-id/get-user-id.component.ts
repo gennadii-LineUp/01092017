@@ -11,7 +11,7 @@ import {NgbDatepickerI18n} from '@ng-bootstrap/ng-bootstrap';
   providers: [I18n, {provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n}] // french language
 })
 export class GetUserIdComponent implements OnInit {
-  envoyeur = new EnvoyeurClass('', '', '', '', '', '', '', '', '');
+  envoyeur = new EnvoyeurClass('', '', '', '', '', 'SEN', '', '', '');
   select_id_type_values = [
     { value: 'CARTE D\'IDENTITE',  display: 'CARTE D\'IDENTITE' },
     { value: 'PASSEPORT', display: 'PASSEPORT' },
@@ -28,7 +28,12 @@ export class GetUserIdComponent implements OnInit {
   userData = new EventEmitter<EnvoyeurClass>();
 
   @Input()
-  set setDefaultUser(defaultEnvoyeur: EnvoyeurClass) {this.envoyeur = defaultEnvoyeur; }
+  set setDefaultUser(defaultEnvoyeur: EnvoyeurClass) {
+    this.envoyeur = defaultEnvoyeur;
+    this.datepickerDebut = new DatepickerClass(undefined, undefined, undefined);
+    this.datepickerExpiration = new DatepickerClass(undefined, undefined, undefined);
+    console.log(this.envoyeur);
+  }
 
 // ---------------
   // @Input() envoyeur: EnvoyeurClass;
@@ -65,11 +70,11 @@ export class GetUserIdComponent implements OnInit {
   public clearDP(type: string) {
     if (type === 'dpDebut') {
       this.envoyeur.id_debut = '';
-      this.datepickerDebut = new DatepickerClass(0, 0, 0);
+      this.datepickerDebut = new DatepickerClass(undefined, undefined, undefined);
     }
     if (type === 'dpExpiration') {
       this.envoyeur.id_fin = '';
-      this.datepickerExpiration = new DatepickerClass(0, 0, 0);
+      this.datepickerExpiration = new DatepickerClass(undefined, undefined, undefined);
     }
     this.sendData();
   }

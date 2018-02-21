@@ -178,8 +178,8 @@ export class DepotClientComponent implements OnInit, OnDestroy {
           // this.setBeneficiaryFunction({value: this.beneficiaireFound.numTel});
         } else {
           this.loading = false;
-          // this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
-          this.clientDoesntExist = true;
+          this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
+          // this.clientDoesntExist = true;
         }
       }, (err) => {
         this.loading = false;
@@ -206,7 +206,7 @@ export class DepotClientComponent implements OnInit, OnDestroy {
         } else {
           this.loading = false;
           // this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
-          this.clientDoesntExist = true;
+          // this.clientDoesntExist = true;
         }
       }, (err) => {
         this.loading = false;
@@ -308,10 +308,13 @@ export class DepotClientComponent implements OnInit, OnDestroy {
     this.errorMessage = '';
     this.commission = [];
   }
-
+show() {
+    console.log(this.envoyeur);
+}
   public setDeposantSameAsBeneficiary(e) {
     this.checkboxSameBenef = !this.checkboxSameBenef;
     console.log(this.checkboxSameBenef);
+    this.envoyeur = new EnvoyeurClass('', '', '', '', '', 'SEN', '', '', '');
     if (this.checkboxSameBenef) {
       this.envoyeur_default = new EnvoyeurClass((<EnvoyeurClass>this._envoyeur_default).nom,
         (<EnvoyeurClass>this._envoyeur_default).prenom,
@@ -328,7 +331,7 @@ export class DepotClientComponent implements OnInit, OnDestroy {
       // this.envoyeur.prenom = (<EnvoyeurClass>this._envoyeur_default).prenom;
       // this.envoyeur.cellulaire = (<EnvoyeurClass>this._envoyeur_default).cellulaire;
     } else {
-      this.envoyeur_default = new EnvoyeurClass('', '', '', '', '', '', '', '', '');
+      this.envoyeur_default = new EnvoyeurClass('', '', '', '', '', 'SEN', '', '', '');
     }
     // console.log(this._envoyeur_default);
     console.log(this.envoyeur);
@@ -336,6 +339,6 @@ export class DepotClientComponent implements OnInit, OnDestroy {
 
   public clearDefaultUser() {
     this.checkboxSameBenef = false;
-    this.envoyeur_default = new EnvoyeurClass('', '', '', '', '', '', '', '', '');
+    this.envoyeur_default = new EnvoyeurClass('', '', '', '', '', 'SEN', '', '', '');
   }
 }

@@ -29,7 +29,7 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
   createNewReceiver_mobile_amount = true;
   receiverStatus = '';
   receiverToFind = '';
-  cellularToFind = '773151459';
+  cellularToFind = '773151458';
   newReceiver = new RegistrationClass('', '', 221, '', 'AUTO', 'AUTO', 'AUTO', 'AUTO', true);
   beneficiaireFound: any;
   amount_depotCitizen: number;
@@ -249,6 +249,7 @@ console.log('------------------------------');
   public setDeposantSameAsBeneficiary(e) {
     this.checkboxSameBenef = !this.checkboxSameBenef;
     console.log(this.checkboxSameBenef);
+    this.envoyeur = new EnvoyeurClass('', '', '', '', '', 'SEN', '', '', '');
     if (this.checkboxSameBenef) {
       this.envoyeur_default = new EnvoyeurClass((<EnvoyeurClass>this._envoyeur_default).nom,
                                                 (<EnvoyeurClass>this._envoyeur_default).prenom,
@@ -265,7 +266,7 @@ console.log('------------------------------');
       // this.envoyeur.prenom = (<EnvoyeurClass>this._envoyeur_default).prenom;
       // this.envoyeur.cellulaire = (<EnvoyeurClass>this._envoyeur_default).cellulaire;
     } else {
-      this.envoyeur_default = new EnvoyeurClass('', '', '', '', '', '', '', '', '');
+      this.envoyeur_default = new EnvoyeurClass('', '', '', '', '', 'SEN', '', '', '');
     }
     // console.log(this._envoyeur_default);
     console.log(this.envoyeur);
@@ -290,7 +291,7 @@ console.log('------------------------------');
 
   public clearDefaultUser() {
     this.checkboxSameBenef = false;
-    this.envoyeur_default = new EnvoyeurClass('', '', '', '', '', '', '', '', '');
+    this.envoyeur_default = new EnvoyeurClass('', '', '', '', '', 'SEN', '', '', '');
   }
 
 }
