@@ -46,7 +46,10 @@ table {
     .floating-block .floating-input input {
       border-bottom: 0;
       font-size: 14px !important;
-
+    }
+    .floating-block.border-hover .floating-input input:not(:focus):valid {
+      border-bottom: 2px solid #e98120;
+      transition: .3s ease all;
     }
   }
 }
@@ -62,6 +65,10 @@ table {
     .floating-block .floating-input input {
       border-bottom: 0;
       font-size: 15px !important;
+    }
+    .floating-block.border-hover .floating-input input:not(:focus):valid {
+      border-bottom: 2px solid #e98120;
+      transition: .3s ease all;
     }
   }
 }

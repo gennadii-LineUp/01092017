@@ -1389,11 +1389,14 @@ ng-select2 span.select2.select2-container.select2-container--default{
   }
 
   //datepicker for mobile
+  ngb-datepicker.d-inline-block.rounded.dropdown-menu{
+    //margin-bottom: 10px!important;
+  }
   .ngb-dp-day, .ngb-dp-weekday, .ngb-dp-week-number {
-    width: 5rem !important;
-    height: 5rem !important;
-    padding: 12px 0 0 12px !important;
-    font-size: 22px !important;
+    width: 4rem !important;
+    height: 3.5rem !important;
+    padding: 8px 0 0 10px !important;
+    font-size: 18px !important;
   }
   ngb-datepicker-navigation {
     height: 4rem !important;
@@ -1409,8 +1412,8 @@ ng-select2 span.select2.select2-container.select2-container--default{
     width: 20rem !important;
   }
   ngb-datepicker-navigation-select select.custom-select.d-inline-block{
-    line-height: 4rem !important;
-    font-size: 22px !important;
+    line-height: 3rem !important;
+    font-size: 16px !important;
   }
 
 }
