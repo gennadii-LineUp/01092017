@@ -1387,6 +1387,32 @@ ng-select2 span.select2.select2-container.select2-container--default{
   .accordionWrapper .accordionItemHeading > div:not(.logo) > div {
     font-size: 18px;
   }
+
+  //datepicker for mobile
+  .ngb-dp-day, .ngb-dp-weekday, .ngb-dp-week-number {
+    width: 5rem !important;
+    height: 5rem !important;
+    padding: 12px 0 0 12px !important;
+    font-size: 22px !important;
+  }
+  ngb-datepicker-navigation {
+    height: 4rem !important;
+    line-height: 4rem !important;
+    font-size: 22px !important;
+  }
+  div.ngb-dp-header.bg-faded.pt-1.rounded-top{
+    height: 8rem !important;
+    margin-bottom: -3.7rem !important;
+  }
+  ngb-datepicker-navigation-select {
+    font-size: 22px !important;
+    width: 20rem !important;
+  }
+  ngb-datepicker-navigation-select select.custom-select.d-inline-block{
+    line-height: 4rem !important;
+    font-size: 22px !important;
+  }
+
 }
 
 @media (max-width: 576px) {
@@ -1529,6 +1555,7 @@ ng-select2 span.select2.select2-container.select2-container--default{
     }
   }
 }
+
 
 
 // test for select

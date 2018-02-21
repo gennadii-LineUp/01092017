@@ -45,9 +45,10 @@
     </div>
     <h3>DATE DELIVRANCE</h3>
     <div class="floating-block border-hover">
-      <div class="floating-input">
-        <input class="form-control" placeholder="yyyy-mm-dd" (click)="dpExpiration.close(); dpDebut.toggle()"
+      <div class="floating-input" style="font-size: 24px !important;">
+        <input readonly class="form-control" placeholder="yyyy-mm-dd" (click)="dpExpiration.close(); dpDebut.toggle()"
                (ngModelChange)="transformDataToString($event, 'dpDebut')"
+               style="background-color: #fff"
                [minDate]="minDate"
                name="dpDebut" [(ngModel)]="datepickerDebut" ngbDatepicker #dpDebut="ngbDatepicker">
         <div class="clean-input" (click)="clearDP('dpDebut')"></div>
@@ -56,8 +57,9 @@
     <h3>DATE EXPIRATION</h3>
     <div class="floating-block border-hover">
       <div class="floating-input">
-        <input class="form-control" placeholder="yyyy-mm-dd" (click)="dpDebut.close(); dpExpiration.toggle()"
+        <input readonly class="form-control" placeholder="yyyy-mm-dd" (click)="dpDebut.close(); dpExpiration.toggle()"
                (ngModelChange)="transformDataToString($event, 'dpExpiration')"
+               style="background-color: #fff"
                [minDate]="minDate" [maxDate]="maxDate"
                name="dpExpiration" [(ngModel)]="datepickerExpiration" ngbDatepicker #dpExpiration="ngbDatepicker">
         <div class="clean-input" (click)="clearDP('dpExpiration')"></div>
