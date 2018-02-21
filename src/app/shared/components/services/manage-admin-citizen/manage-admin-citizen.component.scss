@@ -27,4 +27,37 @@ table {
     overflow-y: hidden;
     white-space: nowrap;
   }
+  #findInputField{
+    //color: #fff !important;
+    //font-size: 31px !important;
+    //font-family: "RalewayMedium", sans-serif;
+    //background: #4ca0ff !important;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 44px;
+    z-index: 101;
+    //padding: 26px 130px !important;
+    text-align: center !important;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block !important;
+  }
+  table{
+    margin-top: 38px;
+    .floating-block .floating-input input {
+      border-bottom: 0;
+      font-size: 14px !important;
+    }
+  }
+}
+@media (max-width: 576px){
+  table{
+    margin-top: 38px;
+    .floating-block .floating-input input {
+      border-bottom: 0;
+      font-size: 14px !important;
+    }
+  }
 }
