@@ -119,7 +119,7 @@ import {CustServicesVirementsVersBankPageComponent} from './customer/menu-user/c
       CMobileShareComponent,
       CustMobileShareComponent,
       SliderComponent,
-      AuthorisationPageComponent
+      AuthorisationPageComponent,
     ],
     imports: [
         CommonModule,
@@ -161,8 +161,7 @@ import {CustServicesVirementsVersBankPageComponent} from './customer/menu-user/c
       AMobileShareComponent,
       CMobileShareComponent,
       CustMobileShareComponent,
-      SliderComponent, AuthorisationPageComponent
-
+      SliderComponent, AuthorisationPageComponent,
     ],
     providers: [],
     bootstrap: [AppComponent]

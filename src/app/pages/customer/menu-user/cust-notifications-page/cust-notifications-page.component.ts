@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-cust-notifications-page',
-  templateUrl: './cust-notifications-page.component.html',
-  styleUrls: ['./cust-notifications-page.component.scss']
+  template: `<app-notifications></app-notifications>`,
+  styles: [``]
 })
 export class CustNotificationsPageComponent implements OnInit {
 

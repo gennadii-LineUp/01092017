@@ -49,6 +49,7 @@ import { SelectClientComponent } from './components/forms/select-client/select-c
 import { ChooseAccountNormComponent } from './components/forms/choose-account-norm/choose-account-norm.component';
 import { NewReceiverSmallComponent } from './components/forms/new-receiver-small/new-receiver-small.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NotificationsComponent } from './components/notifications/notifications.component';
 
 const googleMapsCore = AgmCoreModule.forRoot({
   apiKey : 'AIzaSyDajrkQUo7gxEhGlfBhCrYOc4oPu-szoXA',
@@ -82,7 +83,8 @@ const googleMapsCore = AgmCoreModule.forRoot({
     PaginationComponent,
     MobileSettingsComponent, MobileShareComponent, GetUserIdComponent, GMapComponent, ContractsListComponent,
     SelectCitizenComponent, SelectClientComponent, SelectCitizenComponent, SelectClientComponent, ChooseAccountNormComponent,
-    NewReceiverSmallComponent
+    NewReceiverSmallComponent,
+    NotificationsComponent
   ],
   exports: [
     HeaderGeneralComponent, HeaderAllUsersComponent,
@@ -105,7 +107,8 @@ const googleMapsCore = AgmCoreModule.forRoot({
     SuccessMessageComponent,
     PaginationComponent,
     MobileSettingsComponent, MobileShareComponent, GetUserIdComponent, ContractsListComponent, ChooseAccountNormComponent,
-    NewReceiverSmallComponent
+    NewReceiverSmallComponent,
+    NotificationsComponent
   ],
   providers: [
 
