@@ -27,7 +27,10 @@
           </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let notif of notifications; let i='index'">
+            <tr *ngFor="let notif of notifications; let i='index'"
+                id="{{notif.id}}"
+                (click)="markNotificationAsLu(notif.id)"
+                [ngClass]="{'non-lu': isNonLu(notif.lu)}">
               <td class="text-center" style="vertical-align: middle"><span>{{i+1}}</span></td>
               <td class="text-center" style="vertical-align: middle; min-width: 60px; max-width: 120px">
                 <span class="errorTextClass">date, time</span>
@@ -35,7 +38,7 @@
               <td class="text-center" style="min-width: 80px">
                 <div class="floating-block border-hover" style="margin-bottom:0">
                   <div class="floating-input">
-                    <div [ngClass]="{'non-lu': !isShown(notif.lu)}">
+                    <div>
                       {{notif.libelle}}
                     </div>
                   </div>
