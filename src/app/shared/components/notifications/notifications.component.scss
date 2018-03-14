@@ -8,3 +8,8 @@
   font-weight: normal;
   cursor: initial;
 }
+@media (max-width: 576px){
+  .floating-input div {
+    padding: 16px 10px 0 10px;
+  }
+}

@@ -2,7 +2,7 @@
   <section class="consult-sold">
     <h3 class="top-header">
       <div class="back-button" [routerLink]="['/' +userRole+ '/services']">Back</div>
-      Panel Notifications
+      Panel Notifications<span *ngIf="status">{{status}}</span>
     </h3>
     <div class="container">
       <div *ngIf="errorMessage" class="errorTextClass" >{{errorMessage}}</div>
@@ -35,7 +35,7 @@
               <td class="text-center" style="vertical-align: middle; min-width: 60px; max-width: 120px">
                 <span class="errorTextClass">date, time</span>
               </td>
-              <td class="text-center" style="min-width: 80px">
+              <td class="text-center" style="min-width: 80px ;vertical-align: middle">
                 <div class="floating-block border-hover" style="margin-bottom:0">
                   <div class="floating-input">
                     <div>

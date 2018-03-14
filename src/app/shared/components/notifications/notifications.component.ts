@@ -7,18 +7,21 @@ import {CommonServices} from '../../../services/common.service';
 import {GetAllNotifService} from '../../../services/api/getAllNotif.service';
 import 'rxjs/add/operator/takeWhile';
 import {LireNotifService} from '../../../services/api/lireNotif.service';
+import {GetLuNotifService} from '../../../services/api/getLuNotif.service';
+import {GetNonLuNotifService} from '../../../services/api/getNonLuNotif.service';
 
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.scss'],
-  providers: [GetAllNotifService, LireNotifService]
+  providers: [GetAllNotifService, LireNotifService, GetLuNotifService, GetNonLuNotifService]
 })
 export class NotificationsComponent implements OnInit, OnDestroy {
   userRole = '';
   profil = '';
   loading = false;
   errorMessage = '';
+  status = '';
   numTel_fromSelect2 = '';
   notifications = [];
   _notifications = [];
@@ -31,11 +34,13 @@ export class NotificationsComponent implements OnInit, OnDestroy {
               public errorMessageHandlerService: ErrorMessageHandlerService,
               private activateRoute: ActivatedRoute,
               public currencyParams: CurrencyParams,
-              public lireNotifService: LireNotifService) {
+              public lireNotifService: LireNotifService,
+              public getLuNotifService: GetLuNotifService,
+              public getNonLuNotifService: GetNonLuNotifService) {
     userDataService.myAccounts$.subscribe((myAccounts) => {
       console.log(myAccounts);
       console.log('hello');
-      this.loadNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId);
+      this.loadAllNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId);
     });
   }
 
@@ -46,7 +51,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
 
     if ((this.userDataService.getMyAccounts()).length) {
       // console.log('=== MyAccounts\' length ' + this.userDataService.getMyAccounts().length);
-      this.loadNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId);
+      this.loadAllNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId);
     } else {
       console.log('=== MyAccounts\' is empty ===');
       this.userDataService.setMyAccounts();
@@ -61,12 +66,14 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     this.alive = false;
   }
 
-  loadNotificationsFunction(uoId: string) {
+  loadAllNotificationsFunction(uoId: string) {
+    this.status = '';
     this.loading = true;
     this.notifications = [];
     this.getAllNotifService.getAllNotif(uoId)
       .takeWhile(() => this.alive)
       .subscribe(result => {
+        this.status = ': all notifications';
         this.loading = false;
         console.log(result);
         const notifications = (this.commonServices.xmlResponseParcer_complex(result._body)).notifications; //
@@ -78,6 +85,56 @@ export class NotificationsComponent implements OnInit, OnDestroy {
         }
         console.log(notifications);
         // this.userDataService.setReceiversForSelect2(this.citizens);
+      }, (err) => {
+        this.loading = false;
+        console.log(err);
+        this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+      });
+  }
+
+  loadLuNotificationsFunction(uoId: string) {
+    this.status = '';
+    this.loading = true;
+    this.notifications = [];
+    this.getLuNotifService.getLuNotif(uoId)
+      .takeWhile(() => this.alive)
+      .subscribe(result => {
+        this.status = ': lu notifications';
+        this.loading = false;
+        console.log(result);
+        const notifications = (this.commonServices.xmlResponseParcer_complex(result._body)).notifications; //
+        if (notifications.length) {
+          this.notifications = (notifications.length) ? notifications : [];
+          this._notifications = this.notifications;
+        } else {
+          this.errorMessage = 'Error: ' + notifications.message.toLowerCase();
+        }
+        console.log(notifications);
+      }, (err) => {
+        this.loading = false;
+        console.log(err);
+        this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+      });
+  }
+
+  loadNonLuNotificationsFunction(uoId: string) {
+    this.status = '';
+    this.loading = true;
+    this.notifications = [];
+    this.getNonLuNotifService.getNonLuNotif(uoId)
+      .takeWhile(() => this.alive)
+      .subscribe(result => {
+        this.status = ': non-lu notifications';
+        this.loading = false;
+        console.log(result);
+        const notifications = (this.commonServices.xmlResponseParcer_complex(result._body)).notifications; //
+        if (notifications.length) {
+          this.notifications = (notifications.length) ? notifications : [];
+          this._notifications = this.notifications;
+        } else {
+          this.errorMessage = 'Error: ' + notifications.message.toLowerCase();
+        }
+        console.log(notifications);
       }, (err) => {
         this.loading = false;
         console.log(err);
@@ -116,7 +173,9 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     if (notif_element && notif_element.classList && notif_element.classList.contains('non-lu')) {
       notif_element.classList.remove('non-lu');
     }
-    this.LireNotifFunction(id);
+    if (!(this.status === ': lu notifications')) {
+      this.LireNotifFunction(id);
+    }
   }
 
   LireNotifFunction(notifId: string) {
