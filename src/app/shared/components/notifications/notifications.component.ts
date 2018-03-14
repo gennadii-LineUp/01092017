@@ -16,6 +16,7 @@ import 'rxjs/add/operator/takeWhile';
 export class NotificationsComponent implements OnInit, OnDestroy {
   userRole = '';
   profil = '';
+  loading = false;
   errorMessage = '';
   numTel_fromSelect2 = '';
   notifications = [];
@@ -28,7 +29,13 @@ export class NotificationsComponent implements OnInit, OnDestroy {
               public getAllNotifService: GetAllNotifService,
               public errorMessageHandlerService: ErrorMessageHandlerService,
               private activateRoute: ActivatedRoute,
-              public currencyParams: CurrencyParams) { }
+              public currencyParams: CurrencyParams) {
+    userDataService.myAccounts$.subscribe((myAccounts) => {
+      console.log(myAccounts);
+      console.log('hello');
+      this.loadNotifications(this.userDataService.getMyAccounts()['0'].uoId);
+    });
+  }
 
   ngOnInit() {
     this.activateRoute.parent.url
@@ -37,8 +44,9 @@ export class NotificationsComponent implements OnInit, OnDestroy {
 
     if ((this.userDataService.getMyAccounts()).length) {
       // console.log('=== MyAccounts\' length ' + this.userDataService.getMyAccounts().length);
+      this.loadNotifications(this.userDataService.getMyAccounts()['0'].uoId);
     } else {
-      // console.log('=== MyAccounts\' is empty ===');
+      console.log('=== MyAccounts\' is empty ===');
       this.userDataService.setMyAccounts();
     }
 
@@ -46,7 +54,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
       localStorage.getItem('profil');
     console.log(this.profil);
 
-    this.loadNotifications();
+    // this.loadNotifications();
 
   }
 
@@ -54,18 +62,25 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     this.alive = false;
   }
 
-  loadNotifications() {
+  loadNotifications(uoId: string) {
+    this.loading = true;
     this.notifications = [];
-    this.getAllNotifService.getAllNotif(this.userDataService.getMyAccounts()['0'].uoId)
+    this.getAllNotifService.getAllNotif(uoId)
       .takeWhile(() => this.alive)
       .subscribe(result => {
+        this.loading = false;
         console.log(result);
-        const response = (this.commonServices.xmlResponseParcer_complex(result._body)).notifications;
-        this.notifications = (response.length) ? response : [];
-        this._notifications = this.notifications;
-        console.log(response);
+        const notifications = (this.commonServices.xmlResponseParcer_complex(result._body)).notifications; //
+        if (notifications.length) {
+          this.notifications = (notifications.length) ? notifications : [];
+          this._notifications = this.notifications;
+        } else {
+          this.errorMessage = 'Error: ' + notifications.message.toLowerCase();
+        }
+        console.log(notifications);
         // this.userDataService.setReceiversForSelect2(this.citizens);
       }, (err) => {
+        this.loading = false;
         console.log(err);
         this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
       });
@@ -90,6 +105,10 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     } else {
       this.notifications = this._notifications;
     }
+  }
+
+  public isShown(lu: string): boolean {
+    return (lu === 'lu') ? true : false;
   }
 
 }

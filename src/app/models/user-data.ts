@@ -26,11 +26,9 @@ export class UserDataService {
   contractsForSelect2 = Array<Select2optionClass>(0);
   allContracts = [];
 
-  myAccounts = [
-    // { telephone: '4', nom: 'Lex', prenom: 'Luthor', email: 'lexluthor@gmail.com', id_account: 3 },
-    // { telephone: '4', nom: 'Lex', prenom: 'Luthor', email: 'lexluthor@ukr.net', id_account: 7 },
-    // { telephone: '4', nom: 'Lex', prenom: 'Luthor', email: 'lexluthor@yahoo.com', id_account: 8 }
-  ];
+  myAccounts = [];
+  _myAccounts = new Subject<Array<any>>();
+  myAccounts$ = this._myAccounts.asObservable();
 
   constructor(public router: Router,
               public getAllListAccountService: GetAllListAccountService,
@@ -82,6 +80,7 @@ export class UserDataService {
               this.setUserId(this.myAccounts['0'].id_account, this.myAccounts['0'].uoId);
               console.log('=== from LS User:');
               console.log(this.getUser());
+              this._myAccounts.next(this.getMyAccounts());
             }
           }, (err) => {
             console.log(err);

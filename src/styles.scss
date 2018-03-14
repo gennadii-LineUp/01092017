@@ -252,7 +252,7 @@ footer {
       background-image: url('/assets/img/icon-close.png');
     }
     .floating-input {
-      input {
+      input, div {
         color: #414141;
         padding-top: 0 !important;
         &:focus,
@@ -267,7 +267,7 @@ footer {
     }
     &.pass {
       .floating-input {
-        input {
+        input, div {
           &:focus,
           &:not(:focus):valid {
             + .clean-input {
@@ -668,7 +668,8 @@ input[type=checkbox]:checked + label:after {
     }
     .floating-block {
       margin-bottom: 15px;
-      .floating-input input {
+      .floating-input input,
+      .floating-input div{
         padding-left: 0;
         font-family: $raleR;
         font-size: 1.4rem;
@@ -1318,7 +1319,8 @@ ng-select2 span.select2.select2-container.select2-container--default{
         width: calc(100% - 70px);
       }
     }
-    .floating-input input {
+    .floating-input input,
+    .floating-input div{
       height: 74px !important;
       min-height: 74px !important;
       padding-left: 20px;
@@ -1495,7 +1497,8 @@ ng-select2 span.select2.select2-container.select2-container--default{
         width: calc(100% - 35px);
       }
     }
-    .floating-input input {
+    .floating-input input,
+    .floating-input div{
       height: 37px !important;
       min-height: 37px !important;
       font-size: 12px !important;
