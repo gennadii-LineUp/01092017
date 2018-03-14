@@ -12,6 +12,7 @@ import {UserDataService} from '../../../../models/user-data';
 import {CurrencyParams} from '../../../../models/currency_params';
 import {ReceiverClass} from '../../../../models/receiver-class';
 import {Select2optionClass} from '../../../../models/select2option-class';
+import 'rxjs/add/operator/takeWhile';
 
 @Component({
   selector: 'app-services-manage-admin-citizen',
