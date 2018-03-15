@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-c-parameters-page',
-  templateUrl: './c-parameters-page.component.html',
-  styleUrls: ['./c-parameters-page.component.scss']
+  template: `<app-parameters></app-parameters>`,
+  styles: [``]
 })
 export class CParametersPageComponent implements OnInit {
 
