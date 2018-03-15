@@ -8,6 +8,39 @@
   font-weight: normal;
   cursor: initial;
 }
+.accordionWrapper {
+  text-align: center;
+  .accordionItem{
+    width: 31%;
+    text-align: center;
+    display: inline-block;
+    box-sizing: border-box !important;
+    &.close-item {
+      max-height: 65px;
+      border-bottom: 2px solid $line;
+      .accordionItemHeading{
+        justify-content: center;
+        border-bottom: none;
+      }
+    }
+    &.open {
+      background-color: $orange;
+      //border: 2px solid #4ba0ff;
+      border-radius: 4px;
+      .accordionItemHeading {
+        justify-content: center;
+        border-bottom: none;
+        color: white !important;
+        i {
+          transform: translateY(-50%) rotate(90deg);
+          transition: .2s all ease;
+          color: white;
+        }
+      }
+    }
+
+  }
+}
 @media (max-width: 576px){
   .floating-input div {
     padding: 16px 10px 0 10px;

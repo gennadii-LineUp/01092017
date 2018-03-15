@@ -86,7 +86,7 @@ export class ManageAdminCitizenComponent implements OnInit, OnDestroy {
   }
 
   findCitizen() {
-    let temp = [];
+    const temp = [];
     const arr = this.userDataService.getReceiversForSelect2();
 
     if (this.numTel_fromSelect2.length > 0) {

@@ -38,6 +38,27 @@ export class CommonServices {
     }
   }
 
+  public accordionToggleNotifFunction(e: any) {
+    const currentClass = e.currentTarget.className;
+
+    const accordionItems: NodeListOf<Element> = window.document.querySelectorAll('div.accordionItem');
+    for (let i = 0; i < accordionItems.length; i++) {
+      if (accordionItems[i].className === 'accordionItem close-item') {
+        continue;
+      }
+      accordionItems[i].className = 'accordionItem close-item';
+    }
+
+    const currentAccordionItem = e.currentTarget;
+    if ((currentClass === 'accordionItem close-item')) {
+      currentAccordionItem.classList.remove('close-item');
+      currentAccordionItem.classList.add('open');
+    } else {
+      currentAccordionItem.className = 'accordionItem open';
+    }
+  }
+
+
 
   public defineReceiversFunction(e: any) {
     const currentReceiver = e.currentTarget;

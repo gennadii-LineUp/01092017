@@ -48,7 +48,7 @@ export class UserDataService {
         this.getAllListAccountService.getMyAccounts(localStorage.telephone)
           .subscribe(result1 => {
             const response1 = this.commonServices.xmlResponseParcer_complex(result1._body);
-
+            console.log(response1);
             const accounts = response1.accounts;
             if (accounts && accounts.length) {
               if (accounts['0'].status === 'ACTIF') {

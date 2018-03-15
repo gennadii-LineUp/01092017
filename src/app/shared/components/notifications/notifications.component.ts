@@ -25,6 +25,11 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   numTel_fromSelect2 = '';
   notifications = [];
   _notifications = [];
+  buttons_notification = [
+    {id: 1, caption: 'non lu'},
+    {id: 2, caption: 'lu'},
+    {id: 3, caption: 'all'}
+  ];
 
   alive = true;
 
@@ -40,7 +45,9 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     userDataService.myAccounts$.subscribe((myAccounts) => {
       console.log(myAccounts);
       console.log('hello');
-      this.loadAllNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId);
+      this.loadNonLuNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId);
+      // this.loadLuNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId);
+      // this.loadAllNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId);
     });
   }
 
@@ -50,10 +57,8 @@ export class NotificationsComponent implements OnInit, OnDestroy {
       .subscribe(resp =>  this.userRole = resp['0'].path);
 
     if ((this.userDataService.getMyAccounts()).length) {
-      // console.log('=== MyAccounts\' length ' + this.userDataService.getMyAccounts().length);
-      this.loadAllNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId);
+      this.loadNonLuNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId);
     } else {
-      console.log('=== MyAccounts\' is empty ===');
       this.userDataService.setMyAccounts();
     }
 
@@ -67,79 +72,78 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   }
 
   loadAllNotificationsFunction(uoId: string) {
-    this.status = '';
-    this.loading = true;
-    this.notifications = [];
-    this.getAllNotifService.getAllNotif(uoId)
-      .takeWhile(() => this.alive)
-      .subscribe(result => {
-        this.status = ': all notifications';
-        this.loading = false;
-        console.log(result);
-        const notifications = (this.commonServices.xmlResponseParcer_complex(result._body)).notifications; //
-        if (notifications.length) {
-          this.notifications = (notifications.length) ? notifications : [];
-          this._notifications = this.notifications;
-        } else {
-          this.errorMessage = 'Error: ' + notifications.message.toLowerCase();
-        }
-        console.log(notifications);
-        // this.userDataService.setReceiversForSelect2(this.citizens);
-      }, (err) => {
-        this.loading = false;
-        console.log(err);
-        this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
-      });
+    if (!(this.status === 'all')) {
+      this.loading = true;
+      this.getAllNotifService.getAllNotif(uoId)
+        .takeWhile(() => this.alive)
+        .subscribe(result => {
+          this.status = 'all';
+          this.loading = false;
+          console.log(result);
+          const notifications = (this.commonServices.xmlResponseParcer_complex(result._body)).notifications;
+          if (notifications.length) {
+            this.notifications = (notifications.length) ? notifications : [];
+            this._notifications = this.notifications;
+          } else {
+            this.errorMessage = 'Error: ' + notifications.message.toLowerCase();
+          }
+          console.log(notifications);
+        }, (err) => {
+          this.loading = false;
+          console.log(err);
+          this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+        });
+    }
   }
 
   loadLuNotificationsFunction(uoId: string) {
-    this.status = '';
-    this.loading = true;
-    this.notifications = [];
-    this.getLuNotifService.getLuNotif(uoId)
-      .takeWhile(() => this.alive)
-      .subscribe(result => {
-        this.status = ': lu notifications';
-        this.loading = false;
-        console.log(result);
-        const notifications = (this.commonServices.xmlResponseParcer_complex(result._body)).notifications; //
-        if (notifications.length) {
-          this.notifications = (notifications.length) ? notifications : [];
-          this._notifications = this.notifications;
-        } else {
-          this.errorMessage = 'Error: ' + notifications.message.toLowerCase();
-        }
-        console.log(notifications);
-      }, (err) => {
-        this.loading = false;
-        console.log(err);
-        this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
-      });
+    if (!(this.status === 'lu')) {
+      this.loading = true;
+      this.getLuNotifService.getLuNotif(uoId)
+        .takeWhile(() => this.alive)
+        .subscribe(result => {
+          this.status = 'lu';
+          this.loading = false;
+          console.log(result);
+          const notifications = (this.commonServices.xmlResponseParcer_complex(result._body)).notifications;
+          if (notifications.length) {
+            this.notifications = (notifications.length) ? notifications : [];
+            this._notifications = this.notifications;
+          } else {
+            this.errorMessage = 'Error: ' + notifications.message.toLowerCase();
+          }
+          console.log(notifications);
+        }, (err) => {
+          this.loading = false;
+          console.log(err);
+          this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+        });
+    }
   }
 
   loadNonLuNotificationsFunction(uoId: string) {
-    this.status = '';
-    this.loading = true;
-    this.notifications = [];
-    this.getNonLuNotifService.getNonLuNotif(uoId)
-      .takeWhile(() => this.alive)
-      .subscribe(result => {
-        this.status = ': non-lu notifications';
-        this.loading = false;
-        console.log(result);
-        const notifications = (this.commonServices.xmlResponseParcer_complex(result._body)).notifications; //
-        if (notifications.length) {
-          this.notifications = (notifications.length) ? notifications : [];
-          this._notifications = this.notifications;
-        } else {
-          this.errorMessage = 'Error: ' + notifications.message.toLowerCase();
-        }
-        console.log(notifications);
-      }, (err) => {
-        this.loading = false;
-        console.log(err);
-        this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
-      });
+    if (!(this.status === 'non-lu')) {
+      this.loading = true;
+      this.getNonLuNotifService.getNonLuNotif(uoId)
+        .takeWhile(() => this.alive)
+        .subscribe(result => {
+          this.status = 'non-lu';
+          this.loading = false;
+          console.log(result);
+          const notifications = (this.commonServices.xmlResponseParcer_complex(result._body)).notifications;
+          if (notifications.length) {
+            this.notifications = (notifications.length) ? notifications : [];
+            this._notifications = this.notifications;
+          } else {
+            this.errorMessage = 'Error: ' + notifications.message.toLowerCase();
+          }
+          console.log(notifications);
+        }, (err) => {
+          this.loading = false;
+          console.log(err);
+          this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+        });
+    }
   }
 
   findCitizen() {
@@ -173,8 +177,16 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     if (notif_element && notif_element.classList && notif_element.classList.contains('non-lu')) {
       notif_element.classList.remove('non-lu');
     }
-    if (!(this.status === ': lu notifications')) {
+    if (!(this.status === 'lu')) {
       this.LireNotifFunction(id);
+      if (this.status === 'non-lu') {
+        const temp = this.notifications;
+        temp.forEach((notif, i) => {
+          if (notif.id === id) {
+            this.notifications.splice(i, 1);
+          }
+        });
+      }
     }
   }
 
@@ -185,13 +197,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
       .subscribe(result => {
         this.loading = false;
         console.log(result);
-        const notifications = (this.commonServices.xmlResponseParcer_complex(result._body)); //
-        // if (notifications.length) {
-        //   this.notifications = (notifications.length) ? notifications : [];
-        //   this._notifications = this.notifications;
-        // } else {
-        //   this.errorMessage = 'Error: ' + notifications.message.toLowerCase();
-        // }
+        const notifications = (this.commonServices.xmlResponseParcer_complex(result._body));
         console.log(notifications);
       }, (err) => {
         this.loading = false;
