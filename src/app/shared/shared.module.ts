@@ -52,6 +52,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { OperationsComponent } from './components/operations/operations.component';
 import { ParametersComponent } from './components/parameters/parameters.component';
+import { QRCodeModule } from 'angular2-qrcode';
 
 const googleMapsCore = AgmCoreModule.forRoot({
   apiKey : 'AIzaSyDajrkQUo7gxEhGlfBhCrYOc4oPu-szoXA',
@@ -60,7 +61,7 @@ const googleMapsCore = AgmCoreModule.forRoot({
 
 @NgModule({
   imports: [
-    CommonModule, BrowserModule, FormsModule, AppRoutingModule, NgSelect2Module, googleMapsCore, NgbModule
+    CommonModule, BrowserModule, FormsModule, AppRoutingModule, NgSelect2Module, googleMapsCore, NgbModule, QRCodeModule
   ],
   declarations: [
     HeaderGeneralComponent, HeaderAllUsersComponent,
