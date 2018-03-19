@@ -26,7 +26,7 @@ export class ParametersComponent implements OnInit, OnDestroy {
   uoId_envoyeurForQR = 380686087517;
   uoId_beneficiaryFromQR = 43;
   commission = [];
-
+s= '';
   alive = true;
 
   constructor(public userDataService: UserDataService,
@@ -170,6 +170,23 @@ export class ParametersComponent implements OnInit, OnDestroy {
         // }
       // } else {this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent('no cellulaire in the database'); }
     } else {return false; }
+  }
+
+  startScan() {
+
+    // cordova.plugins.barcodeScanner.scan(
+    //   function (result) {
+    //     const s = 'Result: ' + result.text + '<br/>' +
+    //       'Format: ' + result.format + '<br/>' +
+    //       'Cancelled: ' + result.cancelled;
+    //     window.document.getElementById('results').innerHTML = s;
+    //     this.s = s;
+    //   },
+    //   function (error) {
+    //     alert('Scanning failed: ' + error);
+    //   }
+    // );
+
   }
 
   public clearAmount() {this.amountToReceiver = undefined; }

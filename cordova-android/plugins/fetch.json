@@ -14,5 +14,13 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "phonegap-plugin-barcodescanner": {
+    "source": {
+      "type": "registry",
+      "id": "https://github.com/wildabeast/BarcodeScanner.git"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

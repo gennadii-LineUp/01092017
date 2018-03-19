@@ -31,6 +31,21 @@
             </div>
           </div>
 
+          <div class="only-mobile">
+            <p>
+              <button id="startScan" style="width: 100%">Start Scan</button>
+            </p>
+            <p>
+              <button id="_startScan1" style="width: 100%" onclick="startScan">Start Scan 1</button>
+            </p>
+            <p>
+              <button id="_startScan2" style="width: 100%" onclick="alert('Клик!')">Start Scan 2</button>
+            </p>
+
+            <div id="results"></div>
+            <div>{{s}}</div>
+          </div>
+
           <div class="compte__amount">
             <h4>Amount</h4>
             <div class="floating-block border-hover">
@@ -67,3 +82,30 @@
   <app-success-message [message_firstLine]="successMessage_1" [message_secondLine]="successMessage_2"></app-success-message>
 
 </main>
+
+<script>
+  var resultDiv;
+
+  document.addEventListener("deviceready", init, false);
+  function init() {
+    console.log('hello script=========');
+    document.getElementById("_startScan2").addEventListener("click", startScan, false);
+    resultDiv = document.getElementById("results");
+  }
+
+  function startScan() {
+    console.log('=====scan======');
+    cordova.plugins.barcodeScanner.scan(
+      function (result) {
+        var s = "Result: " + result.text + "<br/>" +
+          "Format: " + result.format + "<br/>" +
+          "Cancelled: " + result.cancelled;
+        resultDiv.innerHTML = s;
+      },
+      function (error) {
+        alert("Scanning failed: " + error);
+      }
+    );
+
+  }
+</script>
