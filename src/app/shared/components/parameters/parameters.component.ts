@@ -1,4 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 import {ErrorMessageHandlerService} from '../../../services/error-message-handler.service';
 import {UserDataService} from '../../../models/user-data';
 import {CommonServices} from '../../../services/common.service';
@@ -7,6 +8,10 @@ import {ActivatedRoute} from '@angular/router';
 import {W2WVirementAccountService} from '../../../services/api/W2WVirementAccount.service';
 import {ReceiverClass} from '../../../models/receiver-class';
 import {GetCommissionsTTCService} from '../../../services/api/getCommissionsTTC.service';
+
+declare var device;
+declare let navigator: any;
+declare var cordova: any;
 
 @Component({
   selector: 'app-parameters',
@@ -24,9 +29,10 @@ export class ParametersComponent implements OnInit, OnDestroy {
   status = '';
   amountToReceiver: number;
   uoId_envoyeurForQR = 380686087517;
-  uoId_beneficiaryFromQR = 43;
+  uoId_beneficiaryFromQR = 0;
   commission = [];
-s= '';
+  str__ = '';
+  temp_str = '';
   alive = true;
 
   constructor(public userDataService: UserDataService,
@@ -35,7 +41,8 @@ s= '';
               private activateRoute: ActivatedRoute,
               public currencyParams: CurrencyParams,
               public w2WVirementAccountService: W2WVirementAccountService,
-              public getCommissionsTTCService: GetCommissionsTTCService) {
+              public getCommissionsTTCService: GetCommissionsTTCService,
+              public cd: ChangeDetectorRef) {
     userDataService.myAccounts$.subscribe((myAccounts) => {
       console.log(myAccounts);
       console.log('hello');
@@ -54,6 +61,13 @@ s= '';
       this.userDataService.setMyAccounts();
     }
 
+    // document.addEventListener('deviceready', onDeviceReady, false);
+    // function onDeviceReady() {
+    //   console.log('onDeviceReady parameters');
+      // document.getElementById('startScan').addEventListener('touchend', startScan, false);
+      // alert(device.platform);
+    // }
+
     this.profil = ((<any>this.userDataService.getUser).profil) ? (<any>this.userDataService.getUser).profil :
       localStorage.getItem('profil');
     console.log(this.profil);
@@ -63,6 +77,27 @@ s= '';
     this.alive = false;
   }
 
+  startScan() {
+    console.log('touchend');
+    cordova.plugins.barcodeScanner.scan(
+      (result) => {
+        const s = 'Result: ' + result.text + '<br/>';
+        window.document.getElementById('results').innerHTML = s;
+        console.log(result.text);
+        this.str__ = result.text;
+        setTimeout(this.showQRdata(result.text), 100);
+      },
+      function (error) {
+        alert('Scanning failed: ' + error);
+      }
+    );
+  }
+
+  showQRdata(data: string) {
+    this.uoId_beneficiaryFromQR = +data;
+    console.log('from DOM ', this.uoId_beneficiaryFromQR);
+    this.cd.detectChanges();
+  }
   public submitTransferCompteFunction() {
     if (this.uoId_beneficiaryFromQR && (+this.amountToReceiver >= 0.01)) {
       // if (!(this.uoId_beneficiaryFromQR === 'undefined')) {
@@ -172,22 +207,7 @@ s= '';
     } else {return false; }
   }
 
-  startScan() {
 
-    // cordova.plugins.barcodeScanner.scan(
-    //   function (result) {
-    //     const s = 'Result: ' + result.text + '<br/>' +
-    //       'Format: ' + result.format + '<br/>' +
-    //       'Cancelled: ' + result.cancelled;
-    //     window.document.getElementById('results').innerHTML = s;
-    //     this.s = s;
-    //   },
-    //   function (error) {
-    //     alert('Scanning failed: ' + error);
-    //   }
-    // );
-
-  }
 
   public clearAmount() {this.amountToReceiver = undefined; }
   public clearBeneficiaryFromQR() {this.uoId_beneficiaryFromQR = undefined; }
