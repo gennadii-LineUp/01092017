@@ -10,7 +10,9 @@
 
           <div style="text-align: center">
             <h3 style="padding: 8px 0 8px 0">My QR Code:</h3>
-            <qr-code [value]="'' + uoId_envoyeurForQR" [size]="150"></qr-code>
+            <p>
+              <qr-code [value]="'' + idAccountEnvoyeur" [size]="150"></qr-code>
+            </p>
           </div>
 
           <div class="compte__amount only-desktop">
@@ -18,7 +20,7 @@
             <div class="floating-block border-hover">
               <div class="floating-input" style="margin-bottom: 0">
                 <input id="beneficiaryFromQR" name="beneficiaryFromQR" required type="text"
-                       [(ngModel)]="uoId_beneficiaryFromQR" min="0"
+                       [(ngModel)]="idAccountBeneficiaryFromQR" min="0"
                        (keyup.enter)='submitTransferCompteFunction()'
                        onkeydown="return ( event.ctrlKey || event.altKey
                                                                     || (47<event.keyCode && event.keyCode<58 && event.shiftKey==false)
@@ -32,16 +34,15 @@
           </div>
 
           <div class="only-mobile">
-            <p>
-              <button id="startScan" style="width: 100%" (touchend)="startScan()">Start Scan</button>
+            <p style="position: relative">
+              <button id="startScan" class="orange-button" (touchend)="startScan()">Scannez le QR code pour me payer</button>
             </p>
-            <br>
-            <div id="results"></div>
-            <br>
           </div>
 
-            <button (click)="showQRdata(str__)">show data from QR</button>
-            {{uoId_beneficiaryFromQR}}
+            <!--<span *ngIf="idAccountBeneficiaryFromQR"-->
+                  <!--style="position: absolute; top: 45%; right: 10%;">-->
+              <!--{{idAccountBeneficiaryFromQR}}-->
+            <!--</span>-->
 
             <br>
           <div class="compte__amount">
@@ -69,10 +70,9 @@
             </p>
 
           <button class="orange-button blue-button" type="submit" style="margin-top: 4px"
-                  [disabled]="!(uoId_beneficiaryFromQR)"
+                  [disabled]="!(idAccountBeneficiaryFromQR && (+amountToReceiver >= 0.01))"
                   (click)="submitTransferCompteFunction()">Send
           </button>
-            <!--[disabled]="!(uoId_beneficiaryFromQR && (+amountToReceiver >= 0.01))"-->
         </div>
       </div>
     </div>

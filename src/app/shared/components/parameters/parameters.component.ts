@@ -28,10 +28,9 @@ export class ParametersComponent implements OnInit, OnDestroy {
   successMessage_2 = '';
   status = '';
   amountToReceiver: number;
-  uoId_envoyeurForQR = 380686087517;
-  uoId_beneficiaryFromQR = 0;
+  idAccountEnvoyeur = 380686087517;
+  idAccountBeneficiaryFromQR = undefined;
   commission = [];
-  str__ = '';
   temp_str = '';
   alive = true;
 
@@ -46,7 +45,7 @@ export class ParametersComponent implements OnInit, OnDestroy {
     userDataService.myAccounts$.subscribe((myAccounts) => {
       console.log(myAccounts);
       console.log('hello');
-      this.uoId_envoyeurForQR = +this.userDataService.getMyAccounts()['0'].uoId;
+      this.idAccountEnvoyeur = +this.userDataService.getMyAccounts()['0'].id_account;
     });
   }
 
@@ -56,17 +55,10 @@ export class ParametersComponent implements OnInit, OnDestroy {
       .subscribe(resp =>  this.userRole = resp['0'].path);
 
     if ((this.userDataService.getMyAccounts()).length) {
-      this.uoId_envoyeurForQR = +this.userDataService.getMyAccounts()['0'].uoId;
+      this.idAccountEnvoyeur = +this.userDataService.getMyAccounts()['0'].id_account;
     } else {
       this.userDataService.setMyAccounts();
     }
-
-    // document.addEventListener('deviceready', onDeviceReady, false);
-    // function onDeviceReady() {
-    //   console.log('onDeviceReady parameters');
-      // document.getElementById('startScan').addEventListener('touchend', startScan, false);
-      // alert(device.platform);
-    // }
 
     this.profil = ((<any>this.userDataService.getUser).profil) ? (<any>this.userDataService.getUser).profil :
       localStorage.getItem('profil');
@@ -78,13 +70,14 @@ export class ParametersComponent implements OnInit, OnDestroy {
   }
 
   startScan() {
+    this.successMessage_1 = '';
+    this.successMessage_2 = '';
+    this.errorMessage = '';
     console.log('touchend');
     cordova.plugins.barcodeScanner.scan(
       (result) => {
         const s = 'Result: ' + result.text + '<br/>';
-        window.document.getElementById('results').innerHTML = s;
         console.log(result.text);
-        this.str__ = result.text;
         setTimeout(this.showQRdata(result.text), 100);
       },
       function (error) {
@@ -94,32 +87,18 @@ export class ParametersComponent implements OnInit, OnDestroy {
   }
 
   showQRdata(data: string) {
-    this.uoId_beneficiaryFromQR = +data;
-    console.log('from DOM ', this.uoId_beneficiaryFromQR);
+    this.idAccountBeneficiaryFromQR = +data;
+    console.log('from QR: ', this.idAccountBeneficiaryFromQR);
     this.cd.detectChanges();
   }
+
   public submitTransferCompteFunction() {
-    if (this.uoId_beneficiaryFromQR && (+this.amountToReceiver >= 0.01)) {
-      // if (!(this.uoId_beneficiaryFromQR === 'undefined')) {
-      //   let _numTel_fromSelect2: string;
+    if (this.idAccountBeneficiaryFromQR && (+this.amountToReceiver >= 0.01)) {
         // this.successMessage_1 = '';
         // this.successMessage_2 = '';
         this.errorMessage = '';
         this.loading = true;
 
-        // console.log(this.myAccount);
-        console.log(this.uoId_beneficiaryFromQR);
-        // if (~(this.uoId_beneficiaryFromQR.indexOf(' '))) {
-        //   _numTel_fromSelect2 = this.numTel_fromSelect2.split(', ')[1];
-        // } else {
-        //   _numTel_fromSelect2 = this.numTel_fromSelect2;
-        // }
-        // console.log(_numTel_fromSelect2);
-
-        // const beneficiaire = <ReceiverClass>this.userDataService.getReceiverFromSelect2(_numTel_fromSelect2);
-        // console.log(beneficiaire);
-
-        // if (_numTel_fromSelect2) {
           this.getCommissionsTTCService.getCommission(this.amountToReceiver, 'W2W')
             .takeWhile(() => this.alive)
             .subscribe(result => {
@@ -144,8 +123,8 @@ export class ParametersComponent implements OnInit, OnDestroy {
                     this.w2WVirementAccountService
                         .transferCompteStandart(this.amountToReceiver,
                                                 response.commission,
-                                                this.userDataService.getMyAccounts()['0'].uoId, // this.myAccount.id_account,
-                                                this.uoId_beneficiaryFromQR)
+                                                this.idAccountEnvoyeur,
+                                                this.idAccountBeneficiaryFromQR)
                       .takeWhile(() => this.alive)
                       .subscribe(result2 => {
                         this.loading = false;
@@ -199,16 +178,9 @@ export class ParametersComponent implements OnInit, OnDestroy {
                 this.errorMessage += this.errorMessageHandlerService.getMessageEquivalent(err.statusText);
               }
             });
-        // } else {
-        //   this.loading = false;
-        //   this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent('no cellulaire in the database');
-        // }
-      // } else {this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent('no cellulaire in the database'); }
     } else {return false; }
   }
 
-
-
   public clearAmount() {this.amountToReceiver = undefined; }
-  public clearBeneficiaryFromQR() {this.uoId_beneficiaryFromQR = undefined; }
+  public clearBeneficiaryFromQR() {this.idAccountBeneficiaryFromQR = undefined; }
 }

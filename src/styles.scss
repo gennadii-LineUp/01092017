@@ -73,7 +73,9 @@ footer {
   padding: 17px 21px 3px 21px;
   border-bottom: 2px solid $lightGrayBg;
 }
-
+button{
+  outline: none !important;
+}
 .orange-button {
   color: #fff;
   min-height: 50px;
@@ -86,6 +88,7 @@ footer {
   background-color: $orange;
   cursor: pointer;
   transition: .3s all ease;
+  outline: none;
   &:hover {
     transition: .3s all ease;
     background-color: darken($orange, 5%);
@@ -94,6 +97,7 @@ footer {
 
 .blue-button {
   background-color: $blue;
+  outline: none;
   &:hover {
     transition: .3s all ease;
     background-color: darken($blue, 20%);
@@ -684,6 +688,7 @@ input[type=checkbox]:checked + label:after {
     margin: 0 auto 20px;
     min-width: 335px;
     height: 55px;
+    outline: none;
   }
 }
 
@@ -723,6 +728,7 @@ input[type=checkbox]:checked + label:after {
       height: 55px;
       line-height: 55px;
       font-size: 1.8rem;
+      outline: none;
     }
   }
   .accordionItem {
@@ -1285,6 +1291,7 @@ ng-select2 span.select2.select2-container.select2-container--default{
     height: 80px !important;
     line-height: 80px !important;
     border-radius: 3px !important;
+    outline: none;
   }
   .checkbox-wrapper {
     font-size: 2.1rem;
@@ -1435,6 +1442,7 @@ ng-select2 span.select2.select2-container.select2-container--default{
     padding: 13px 70px!important;
     .back-button {
       padding-left: 20px;
+      outline: none;
       &:before {
         font-size: 20px;
       }
@@ -1463,9 +1471,10 @@ ng-select2 span.select2.select2-container.select2-container--default{
   }
   .orange-button {
     font-size: 1.35rem !important;
-    border-radius: 0 !important;
+    border-radius: 3px !important;
     height: 50px !important;
     line-height: 50px !important;
+    outline: none;
   }
   .checkbox-wrapper {
     font-size: 1.05rem;
@@ -1545,6 +1554,7 @@ ng-select2 span.select2.select2-container.select2-container--default{
   }
   .transfers-to-bank .blue-button {
     min-width: 100%;
+    outline: none;
   }
   .accordionWrapper {
     .accordionItemHeading {
