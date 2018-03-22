@@ -182,6 +182,62 @@ export class CommonServices {
     return result;
   }
 
+  public xmlResponseParcer_compl_body(response: string): any {
+    const arr = (((response.split('<soap:Body>'))[1]).split('</soap:Body>'))[0].split('><');
+    // remove '<' at the beginning of 1st element
+    arr[0] = (arr[0]).substr(1);
+    arr.pop();
+    // remove '>' at the end of last element
+    // arr[arr.length - 1] = (arr[arr.length - 1]).substring(0, (arr[arr.length - 1]).length - 1 );
+
+    const result = {};
+    let small_obj = {};
+    let _arr = arr;
+    const store_name = [];
+    const store_value = [];
+    const arr_objects = [];
+    let arr_field = '';
+    // console.log(arr);
+
+    for (let i = 0; i < arr.length; i++) {
+
+      if ((arr[i]).split('>').length === 1) {
+        arr_field = arr[i];
+        const ind_last = (arr.slice(i)).indexOf('/' + arr_field);
+        // console.log(ind_last);
+        _arr = arr.splice(i, ind_last);
+        _arr.shift();
+        store_name.push(arr_field);
+        store_value.push(_arr);
+
+        // console.log(_arr);
+        // console.log(arr);
+      } else {
+        const name = ((arr[i]).split('>'))[0];
+        const value = ((((arr[i]).split('<'))[0]).split('>'))[1];
+        result[name] = value;
+      }
+    }
+
+    for (let i = 0; i < store_value.length; i++) {
+      const _store = store_value[i];
+      for (let j = 0; j < _store.length; j++) {
+        const name = ((_store[j]).split('>'))[0];
+        const value = ((((_store[j]).split('<'))[0]).split('>'))[1];
+        small_obj[name] = value;
+        if (j === (_store.length - 1)) {
+          // console.log(small_obj);
+          arr_objects.push(small_obj);
+          small_obj = {};
+        }
+      }
+    }
+    result[arr_field] = arr_objects;
+    // console.dir(arr_objects);
+    // console.dir(store_value);
+    return result;
+  }
+
 
   public xmlResponseParcer_complexReturn(response: string): any {
     const arr = (((response.split('ns2="http://runtime.services.cash.innov.sn/">'))[1]).split('</ns2:'))[0].split('><');

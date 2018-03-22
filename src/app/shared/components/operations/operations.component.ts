@@ -6,6 +6,7 @@ import {CurrencyParams} from '../../../models/currency_params';
 import {ErrorMessageHandlerService} from '../../../services/error-message-handler.service';
 import {ActivatedRoute} from '@angular/router';
 import {NewBeneficiaryService} from '../../../services/api/newBeneficiary.service';
+import {BanqueClass} from '../../../models/banque-class';
 
 @Component({
   selector: 'app-operations',
@@ -14,21 +15,17 @@ import {NewBeneficiaryService} from '../../../services/api/newBeneficiary.servic
   providers: [ListBanquesSicaService, NewBeneficiaryService]
 })
 export class OperationsComponent implements OnInit, OnDestroy {
-
   userRole = '';
   profil = '';
   loading = false;
   errorMessage = '';
   status = '';
+  successMessage_1 = '';
+  successMessage_2 = '';
   numTel_fromSelect2 = '';
-  notifications = [];
-  _notifications = [];
-  buttons_notification = [
-    {id: 1, caption: 'non lu'},
-    {id: 2, caption: 'lu'},
-    {id: 3, caption: 'all'}
-  ];
-
+  banques: Array<BanqueClass>;
+  _banques: Array<BanqueClass>;
+  activeBanque: string;
   alive = true;
 
   constructor(public userDataService: UserDataService,
@@ -69,29 +66,25 @@ export class OperationsComponent implements OnInit, OnDestroy {
   }
 
   loadListBanquesSicaFunction() {
-    // if (!(this.status === 'all')) {
-    //   this.loading = true;
       this.listBanquesSicaService.getListBanques()
         .takeWhile(() => this.alive)
         .subscribe(result => {
-          // this.status = 'all';
-          // this.loading = false;456
-          console.log(result);
-          const notifications = (this.commonServices.xmlResponseParcer_complex(result._body)); // .notifications;
-          console.log(notifications);
-          // if (notifications.length) {
-          //   this.notifications = (notifications.length) ? notifications : [];
-          //   this._notifications = this.notifications;
-          // } else {
-          //   this.errorMessage = 'Error: ' + notifications.message.toLowerCase();
-          // }
-          // console.log(notifications);
+          const _banques = (this.commonServices.xmlResponseParcer_compl_body(result._body)).return;
+          if (_banques.length) {
+            this.banques = (_banques.length) ? _banques : [];
+            this._banques = this.banques;
+          } else {
+            this.errorMessage = 'Error: no banques';
+          }
+          console.log(this.banques);
         }, (err) => {
-          // this.loading = false;
           console.log(err);
           this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
         });
-    // }
   }
 
+  showBanque(b: string) {
+    console.log(this.activeBanque);
+    console.log(b);
+  }
 }
