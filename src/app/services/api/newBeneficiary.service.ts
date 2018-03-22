@@ -9,7 +9,8 @@ export class NewBeneficiaryService {
   constructor(public backendService: BackendService) {}
 
 
-  public getAllPays(): Observable<any> {
+  public createNewBeneficiary(codeBanque: string, codeCitizen: string, nom: string,
+                    guichet: string, compte: string, cleRIB: string): Observable<any> {
     const token = localStorage.token;
 
     const body =
@@ -18,12 +19,12 @@ export class NewBeneficiaryService {
          <soapenv:Body>
             <run:newBeneficiary>
                <idSession>` + token + `</idSession>
-               <codeBanque>?</codeBanque>
-               <codeCitizen>?</codeCitizen>
-               <nom>?</nom>
-               <guichet>?</guichet>
-               <compte>?</compte>
-               <cleRIB>?</cleRIB>
+               <codeBanque>` + codeBanque + `</codeBanque>
+               <codeCitizen>` + codeCitizen + `</codeCitizen>
+               <nom>` + nom + `</nom>
+               <guichet>` + guichet + `</guichet>
+               <compte>` + compte + `</compte>
+               <cleRIB>` + cleRIB + `</cleRIB>
             </run:newBeneficiary>
          </soapenv:Body>
       </soapenv:Envelope>`;

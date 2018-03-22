@@ -1,21 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ListBanquesSicaService} from '../../../services/api/listBanquesSica.service';
 import {CommonServices} from '../../../services/common.service';
 import {UserDataService} from '../../../models/user-data';
 import {CurrencyParams} from '../../../models/currency_params';
-import {GetAllNotifService} from '../../../services/api/getAllNotif.service';
-import {GetLuNotifService} from '../../../services/api/getLuNotif.service';
 import {ErrorMessageHandlerService} from '../../../services/error-message-handler.service';
-import {LireNotifService} from '../../../services/api/lireNotif.service';
-import {GetNonLuNotifService} from '../../../services/api/getNonLuNotif.service';
+import {ActivatedRoute} from '@angular/router';
+import {NewBeneficiaryService} from '../../../services/api/newBeneficiary.service';
 
 @Component({
   selector: 'app-operations',
   templateUrl: './operations.component.html',
   styleUrls: ['./operations.component.scss'],
-  providers: [ListBanquesSicaService]
+  providers: [ListBanquesSicaService, NewBeneficiaryService]
 })
-export class OperationsComponent implements OnInit {
+export class OperationsComponent implements OnInit, OnDestroy {
 
   userRole = '';
   profil = '';
@@ -35,17 +33,15 @@ export class OperationsComponent implements OnInit {
 
   constructor(public userDataService: UserDataService,
               public commonServices: CommonServices,
-              public getAllNotifService: GetAllNotifService,
               public errorMessageHandlerService: ErrorMessageHandlerService,
               private activateRoute: ActivatedRoute,
               public currencyParams: CurrencyParams,
-              public lireNotifService: LireNotifService,
-              public getLuNotifService: GetLuNotifService,
-              public getNonLuNotifService: GetNonLuNotifService) {
+              public listBanquesSicaService: ListBanquesSicaService,
+              public newBeneficiaryService: NewBeneficiaryService) {
     userDataService.myAccounts$.subscribe((myAccounts) => {
       console.log(myAccounts);
       console.log('hello');
-      this.loadNonLuNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId);
+      // this.loadNonLuNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId);
       // this.loadLuNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId);
       // this.loadAllNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId);
     });
@@ -56,8 +52,9 @@ export class OperationsComponent implements OnInit {
       .takeWhile(() => this.alive)
       .subscribe(resp =>  this.userRole = resp['0'].path);
 
+    this.loadListBanquesSicaFunction();
     if ((this.userDataService.getMyAccounts()).length) {
-      this.loadNonLuNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId);
+      // this.loadNonLuNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId);
     } else {
       this.userDataService.setMyAccounts();
     }
@@ -71,29 +68,30 @@ export class OperationsComponent implements OnInit {
     this.alive = false;
   }
 
-  loadAllNotificationsFunction(uoId: string) {
-    if (!(this.status === 'all')) {
-      this.loading = true;
-      this.getAllNotifService.getAllNotif(uoId)
+  loadListBanquesSicaFunction() {
+    // if (!(this.status === 'all')) {
+    //   this.loading = true;
+      this.listBanquesSicaService.getListBanques()
         .takeWhile(() => this.alive)
         .subscribe(result => {
-          this.status = 'all';
-          this.loading = false;
+          // this.status = 'all';
+          // this.loading = false;456
           console.log(result);
-          const notifications = (this.commonServices.xmlResponseParcer_complex(result._body)).notifications;
-          if (notifications.length) {
-            this.notifications = (notifications.length) ? notifications : [];
-            this._notifications = this.notifications;
-          } else {
-            this.errorMessage = 'Error: ' + notifications.message.toLowerCase();
-          }
+          const notifications = (this.commonServices.xmlResponseParcer_complex(result._body)); // .notifications;
           console.log(notifications);
+          // if (notifications.length) {
+          //   this.notifications = (notifications.length) ? notifications : [];
+          //   this._notifications = this.notifications;
+          // } else {
+          //   this.errorMessage = 'Error: ' + notifications.message.toLowerCase();
+          // }
+          // console.log(notifications);
         }, (err) => {
-          this.loading = false;
+          // this.loading = false;
           console.log(err);
           this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
         });
-    }
+    // }
   }
 
 }

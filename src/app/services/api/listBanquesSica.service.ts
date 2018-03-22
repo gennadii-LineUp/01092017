@@ -9,7 +9,7 @@ export class ListBanquesSicaService {
   constructor(public backendService: BackendService) {}
 
 
-  public getAllPays(): Observable<any> {
+  public getListBanques(): Observable<any> {
     const token = localStorage.token;
 
     const body =
