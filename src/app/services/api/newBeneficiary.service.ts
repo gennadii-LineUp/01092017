@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {BackendService} from '../backend.service';
 import {UrlParams} from '../../models/URL_PARAMS';
+import {BeneficiaryClass} from '../../shared/components/services/virements-vers-banque/virements-vers-banque.component';
 
 @Injectable()
 export class NewBeneficiaryService {
@@ -9,8 +10,7 @@ export class NewBeneficiaryService {
   constructor(public backendService: BackendService) {}
 
 
-  public createNewBeneficiary(codeBanque: string, codeCitizen: string, nom: string,
-                    guichet: string, compte: string, cleRIB: string): Observable<any> {
+  public createNewBeneficiary(codeBanque: string, codeCitizen: string, benef: BeneficiaryClass): Observable<any> {
     const token = localStorage.token;
 
     const body =
@@ -21,10 +21,10 @@ export class NewBeneficiaryService {
                <idSession>` + token + `</idSession>
                <codeBanque>` + codeBanque + `</codeBanque>
                <codeCitizen>` + codeCitizen + `</codeCitizen>
-               <nom>` + nom + `</nom>
-               <guichet>` + guichet + `</guichet>
-               <compte>` + compte + `</compte>
-               <cleRIB>` + cleRIB + `</cleRIB>
+               <nom>` + benef.nom + `</nom>
+               <guichet>` + benef.guichet + `</guichet>
+               <compte>` + benef.compte + `</compte>
+               <cleRIB>` + benef.rib + `</cleRIB>
             </run:newBeneficiary>
          </soapenv:Body>
       </soapenv:Envelope>`;

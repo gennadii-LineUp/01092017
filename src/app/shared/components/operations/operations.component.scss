@@ -1,1 +1,33 @@
 @import "../../../../assets/sass/variables";
+
+select{
+  width: 100%;
+  position: relative;
+  margin-bottom: 15px;
+  padding-left: 0;
+  font-family: $raleR;
+  font-size: 1.4rem;
+  height: 40px;
+  min-height: 40px;
+  line-height: 40px;
+  border: none;
+  border-bottom: 2px solid $orange;
+  option{
+    height: 40px;
+    min-height: 40px;
+    line-height: 40px;
+    padding: 14px;
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 800px){
+  main {
+    padding: 89px 0 0;
+  }
+}
+@media (max-width: 576px){
+  main {
+    padding: 43px 0 46px !important;
+  }
+}

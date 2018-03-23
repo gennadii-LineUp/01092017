@@ -7,6 +7,8 @@ import {ErrorMessageHandlerService} from '../../../services/error-message-handle
 import {ActivatedRoute} from '@angular/router';
 import {NewBeneficiaryService} from '../../../services/api/newBeneficiary.service';
 import {BanqueClass} from '../../../models/banque-class';
+import {BeneficiaryClass} from '../services/virements-vers-banque/virements-vers-banque.component';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-operations',
@@ -25,6 +27,9 @@ export class OperationsComponent implements OnInit, OnDestroy {
   numTel_fromSelect2 = '';
   banques: Array<BanqueClass>;
   _banques: Array<BanqueClass>;
+  beneficiaries = [];
+  nomClient: string;
+  beneficiary = new BeneficiaryClass('', '', '', '', '', '', '');
   activeBanque: string;
   alive = true;
 
@@ -83,8 +88,38 @@ export class OperationsComponent implements OnInit, OnDestroy {
         });
   }
 
-  showBanque(b: string) {
+  showBanque() {
     console.log(this.activeBanque);
-    console.log(b);
   }
+
+  _submitCreerBeneficiaryFunction() {
+    console.log(this.beneficiary);
+  }
+  public submitCreerBeneficiaryFunction() {
+    if (this.activeBanque && this.beneficiary.rib && this.beneficiary.compte && this.beneficiary.guichet && this.beneficiary.nom) {
+      this.loading = true;
+
+      this.newBeneficiaryService
+          .createNewBeneficiary(this.activeBanque,
+                                this.userDataService.getMyAccounts()['0'].uoId,
+                                this.beneficiary)
+        .takeWhile(() => this.alive)
+        .subscribe((result) => {
+          this.loading = false;
+          console.log(result._body);
+          const response = this.commonServices.xmlResponseParcer_complex(result._body);
+          console.log(response);
+
+          this.successMessage_1 = 'Confirmation de succès pour le montant ' + ' !';
+          this.successMessage_2 = '';
+        }, (err) => {
+          this.loading = false;
+          this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+          if (!this.errorMessage) {
+            this.errorMessage = this.errorMessageHandlerService._getMessageEquivalent(err._body);
+          }
+        });
+    } else {return false; }
+  }
+
 }
