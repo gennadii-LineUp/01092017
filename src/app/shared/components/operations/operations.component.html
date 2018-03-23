@@ -16,7 +16,7 @@
             <div >
               <!--class="col-sm-12 col-md-8 col-lg-6 ml-md-auto mr-md-auto wrapper"-->
               <h4>Banque</h4>
-              <div *ngIf="banques && banques.length" class="floating-block border-hover">
+              <div *ngIf="banques && banques.length" class="floating-block border-hover" style="margin-bottom:0">
                 <!--<div class="floating-input" >-->
                   <select name="selectCompte" [(ngModel)]="activeBanque"  (change)="showBanque()" id="selectCompte">
                     <option *ngFor="let banque of banques" [value]="banque.code">
@@ -87,8 +87,8 @@
         </div>
       </div>
     </div>
+
+    <app-success-message [message_firstLine]="successMessage_1" [message_secondLine]="successMessage_2"></app-success-message>
+
   </section>
-
-  <app-success-message [message_firstLine]="successMessage_1" [message_secondLine]="successMessage_2"></app-success-message>
-
 </main>
