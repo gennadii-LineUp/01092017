@@ -1,8 +1,28 @@
-<sebm-google-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+<div *ngIf="myself && myself.nom.length>0">
+  <sebm-google-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+
+    <sebm-google-map-marker [latitude]="lat"
+                            [longitude]="lng"
+                            [title]="'ME !'"
+                            [iconUrl]="marker_myself"
+                            [zoom]="zoom">
+
+      <sebm-google-map-info-window>
+        <a class="map_content" (click)="markerClicked(myself)">
+          <img src="{{myself.iconUrl}}" alt="">
+          <div>
+            <h3>{{myself.nom}}</h3>
+            <p><i class="fa fa-phone" aria-hidden="true"></i>{{myself.telephone}}</p>
+          </div>
+        </a>
+      </sebm-google-map-info-window>
+    </sebm-google-map-marker>
+
     <sebm-google-map-marker *ngFor="let m of markers"
-      [latitude]="m.latitude"
-      [longitude]="m.longitude"
-      [title]="m.nom">
+                            [latitude]="m.latitude"
+                            [longitude]="m.longitude"
+                            [title]="m.nom"
+                            [iconUrl]="marker_agent">
 
       <sebm-google-map-info-window>
         <a class="map_content" (click)="markerClicked(m)">
@@ -14,4 +34,5 @@
         </a>
       </sebm-google-map-info-window>
     </sebm-google-map-marker>
-</sebm-google-map>
+  </sebm-google-map>
+</div>

@@ -29,4 +29,7 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
     console.log(this.agentsMarkers);
   }
 
+  public startGettingMyCoord() {
+    console.log('startGettingMyCoord');
+  }
 }

@@ -40,3 +40,18 @@
     }
   }
 }
+@media (max-width: 800px){
+  #startScan{
+    width: 100%;
+  }
+}
+@media (max-width: 576px){
+  main {
+    padding: 43px 0 76px !important;
+  }
+}
+@media (max-width: 410px){
+  main {
+    padding: 43px 0 47px !important;
+  }
+}

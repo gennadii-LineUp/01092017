@@ -6,11 +6,10 @@ import {CommonServices} from '../../../services/common.service';
 import {CurrencyParams} from '../../../models/currency_params';
 import {ActivatedRoute} from '@angular/router';
 import {W2WVirementAccountService} from '../../../services/api/W2WVirementAccount.service';
-import {ReceiverClass} from '../../../models/receiver-class';
 import {GetCommissionsTTCService} from '../../../services/api/getCommissionsTTC.service';
 
-declare var device;
-declare let navigator: any;
+// declare var device;
+// declare let navigator: any;
 declare var cordova: any;
 
 @Component({

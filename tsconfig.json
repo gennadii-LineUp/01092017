@@ -3,7 +3,7 @@
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
 //    "baseUrl": "src",
-    "baseUrl": "/cash-transfer",
+    "baseUrl": "/cash-tr",
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",

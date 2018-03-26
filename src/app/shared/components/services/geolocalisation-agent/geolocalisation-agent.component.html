@@ -13,6 +13,12 @@
 
         </div>
         <div *ngIf="agentsMarkers && agentsMarkers.length" class="col-sm-12 col-md-12 col-lg-2">
+
+          <div class="only-mobile">
+            <button id="startScan" class="orange-button blue-button"
+                    (click)="startGettingMyCoord()" (touchend)="startGettingMyCoord()">My Coordonees</button>
+          </div>
+
           <div *ngFor="let agent of agentsMarkers" class="search__user active">
           <!--<div class="search__user active">-->
             <div>

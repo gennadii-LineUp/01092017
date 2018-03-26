@@ -109,6 +109,7 @@ export class OperationsComponent implements OnInit, OnDestroy {
           console.log(result._body);
           const response = this.commonServices.xmlResponseParcer_complex(result._body);
           console.log(response);
+          this.beneficiary = new BeneficiaryClass('', '', '', '', '', '', '');
 
           this.successMessage_1 = '  ';
           this.successMessage_2 = 'Creation succès!';
