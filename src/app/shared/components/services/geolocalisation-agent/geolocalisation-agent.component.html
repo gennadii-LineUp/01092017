@@ -16,7 +16,8 @@
 
           <div class="only-mobile">
             <button id="startScan" class="orange-button blue-button"
-                    (click)="startGettingMyCoord()" (touchend)="startGettingMyCoord()">My Coordonees</button>
+                    (touchend)="startGettingMyCoord()">My Coordonees</button>
+            <div id="geolocation"></div>
           </div>
 
           <div *ngFor="let agent of agentsMarkers" class="search__user active">
