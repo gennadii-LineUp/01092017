@@ -38,11 +38,13 @@ export class GMapComponent implements OnInit, OnDestroy {
     this.setMyCoordonneesFromCellular(data);
   }
   @Input() set lat(data: string) {
-    this._lat = (data && data.length > 0) ? +data : this.__lat;
+    // this._lat = (data && data.length > 0) ? +data : this.__lat;
+    this._lat = +data;
     console.log('new lat');
   };
   @Input() set lng(data: string) {
-    this._lng = (data && data.length > 0) ? +data : this.__lng;
+    // this._lng = (data && data.length > 0) ? +data : this.__lng;
+    this._lng = +data;
     console.log('new lng');
     this._coordonnees = new CoordonneeClass(this._lat, this._lng);
     setTimeout(this.setMyCoordonneesFromCellular(this._coordonnees));
@@ -62,6 +64,7 @@ export class GMapComponent implements OnInit, OnDestroy {
       this.phone = (this.userDataService.getMyAccounts()['0'].telephone)
                   ? (this.userDataService.getMyAccounts()['0'].telephone)
                   : localStorage.getItem('telephone');
+      console.log(this.phone);
       // this.getMyCoordonees(this.phone + '');
       this.setDefaultCoord();
       this.loadAgentsCoordonees();
@@ -74,6 +77,7 @@ export class GMapComponent implements OnInit, OnDestroy {
       this.phone = (this.userDataService.getMyAccounts()['0'].telephone)
                   ? (this.userDataService.getMyAccounts()['0'].telephone)
                   : localStorage.getItem('telephone');
+      console.log(this.phone);
       // this.getMyCoordonees(this.phone + '');
       this.setDefaultCoord();
       this.loadAgentsCoordonees();
@@ -151,7 +155,7 @@ export class GMapComponent implements OnInit, OnDestroy {
   }
 
   public setMyCoordonneesFromCellular(data: CoordonneeClass) {
-    this.setCoordonneesByCellularService.setCoordonneesByCellular(this.phone, data.latitude, data.longitude)
+    this.setCoordonneesByCellularService.setCoordonneesByCellular(data.latitude, data.longitude)
       .takeWhile(() => this.alive)
       .subscribe(result => {
         // this.loading = false;

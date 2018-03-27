@@ -2,15 +2,18 @@ import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {BackendService} from '../backend.service';
 import {UrlParams} from '../../models/URL_PARAMS';
+import {UserDataService} from '../../models/user-data';
 
 @Injectable()
 export class SetCoordonneesByCellularService {
   token = localStorage.token;
+  cellular = this.userDataService.getMyAccounts()['0'].telephone;
 
-  constructor(public backendService: BackendService) {}
+  constructor(public backendService: BackendService,
+              public userDataService: UserDataService) {}
 
 
-  public setCoordonneesByCellular(cellular: string, lattitude: number, longitude: number): Observable<any> {
+  public setCoordonneesByCellular(lattitude: number, longitude: number): Observable<any> {
 
     const body =
       `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:run="http://runtime.services.cash.innov.sn/">
@@ -18,7 +21,7 @@ export class SetCoordonneesByCellularService {
            <soapenv:Body>
               <run:setCoordonneesByCellular>
                  <idSession>` + this.token + `</idSession>
-                 <cellular>` + cellular + `</cellular>
+                 <cellular>` + this.cellular + `</cellular>
                  <lattitude>` + lattitude + `</lattitude>
                  <longitude>` + longitude + `</longitude>
               </run:setCoordonneesByCellular>

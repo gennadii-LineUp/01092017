@@ -47,13 +47,14 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
         // const element = document.getElementById('geolocation');
         // element.innerHTML = 'Latitude: '  + position.coords.latitude + '<br />' +
         //                     'Longitude: ' + position.coords.longitude + '<br />';
+        console.log(position.coords);
 
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
-          this.coord = new CoordonneeClass((position.coords.latitude.length) ? +position.coords.latitude : 15.0458118,
-                                          (position.coords.longitude.length) ? +position.coords.longitude : -16.858833);
+          // this.coord = new CoordonneeClass((position.coords.latitude.length) ? +position.coords.latitude : 15.0458118,
+          //                                 (position.coords.longitude.length) ? +position.coords.longitude : -16.858833);
 
-        console.log(this.coord);
+        // console.log(this.coord);
       },
       (error) => {
         alert('Scanning failed: ' + error);
