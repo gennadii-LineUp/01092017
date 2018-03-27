@@ -9,13 +9,16 @@
         <div class="col-sm-12 col-md-12 col-lg-10">
           <!--<img src="../../../../../assets/img/map.png" class="map-img" alt="">-->
 
-          <app-g-map (onAgentsMarkersAdded)="setAgentsMarkersFunction($event)"></app-g-map>
+          <app-g-map [lat]="latitude"
+                     [lng]="longitude"
+                     (onAgentsMarkersAdded)="setAgentsMarkersFunction($event)"></app-g-map>
 
         </div>
         <div *ngIf="agentsMarkers && agentsMarkers.length" class="col-sm-12 col-md-12 col-lg-2">
 
-          <div class="only-mobile">
+          <div>
             <button id="startScan" class="orange-button blue-button"
+                    (click)="startGettingMyCoord()"
                     (touchend)="startGettingMyCoord()">My Coordonees</button>
             <div id="geolocation"></div>
           </div>

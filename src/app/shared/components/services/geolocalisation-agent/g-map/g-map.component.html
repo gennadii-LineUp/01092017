@@ -1,8 +1,8 @@
 <div *ngIf="myself && myself.nom.length>0">
-  <sebm-google-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+  <sebm-google-map [latitude]="_lat" [longitude]="_lng" [zoom]="zoom">
 
-    <sebm-google-map-marker [latitude]="lat"
-                            [longitude]="lng"
+    <sebm-google-map-marker [latitude]="_lat"
+                            [longitude]="_lng"
                             [title]="'ME !'"
                             [iconUrl]="marker_myself"
                             [zoom]="zoom">

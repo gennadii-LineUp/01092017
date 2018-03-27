@@ -1,8 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {MarkerClass} from '../../../../models/marker-class';
+import {SetCoordonneesByCellularService} from '../../../../services/api/setCoordonneesByCellular.service';
+import {strictEqual} from 'assert';
+import {CoordonneeClass} from '../../../../models/coordonnee-class';
 
 declare var navigator: any;
+declare var cordova: any;
 
 @Component({
   selector: 'app-services-geolocalisation-agent',
@@ -10,6 +14,10 @@ declare var navigator: any;
   styleUrls: ['./geolocalisation-agent.component.scss']
 })
 export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
+  latitude = 14.735009;
+  longitude = -17.473339;
+  coord = new CoordonneeClass(this.latitude, this.longitude);
+  // coord: CoordonneeClass;
   userRole = '';
   alive = true;
   agentsMarkers: Array<MarkerClass>;
@@ -33,32 +41,26 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
 
   public startGettingMyCoord() {
     console.log('startGettingMyCoord');
-
-    // cordova.plugins.barcodeScanner.scan(
-    //   (result) => {
-    //     const s = 'Result: ' + result.text + '<br/>';
-    //     console.log(result.text);
-    //     setTimeout(this.showQRdata(result.text), 100);
-    //   },
-    //   function (error) {
-    //     alert('Scanning failed: ' + error);
-    //   }
-    // );
+    // console.log(cordova);
 
     navigator.geolocation.getCurrentPosition((position) => {
-        const element = document.getElementById('geolocation');
-        element.innerHTML = 'Latitude: '  + position.coords.latitude      + '<br />' +
-                            'Longitude: ' + position.coords.longitude     + '<br />'; //  +
-                            // '<hr />'      + element.innerHTML;
+        // const element = document.getElementById('geolocation');
+        // element.innerHTML = 'Latitude: '  + position.coords.latitude + '<br />' +
+        //                     'Longitude: ' + position.coords.longitude + '<br />';
 
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+          this.coord = new CoordonneeClass((position.coords.latitude.length) ? +position.coords.latitude : 15.0458118,
+                                          (position.coords.longitude.length) ? +position.coords.longitude : -16.858833);
 
-        // const s = 'Result: ' + position.text + '<br/>';
-        console.log(position);
-        // setTimeout(this.showQRdata(result.text), 100);
+        console.log(this.coord);
       },
       (error) => {
         alert('Scanning failed: ' + error);
-      },
-      []);
+        console.log(error);
+        this.coord.latitude = 15.0458118;
+        this.coord.longitude = -16.858833;
+      });
   }
+
 }

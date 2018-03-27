@@ -10,7 +10,7 @@ export class SetCoordonneesByCellularService {
   constructor(public backendService: BackendService) {}
 
 
-  public setCoordonneesByCellular(cellular: string, lattitude: string, longitude: string): Observable<any> {
+  public setCoordonneesByCellular(cellular: string, lattitude: number, longitude: number): Observable<any> {
 
     const body =
       `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:run="http://runtime.services.cash.innov.sn/">
