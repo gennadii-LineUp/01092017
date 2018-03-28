@@ -82,9 +82,9 @@ function pluginInit() {
   /*****************************************************************************
    * Prevent background, background-color, background-image properties
    *****************************************************************************/
-  var cssAdjuster = document.createElement("style");
-  cssAdjuster.setAttribute("type", "text/css");
-  cssAdjuster.innerText = [
+  var navDecorBlocker = document.createElement("style");
+  navDecorBlocker.setAttribute("type", "text/css");
+  navDecorBlocker.innerText = [
     "html, body, ._gmaps_cdv_ {",
     "   background-image: url() !important;",
     "   background: rgba(0,0,0,0) url() !important;",
@@ -94,12 +94,9 @@ function pluginInit() {
     "   background-color: rgba(0,0,0,0) !important;",
     "   background: rgba(0,0,0,0) !important;",
     "   display:none !important;",
-    "}",
-    ".framework7-root .page-previous {",
-    "   display:none !important;",
     "}"
   ].join("");
-  document.head.appendChild(cssAdjuster);
+  document.head.appendChild(navDecorBlocker);
 
 
   // I guess no longer necessary this code at 2018/March
@@ -122,10 +119,10 @@ function pluginInit() {
   var anotherBackbuttonHandler = null;
   function onBackButton(e) {
 
-    // Check DOM tree for new page
     cordova.fireDocumentEvent("plugin_touch", {
       force: true
     });
+    //common.nextTick(putHtmlElements);  // <-- super important!
 
     if (anotherBackbuttonHandler) {
       // anotherBackbuttonHandler must handle the page moving transaction.

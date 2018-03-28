@@ -28,10 +28,29 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
     this.activatedRoute.parent.url
       .takeWhile(() => this.alive)
       .subscribe(resp =>  this.userRole = resp['0'].path);
+    this.loadMap();
   }
 
   ngOnDestroy() {
     this.alive = false;
+  }
+
+  public loadMap() {
+    const div = document.getElementById('map_canvas');
+
+    // Initialize the map view
+    const map = cordova.plugin.google.maps.Map.getMap(div);
+
+    // Wait until the map is ready status.
+    map.addEventListener(cordova.plugin.google.maps.event.MAP_READY, this.onMapReady());
+  }
+
+  public onMapReady() {
+    console.log('map is ready');
+}
+
+  public map_buttonClick() {
+    console.log('map_buttonClick');
   }
 
   public setAgentsMarkersFunction(markers: Array<MarkerClass>) {

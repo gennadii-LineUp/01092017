@@ -1,27 +1,27 @@
 {
-  "_from": "cordova-plugin-googlemaps",
-  "_id": "cordova-plugin-googlemaps@2.2.9",
+  "_from": "cordova-plugin-googlemaps@2.2.8",
+  "_id": "cordova-plugin-googlemaps@2.2.8",
   "_inBundle": false,
-  "_integrity": "sha1-NQCY4HAwclhCkHPOYEpvionRZw8=",
+  "_integrity": "sha512-PSjsMJqYo+I/BlhJZzBHct675YV6c/ZiueDW0ZFXDgOfDiU48CkFDp05BJGYtPg+5WI0putCr7vGJ8WqCxdloQ==",
   "_location": "/cordova-plugin-googlemaps",
   "_phantomChildren": {},
   "_requested": {
-    "type": "tag",
+    "type": "version",
     "registry": true,
-    "raw": "cordova-plugin-googlemaps",
+    "raw": "cordova-plugin-googlemaps@2.2.8",
     "name": "cordova-plugin-googlemaps",
     "escapedName": "cordova-plugin-googlemaps",
-    "rawSpec": "",
+    "rawSpec": "2.2.8",
     "saveSpec": null,
-    "fetchSpec": "latest"
+    "fetchSpec": "2.2.8"
   },
   "_requiredBy": [
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/cordova-plugin-googlemaps/-/cordova-plugin-googlemaps-2.2.9.tgz",
-  "_shasum": "350098e070307258429073ce604a6f8a89d1670f",
-  "_spec": "cordova-plugin-googlemaps",
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-googlemaps/-/cordova-plugin-googlemaps-2.2.8.tgz",
+  "_shasum": "97b7d4f70f39f270dc5d490d77108575969680d2",
+  "_spec": "cordova-plugin-googlemaps@2.2.8",
   "_where": "D:\\gena\\work\\cash-tr\\cordova-android",
   "author": {
     "name": "Masashi Katsumata, Hirbod Mirjavadi"
@@ -38,12 +38,15 @@
     ]
   },
   "dependencies": {
-    "minimist": "~1.2.0",
     "xml2js": "~0.4.19"
   },
   "deprecated": false,
   "description": "Google Maps native SDK for Android and iOS",
   "engines": [
+    {
+      "name": "cordova",
+      "version": ">=7.1.0"
+    },
     {
       "name": "cordova-android",
       "version": ">=5.1.0"
@@ -77,5 +80,5 @@
     "type": "git",
     "url": "git+https://github.com/mapsplugin/cordova-plugin-googlemaps.git"
   },
-  "version": "2.2.9"
+  "version": "2.2.8"
 }

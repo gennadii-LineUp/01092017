@@ -205,6 +205,12 @@
 }
 
 - (void)resizeTask:(NSTimer *)timer {
+    if (self.isSuspended || self.stopFlag) {
+      NSLog(@"---->suspend");
+        //[self stopRedrawTimer];
+        return;
+    }
+    self.stopFlag = YES;
     NSArray *keys=[self.pluginScrollView.debugView.mapCtrls allKeys];
     NSString *mapId;
     GoogleMapsViewController *mapCtrl;
@@ -221,6 +227,7 @@
             [self.pluginScrollView.debugView setNeedsDisplay];
         });
     }
+    self.stopFlag = NO;
 }
 
 - (void)updateViewPosition:(GoogleMapsViewController *)mapCtrl {
@@ -233,14 +240,12 @@
     [self.pluginScrollView setContentOffset:offset];
 
     if (!mapCtrl.mapDivId) {
-      //NSLog(@"--->no mapDivId");
-      return;
+        return;
     }
 
     NSDictionary *domInfo = nil;
     @synchronized(self.pluginScrollView.debugView.HTMLNodes) {
       domInfo = [self.pluginScrollView.debugView.HTMLNodes objectForKey:mapCtrl.mapDivId];
-      //NSLog(@"--->domInfo = %@", domInfo);
       if (domInfo == nil) {
           return;
       }
@@ -252,19 +257,13 @@
     }
 
     __block CGRect rect = CGRectFromString(rectStr);
-    if (rect.origin.x == 0 &&
-        rect.origin.y == 0 &&
-        rect.size.width == 0 &&
-        rect.size.height == 0) {
-      return;
-    }
     rect.origin.x *= zoomScale;
     rect.origin.y *= zoomScale;
     rect.size.width *= zoomScale;
     rect.size.height *= zoomScale;
     rect.origin.x += offset.x;
     rect.origin.y += offset.y;
-  //NSLog(@"---->updateViewPos: %@, (%f, %f) - (%f, %f), %@", mapCtrl.mapId, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height, rectStr);
+  //NSLog(@"---->updateViewPos: %@, (%f, %f) - (%f, %f)", mapCtrl.mapId, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
 
     float webviewWidth = self.webView.frame.size.width;
     float webviewHeight = self.webView.frame.size.height;

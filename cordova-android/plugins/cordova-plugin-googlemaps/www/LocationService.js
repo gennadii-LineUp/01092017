@@ -1,38 +1,44 @@
 /*****************************************************************************
  * LocationService class
  *****************************************************************************/
- var LatLng = require('./LatLng');
+ var argscheck = require('cordova/argscheck'),
+     utils = require('cordova/utils'),
+     LatLng = require('./LatLng'),
+     BaseClass = require('./BaseClass');
 
-var LocationService = function(exec) {
+var exec;
+function LocationService(_exec) {
+  exec = _exec;
+  BaseClass.apply(this);
+}
 
-  return {
-    getMyLocation: function(params, success_callback, error_callback) {
-      var self = this;
-      var args = [params || {}, success_callback || null, error_callback];
-      if (typeof args[0] === "function") {
-          args.unshift({});
+utils.extend(LocationService, BaseClass);
+
+LocationService.prototype.getMyLocation = function(params, success_callback, error_callback) {
+  var self = this;
+  var args = [params || {}, success_callback || null, error_callback];
+  if (typeof args[0] === "function") {
+      args.unshift({});
+  }
+  params = args[0];
+  success_callback = args[1];
+  error_callback = args[2];
+
+  params.enableHighAccuracy = params.enableHighAccuracy === true;
+  var successHandler = function(location) {
+      if (typeof success_callback === "function") {
+          location.latLng = new LatLng(location.latLng.lat, location.latLng.lng);
+          success_callback.call(self, location);
       }
-      params = args[0];
-      success_callback = args[1];
-      error_callback = args[2];
-
-      params.enableHighAccuracy = params.enableHighAccuracy === true;
-      var successHandler = function(location) {
-          if (typeof success_callback === "function") {
-              location.latLng = new LatLng(location.latLng.lat, location.latLng.lng);
-              success_callback.call(self, location);
-          }
-      };
-      var errorHandler = function(result) {
-          if (typeof error_callback === "function") {
-              error_callback.call(self, result);
-          }
-      };
-      exec.call({
-        _isReady: true
-      }, successHandler, errorHandler, 'LocationService', 'getMyLocation', [params], {sync: true});
-    }
   };
+  var errorHandler = function(result) {
+      if (typeof error_callback === "function") {
+          error_callback.call(self, result);
+      }
+  };
+  exec.call({
+    _isReady: true
+  }, successHandler, errorHandler, 'LocationService', 'getMyLocation', [params], {sync: true});
 };
 
 /**

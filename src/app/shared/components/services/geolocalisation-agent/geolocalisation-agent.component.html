@@ -13,6 +13,13 @@
                      [lng]="longitude"
                      (onAgentsMarkersAdded)="setAgentsMarkersFunction($event)"></app-g-map>
 
+          <hr>
+
+          <div id="map_canvas"></div>
+          <button id="map_button" class="orange-button blue-button"
+                  (click)="map_buttonClick()"
+                  (touchend)="map_buttonClick()">map_button</button>
+
         </div>
         <div *ngIf="agentsMarkers && agentsMarkers.length" class="col-sm-12 col-md-12 col-lg-2">
 

@@ -294,7 +294,7 @@ Map.prototype.setOptions = function(options) {
 };
 
 Map.prototype.getMyLocation = function(params, success_callback, error_callback) {
-  plugin.google.maps.LocationService.getMyLocation(params, success_callback.bind(this), error_callback.bind(this));
+  plugin.google.maps.LocationService.getMyLocation(params, success_callback, error_callback);
 };
 
 Map.prototype.setCameraTarget = function(latLng) {
@@ -789,8 +789,7 @@ Map.prototype.setDiv = function(div) {
   }
   exec.call(this, function() {
     cordova.fireDocumentEvent('plugin_touch', {
-      force: true,
-      action: "setDiv"
+      force: true
     });
     self.refreshLayout();
   }, self.errorHandler, self.id, 'setDiv', args, {
