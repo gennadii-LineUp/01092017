@@ -57,11 +57,21 @@ import { QRCodeModule } from 'angular2-qrcode';
 const googleMapsCore = AgmCoreModule.forRoot({
   apiKey : 'AIzaSyDajrkQUo7gxEhGlfBhCrYOc4oPu-szoXA',
 });
+const googleMaps_android = AgmCoreModule.forRoot({
+  apiKey : 'AIzaSyADq0CfJs5enConBc6PXP2OWdt6761dKsw',
+});
+const googleMaps_ios = AgmCoreModule.forRoot({
+  apiKey : 'AIzaSyC2vAfEsYE0K1pNwfKbFxF1gDvAdPsTAYc',
+});
+// https://developers.google.com/maps/documentation/android-api/
+// https://developers.google.com/maps/ios/
+
 
 
 @NgModule({
   imports: [
-    CommonModule, BrowserModule, FormsModule, AppRoutingModule, NgSelect2Module, googleMapsCore, NgbModule, QRCodeModule
+    CommonModule, BrowserModule, FormsModule, AppRoutingModule, NgSelect2Module, googleMapsCore, googleMaps_android,
+    NgbModule, QRCodeModule
   ],
   declarations: [
     HeaderGeneralComponent, HeaderAllUsersComponent,
