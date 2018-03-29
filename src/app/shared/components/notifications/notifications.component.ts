@@ -25,10 +25,13 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   numTel_fromSelect2 = '';
   notifications = [];
   _notifications = [];
+  notifs_nonLues: number;
+  notifs_lues: number;
+  notifs_toutes: number;
   buttons_notification = [
-    {id: 1, caption: 'non lu'},
-    {id: 2, caption: 'lu'},
-    {id: 3, caption: 'all'}
+    {id: 1, caption: 'non lues'},
+    {id: 2, caption: 'lues'},
+    {id: 3, caption: 'toutes'}
   ];
 
   alive = true;
@@ -84,6 +87,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
           if (notifications.length) {
             this.notifications = (notifications.length) ? notifications : [];
             this._notifications = this.notifications;
+            this.notifs_toutes = this.notifications.length;
           } else {
             this.errorMessage = 'Error: ' + notifications.message.toLowerCase();
           }
@@ -109,6 +113,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
           if (notifications.length) {
             this.notifications = (notifications.length) ? notifications : [];
             this._notifications = this.notifications;
+            this.notifs_lues = this.notifications.length;
           } else {
             this.errorMessage = 'Error: ' + notifications.message.toLowerCase();
           }
@@ -134,6 +139,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
           if (notifications.length) {
             this.notifications = (notifications.length) ? notifications : [];
             this._notifications = this.notifications;
+            this.notifs_nonLues = this.notifications.length;
           } else {
             this.errorMessage = 'Error: ' + notifications.message.toLowerCase();
           }
@@ -176,6 +182,9 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     const notif_element = window.document.getElementById(id);
     if (notif_element && notif_element.classList && notif_element.classList.contains('non-lu')) {
       notif_element.classList.remove('non-lu');
+      this.notifs_nonLues--;
+      this.notifs_lues++;
+      // notifs_toutes: number;
     }
     if (!(this.status === 'lu')) {
       this.LireNotifFunction(id);

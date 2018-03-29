@@ -7,7 +7,7 @@ import {UserDataService} from '../../models/user-data';
 @Injectable()
 export class SetCoordonneesByCellularService {
   token = localStorage.token;
-  cellular = this.userDataService.getMyAccounts()['0'].telephone;
+  cellular = 7777777; // this.userDataService.getMyAccounts()['0'].telephone;
 
   constructor(public backendService: BackendService,
               public userDataService: UserDataService) {}

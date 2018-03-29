@@ -25,7 +25,7 @@
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-geolocation": {},
       "cordova-plugin-googlemaps": {
-        "API_KEY_FOR_ANDROID": "AIzaSyADq0CfJs5enConBc6PXP2OWdt6761dKsw",
+        "API_KEY_FOR_ANDROID": "AIzaSyBDlBThDN-S4qoucXWUxQgh5IagcCwZEhQ",
         "API_KEY_FOR_IOS": "AIzaSyC2vAfEsYE0K1pNwfKbFxF1gDvAdPsTAYc",
         "PLAY_SERVICES_VERSION": "11.8.0",
         "ANDROID_SUPPORT_V4_VERSION": "24.1.0",

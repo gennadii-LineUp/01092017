@@ -92,6 +92,7 @@ export class GMapComponent implements OnInit, OnDestroy {
   }
 
   setDefaultCoord() {
+    console.log('setDefaultCoord');
     this._lat = this.__lat;
     this._lng = this.__lng;
     this.myself = new MarkerClass(this._lat,

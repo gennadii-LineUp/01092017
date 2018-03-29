@@ -2,7 +2,7 @@
   <section class="consult-sold">
     <h3 class="top-header">
       <div class="back-button" [routerLink]="['/' +userRole+ '/services']">Back</div>
-      Panel Notifications
+      Notifications
     </h3>
     <div class="container">
 
@@ -12,7 +12,9 @@
                       loadNonLuNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId)">
           <div class="consult-user accordionItemHeading">
             <div style="line-height: 25px">
-              <div style="line-height: 19px">{{buttons_notification['0'].caption}}</div>
+              <div style="line-height: 19px">{{buttons_notification['0'].caption}}
+                <div *ngIf="notifs_nonLues" style="display: inline-block">({{notifs_nonLues}})</div>
+              </div>
             </div>
             <i class="fa fa-angle-right" aria-hidden="true"></i>
           </div>
@@ -22,7 +24,9 @@
                       loadLuNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId)">
           <div class="consult-user accordionItemHeading">
             <div style="line-height: 25px">
-              <div style="line-height: 19px">{{buttons_notification['1'].caption}}</div>
+              <div style="line-height: 19px">{{buttons_notification['1'].caption}}
+                <div *ngIf="notifs_lues" style="display: inline-block">({{notifs_lues}})</div>
+              </div>
             </div>
             <i class="fa fa-angle-right" aria-hidden="true"></i>
           </div>
@@ -32,7 +36,9 @@
                       loadAllNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId)">
           <div class="consult-user accordionItemHeading">
             <div style="line-height: 25px">
-              <div style="line-height: 19px">{{buttons_notification['2'].caption}}</div>
+              <div style="line-height: 19px">{{buttons_notification['2'].caption}}
+                <div *ngIf="notifs_toutes" style="display: inline-block">({{notifs_toutes}})</div>
+              </div>
             </div>
             <i class="fa fa-angle-right" aria-hidden="true"></i>
           </div>

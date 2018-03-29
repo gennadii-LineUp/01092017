@@ -59,10 +59,14 @@ const googleMapsCore = AgmCoreModule.forRoot({
 });
 const googleMaps_android = AgmCoreModule.forRoot({
   apiKey : 'AIzaSyADq0CfJs5enConBc6PXP2OWdt6761dKsw',
-});
+})
 const googleMaps_ios = AgmCoreModule.forRoot({
   apiKey : 'AIzaSyC2vAfEsYE0K1pNwfKbFxF1gDvAdPsTAYc',
 });
+const c_trans_android = AgmCoreModule.forRoot({
+  apiKey : 'AIzaSyBDlBThDN-S4qoucXWUxQgh5IagcCwZEhQ',
+});
+
 // https://developers.google.com/maps/documentation/android-api/
 // https://developers.google.com/maps/ios/
 
