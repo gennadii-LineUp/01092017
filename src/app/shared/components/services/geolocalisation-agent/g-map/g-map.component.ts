@@ -27,8 +27,8 @@ export class GMapComponent implements OnInit, OnDestroy {
   marker_myself = '../../../../../../assets/img/arrow.png';
   marker_agent = '../../../../../../assets/img/A.png';
   myself: MarkerClass;
-  markers = [new MarkerClass(14.739159, -17.461516, '', 'AA', '../../../../../../assets/img/user.png'),
-             new MarkerClass(14.733484, -17.465587, '', 'BB', '../../../../../../assets/img/logo.png')
+  markers = [new MarkerClass(14.739159, -17.461516, 'nom1', 'prenom1', 'AA', '../../../../../../assets/img/user.png'),
+             new MarkerClass(14.733484, -17.465587, 'nom2', 'prenom2', 'BB', '../../../../../../assets/img/logo.png')
   ];
   phone: string;
   alive = true;
@@ -47,7 +47,7 @@ export class GMapComponent implements OnInit, OnDestroy {
     this._lng = +data;
     console.log('new lng');
     this._coordonnees = new CoordonneeClass(this._lat, this._lng);
-    setTimeout(this.setMyCoordonneesFromCellular(this._coordonnees));
+    setTimeout(this.setMyCoordonneesFromCellular(this._coordonnees), 100);
   };
 
   @Output() onAgentsMarkersAdded = new EventEmitter<Array<MarkerClass>>();
@@ -65,8 +65,8 @@ export class GMapComponent implements OnInit, OnDestroy {
                   ? (this.userDataService.getMyAccounts()['0'].telephone)
                   : localStorage.getItem('telephone');
       console.log(this.phone);
-      // this.getMyCoordonees(this.phone + '');
-      this.setDefaultCoord();
+      this.getMyCoordonees(this.phone + '');
+      // this.setDefaultCoord();
       this.loadAgentsCoordonees();
     });
   }
@@ -78,8 +78,8 @@ export class GMapComponent implements OnInit, OnDestroy {
                   ? (this.userDataService.getMyAccounts()['0'].telephone)
                   : localStorage.getItem('telephone');
       console.log(this.phone);
-      // this.getMyCoordonees(this.phone + '');
-      this.setDefaultCoord();
+      this.getMyCoordonees(this.phone + '');
+      // this.setDefaultCoord();
       this.loadAgentsCoordonees();
     } else {
       console.log('=== MyAccounts\' is empty ===');
@@ -98,6 +98,7 @@ export class GMapComponent implements OnInit, OnDestroy {
     this.myself = new MarkerClass(this._lat,
                                   this._lng,
                                   this.userDataService.getMyAccounts()['0'].nom,
+                                  this.userDataService.getMyAccounts()['0'].prenom,
                                   this.userDataService.getMyAccounts()['0'].telephone,
                                   '../../../../../../assets/img/track-8.png');
   }
@@ -114,6 +115,7 @@ export class GMapComponent implements OnInit, OnDestroy {
           this._lng = +response.longitude;
           this.myself = new MarkerClass(this._lat, this._lng,
                                         this.userDataService.getMyAccounts()['0'].nom,
+                                        this.userDataService.getMyAccounts()['0'].prenom,
                                         this.userDataService.getMyAccounts()['0'].telephone,
                                         '../../../../../../assets/img/track-8.png');
           console.log(this._lat + '  ' + this._lng);
@@ -132,12 +134,16 @@ export class GMapComponent implements OnInit, OnDestroy {
       .takeWhile(() => this.alive)
       .subscribe(result => {
         // this.loading = false;
-        const response = this.commonServices.xmlResponseParcer_complex( result._body );
+        const response = this.commonServices.xmlResponseParcer___complex( result._body );
         console.dir( response );
         if (+response.error === 0 && response.listAgents.length) {
           // this.markers = [];
           // response.listAgents.forEach(item => {
-          //   this.markers.push(new MarkerClass(item.lattitude, item.longitude, item.nom, item.telephone, ''));
+          //   this.markers.push(new MarkerClass(item.lattitude, item.longitude,
+          //                                   item.nom ? item.nom : '',
+          //                                   item.prenom ? item.prenom : '',
+          //                                   item.telephone ? item.telephone : '',
+          //                                   ''));
           // });
           this.onAgentsMarkersAdded.emit(this.markers);
         } else {
@@ -156,7 +162,7 @@ export class GMapComponent implements OnInit, OnDestroy {
   }
 
   public setMyCoordonneesFromCellular(data: CoordonneeClass) {
-    this.setCoordonneesByCellularService.setCoordonneesByCellular(data.latitude, data.longitude)
+    this.setCoordonneesByCellularService.setCoordonneesByCellular(+this.phone, data.latitude, data.longitude)
       .takeWhile(() => this.alive)
       .subscribe(result => {
         // this.loading = false;

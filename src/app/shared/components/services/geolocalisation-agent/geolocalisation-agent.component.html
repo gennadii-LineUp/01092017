@@ -24,10 +24,10 @@
         <div *ngIf="agentsMarkers && agentsMarkers.length" class="col-sm-12 col-md-12 col-lg-2">
 
           <div>
-            <button id="startScan" class="orange-button blue-button"
-                    (click)="startGettingMyCoord()"
+            <button id="startScan" class="orange-button blue-button" (click)="startGettingMyCoord()"
                     (touchend)="startGettingMyCoord()">My Coordonees</button>
-            <div id="geolocation"></div>
+            <!--(click)="startGettingMyCoord()"-->
+            <div id="geolocation" style="color: red"></div>
           </div>
 
           <div *ngFor="let agent of agentsMarkers" class="search__user active">

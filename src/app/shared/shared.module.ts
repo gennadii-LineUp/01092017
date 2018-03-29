@@ -55,7 +55,7 @@ import { ParametersComponent } from './components/parameters/parameters.componen
 import { QRCodeModule } from 'angular2-qrcode';
 
 const googleMapsCore = AgmCoreModule.forRoot({
-  apiKey : 'AIzaSyDajrkQUo7gxEhGlfBhCrYOc4oPu-szoXA',
+  apiKey : 'AIzaSyBeqsJSFGJbb0h1WKapbwPQJONE2CVSeDc',
 });
 const googleMaps_android = AgmCoreModule.forRoot({
   apiKey : 'AIzaSyADq0CfJs5enConBc6PXP2OWdt6761dKsw',

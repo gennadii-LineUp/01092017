@@ -90,7 +90,16 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
 
   public startGettingMyCoord() {
     console.log('startGettingMyCoord');
-    // console.log(cordova);
+    try {
+      console.log(cordova);
+    } catch (e) {
+      console.log(e);
+    }
+    try {
+      console.log(navigator);
+    } catch (e) {
+      console.log(e);
+    }
 
     navigator.geolocation.getCurrentPosition((position) => {
         // const element = document.getElementById('geolocation');
@@ -108,9 +117,27 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
       (error) => {
         alert('Scanning failed: ' + error);
         console.log(error);
+        this.showError(error);
         this.coord.latitude = 15.0458118;
         this.coord.longitude = -16.858833;
       });
   }
 
+  showError(error) {
+    const element = document.getElementById('geolocation');
+    switch (error.code) {
+      case error.PERMISSION_DENIED:
+        element.innerHTML = 'User denied the request for Geolocation.';
+        break;
+      case error.POSITION_UNAVAILABLE:
+        element.innerHTML = 'Location information is unavailable.';
+        break;
+      case error.TIMEOUT:
+        element.innerHTML = 'The request to get user location timed out.';
+        break;
+      case error.UNKNOWN_ERROR:
+        element.innerHTML = 'An unknown error occurred.';
+        break;
+    }
+  }
 }
