@@ -9,11 +9,11 @@
       <div class="accordionWrapper">
         <div class="accordionItem open"
              (click)="commonServices.accordionToggleNotifFunction($event); $event.stopPropagation();
-                      loadNonLuNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId)">
+                      loadNonLuNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId, !calculateNotifsMode)">
           <div class="consult-user accordionItemHeading">
             <div style="line-height: 25px">
               <div style="line-height: 19px">{{buttons_notification['0'].caption}}
-                <div *ngIf="notifs_nonLues" style="display: inline-block">({{notifs_nonLues}})</div>
+                <div *ngIf="notifs_nonLues_total" style="display: inline-block">({{notifs_nonLues_total}})</div>
               </div>
             </div>
             <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -21,11 +21,11 @@
         </div>
         <div class="accordionItem close-item"
              (click)="commonServices.accordionToggleNotifFunction($event); $event.stopPropagation();
-                      loadLuNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId)">
+                      loadLuNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId, !calculateNotifsMode)">
           <div class="consult-user accordionItemHeading">
             <div style="line-height: 25px">
               <div style="line-height: 19px">{{buttons_notification['1'].caption}}
-                <div *ngIf="notifs_lues" style="display: inline-block">({{notifs_lues}})</div>
+                <div *ngIf="notifs_lues_total" style="display: inline-block">({{notifs_lues_total}})</div>
               </div>
             </div>
             <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -33,11 +33,11 @@
         </div>
         <div class="accordionItem close-item"
              (click)="commonServices.accordionToggleNotifFunction($event); $event.stopPropagation();
-                      loadAllNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId)">
+                      loadAllNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId, !calculateNotifsMode)">
           <div class="consult-user accordionItemHeading">
             <div style="line-height: 25px">
               <div style="line-height: 19px">{{buttons_notification['2'].caption}}
-                <div *ngIf="notifs_toutes" style="display: inline-block">({{notifs_toutes}})</div>
+                <div *ngIf="notifs_toutes_total" style="display: inline-block">({{notifs_toutes_total}})</div>
               </div>
             </div>
             <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -72,9 +72,9 @@
               <td class="text-center" style="min-width: 80px; vertical-align: middle !important">
                 <div class="floating-block border-hover" style="margin-bottom:0">
                   <div class="floating-input">
-                    <div>
-                      {{notif.libelle}}
-                    </div>
+                    <span>
+                      {{notif.libelle | showNotifsWithoutId}}
+                    </span>
                   </div>
                 </div>
               </td>

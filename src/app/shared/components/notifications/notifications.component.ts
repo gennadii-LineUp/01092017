@@ -25,9 +25,10 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   numTel_fromSelect2 = '';
   notifications = [];
   _notifications = [];
-  notifs_nonLues: number;
-  notifs_lues: number;
-  notifs_toutes: number;
+  notifs_nonLues_total: number;
+  notifs_lues_total: number;
+  notifs_toutes_total: number;
+  calculateNotifsMode = true;
   buttons_notification = [
     {id: 1, caption: 'non lues'},
     {id: 2, caption: 'lues'},
@@ -46,11 +47,10 @@ export class NotificationsComponent implements OnInit, OnDestroy {
               public getLuNotifService: GetLuNotifService,
               public getNonLuNotifService: GetNonLuNotifService) {
     userDataService.myAccounts$.subscribe((myAccounts) => {
-      console.log(myAccounts);
-      console.log('hello');
-      this.loadNonLuNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId);
-      // this.loadLuNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId);
-      // this.loadAllNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId);
+      // console.log(myAccounts);
+      this.loadNonLuNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId, !this.calculateNotifsMode);
+      this.loadLuNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId, this.calculateNotifsMode);
+      this.loadAllNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId, this.calculateNotifsMode);
     });
   }
 
@@ -60,38 +60,43 @@ export class NotificationsComponent implements OnInit, OnDestroy {
       .subscribe(resp =>  this.userRole = resp['0'].path);
 
     if ((this.userDataService.getMyAccounts()).length) {
-      this.loadNonLuNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId);
+      this.loadNonLuNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId, !this.calculateNotifsMode);
+      this.loadLuNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId, this.calculateNotifsMode);
+      this.loadAllNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId, this.calculateNotifsMode);
     } else {
       this.userDataService.setMyAccounts();
     }
 
     this.profil = ((<any>this.userDataService.getUser).profil) ? (<any>this.userDataService.getUser).profil :
       localStorage.getItem('profil');
-    console.log(this.profil);
+    // console.log(this.profil);
   }
 
   ngOnDestroy() {
     this.alive = false;
   }
 
-  loadAllNotificationsFunction(uoId: string) {
+  loadAllNotificationsFunction(uoId: string, calculateNotifsMode: boolean) {
     if (!(this.status === 'all')) {
       this.loading = true;
       this.getAllNotifService.getAllNotif(uoId)
         .takeWhile(() => this.alive)
         .subscribe(result => {
-          this.status = 'all';
-          this.loading = false;
-          console.log(result);
           const notifications = (this.commonServices.xmlResponseParcer_complex(result._body)).notifications;
-          if (notifications.length) {
-            this.notifications = (notifications.length) ? notifications : [];
-            this._notifications = this.notifications;
-            this.notifs_toutes = this.notifications.length;
+          if (calculateNotifsMode) {
+            this.notifs_toutes_total = notifications.length;
           } else {
-            this.errorMessage = 'Error: ' + notifications.message.toLowerCase();
+            this.status = 'all';
+            this.loading = false;
+            // console.log(result);
+            if (notifications.length) {
+              this.notifications = (notifications.length) ? notifications : [];
+              this._notifications = this.notifications;
+            } else {
+              this.errorMessage = 'Error: ' + notifications.message.toLowerCase();
+            }
+            // console.log(notifications);
           }
-          console.log(notifications);
         }, (err) => {
           this.loading = false;
           console.log(err);
@@ -100,24 +105,28 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     }
   }
 
-  loadLuNotificationsFunction(uoId: string) {
+  loadLuNotificationsFunction(uoId: string, calculateNotifsMode: boolean) {
     if (!(this.status === 'lu')) {
       this.loading = true;
       this.getLuNotifService.getLuNotif(uoId)
         .takeWhile(() => this.alive)
         .subscribe(result => {
-          this.status = 'lu';
-          this.loading = false;
-          console.log(result);
           const notifications = (this.commonServices.xmlResponseParcer_complex(result._body)).notifications;
-          if (notifications.length) {
-            this.notifications = (notifications.length) ? notifications : [];
-            this._notifications = this.notifications;
-            this.notifs_lues = this.notifications.length;
+          if (calculateNotifsMode) {
+            this.notifs_lues_total = notifications.length;
           } else {
-            this.errorMessage = 'Error: ' + notifications.message.toLowerCase();
+            this.status = 'lu';
+            this.loading = false;
+            // console.log(result);
+            if (notifications.length) {
+              this.notifications = (notifications.length) ? notifications : [];
+              this._notifications = this.notifications;
+              this.notifs_lues_total = this.notifications.length;
+            } else {
+              this.errorMessage = 'Error: ' + notifications.message.toLowerCase();
+            }
+            // console.log(notifications);
           }
-          console.log(notifications);
         }, (err) => {
           this.loading = false;
           console.log(err);
@@ -126,24 +135,28 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     }
   }
 
-  loadNonLuNotificationsFunction(uoId: string) {
+  loadNonLuNotificationsFunction(uoId: string, calculateNotifsMode: boolean) {
     if (!(this.status === 'non-lu')) {
       this.loading = true;
       this.getNonLuNotifService.getNonLuNotif(uoId)
         .takeWhile(() => this.alive)
         .subscribe(result => {
-          this.status = 'non-lu';
-          this.loading = false;
-          console.log(result);
           const notifications = (this.commonServices.xmlResponseParcer_complex(result._body)).notifications;
-          if (notifications.length) {
-            this.notifications = (notifications.length) ? notifications : [];
-            this._notifications = this.notifications;
-            this.notifs_nonLues = this.notifications.length;
+          if (calculateNotifsMode) {
+            this.notifs_nonLues_total = notifications.length;
           } else {
-            this.errorMessage = 'Error: ' + notifications.message.toLowerCase();
+            this.status = 'non-lu';
+            this.loading = false;
+            // console.log(result);
+            if (notifications.length) {
+              this.notifications = (notifications.length) ? notifications : [];
+              this._notifications = this.notifications;
+              this.notifs_nonLues_total = this.notifications.length;
+            } else {
+              this.errorMessage = 'Error: ' + notifications.message.toLowerCase();
+            }
+            // console.log(notifications);
           }
-          console.log(notifications);
         }, (err) => {
           this.loading = false;
           console.log(err);
@@ -178,16 +191,16 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   }
 
   markNotificationAsLu(id: string) {
-    console.log(id);
+    // console.log(id);
     const notif_element = window.document.getElementById(id);
     if (notif_element && notif_element.classList && notif_element.classList.contains('non-lu')) {
       notif_element.classList.remove('non-lu');
-      this.notifs_nonLues--;
-      this.notifs_lues++;
-      // notifs_toutes: number;
+      this.notifs_nonLues_total--;
+      this.notifs_lues_total++;
+      // notifs_toutes_total: number;
+      this.LireNotifFunction(id);
     }
     if (!(this.status === 'lu')) {
-      this.LireNotifFunction(id);
       if (this.status === 'non-lu') {
         const temp = this.notifications;
         temp.forEach((notif, i) => {
@@ -205,9 +218,9 @@ export class NotificationsComponent implements OnInit, OnDestroy {
       .takeWhile(() => this.alive)
       .subscribe(result => {
         this.loading = false;
-        console.log(result);
+        // console.log(result);
         const notifications = (this.commonServices.xmlResponseParcer_complex(result._body));
-        console.log(notifications);
+        // console.log(notifications);
       }, (err) => {
         this.loading = false;
         console.log(err);

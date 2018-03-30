@@ -27,15 +27,21 @@ export class GMapComponent implements OnInit, OnDestroy {
   marker_myself = '../../../../../../assets/img/arrow.png';
   marker_agent = '../../../../../../assets/img/A.png';
   myself: MarkerClass;
-  markers = [new MarkerClass(14.739159, -17.461516, 'nom1', 'prenom1', 'AA', '../../../../../../assets/img/user.png'),
-             new MarkerClass(14.733484, -17.465587, 'nom2', 'prenom2', 'BB', '../../../../../../assets/img/logo.png')
-  ];
+  markers = this.userDataService.agentsMarkers;
+  // markers = [new MarkerClass(14.739159, -17.461516, 'nom1', 'prenom1', 'AA', '../../../../../../assets/img/user.png'),
+  //            new MarkerClass(14.733484, -17.465587, 'nom2', 'prenom2', 'BB', '../../../../../../assets/img/logo.png')
+  // ];
   phone: string;
   alive = true;
   @Input() set coordonnees (data: CoordonneeClass) {
     this._coordonnees = new CoordonneeClass(data.latitude, data.longitude);
     console.log(this._coordonnees);
     this.setMyCoordonneesFromCellular(data);
+  }
+  @Input() set agentsMarkers (data: Array<MarkerClass>) {
+    // this.markers = [];
+    this.markers = data;
+    console.log(this.markers);
   }
   @Input() set lat(data: string) {
     // this._lat = (data && data.length > 0) ? +data : this.__lat;
@@ -58,6 +64,7 @@ export class GMapComponent implements OnInit, OnDestroy {
               public commonServices: CommonServices,
               public errorMessageHandlerService: ErrorMessageHandlerService,
               public setCoordonneesByCellularService: SetCoordonneesByCellularService) {
+    console.log('constructor');
     userDataService.myAccounts$.subscribe((myAccounts) => {
       console.log(myAccounts);
       console.log('hello');
@@ -72,6 +79,7 @@ export class GMapComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    console.log('ngOnInit');
     if ((this.userDataService.getMyAccounts()).length) {
       console.log('=== MyAccounts\' length ' + this.userDataService.getMyAccounts().length);
       this.phone = (this.userDataService.getMyAccounts()['0'].telephone)
@@ -130,30 +138,30 @@ export class GMapComponent implements OnInit, OnDestroy {
   }
 
   public loadAgentsCoordonees() {
-    this.getCoordonneesAllAgentService.getCoordonneesAllAgents()
-      .takeWhile(() => this.alive)
-      .subscribe(result => {
-        // this.loading = false;
-        const response = this.commonServices.xmlResponseParcer___complex( result._body );
-        console.dir( response );
-        if (+response.error === 0 && response.listAgents.length) {
-          // this.markers = [];
-          // response.listAgents.forEach(item => {
-          //   this.markers.push(new MarkerClass(item.lattitude, item.longitude,
-          //                                   item.nom ? item.nom : '',
-          //                                   item.prenom ? item.prenom : '',
-          //                                   item.telephone ? item.telephone : '',
-          //                                   ''));
-          // });
-          this.onAgentsMarkersAdded.emit(this.markers);
-        } else {
-          this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
-        }
-      }, (err) => {
-        // this.loading = false;
-        console.log(err);
-        if (err._body.type) {this.errorMessage += '  ' + this.errorMessageHandlerService.getMessageEquivalent(err._body.type); }
-      });
+    // this.getCoordonneesAllAgentService.getCoordonneesAllAgents()
+    //   .takeWhile(() => this.alive)
+    //   .subscribe(result => {
+    //     // this.loading = false;
+    //     const response = this.commonServices.xmlResponseParcer___complex( result._body );
+    //     console.dir( response );
+    //     if (+response.error === 0 && response.listAgents.length) {
+    //       // this.markers = [];
+    //       // response.listAgents.forEach(item => {
+    //       //   this.markers.push(new MarkerClass(item.lattitude, item.longitude,
+    //       //                                   item.nom ? item.nom : '',
+    //       //                                   item.prenom ? item.prenom : '',
+    //       //                                   item.telephone ? item.telephone : '',
+    //       //                                   ''));
+    //       // });
+    //       this.onAgentsMarkersAdded.emit(this.markers);
+    //     } else {
+    //       this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
+    //     }
+    //   }, (err) => {
+    //     // this.loading = false;
+    //     console.log(err);
+    //     if (err._body.type) {this.errorMessage += '  ' + this.errorMessageHandlerService.getMessageEquivalent(err._body.type); }
+    //   });
   }
 
   public markerClicked(title: any) {

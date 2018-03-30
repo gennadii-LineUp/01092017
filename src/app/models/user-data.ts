@@ -9,6 +9,7 @@ import {GetAllCitizenService} from '../services/api/getAllCitizen.service';
 import {GetAllContractsService} from '../services/api/getAllContracts.service';
 import * as moment from 'moment';
 import {Select2optionClass} from './select2option-class';
+import {MarkerClass} from './marker-class';
 
 @Injectable()
 export class UserDataService {
@@ -19,9 +20,7 @@ export class UserDataService {
   clients = [];
   citizensClients = [];
   receivers = [];
-  // receivers = [new ReceiverClass('Tom', 'Henks', '123456789', '15', 1, 'citizen', '', '', '', '', ''),
-  //               new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 2, 'citizen', '', '', '', '', ''),
-  //               new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 3, 'citizen', '', '', '', '', '')];
+  _agentsMarkers = Array<MarkerClass>(0);
   receiversForSelect2 = Array<Select2optionClass>(0);
   contractsForSelect2 = Array<Select2optionClass>(0);
   allContracts = [];
@@ -93,6 +92,16 @@ export class UserDataService {
 
   public getMyAccounts(): any {
     return this.myAccounts;
+  }
+
+  set agentsMarkers(value: Array<MarkerClass>) {
+    this._agentsMarkers = value;
+    console.log('setted');
+  }
+
+  get agentsMarkers(): Array<MarkerClass> {
+    console.log('Getted');
+    return this._agentsMarkers;
   }
 
   public setAllContracts() {

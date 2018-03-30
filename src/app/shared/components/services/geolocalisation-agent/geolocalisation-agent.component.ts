@@ -5,6 +5,9 @@ import {SetCoordonneesByCellularService} from '../../../../services/api/setCoord
 import {strictEqual} from 'assert';
 import {CoordonneeClass} from '../../../../models/coordonnee-class';
 import {UserDataService} from '../../../../models/user-data';
+import {GetCoordonneesAllAgentService} from '../../../../services/api/getCoordonneesAllAgent.service';
+import {CommonServices} from '../../../../services/common.service';
+import {ErrorMessageHandlerService} from '../../../../services/error-message-handler.service';
 
 declare var navigator: any;
 declare var cordova: any;
@@ -12,7 +15,8 @@ declare var cordova: any;
 @Component({
   selector: 'app-services-geolocalisation-agent',
   templateUrl: './geolocalisation-agent.component.html',
-  styleUrls: ['./geolocalisation-agent.component.scss']
+  styleUrls: ['./geolocalisation-agent.component.scss'],
+  providers: [GetCoordonneesAllAgentService]
 })
 export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
   latitude = 14.735009;
@@ -22,10 +26,14 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
   userRole = '';
   alive = true;
   phone: string;
+  status_agentsMarkers = false;
   agentsMarkers: Array<MarkerClass>;
 
   constructor(public activatedRoute: ActivatedRoute,
-              public userDataService: UserDataService) {
+              public userDataService: UserDataService,
+              public getCoordonneesAllAgentService: GetCoordonneesAllAgentService,
+              public commonServices: CommonServices,
+              public errorMessageHandlerService: ErrorMessageHandlerService) {
     userDataService.myAccounts$.subscribe((myAccounts) => {
       console.log(myAccounts);
       console.log('hello');
@@ -42,6 +50,8 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
       .takeWhile(() => this.alive)
       .subscribe(resp =>  this.userRole = resp['0'].path);
     // this.loadMap();
+    this.loadAgentsCoordonees();
+
     if ((this.userDataService.getMyAccounts()).length) {
       console.log('=== MyAccounts\' length ' + this.userDataService.getMyAccounts().length);
       this.phone = (this.userDataService.getMyAccounts()['0'].telephone)
@@ -57,6 +67,35 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.alive = false;
+  }
+
+  public loadAgentsCoordonees() {
+    this.getCoordonneesAllAgentService.getCoordonneesAllAgents()
+      .takeWhile(() => this.alive)
+      .subscribe(result => {
+        // this.loading = false;
+        const response = this.commonServices.xmlResponseParcer___complex( result._body );
+        console.dir( response );
+        if (+response.error === 0 && response.listAgents.length) {
+          this.agentsMarkers = [];
+          response.listAgents.forEach(item => {
+            this.agentsMarkers.push(new MarkerClass(item.lattitude, item.longitude,
+                                            item.nom ? item.nom : '',
+                                            item.prenom ? item.prenom : '',
+                                            item.telephone ? item.telephone : '',
+                                            ''));
+          });
+          console.log(this.agentsMarkers);
+          this.userDataService.agentsMarkers = this.agentsMarkers;
+          this.status_agentsMarkers = true;
+        } else {
+          // this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
+        }
+      }, (err) => {
+        // this.loading = false;
+        console.log(err);
+        // if (err._body.type) {this.errorMessage += '  ' + this.errorMessageHandlerService.getMessageEquivalent(err._body.type); }
+      });
   }
 
   public loadMap() {

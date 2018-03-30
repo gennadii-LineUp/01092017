@@ -53,6 +53,7 @@ import { NotificationsComponent } from './components/notifications/notifications
 import { OperationsComponent } from './components/operations/operations.component';
 import { ParametersComponent } from './components/parameters/parameters.component';
 import { QRCodeModule } from 'angular2-qrcode';
+import {ShowNotifsWithoutIdPipe} from './pipes/showNotifsWithoutId.pipe';
 
 const googleMapsCore = AgmCoreModule.forRoot({
   apiKey : 'AIzaSyBeqsJSFGJbb0h1WKapbwPQJONE2CVSeDc',
@@ -94,7 +95,7 @@ const c_trans_android = AgmCoreModule.forRoot({
     PaiementsComponent,
     ProfileComponent,
     DebitCreditPipe, FromServerDateMomentPipe, FromServerTimeMomentPipe,
-    FormatTextByThreeCharPipe,
+    FormatTextByThreeCharPipe, ShowNotifsWithoutIdPipe,
     SelectSenderComponent,
     SuccessMessageComponent,
     PaginationComponent,
@@ -122,7 +123,7 @@ const c_trans_android = AgmCoreModule.forRoot({
     PaiementsComponent,
     ProfileComponent,
     DebitCreditPipe, FromServerDateMomentPipe, FromServerTimeMomentPipe,
-    FormatTextByThreeCharPipe, SelectSenderComponent,
+    FormatTextByThreeCharPipe, ShowNotifsWithoutIdPipe, SelectSenderComponent,
     SuccessMessageComponent,
     PaginationComponent,
     MobileSettingsComponent, MobileShareComponent, GetUserIdComponent, ContractsListComponent, ChooseAccountNormComponent,
