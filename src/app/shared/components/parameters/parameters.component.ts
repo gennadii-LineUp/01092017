@@ -118,7 +118,7 @@ export class ParametersComponent implements OnInit, OnDestroy {
         // this.successMessage_2 = '';
         this.errorMessage = '';
         this.loading = true;
-
+        this.goto_showQRCode_mode();
           this.getCommissionsTTCService.getCommission(this.amountToReceiver, 'W2W')
             .takeWhile(() => this.alive)
             .subscribe(result => {
@@ -202,6 +202,9 @@ export class ParametersComponent implements OnInit, OnDestroy {
   }
 
   public goto_choseAccount_mode() {
+    this.amountToReceiver = undefined;
+    this.idAccountEnvoyeur = undefined;
+    this.idAccountBeneficiaryFromQR = undefined;
     this.choseAccount_mode = true;
     this.showQRCode_mode = false;
     this.confirmation_mode = false;
