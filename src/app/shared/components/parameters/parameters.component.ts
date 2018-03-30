@@ -26,6 +26,10 @@ export class ParametersComponent implements OnInit, OnDestroy {
   successMessage_1 = '';
   successMessage_2 = '';
   status = '';
+  myAccount: any;
+  choseAccount_mode = true;
+  showQRCode_mode = false;
+  confirmation_mode = false;
   amountToReceiver: number;
   idAccountEnvoyeur = 380686087517;
   idAccountBeneficiaryFromQR = undefined;
@@ -43,8 +47,7 @@ export class ParametersComponent implements OnInit, OnDestroy {
               public cd: ChangeDetectorRef) {
     userDataService.myAccounts$.subscribe((myAccounts) => {
       console.log(myAccounts);
-      console.log('hello');
-      this.idAccountEnvoyeur = +this.userDataService.getMyAccounts()['0'].id_account;
+      // this.idAccountEnvoyeur = +this.userDataService.getMyAccounts()['0'].id_account;
     });
   }
 
@@ -53,19 +56,21 @@ export class ParametersComponent implements OnInit, OnDestroy {
       .takeWhile(() => this.alive)
       .subscribe(resp =>  this.userRole = resp['0'].path);
 
+    this.goto_choseAccount_mode();
     if ((this.userDataService.getMyAccounts()).length) {
-      this.idAccountEnvoyeur = +this.userDataService.getMyAccounts()['0'].id_account;
+      // this.idAccountEnvoyeur = +this.userDataService.getMyAccounts()['0'].id_account;
     } else {
       this.userDataService.setMyAccounts();
     }
 
     this.profil = ((<any>this.userDataService.getUser).profil) ? (<any>this.userDataService.getUser).profil :
       localStorage.getItem('profil');
-    console.log(this.profil);
+    // console.log(this.profil);
   }
 
   ngOnDestroy() {
     this.alive = false;
+    this.showQRCode_mode = false;
   }
 
   startScan() {
@@ -89,6 +94,22 @@ export class ParametersComponent implements OnInit, OnDestroy {
     this.idAccountBeneficiaryFromQR = +data;
     console.log('from QR: ', this.idAccountBeneficiaryFromQR);
     this.cd.detectChanges();
+  }
+
+  public fillReceiverInfoFunction(myAccount: any, e: any) {
+    // this.showReceiverInfo = false;
+    // this.clearSearch();
+    this.myAccount = myAccount;
+    this.idAccountEnvoyeur = +myAccount.id_account;
+    console.log(myAccount);
+    const allItems: NodeListOf<Element> = window.document.querySelectorAll('div.consult-user');
+    for (let i = 0; i < allItems.length; i++) {
+      allItems[i].className = 'consult-user';
+    }
+    e.currentTarget.classList.add('active');
+
+    // setTimeout(() => { this.showReceiverInfo = true; }, 500);
+    this.goto_showQRCode_mode();
   }
 
   public submitTransferCompteFunction() {
@@ -178,6 +199,22 @@ export class ParametersComponent implements OnInit, OnDestroy {
               }
             });
     } else {return false; }
+  }
+
+  public goto_choseAccount_mode() {
+    this.choseAccount_mode = true;
+    this.showQRCode_mode = false;
+    this.confirmation_mode = false;
+  }
+  public goto_showQRCode_mode() {
+    this.choseAccount_mode = false;
+    this.showQRCode_mode = true;
+    this.confirmation_mode = false;
+  }
+  public goto_confirmation_mode() {
+    this.choseAccount_mode = false;
+    this.showQRCode_mode = false;
+    this.confirmation_mode = true;
   }
 
   public clearAmount() {this.amountToReceiver = undefined; }
