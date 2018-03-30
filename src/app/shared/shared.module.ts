@@ -54,6 +54,7 @@ import { OperationsComponent } from './components/operations/operations.componen
 import { ParametersComponent } from './components/parameters/parameters.component';
 import { QRCodeModule } from 'angular2-qrcode';
 import {ShowNotifsWithoutIdPipe} from './pipes/showNotifsWithoutId.pipe';
+import { BeneficiaresComponent } from './components/forms/beneficiares/beneficiares.component';
 
 const googleMapsCore = AgmCoreModule.forRoot({
   apiKey : 'AIzaSyBeqsJSFGJbb0h1WKapbwPQJONE2CVSeDc',
@@ -104,7 +105,8 @@ const c_trans_android = AgmCoreModule.forRoot({
     NewReceiverSmallComponent,
     NotificationsComponent,
     OperationsComponent,
-    ParametersComponent
+    ParametersComponent,
+    BeneficiaresComponent
   ],
   exports: [
     HeaderGeneralComponent, HeaderAllUsersComponent,
@@ -130,7 +132,8 @@ const c_trans_android = AgmCoreModule.forRoot({
     NewReceiverSmallComponent,
     NotificationsComponent,
     OperationsComponent,
-    ParametersComponent
+    ParametersComponent,
+    BeneficiaresComponent
   ],
   providers: [
 

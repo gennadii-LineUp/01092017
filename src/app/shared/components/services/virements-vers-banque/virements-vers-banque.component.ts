@@ -7,34 +7,7 @@ import {VirementSicaService} from '../../../../services/api/virementSica.service
 import * as moment from 'moment';
 import {ActivatedRoute} from '@angular/router';
 import {CurrencyParams} from '../../../../models/currency_params';
-
-export class BeneficiaryClass {
-  banque: string;
-  compte: string;
-  guichet: string;
-  id: string;
-  nom: string;
-  prenom: string;
-  rib: string;
-
-  constructor(banque: string,
-              compte: string,
-              guichet: string,
-              id: string,
-              nom: string,
-              prenom: string,
-              rib: string) {
-
-    this.banque = banque;
-    this.compte = compte;
-    this.guichet = guichet;
-    this.id = id;
-    this.nom = nom;
-    this.prenom = prenom;
-    this.rib = rib;
-  }
-}
-
+import {BeneficiaryClass} from '../../../../models/beneficiary-class';
 
 @Component({
   selector: 'app-virements-vers-banque',
@@ -79,9 +52,6 @@ export class VirementsVersBanqueComponent implements OnInit, OnDestroy {
       this.userDataService.setMyAccounts();
     }
 
-    if (this.userDataService.getUser().uoId) {this.getMyBeneficiariesFunction();
-    } else {setTimeout(() => {this.getMyBeneficiariesFunction(); }, 1000); }
-
     setTimeout(() => { this.amountInput.nativeElement.focus(); }, 10);
   }
 
@@ -89,33 +59,6 @@ export class VirementsVersBanqueComponent implements OnInit, OnDestroy {
     this.alive = false;
   }
 
-
-  public getMyBeneficiariesFunction() {
-    console.log(this.userDataService.getUser().uoId);
-    this.getMyBeneficiariesService.getMyBeneficiaries(+this.userDataService.getUser().uoId)
-      .takeWhile( () => this.alive)
-      .subscribe((result) => {
-        console.log(result._body);
-
-        const response = this.commonServices.xmlResponseParcer_complex( result._body );
-        console.log(response);
-        this.beneficiaries = (response.beneficiaries) ? response.beneficiaries : [];
-
-        if (response.beneficiaries && response.beneficiaries.length) {
-          this.showNextBeneficiary(this.beneficiaries['0'].id);
-          this.activeSelect = this.beneficiaries['0'].id;
-        }
-
-        this.nomClient = (this.beneficiary.nom) ? (this.beneficiary.nom) : '';
-        this.nomClient += (this.beneficiary.prenom) ? (' ' + this.beneficiary.prenom) : '';
-        console.log(this.beneficiaries);
-      }, (err) => {
-        this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
-        if (!this.errorMessage) {
-          this.errorMessage = this.errorMessageHandlerService._getMessageEquivalent(err._body);
-        }
-      });
-  }
 
   public showNextBeneficiary(userChoice: string) {
     console.log(userChoice);
@@ -153,6 +96,14 @@ export class VirementsVersBanqueComponent implements OnInit, OnDestroy {
           }
         });
     } else {return false; }
+  }
+
+  public showErrorMessage(value: string) {
+    this.errorMessage = value;
+  }
+  public showBeneficiary(value: BeneficiaryClass) {
+    this.beneficiary = value;
+    console.log(this.beneficiary);
   }
 
   public clearAmount() {this.amountToReceiver = undefined; }

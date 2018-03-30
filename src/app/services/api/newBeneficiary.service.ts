@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {BackendService} from '../backend.service';
 import {UrlParams} from '../../models/URL_PARAMS';
-import {BeneficiaryClass} from '../../shared/components/services/virements-vers-banque/virements-vers-banque.component';
+import {BeneficiaryClass} from '../../models/beneficiary-class';
 
 @Injectable()
 export class NewBeneficiaryService {

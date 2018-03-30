@@ -13,8 +13,8 @@ import {AuthGuard} from '../../../guards/auth-guard.service';
 export class GeneralAuthorisationComponent implements OnInit {
   loggedin = false;
   show_slider = true;
-  // authorisation = new AuthorisationClass('wari', 'wari', 'APP');
-  authorisation = new AuthorisationClass('7722222222', 'passer', 'APP'); // CITIZEN
+  authorisation = new AuthorisationClass('wari', 'wari', 'APP');
+  // authorisation = new AuthorisationClass('7722222222', 'passer', 'APP'); // CITIZEN
   // authorisation = new AuthorisationClass('tresor', 'tresor', 'APP');        // CUSTOMER = CLIENT
 
   alive = true;

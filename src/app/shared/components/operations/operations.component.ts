@@ -7,8 +7,7 @@ import {ErrorMessageHandlerService} from '../../../services/error-message-handle
 import {ActivatedRoute} from '@angular/router';
 import {NewBeneficiaryService} from '../../../services/api/newBeneficiary.service';
 import {BanqueClass} from '../../../models/banque-class';
-import {BeneficiaryClass} from '../services/virements-vers-banque/virements-vers-banque.component';
-import * as moment from 'moment';
+import {BeneficiaryClass} from '../../../models/beneficiary-class';
 
 @Component({
   selector: 'app-operations',
@@ -17,6 +16,7 @@ import * as moment from 'moment';
   providers: [ListBanquesSicaService, NewBeneficiaryService]
 })
 export class OperationsComponent implements OnInit, OnDestroy {
+  addNewBenef_mode = false;
   userRole = '';
   profil = '';
   loading = false;
@@ -123,4 +123,16 @@ export class OperationsComponent implements OnInit, OnDestroy {
     } else {return false; }
   }
 
+  public showErrorMessage(value: string) {
+    this.errorMessage = value;
+  }
+  public showBeneficiary(value: BeneficiaryClass) {
+    this.beneficiary = value;
+    console.log(this.beneficiary);
+  }
+
+  public toggleAddNewBenef_mode() {
+    this.beneficiary = new BeneficiaryClass('', '', '', '', '', '', '');
+    this.addNewBenef_mode = !this.addNewBenef_mode;
+  }
 }

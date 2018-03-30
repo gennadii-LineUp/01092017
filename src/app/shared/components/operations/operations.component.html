@@ -1,88 +1,87 @@
 <main class="gray-bg-citizen coin-bg">
   <section class="transfers-to-bank">
     <h3 class="top-header">
-      <div class="back-button" [routerLink]="['/' +userRole+ '/services']">Back</div>
+      <div *ngIf="!addNewBenef_mode" class="back-button" [routerLink]="['/' +userRole+ '/services']">Back</div>
+      <div *ngIf=" addNewBenef_mode" class="back-button" (click)="toggleAddNewBenef_mode()">Back</div>
       Beneficiaires Sica
     </h3>
     <div class="container">
 
       <div class="row">
         <div class="col">
-          <div class="transfers-to-bank__header">
-            Veuillez ajoutez un nouveau bénéficiaire conformément aux données suivantes:
+          <div *ngIf="!addNewBenef_mode">
+            <div class="transfers-to-bank__header">
+              La liste des bénéficiaires existants:
+            </div>
+
+            <form>
+              <app-beneficiares (beneficiary)="showBeneficiary($event)"
+                                (errorMessage)="showErrorMessage($event)"></app-beneficiares>
+
+              <button class="orange-button blue-button" type="submit" style="margin-top: 4px"
+                      (click)="toggleAddNewBenef_mode()">Creer
+              </button>
+            </form>
           </div>
 
-          <form>
-            <div >
-              <!--class="col-sm-12 col-md-8 col-lg-6 ml-md-auto mr-md-auto wrapper"-->
-              <h4>Banque</h4>
-              <div *ngIf="banques && banques.length" class="floating-block border-hover" style="margin-bottom:0">
-                <!--<div class="floating-input" >-->
+          <div *ngIf="addNewBenef_mode">
+            <div class="transfers-to-bank__header">
+              Veuillez ajoutez un nouveau bénéficiaire conformément aux données suivantes:
+            </div>
+
+            <form>
+              <div>
+                <!--class="col-sm-12 col-md-8 col-lg-6 ml-md-auto mr-md-auto wrapper"-->
+                <h4>Banque</h4>
+                <div *ngIf="banques && banques.length" class="floating-block border-hover" style="margin-bottom:0">
+                  <!--<div class="floating-input" >-->
                   <select name="selectCompte" [(ngModel)]="activeBanque"  (change)="showBanque()" id="selectCompte">
                     <option *ngFor="let banque of banques" [value]="banque.code">
                       {{banque.libelle}}
                     </option>
                   </select>
-                <!--</div>-->
-              </div>
-                <!--<div class="floating-input">-->
-                  <!--<input type="text" name="Bank" id="Bank" readonly="true" [ngModel]="beneficiary.banque"/>-->
-                <!--</div>-->
-              <!--</div>-->
-
-              <h4>Clé RIB</h4>
-              <div class="floating-block border-hover">
-                <div class="floating-input">
-                  <input type="text" name="RIB" id="RIB" [(ngModel)]="beneficiary.rib"/>
                 </div>
-              </div>
 
-            <!--<div>-->
-              <h4>Compte</h4>
-              <div class="floating-block border-hover">
-                <div class="floating-input">
-                  <input type="text" name="Account" id="Account" [(ngModel)]="beneficiary.compte"/>
+                <h4>Clé RIB</h4>
+                <div class="floating-block border-hover">
+                  <div class="floating-input">
+                    <input type="text" name="RIB" id="RIB" [(ngModel)]="beneficiary.rib"/>
+                  </div>
                 </div>
-              </div>
 
-              <h4>Guichet</h4>
-              <div class="floating-block border-hover">
-                <div class="floating-input">
-                  <input type="text" name="Counter" id="Counter" [(ngModel)]="beneficiary.guichet"/>
+                <!--<div>-->
+                <h4>Compte</h4>
+                <div class="floating-block border-hover">
+                  <div class="floating-input">
+                    <input type="text" name="Account" id="Account" [(ngModel)]="beneficiary.compte"/>
+                  </div>
                 </div>
-              </div>
 
-              <h4>Nom Beneficiaire</h4>
-              <div class="floating-block border-hover">
-                <div class="floating-input">
-                  <input type="text" name="nom" id="nom" [(ngModel)]="beneficiary.nom"/>
+                <h4>Guichet</h4>
+                <div class="floating-block border-hover">
+                  <div class="floating-input">
+                    <input type="text" name="Counter" id="Counter" [(ngModel)]="beneficiary.guichet"/>
+                  </div>
                 </div>
+
+                <h4>Nom Beneficiaire</h4>
+                <div class="floating-block border-hover">
+                  <div class="floating-input">
+                    <input type="text" name="nom" id="nom" [(ngModel)]="beneficiary.nom"/>
+                  </div>
+                </div>
+
+                <div *ngIf="errorMessage" class="errorTextClass">{{errorMessage}}</div>
+                <p *ngIf="!errorMessage" style="margin: 0; text-align: center; height: 18px"><img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>
+
+                <button class="orange-button blue-button" type="submit" style="margin-top: 4px"
+                        [disabled]="!(activeBanque && beneficiary.rib && beneficiary.compte && beneficiary.guichet && beneficiary.nom)"
+                        (click)="submitCreerBeneficiaryFunction()">Creer
+                </button>
               </div>
-              <!--<select name="selectCompte" [(ngModel)]="activeSelect"  (change)="showNextBeneficiary(activeSelect)" id="selectCompte">-->
-                <!--<option *ngFor="let benef of beneficiaries" [value]="benef.id">-->
-                  <!--{{benef.nom}}-->
-                <!--</option>-->
-              <!--</select>-->
+            </form>
 
-              <!--&lt;!&ndash;<h4>Nom Beneficiaire</h4>&ndash;&gt;-->
-              <!--&lt;!&ndash;<div class="floating-block border-hover">&ndash;&gt;-->
-              <!--&lt;!&ndash;<div class="floating-input">&ndash;&gt;-->
-              <!--&lt;!&ndash;<input type="text" name="recipient" id="recipient" readonly="true" [ngModel]="nomClient"/>&ndash;&gt;-->
-              <!--&lt;!&ndash;</div>&ndash;&gt;-->
-              <!--&lt;!&ndash;</div>&ndash;&gt;-->
-            <!--</div>-->
-
-            <!--<div>-->
-
-              <div *ngIf="errorMessage" class="errorTextClass">{{errorMessage}}</div>
-              <p *ngIf="!errorMessage" style="margin: 0; text-align: center; height: 18px"><img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>
-
-              <button class="orange-button blue-button" type="submit" style="margin-top: 4px"
-                      [disabled]="!(activeBanque && beneficiary.rib && beneficiary.compte && beneficiary.guichet && beneficiary.nom)"
-                      (click)="submitCreerBeneficiaryFunction()">Creer
-              </button>
-            </div>
-          </form>
+          </div>
 
         </div>
       </div>

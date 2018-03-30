@@ -173,3 +173,22 @@
     }
   }
 }
+@media (max-width: 800px){
+  main {
+    padding: 89px 0 0;
+    h3.top-header{
+      padding: 26px 0 12px 0;
+    }
+    .transfers-to-bank .container{
+      margin-bottom: 0 !important;
+    }
+  }
+}
+@media (max-width: 576px){
+  main {
+    padding: 43px 0 0 !important;
+    .transfers-to-bank .container{
+      margin-bottom: 0 !important;
+    }
+  }
+}
