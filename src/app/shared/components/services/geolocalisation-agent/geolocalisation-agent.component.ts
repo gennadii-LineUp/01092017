@@ -79,7 +79,7 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
         if (+response.error === 0 && response.listAgents.length) {
           this.agentsMarkers = [];
           response.listAgents.forEach(item => {
-            this.agentsMarkers.push(new MarkerClass(item.lattitude, item.longitude,
+            this.agentsMarkers.push(new MarkerClass(+item.lattitude, +item.longitude,
                                             item.nom ? item.nom : '',
                                             item.prenom ? item.prenom : '',
                                             item.telephone ? item.telephone : '',
@@ -128,17 +128,17 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
   }
 
   public startGettingMyCoord() {
-    console.log('startGettingMyCoord');
-    try {
-      console.log(cordova);
-    } catch (e) {
-      console.log(e);
-    }
-    try {
-      console.log(navigator);
-    } catch (e) {
-      console.log(e);
-    }
+    console.log('startGettingMyCoord  touchend');
+    // try {
+    //   console.log(cordova);
+    // } catch (e) {
+    //   console.log(e);
+    // }
+    // try {
+    //   console.log(navigator);
+    // } catch (e) {
+    //   console.log(e);
+    // }
 
     navigator.geolocation.getCurrentPosition((position) => {
         // const element = document.getElementById('geolocation');
@@ -148,11 +148,31 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
 
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
+        console.log('touchend:  latitude', this.latitude, this.longitude);
           // this.coord = new CoordonneeClass((position.coords.latitude.length) ? +position.coords.latitude : 15.0458118,
           //                                 (position.coords.longitude.length) ? +position.coords.longitude : -16.858833);
 
         // console.log(this.coord);
       },
+      (error) => {
+        alert('Scanning failed: ' + error);
+        console.log(error);
+        this.showError(error);
+        this.coord.latitude = 15.0458118;
+        this.coord.longitude = -16.858833;
+      });
+  }
+
+  public _startGettingMyCoord() {
+    console.log('startGettingMyCoord  CLICK');
+
+    navigator.geolocation.getCurrentPosition((position) => {
+        console.log(position.coords);
+
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        console.log('position.coords.latitude', position.coords.latitude, position.coords.longitude);
+       },
       (error) => {
         alert('Scanning failed: ' + error);
         console.log(error);
