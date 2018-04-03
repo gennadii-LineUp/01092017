@@ -19,8 +19,8 @@ declare var cordova: any;
   providers: [GetCoordonneesAllAgentService]
 })
 export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
-  latitude = undefined; // 14.735009;
-  longitude = undefined; // -17.473339;
+  latitude = 14.735009;
+  longitude = -17.473339;
   myCoord = new CoordonneeClass(this.latitude, this.longitude);
   // coord: CoordonneeClass;
   userRole = '';
