@@ -25,19 +25,18 @@ export class GMapComponent implements OnInit, OnDestroy {
   draggable: true;
   zoom = 13;
   marker_myself = '../../../../../../assets/img/arrow.png';
-  marker_agent = '../../../../../../assets/img/A.png';
-  myself: MarkerClass;
+  marker_agent = '../../../../../../assets/img/paleblue_MarkerA.png';
+  marker_activeAgent = '../../../../../../assets/img/orange_MarkerA.png';
+  myself = new MarkerClass(undefined, undefined, '', '', '380686087517', this.marker_myself);
+  // activeAgent = new MarkerClass(undefined, undefined, '', '', '380686087517', this.marker_activeAgent);
   markers = this.userDataService.agentsMarkers;
   // markers = [new MarkerClass(14.739159, -17.461516, 'nom1', 'prenom1', 'AA', '../../../../../../assets/img/user.png'),
   //            new MarkerClass(14.733484, -17.465587, 'nom2', 'prenom2', 'BB', '../../../../../../assets/img/logo.png')
   // ];
   phone: string;
   alive = true;
-  @Input() set coordonnees (data: CoordonneeClass) {
-    this._coordonnees = new CoordonneeClass(data.latitude, data.longitude);
-    console.log(this._coordonnees);
-    this.setMyCoordonneesFromCellular(data);
-  }
+  @Input() myCoordonnees: CoordonneeClass;
+  @Input() activeAgent: MarkerClass;
   @Input() set agentsMarkers (data: Array<MarkerClass>) {
     // this.markers = [];
     this.markers = data;
@@ -108,7 +107,7 @@ export class GMapComponent implements OnInit, OnDestroy {
                                   this.userDataService.getMyAccounts()['0'].nom,
                                   this.userDataService.getMyAccounts()['0'].prenom,
                                   this.userDataService.getMyAccounts()['0'].telephone,
-                                  '../../../../../../assets/img/track-8.png');
+                                  this.marker_myself);
   }
 
   public getMyCoordonees(phone: string) {
@@ -119,13 +118,12 @@ export class GMapComponent implements OnInit, OnDestroy {
         const response = this.commonServices.xmlResponseParcer_simple( result._body );
         console.dir( response );
         if (+response.error === 0) {
-          this._lat = +response.lattitude;
-          this._lng = +response.longitude;
-          this.myself = new MarkerClass(this._lat, this._lng,
+          this.myself = new MarkerClass(+response.lattitude,
+                                        +response.longitude,
                                         this.userDataService.getMyAccounts()['0'].nom,
                                         this.userDataService.getMyAccounts()['0'].prenom,
                                         this.userDataService.getMyAccounts()['0'].telephone,
-                                        '../../../../../../assets/img/track-8.png');
+                                        this.marker_myself);
           console.log(this._lat + '  ' + this._lng);
         } else {
           this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);

@@ -1,17 +1,16 @@
 <div *ngIf="myself && myself.nom.length>0">
   <sebm-google-map [latitude]="_lat" [longitude]="_lng" [zoom]="zoom">
 
-    <sebm-google-map-marker [latitude]="_lat"
-                            [longitude]="_lng"
-                            [title]="'ME !'"
+    <sebm-google-map-marker [latitude]="myCoordonnees.latitude"
+                            [longitude]="myCoordonnees.longitude"
+                            [title]="myself.nom + ' ' + myself.prenom"
                             [iconUrl]="marker_myself"
                             [zoom]="zoom">
-
       <sebm-google-map-info-window>
         <a class="map_content" (click)="markerClicked(myself)">
           <img src="{{myself.iconUrl}}" alt="">
           <div>
-            <h3>{{myself.nom}}</h3>
+            <h3>{{myself.nom}} {{myself.prenom}}</h3>
             <p><i class="fa fa-phone" aria-hidden="true"></i>{{myself.telephone}}</p>
           </div>
         </a>
@@ -21,9 +20,8 @@
     <sebm-google-map-marker *ngFor="let m of markers"
                             [latitude]="m.latitude"
                             [longitude]="m.longitude"
-                            [title]="m.nom"
+                            [title]="m.nom + ' ' + m.prenom"
                             [iconUrl]="marker_agent">
-
       <sebm-google-map-info-window>
         <a class="map_content" (click)="markerClicked(m)">
           <img src="{{m.iconUrl}}" alt="">
@@ -34,5 +32,22 @@
         </a>
       </sebm-google-map-info-window>
     </sebm-google-map-marker>
+
+    <sebm-google-map-marker [latitude]="activeAgent.latitude"
+                            [longitude]="activeAgent.longitude"
+                            [title]="activeAgent.nom + ' ' + activeAgent.prenom"
+                            [iconUrl]="marker_activeAgent"
+                            [zoom]="zoom">
+      <sebm-google-map-info-window>
+        <a class="map_content" (click)="markerClicked(activeAgent)">
+          <img src="{{activeAgent.iconUrl}}" alt="">
+          <div>
+            <h3>{{activeAgent.nom}} {{activeAgent.prenom}}</h3>
+            <p><i class="fa fa-phone" aria-hidden="true"></i>{{activeAgent.telephone}}</p>
+          </div>
+        </a>
+      </sebm-google-map-info-window>
+    </sebm-google-map-marker>
+
   </sebm-google-map>
 </div>

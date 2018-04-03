@@ -21,12 +21,14 @@ declare var cordova: any;
 export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
   latitude = 14.735009;
   longitude = -17.473339;
-  coord = new CoordonneeClass(this.latitude, this.longitude);
+  myCoord = new CoordonneeClass(this.latitude, this.longitude);
   // coord: CoordonneeClass;
   userRole = '';
   alive = true;
+  geoloading = false;
   phone: string;
   status_agentsMarkers = false;
+  activeAgent = new MarkerClass(undefined, undefined, '', '', '380686087517', '');
   agentsMarkers: Array<MarkerClass>;
 
   constructor(public activatedRoute: ActivatedRoute,
@@ -127,7 +129,8 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
     console.log(this.agentsMarkers);
   }
 
-  public startGettingMyCoord() {
+  public startGettingMyCoordTouch() {
+    this.geoloading = true;
     console.log('startGettingMyCoord  touchend');
     // try {
     //   console.log(cordova);
@@ -146,40 +149,53 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
         //                     'Longitude: ' + position.coords.longitude + '<br />';
         console.log(position.coords);
 
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
+        this.latitude = +position.coords.latitude;
+        this.longitude = +position.coords.longitude;
         console.log('touchend:  latitude', this.latitude, this.longitude);
-          // this.coord = new CoordonneeClass((position.coords.latitude.length) ? +position.coords.latitude : 15.0458118,
-          //                                 (position.coords.longitude.length) ? +position.coords.longitude : -16.858833);
-
-        // console.log(this.coord);
+        this.myCoord.latitude = this.latitude;
+        this.myCoord.longitude = this.longitude;
+        // console.log(this.myCoord);
+        this.geoloading = false;
       },
       (error) => {
+        this.geoloading = false;
         alert('Scanning failed: ' + error);
         console.log(error);
         this.showError(error);
-        this.coord.latitude = 15.0458118;
-        this.coord.longitude = -16.858833;
+        this.myCoord.latitude = 15.0458118;
+        this.myCoord.longitude = -16.858833;
       });
   }
 
-  public _startGettingMyCoord() {
+  public startGettingMyCoordClick() {
+    this.geoloading = true;
     console.log('startGettingMyCoord  CLICK');
-
     navigator.geolocation.getCurrentPosition((position) => {
         console.log(position.coords);
 
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
+        this.latitude = +position.coords.latitude;
+        this.longitude = +position.coords.longitude;
         console.log('position.coords.latitude', position.coords.latitude, position.coords.longitude);
+        this.myCoord.latitude = this.latitude;
+        this.myCoord.longitude = this.longitude;
+        this.geoloading = false;
+        console.log(this.myCoord);
        },
       (error) => {
+        this.geoloading = false;
         alert('Scanning failed: ' + error);
         console.log(error);
         this.showError(error);
-        this.coord.latitude = 15.0458118;
-        this.coord.longitude = -16.858833;
+        this.myCoord.latitude = 15.0458118;
+        this.myCoord.longitude = -16.858833;
       });
+  }
+
+  gotoAgentLocation(agent: MarkerClass) {
+    this.activeAgent = agent;
+    console.log(this.activeAgent);
+    this.latitude = agent.latitude;
+    this.longitude = agent.longitude;
   }
 
   showError(error) {
