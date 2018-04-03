@@ -19,8 +19,8 @@ declare var cordova: any;
   providers: [GetCoordonneesAllAgentService]
 })
 export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
-  latitude = 14.735009;
-  longitude = -17.473339;
+  latitude = undefined; // 14.735009;
+  longitude = undefined; // -17.473339;
   myCoord = new CoordonneeClass(this.latitude, this.longitude);
   // coord: CoordonneeClass;
   userRole = '';
@@ -44,6 +44,7 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
         : localStorage.getItem('telephone');
       console.log(this.phone);
       // this.getMyCoordonees(this.phone + '');
+      this.startGettingMyCoordTouch();
     });
   }
 
@@ -60,6 +61,7 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
         ? (this.userDataService.getMyAccounts()['0'].telephone)
         : localStorage.getItem('telephone');
       console.log(this.phone);
+      this.startGettingMyCoordTouch();
       // this.getMyCoordonees(this.phone + '');
     } else {
       console.log('=== MyAccounts\' is empty ===');
@@ -191,11 +193,20 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
       });
   }
 
-  gotoAgentLocation(agent: MarkerClass) {
+  gotoAgentLocation(agent: MarkerClass, $event: any) {
     this.activeAgent = agent;
     console.log(this.activeAgent);
     this.latitude = agent.latitude;
     this.longitude = agent.longitude;
+
+    const els = window.document.getElementsByClassName('search__user active');
+    console.log(els);
+    if (els && els.length) {
+      for (let i = 0; i < els.length; i++) {
+        (<HTMLDivElement>els[i]).classList.remove('activeAgentClass');
+      }
+    }
+    (<HTMLDivElement>$event.target).classList.toggle('activeAgentClass');
   }
 
   showError(error) {

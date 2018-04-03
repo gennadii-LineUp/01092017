@@ -40,6 +40,12 @@
     }
   }
 }
+.activeAgentClass {
+  background-color: $orange !important;
+  .tel{
+    color: $mainText !important;
+  }
+}
 @media (max-width: 800px){
   main {
     padding: 43px 0 76px !important;

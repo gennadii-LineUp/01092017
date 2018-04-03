@@ -29,26 +29,41 @@ export class GMapComponent implements OnInit, OnDestroy {
   marker_activeAgent = '../../../../../../assets/img/orange_MarkerA.png';
   myself = new MarkerClass(undefined, undefined, '', '', '380686087517', this.marker_myself);
   // activeAgent = new MarkerClass(undefined, undefined, '', '', '380686087517', this.marker_activeAgent);
-  markers = this.userDataService.agentsMarkers;
+  _markers = this.userDataService.agentsMarkers;
+  markers = this._markers;
   // markers = [new MarkerClass(14.739159, -17.461516, 'nom1', 'prenom1', 'AA', '../../../../../../assets/img/user.png'),
   //            new MarkerClass(14.733484, -17.465587, 'nom2', 'prenom2', 'BB', '../../../../../../assets/img/logo.png')
   // ];
   phone: string;
   alive = true;
+  _activeAgent: MarkerClass;
   @Input() myCoordonnees: CoordonneeClass;
-  @Input() activeAgent: MarkerClass;
+  @Input() set activeAgent (data: MarkerClass) {
+    this._activeAgent = data;
+    console.log(this._activeAgent);
+    // const markers = this._markers;
+    // markers.forEach((marker, i) => {
+    //   if (marker.longitude === data.longitude
+    //       && marker.latitude === data.latitude) {
+    //     console.log('---------- ', i);
+    //     markers.splice(i, 1);
+    //   }
+    // });
+    // this.markers = markers;
+  };
+  get activeAgent (): MarkerClass {
+    return this._activeAgent;
+  }
   @Input() set agentsMarkers (data: Array<MarkerClass>) {
     // this.markers = [];
     this.markers = data;
     console.log(this.markers);
   }
   @Input() set lat(data: string) {
-    // this._lat = (data && data.length > 0) ? +data : this.__lat;
     this._lat = +data;
     console.log('new lat');
   };
   @Input() set lng(data: string) {
-    // this._lng = (data && data.length > 0) ? +data : this.__lng;
     this._lng = +data;
     console.log('new lng');
     this._coordonnees = new CoordonneeClass(this._lat, this._lng);

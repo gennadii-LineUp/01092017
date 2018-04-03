@@ -10,9 +10,7 @@
 
       <div class="row">
         <div *ngIf="status_agentsMarkers" class="col-sm-12 col-md-12 col-lg-10">
-          <!--<img src="../../../../../assets/img/map.png" class="map-img" alt="">-->
 
-          <!--[agentsMarkers]="agentsMarkers"-->
           <app-g-map [myCoordonnees]="myCoord"
                      [lat]="latitude"
                      [lng]="longitude"
@@ -20,24 +18,17 @@
                      [activeAgent]="activeAgent"
                      (onAgentsMarkersAdded)="setAgentsMarkersFunction($event)"></app-g-map>
 
-          <!--<hr>-->
-
-          <!--<div id="map_canvas"></div>-->
-          <!--<button id="map_button" class="orange-button blue-button"-->
-                  <!--(click)="loadMap()"-->
-                  <!--(touchend)="loadMap()">map_button</button>-->
-
         </div>
         <div *ngIf="agentsMarkers && agentsMarkers.length" class="col-sm-12 col-md-12 col-lg-2">
 
           <div>
-            <button id="startScan" class="orange-button blue-button" (click)="startGettingMyCoordClick()"
+            <button id="startScan" class="orange-button blue-button" (click)="startGettingMyCoordTouch()"
                     (touchend)="startGettingMyCoordTouch()">My Coordonees</button>
             <!--(click)="_startGettingMyCoord()"-->
             <div id="geolocation" style="color: red"></div>
           </div>
 
-          <div *ngFor="let agent of agentsMarkers" class="search__user active" (click)="gotoAgentLocation(agent)">
+          <div *ngFor="let agent of agentsMarkers" class="search__user active" (click)="gotoAgentLocation(agent, $event)">
           <!--<div class="search__user active">-->
             <div>
               <span class="logo" style="background-image: url('../../../../../assets/img/user.png')"></span>
