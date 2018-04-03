@@ -23,7 +23,8 @@
 
           <div>
             <button id="startScan" class="orange-button blue-button"
-                    (touchend)="startGettingMyCoordTouch()">My Coordonees</button>
+                    (touchend)="startGettingMyCoordTouch()"
+                    (click)="startGettingMyCoordTouch()">My Coordonees</button>
             <!--(click)="_startGettingMyCoord()"-->
             <div id="geolocation" style="color: red"></div>
           </div>
