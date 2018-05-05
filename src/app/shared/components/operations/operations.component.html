@@ -14,14 +14,14 @@
               La liste des bénéficiaires existants:
             </div>
 
-            <form>
-              <app-beneficiares (beneficiary)="showBeneficiary($event)"
-                                (errorMessage)="showErrorMessage($event)"></app-beneficiares>
+              <form>
+                <app-beneficiares (beneficiary)="showBeneficiary($event)"
+                                  (errorMessage)="showErrorMessage($event)"></app-beneficiares>
 
-              <button class="orange-button blue-button" type="button" style="margin-top: 4px"
-                      (click)="toggleAddNewBenef_mode()">Creer
-              </button>
-            </form>
+                <button class="orange-button blue-button" type="button" style="margin-top: 4px"
+                        (click)="toggleAddNewBenef_mode()">Creer
+                </button>
+              </form>
           </div>
 
           <div *ngIf="addNewBenef_mode">

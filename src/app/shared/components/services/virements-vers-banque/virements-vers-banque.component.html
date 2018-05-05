@@ -16,7 +16,7 @@
             <app-beneficiares (beneficiary)="showBeneficiary($event)"
                               (errorMessage)="showErrorMessage($event)"></app-beneficiares>
 
-            <div>
+            <!--<div class="transfers-to-bank">-->
               <h4>Montant du virement</h4>
               <div class="floating-block border-hover">
                 <div class="floating-input">
@@ -32,7 +32,7 @@
                   <div class="clean-input" (click)="clearAmount()"></div>
                 </div>
               </div>
-            </div>
+            <!--</div>-->
 
             <button class="blue-button orange-button" type="submit"
                     [disabled]="!(+amountToReceiver >= 0.01)"

@@ -1126,6 +1126,11 @@ input[type=checkbox]:checked + label:after {
     }
   }
 }
+@media (min-width: 993px) {
+  .transfers-to-bank form {
+    display: block;
+  }
+}
 
 @media (max-width: 992px) {
   .transfers-to-bank {

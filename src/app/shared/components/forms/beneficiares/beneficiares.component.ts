@@ -43,7 +43,7 @@ export class BeneficiaresComponent implements OnInit, OnDestroy {
     this.getMyBeneficiariesService.getMyBeneficiaries(+this.userDataService.getUser().uoId)
       .takeWhile( () => this.alive)
       .subscribe((result) => {
-        console.log(result._body);
+        // console.log(result._body);
 
         const response = this.commonServices.xmlResponseParcer_complex( result._body );
         console.log(response);
