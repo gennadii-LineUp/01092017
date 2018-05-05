@@ -17,7 +17,8 @@
                   <div class="block__header">Choose your account</div>
                   <div *ngFor="let myAccount of userDataService.getMyAccounts()" class="consult-user"
                        (click)="fillReceiverInfoFunction(myAccount, $event); $event.stopPropagation()">
-                    <div class="logo" style="background-image: url('../../../../assets/img/user.png')"></div>
+                    <!--<div class="logo" style="background-image: url('../../../../assets/img/user.png')"></div>-->
+                    <div class="logo" style="background-image: url('/../../../../assets/img/user.png')"></div>
                     <div>
                       <div>{{myAccount.nom}} {{myAccount.prenom}}, {{myAccount.login}}</div>
                       <div *ngIf="myAccount.email!==''" style="display: inline-block">Email: <span>{{myAccount.email}}.</span></div>
@@ -36,12 +37,12 @@
                 <div style="text-align: center">
                   <h3 style="padding: 8px 0 8px 0">My QR Code:</h3>
                   <p>
-                    <qr-code [value]="'' + idAccountEnvoyeur" [size]="150"></qr-code>
+                    <qr-code [value]="'' + receiver_idAccount + ';' + receiver_nomPrenom" [size]="150"></qr-code>
                   </p>
                 </div>
 
                 <div class="compte__amount only-desktop">
-                  <h4>Mes données sont: id = {{idAccountEnvoyeur}}, {{myAccount.nom}} {{myAccount.prenom}}.</h4>
+                  <h4>Mes données sont: id = {{receiver_idAccount}}, {{myAccount.nom}} {{myAccount.prenom}}.</h4>
                 </div>
 
                 <div class="compte__amount only-desktop" style="display: none">
@@ -49,7 +50,7 @@
                   <div class="floating-block border-hover">
                     <div class="floating-input" style="margin-bottom: 0">
                       <input id="beneficiaryFromQR" name="beneficiaryFromQR" required type="text"
-                             [(ngModel)]="idAccountBeneficiaryFromQR" min="0"
+                             [(ngModel)]="beneficiaryFromQR_idAccount" min="0"
                              (keyup.enter)='submitTransferCompteFunction()'
                              onkeydown="return ( event.ctrlKey || event.altKey
                                                                     || (47<event.keyCode && event.keyCode<58 && event.shiftKey==false)
@@ -94,21 +95,23 @@
                 </p>
 
                 <button class="orange-button blue-button only-mobile" type="submit" style="margin-top: 4px"
-                        [disabled]="!(idAccountBeneficiaryFromQR && (+amountToReceiver >= 0.01))"
+                        [disabled]="!(beneficiaryFromQR_idAccount && (+amountToReceiver >= 0.01))"
                         (click)="goto_confirmation_mode()">Send
                 </button>
-                <!--[disabled]="!(idAccountBeneficiaryFromQR && (+amountToReceiver >= 0.01))"-->
+                <!--[disabled]="!(beneficiaryFromQR_idAccount && (+amountToReceiver >= 0.01))"-->
               </div>
             </div>
 
             <div *ngIf="confirmation_mode">
               <div class="container">
                 <div class="compte__amount">
-                  <h4>Voulez vous vraiment envoyer {{amountToReceiver}} {{currencyParams.curXOF()}}  to *{{idAccountBeneficiaryFromQR}}*?</h4>
+                  <h4>Voulez vous vraiment envoyer <span style="color: tomato">{{amountToReceiver}}</span> {{currencyParams.curXOF()}}
+                    to {{beneficiaryFromQR_nomPrenom}}?
+                  </h4>
                 </div>
                 <div style="margin-top: 26px; text-align: center">
                   <button class="orange-button blue-button only-mobile" type="submit" style="margin-top: 4px"
-                          [disabled]="!(idAccountBeneficiaryFromQR && (+amountToReceiver >= 0.01))"
+                          [disabled]="!(beneficiaryFromQR_idAccount && (+amountToReceiver >= 0.01))"
                           (click)="submitTransferCompteFunction()">Send
                   </button>
                 </div>

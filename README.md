@@ -44,7 +44,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
     
 3. in folder cash-transfer\cordova-android\www  replace image links:
     from ../../../../../assets/img/ => ... /assets/img/
-    by assets/img/
+    BY assets/img/
     
 
 4. from the folder "cordova-android":      cordova run android

@@ -7,6 +7,7 @@ import {CurrencyParams} from '../../../models/currency_params';
 import {ActivatedRoute} from '@angular/router';
 import {W2WVirementAccountService} from '../../../services/api/W2WVirementAccount.service';
 import {GetCommissionsTTCService} from '../../../services/api/getCommissionsTTC.service';
+import {ReceiverClass} from '../../../models/receiver-class';
 
 // declare var device;
 // declare let navigator: any;
@@ -31,8 +32,10 @@ export class ParametersComponent implements OnInit, OnDestroy {
   showQRCode_mode = false;
   confirmation_mode = false;
   amountToReceiver: number;
-  idAccountEnvoyeur = 380686087517;
-  idAccountBeneficiaryFromQR = undefined;
+  receiver_idAccount = 380686087517;
+  receiver_nomPrenom = '';
+  beneficiaryFromQR_idAccount = undefined;
+  beneficiaryFromQR_nomPrenom = '';
   commission = [];
   temp_str = '';
   alive = true;
@@ -46,8 +49,8 @@ export class ParametersComponent implements OnInit, OnDestroy {
               public getCommissionsTTCService: GetCommissionsTTCService,
               public cd: ChangeDetectorRef) {
     userDataService.myAccounts$.subscribe((myAccounts) => {
-      console.log(myAccounts);
-      // this.idAccountEnvoyeur = +this.userDataService.getMyAccounts()['0'].id_account;
+      // console.log(myAccounts);
+      // this.receiver_idAccount = +this.userDataService.getMyAccounts()['0'].id_account;
     });
   }
 
@@ -58,7 +61,7 @@ export class ParametersComponent implements OnInit, OnDestroy {
 
     this.goto_choseAccount_mode();
     if ((this.userDataService.getMyAccounts()).length) {
-      // this.idAccountEnvoyeur = +this.userDataService.getMyAccounts()['0'].id_account;
+      // this.receiver_idAccount = +this.userDataService.getMyAccounts()['0'].id_account;
     } else {
       this.userDataService.setMyAccounts();
     }
@@ -91,16 +94,24 @@ export class ParametersComponent implements OnInit, OnDestroy {
   }
 
   showQRdata(data: string) {
-    this.idAccountBeneficiaryFromQR = +data;
-    console.log('from QR: ', this.idAccountBeneficiaryFromQR);
+    const qr_data = data.split(';');
+    console.log(qr_data);
+    let nom = (qr_data[1] && qr_data[1].length) ? qr_data[1] : ' ';
+    let prenom = (qr_data[2] && qr_data[2].length) ? qr_data[2] : ' ';
+    this.beneficiaryFromQR_idAccount = +qr_data[0];
+
+    // console.log('from QR - beneficiaryFromQR_idAccount: ', this.beneficiaryFromQR_idAccount);
+    this.beneficiaryFromQR_nomPrenom = '' + nom + ' ' + prenom;
     this.cd.detectChanges();
   }
 
-  public fillReceiverInfoFunction(myAccount: any, e: any) {
+  public fillReceiverInfoFunction(myAccount: ReceiverClass, e: any) {
     // this.showReceiverInfo = false;
     // this.clearSearch();
     this.myAccount = myAccount;
-    this.idAccountEnvoyeur = +myAccount.id_account;
+    this.receiver_idAccount = +myAccount.id_account;
+    this.receiver_nomPrenom = myAccount.nom + ';' + myAccount.prenom;
+    // console.log(this.receiver_nomPrenom);
     console.log(myAccount);
     const allItems: NodeListOf<Element> = window.document.querySelectorAll('div.consult-user');
     for (let i = 0; i < allItems.length; i++) {
@@ -113,7 +124,7 @@ export class ParametersComponent implements OnInit, OnDestroy {
   }
 
   public submitTransferCompteFunction() {
-    if (this.idAccountBeneficiaryFromQR && (+this.amountToReceiver >= 0.01)) {
+    if (this.beneficiaryFromQR_idAccount && (+this.amountToReceiver >= 0.01)) {
         // this.successMessage_1 = '';
         // this.successMessage_2 = '';
         this.errorMessage = '';
@@ -143,8 +154,8 @@ export class ParametersComponent implements OnInit, OnDestroy {
                     this.w2WVirementAccountService
                         .transferCompteStandart(this.amountToReceiver,
                                                 response.commission,
-                                                this.idAccountEnvoyeur,
-                                                this.idAccountBeneficiaryFromQR)
+                                                this.receiver_idAccount,
+                                                this.beneficiaryFromQR_idAccount)
                       .takeWhile(() => this.alive)
                       .subscribe(result2 => {
                         this.loading = false;
@@ -154,7 +165,7 @@ export class ParametersComponent implements OnInit, OnDestroy {
                         if (+_response.error === 0) {
                           this.errorMessage = '';
                           this.successMessage_1 = response.message + ': ' + response.commission;
-                          this.successMessage_2 = _response.message;
+                          this.successMessage_2 = _response.message + '. ' + this.beneficiaryFromQR_nomPrenom + ' est le bénéficiaire.';
                         } else {
                           this.errorMessage += '  ' + this.errorMessageHandlerService.getMessageEquivalent(_response.message);
                         }
@@ -203,8 +214,9 @@ export class ParametersComponent implements OnInit, OnDestroy {
 
   public goto_choseAccount_mode() {
     this.amountToReceiver = undefined;
-    this.idAccountEnvoyeur = undefined;
-    this.idAccountBeneficiaryFromQR = undefined;
+    this.receiver_idAccount = undefined;
+    this.beneficiaryFromQR_idAccount = undefined;
+    this.beneficiaryFromQR_nomPrenom = undefined;
     this.choseAccount_mode = true;
     this.showQRCode_mode = false;
     this.confirmation_mode = false;
@@ -221,5 +233,8 @@ export class ParametersComponent implements OnInit, OnDestroy {
   }
 
   public clearAmount() {this.amountToReceiver = undefined; }
-  public clearBeneficiaryFromQR() {this.idAccountBeneficiaryFromQR = undefined; }
+  public clearBeneficiaryFromQR() {
+    this.beneficiaryFromQR_idAccount = undefined;
+    this.beneficiaryFromQR_nomPrenom = undefined;
+  }
 }

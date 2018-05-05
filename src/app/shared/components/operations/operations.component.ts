@@ -113,6 +113,7 @@ export class OperationsComponent implements OnInit, OnDestroy {
 
           this.successMessage_1 = '  ';
           this.successMessage_2 = 'Creation succès!';
+          // this.toggleAddNewBenef_mode();
         }, (err) => {
           this.loading = false;
           this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
