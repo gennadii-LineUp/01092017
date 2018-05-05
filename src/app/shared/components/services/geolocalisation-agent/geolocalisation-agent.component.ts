@@ -10,6 +10,21 @@ import {ErrorMessageHandlerService} from '../../../../services/error-message-han
 declare var navigator: any;
 declare var cordova: any;
 
+export class AgentTempClass {
+  tel: string;
+  lat: number;
+  lon: number;
+
+  constructor( tel: string,
+               lat: number,
+               lon: number) {
+
+    this.tel = tel;
+    this.lat = lat;
+    this.lon = lon;
+  }
+}
+
 @Component({
   selector: 'app-services-geolocalisation-agent',
   templateUrl: './geolocalisation-agent.component.html',
@@ -27,6 +42,7 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
   status_agentsMarkers = false;
   activeAgent = new MarkerClass(undefined, undefined, '', '', '380686087517', '');
   agentsMarkers_nearest: Array<MarkerClass>;
+  // myPosition = new AgentTempClass('tele', this.Deg2Rad(this.latitude), this.Deg2Rad(this.longitude));
   agentsMarkers_numberOfNearest = 5;
 
   constructor(public activatedRoute: ActivatedRoute,
@@ -90,6 +106,8 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
           console.log(this.agentsMarkers_nearest);
           this.userDataService.agentsMarkers_nearest = this.agentsMarkers_nearest;
           this.status_agentsMarkers = true;
+
+          this.createAgentsTemp(this.agentsMarkers_nearest);
         } else {
           // this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
         }
@@ -99,6 +117,77 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
         // if (err._body.type) {this.errorMessage += '  ' + this.errorMessageHandlerService.getMessageEquivalent(err._body.type); }
       });
   }
+
+  test() {
+    this.createAgentsTemp(this.agentsMarkers_nearest);
+  }
+
+  // =====================================================
+// Convert Degress to Radians
+  public Deg2Rad(deg: number): number {
+    return deg * Math.PI / 180;
+  }
+
+  createAgentsTemp(arr: Array<MarkerClass>) {
+    let agentsTemp = Array<AgentTempClass>(0);
+    arr.forEach((marker) => {
+      agentsTemp.push(new AgentTempClass(marker.telephone,
+        this.Deg2Rad(marker.latitude),
+        this.Deg2Rad(marker.longitude)));
+    });
+    console.log(agentsTemp);
+    if (agentsTemp && agentsTemp.length) {
+      this.UserLocation(agentsTemp);
+    }
+  }
+
+  // Callback function for asynchronous call to HTML5 geolocation
+  public UserLocation(agentsTemp: Array<AgentTempClass>) {
+    const myPosition = new AgentTempClass('tele', this.Deg2Rad(this.latitude), this.Deg2Rad(this.longitude));
+    this.NearestCity(myPosition.lat, myPosition.lon, agentsTemp);
+  }
+
+  // var lat = 20; // user's latitude
+  // var lon = 40; // user's longitude
+  //
+  // var cities = [
+  //   ["city1", 10, 50, "blah"],
+  //   ["city2", 40, 60, "blah"],
+  //   ["city3", 25, 10, "blah"],
+  //   ["city4", 5, 80, "blah"]
+  // ];
+
+  public NearestCity(latitude: number, longitude: number, agents: Array<AgentTempClass>) {
+    let mindif = 99999;
+    let closest;
+    console.log('        NearestCity           ');
+    for (let index = 0; index < agents.length; ++index) {
+      let dif = this.PythagorasEquirectangular(latitude, longitude, agents[index].lat, agents[index].lon);
+      console.log(dif);
+
+      if (dif < mindif) {
+        closest = index;
+        mindif = dif;
+      }
+    }
+
+    // echo the nearest cit
+    console.log(agents[closest]);
+    alert(agents[closest].tel);
+  }
+
+  PythagorasEquirectangular(_lat1: number, _lon1: number, _lat2: number, _lon2: number): number {
+    let lat1 = this.Deg2Rad(_lat1);
+    let lat2 = this.Deg2Rad(_lat2);
+    let lon1 = this.Deg2Rad(_lon1);
+    let lon2 = this.Deg2Rad(_lon2);
+    const R = 6371; // km
+    let x = (lon2 - lon1) * Math.cos((lat1 + lat2) / 2);
+    let y = (lat2 - lat1);
+    let d = Math.sqrt(x * x + y * y) * R;
+    return d;
+  }
+  // =====================================================
 
   public loadMap() {
     console.log('loadMap');
