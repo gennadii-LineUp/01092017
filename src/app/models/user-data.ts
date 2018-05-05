@@ -20,7 +20,8 @@ export class UserDataService {
   clients = [];
   citizensClients = [];
   receivers = [];
-  _agentsMarkers = Array<MarkerClass>(0);
+  _agentsMarkers_nearest = Array<MarkerClass>(0);
+  _agentsMarkers_rest = Array<MarkerClass>(0);
   receiversForSelect2 = Array<Select2optionClass>(0);
   contractsForSelect2 = Array<Select2optionClass>(0);
   allContracts = [];
@@ -94,14 +95,24 @@ export class UserDataService {
     return this.myAccounts;
   }
 
-  set agentsMarkers(value: Array<MarkerClass>) {
-    this._agentsMarkers = value;
+  set agentsMarkers_nearest(value: Array<MarkerClass>) {
+    this._agentsMarkers_nearest = value;
     console.log('setted');
   }
 
-  get agentsMarkers(): Array<MarkerClass> {
+  get agentsMarkers_nearest(): Array<MarkerClass> {
     console.log('Getted');
-    return this._agentsMarkers;
+    return this._agentsMarkers_nearest;
+  }
+
+  set agentsMarkers_rest(value: Array<MarkerClass>) {
+    this._agentsMarkers_rest = value;
+    console.log('setted');
+  }
+
+  get agentsMarkers_rest(): Array<MarkerClass> {
+    console.log('Getted');
+    return this._agentsMarkers_rest;
   }
 
   public setAllContracts() {

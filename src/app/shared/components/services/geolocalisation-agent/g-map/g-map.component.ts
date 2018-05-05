@@ -29,7 +29,7 @@ export class GMapComponent implements OnInit, OnDestroy {
   marker_activeAgent = '../../../../../../assets/img/orange_MarkerA.png';
   myself = new MarkerClass(undefined, undefined, '', '', '380686087517', this.marker_myself);
   // activeAgent = new MarkerClass(undefined, undefined, '', '', '380686087517', this.marker_activeAgent);
-  _markers = this.userDataService.agentsMarkers;
+  _markers = this.userDataService.agentsMarkers_nearest;
   markers = this._markers;
   // markers = [new MarkerClass(14.739159, -17.461516, 'nom1', 'prenom1', 'AA', '../../../../../../assets/img/user.png'),
   //            new MarkerClass(14.733484, -17.465587, 'nom2', 'prenom2', 'BB', '../../../../../../assets/img/logo.png')

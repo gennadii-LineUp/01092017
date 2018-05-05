@@ -19,7 +19,7 @@
                      (onAgentsMarkersAdded)="setAgentsMarkersFunction($event)"></app-g-map>
 
         </div>
-        <div *ngIf="agentsMarkers && agentsMarkers.length" class="col-sm-12 col-md-12 col-lg-2">
+        <div *ngIf="agentsMarkers_nearest && agentsMarkers_nearest.length" class="col-sm-12 col-md-12 col-lg-2">
 
           <div>
             <button id="startScan" class="orange-button blue-button"
@@ -29,7 +29,7 @@
             <div id="geolocation" style="color: red"></div>
           </div>
 
-          <div *ngFor="let agent of agentsMarkers" class="search__user active" (click)="gotoAgentLocation(agent, $event)">
+          <div *ngFor="let agent of agentsMarkers_nearest" class="search__user active" (click)="gotoAgentLocation(agent, $event)">
           <!--<div class="search__user active">-->
             <div>
               <span class="logo" style="background-image: url('../../../../../assets/img/user.png')"></span>

@@ -1,8 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {MarkerClass} from '../../../../models/marker-class';
-import {SetCoordonneesByCellularService} from '../../../../services/api/setCoordonneesByCellular.service';
-import {strictEqual} from 'assert';
 import {CoordonneeClass} from '../../../../models/coordonnee-class';
 import {UserDataService} from '../../../../models/user-data';
 import {GetCoordonneesAllAgentService} from '../../../../services/api/getCoordonneesAllAgent.service';
@@ -22,14 +20,14 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
   latitude = 14.735009;
   longitude = -17.473339;
   myCoord = new CoordonneeClass(this.latitude, this.longitude);
-  // coord: CoordonneeClass;
   userRole = '';
   alive = true;
   geoloading = false;
   phone: string;
   status_agentsMarkers = false;
   activeAgent = new MarkerClass(undefined, undefined, '', '', '380686087517', '');
-  agentsMarkers: Array<MarkerClass>;
+  agentsMarkers_nearest: Array<MarkerClass>;
+  agentsMarkers_numberOfNearest = 5;
 
   constructor(public activatedRoute: ActivatedRoute,
               public userDataService: UserDataService,
@@ -43,7 +41,6 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
         ? (this.userDataService.getMyAccounts()['0'].telephone)
         : localStorage.getItem('telephone');
       console.log(this.phone);
-      // this.getMyCoordonees(this.phone + '');
       this.startGettingMyCoordTouch();
     });
   }
@@ -81,16 +78,17 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
         const response = this.commonServices.xmlResponseParcer___complex( result._body );
         console.dir( response );
         if (+response.error === 0 && response.listAgents.length) {
-          this.agentsMarkers = [];
+          this.agentsMarkers_nearest = [];
+          let agentsMarkers_rest = [];
           response.listAgents.forEach(item => {
-            this.agentsMarkers.push(new MarkerClass(+item.lattitude, +item.longitude,
+            this.agentsMarkers_nearest.push(new MarkerClass(+item.lattitude, +item.longitude,
                                             item.nom ? item.nom : '',
                                             item.prenom ? item.prenom : '',
                                             item.telephone ? item.telephone : '',
                                             ''));
           });
-          console.log(this.agentsMarkers);
-          this.userDataService.agentsMarkers = this.agentsMarkers;
+          console.log(this.agentsMarkers_nearest);
+          this.userDataService.agentsMarkers_nearest = this.agentsMarkers_nearest;
           this.status_agentsMarkers = true;
         } else {
           // this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
@@ -127,8 +125,8 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
   }
 
   public setAgentsMarkersFunction(markers: Array<MarkerClass>) {
-    this.agentsMarkers = markers;
-    console.log(this.agentsMarkers);
+    this.agentsMarkers_nearest = markers;
+    console.log(this.agentsMarkers_nearest);
   }
 
   public startGettingMyCoordTouch() {
