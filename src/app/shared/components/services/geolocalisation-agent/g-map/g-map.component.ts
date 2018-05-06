@@ -17,8 +17,6 @@ import {CoordonneeClass} from '../../../../../models/coordonnee-class';
 export class GMapComponent implements OnInit, OnDestroy {
   successMessage = '';
   errorMessage = '';
-  __lat = 14.735009;
-  __lng = -17.473339;
   _lat: number;
   _lng: number;
   _coordonnees: CoordonneeClass;
@@ -28,44 +26,26 @@ export class GMapComponent implements OnInit, OnDestroy {
   marker_agent = '../../../../../../assets/img/paleblue_MarkerA.png';
   marker_activeAgent = '../../../../../../assets/img/orange_MarkerA.png';
   myself = new MarkerClass(undefined, undefined, '', '', '380686087517', this.marker_myself);
-  // activeAgent = new MarkerClass(undefined, undefined, '', '', '380686087517', this.marker_activeAgent);
   _markers = this.userDataService.agentsMarkers_nearest;
   markers = this._markers;
-  // markers = [new MarkerClass(14.739159, -17.461516, 'nom1', 'prenom1', 'AA', '../../../../../../assets/img/user.png'),
-  //            new MarkerClass(14.733484, -17.465587, 'nom2', 'prenom2', 'BB', '../../../../../../assets/img/logo.png')
-  // ];
   phone: string;
   alive = true;
   _activeAgent: MarkerClass;
   @Input() myCoordonnees: CoordonneeClass;
   @Input() set activeAgent (data: MarkerClass) {
     this._activeAgent = data;
-    console.log(this._activeAgent);
-    // const markers = this._markers;
-    // markers.forEach((marker, i) => {
-    //   if (marker.longitude === data.longitude
-    //       && marker.latitude === data.latitude) {
-    //     console.log('---------- ', i);
-    //     markers.splice(i, 1);
-    //   }
-    // });
-    // this.markers = markers;
   };
   get activeAgent (): MarkerClass {
     return this._activeAgent;
   }
   @Input() set agentsMarkers (data: Array<MarkerClass>) {
-    // this.markers = [];
     this.markers = data;
-    console.log(this.markers);
   }
   @Input() set lat(data: string) {
     this._lat = +data;
-    console.log('new lat');
   };
   @Input() set lng(data: string) {
     this._lng = +data;
-    console.log('new lng');
     this._coordonnees = new CoordonneeClass(this._lat, this._lng);
     setTimeout(this.setMyCoordonneesFromCellular(this._coordonnees), 100);
   };
@@ -115,8 +95,6 @@ export class GMapComponent implements OnInit, OnDestroy {
 
   setDefaultCoord() {
     console.log('setDefaultCoord');
-    this._lat = this.__lat;
-    this._lng = this.__lng;
     this.myself = new MarkerClass(this._lat,
                                   this._lng,
                                   this.userDataService.getMyAccounts()['0'].nom,
@@ -186,10 +164,8 @@ export class GMapComponent implements OnInit, OnDestroy {
     this.setCoordonneesByCellularService.setCoordonneesByCellular(+this.phone, data.latitude, data.longitude)
       .takeWhile(() => this.alive)
       .subscribe(result => {
-        // this.loading = false;
-        console.log(result);
-        // const response = this.commonServices.xmlResponseParcer_complex( result._body );
-        // console.dir( response );
+        const response = this.commonServices.xmlResponseParcer_complex( result._body );
+        console.dir( response.message );
       }, (err) => {
         // this.loading = false;
         console.log(err);

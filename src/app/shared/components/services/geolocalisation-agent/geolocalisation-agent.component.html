@@ -14,7 +14,6 @@
           <app-g-map [myCoordonnees]="myCoord"
                      [lat]="latitude"
                      [lng]="longitude"
-
                      [activeAgent]="activeAgent"
                      (onAgentsMarkersAdded)="setAgentsMarkersFunction($event)"></app-g-map>
 
@@ -25,24 +24,25 @@
             <button id="startScan" class="orange-button blue-button"
                     (touchend)="startGettingMyCoordTouch()"
                     (click)="startGettingMyCoordTouch()">My Coordonees</button>
-            <!--(click)="_startGettingMyCoord()"-->
             <div id="geolocation" style="color: red"></div>
           </div>
 
-          <div *ngFor="let agent of agentsMarkers_nearest" class="search__user active" (click)="gotoAgentLocation(agent, $event)">
-          <!--<div class="search__user active">-->
-            <div>
-              <span class="logo" style="background-image: url('../../../../../assets/img/user.png')"></span>
+          <ng-container *ngFor="let agent of agentsMarkers_nearest;let i=index">
+            <div *ngIf="i<agentsMarkers_numberOfNearest" class="search__user active" (click)="gotoAgentLocation(agent, $event)">
               <div>
-                <div>{{agent.nom}}</div>
-                <span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>{{agent.telephone}}</span>
+                <span class="logo" style="background-image: url('../../../../../assets/img/user.png')"></span>
+                <div>
+                  <div>{{agent.nom}}</div>
+                  <span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>{{agent.telephone}}</span>
+                </div>
+              </div>
+              <div class="chat">
+                <img src="../../../../../assets/img/icon-chat.png" alt="Chat">
+                Chat message
               </div>
             </div>
-            <div class="chat">
-              <img src="../../../../../assets/img/icon-chat.png" alt="Chat">
-              Chat message
-            </div>
-          </div>
+          </ng-container>
+
         </div>
       </div>
     </div>

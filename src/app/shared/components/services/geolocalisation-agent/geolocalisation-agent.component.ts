@@ -43,7 +43,6 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
   activeAgent = new MarkerClass(undefined, undefined, '', '', '380686087517', '');
   agentsMarkers_nearest: Array<MarkerClass>;
   _agentsMarkers_nearest: Array<MarkerClass>;
-  // myPosition = new AgentTempClass('tele', this.Deg2Rad(this.latitude), this.Deg2Rad(this.longitude));
   agentsMarkers_numberOfNearest = 5;
 
   constructor(public activatedRoute: ActivatedRoute,
@@ -107,14 +106,9 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
                                             ''));
           });
           console.log(agentsMarkers_all);
-          this.agentsMarkers_nearest = agentsMarkers_all.slice();
-          this.userDataService.agentsMarkers_nearest = this.agentsMarkers_nearest;
-
 
           this._agentsMarkers_nearest = agentsMarkers_all.slice();
-          this.createAgentsTemp(agentsMarkers_all);
-        } else {
-          // this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
+          this.findClosestAgents();
         }
       }, (err) => {
         // this.loading = false;
@@ -124,11 +118,24 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
   }
 
   test() {
-    this.createAgentsTemp(this._agentsMarkers_nearest);
+    this.findClosestAgents();
   }
 
   public findClosestAgents() {
+    let nearestAgent: MarkerClass;
+    let agentsMarkers_nearest = Array<MarkerClass>(0);
+    const length = this._agentsMarkers_nearest.length;
 
+      for (let i=0; i<length; i++) {
+        if (this._agentsMarkers_nearest && this._agentsMarkers_nearest.length) {
+          let agentsTemp = this.createAgentsTemp();
+          nearestAgent = this.UserLocation(agentsTemp);
+          if (nearestAgent && +nearestAgent.telephone) {
+            agentsMarkers_nearest.push(nearestAgent);
+          }
+        }
+      }
+    this.agentsMarkers_nearest = agentsMarkers_nearest;
     console.log(this.agentsMarkers_nearest);
     console.log(this._agentsMarkers_nearest);
     this.userDataService.agentsMarkers_nearest = this.agentsMarkers_nearest;
@@ -137,18 +144,15 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
   }
   // =====================================================
 // Convert Degress to Radians
-  createAgentsTemp(_arr?: Array<MarkerClass>) {
+  createAgentsTemp(_arr?: Array<MarkerClass>): Array<AgentTempClass> {
     let arr = (_arr && _arr.length) ? _arr : this._agentsMarkers_nearest;
     let agentsTemp = Array<AgentTempClass>(0);
     arr.forEach((marker) => {
       agentsTemp.push(new AgentTempClass(marker.telephone,
-        this.Deg2Rad(marker.latitude),
-        this.Deg2Rad(marker.longitude)));
+                                        this.Deg2Rad(marker.latitude),
+                                        this.Deg2Rad(marker.longitude)));
     });
-    // console.log(agentsTemp);
-    if (agentsTemp && agentsTemp.length) {
-      this.UserLocation(agentsTemp);
-    }
+    return agentsTemp;
   }
 
   public Deg2Rad(deg: number): number {
@@ -156,30 +160,17 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
   }
 
   // Callback function for asynchronous call to HTML5 geolocation
-  public UserLocation(agentsTemp: Array<AgentTempClass>) {
+  public UserLocation(agentsTemp: Array<AgentTempClass>): MarkerClass {
     if (this.myCoord && Math.abs(this.myCoord.latitude) && Math.abs(this.myCoord.longitude)) {
       let nearestAgent: MarkerClass;
       const myPosition = new AgentTempClass('tele', this.Deg2Rad(this.myCoord.latitude), this.Deg2Rad(this.myCoord.longitude));
       nearestAgent = this.NearestAgent(myPosition.lat, myPosition.lon, agentsTemp);
-      console.log(nearestAgent);
+      // console.log(nearestAgent);
       if (nearestAgent && +nearestAgent.telephone) {
-        console.log('hello');
-        this.agentsMarkers_nearest.push(nearestAgent);
-        console.log(this.agentsMarkers_nearest);
-        console.log(this._agentsMarkers_nearest);
+        return nearestAgent;
       }
     }
   }
-
-  // var lat = 20; // user's latitude
-  // var lon = 40; // user's longitude
-  //
-  // var cities = [
-  //   ["city1", 10, 50, "blah"],
-  //   ["city2", 40, 60, "blah"],
-  //   ["city3", 25, 10, "blah"],
-  //   ["city4", 5, 80, "blah"]
-  // ];
 
   public NearestAgent(latitude: number, longitude: number, _agents: Array<AgentTempClass>): MarkerClass {
     let agents = _agents;
@@ -187,7 +178,6 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
     let closest;
     let agent_index: number;
     let agent: MarkerClass;
-    console.log('        NearestAgent           ');
     for (let index = 0; index < agents.length; ++index) {
       let dif = this.PythagorasEquirectangular(latitude, longitude, agents[index].lat, agents[index].lon);
 
@@ -197,14 +187,10 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
       }
     }
 
-    // echo the nearest cit
-    // console.log(agents[closest]);
-
     this._agentsMarkers_nearest.forEach((_agent, i) => {
       if (+_agent.telephone === +agents[closest].tel) {
         agent = _agent;
         agent_index = i;
-        // console.log(agent);
       }
     });
     this._agentsMarkers_nearest.splice(agent_index, 1);
@@ -226,10 +212,10 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
   // =====================================================
 
   public loadMap() {
-    console.log('loadMap');
-    console.log(navigator);
-    console.log(cordova);
-    console.log(cordova.plugins);
+    // console.log('loadMap');
+    // console.log(navigator);
+    // console.log(cordova);
+    // console.log(cordova.plugins);
     const div = document.getElementById('map_canvas');
 
     // Initialize the map view
@@ -279,17 +265,17 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
         console.log('touchend:  latitude', this.latitude, this.longitude);
         this.myCoord.latitude = this.latitude;
         this.myCoord.longitude = this.longitude;
-        // console.log(this.myCoord);
         this.geoloading = false;
-        this.createAgentsTemp();
+        this.loadAgentsCoordonees();
       },
       (error) => {
         this.geoloading = false;
         alert('Scanning failed: ' + error);
         console.log(error);
         this.showError(error);
-        this.myCoord.latitude = 15.0458118;
-        this.myCoord.longitude = -16.858833;
+        this.myCoord.latitude = this.latitude;
+        this.myCoord.longitude = this.longitude;
+        this.loadAgentsCoordonees();
       });
   }
 
@@ -319,14 +305,12 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
 
   gotoAgentLocation(agent: MarkerClass, $event: any) {
     this.activeAgent = agent;
-    console.log(this.activeAgent);
     this.latitude = agent.latitude;
     this.longitude = agent.longitude;
 
     const els = window.document.getElementsByClassName('search__user active');
-    console.log(els);
     if (els && els.length) {
-      for (let i = 0; i < els.length; i++) {
+      for (let i = 0; i < this.agentsMarkers_numberOfNearest; i++) {
         (<HTMLDivElement>els[i]).classList.remove('activeAgentClass');
       }
     }
