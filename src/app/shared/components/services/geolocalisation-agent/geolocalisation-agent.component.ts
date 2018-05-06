@@ -42,6 +42,7 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
   status_agentsMarkers = false;
   activeAgent = new MarkerClass(undefined, undefined, '', '', '380686087517', '');
   agentsMarkers_nearest: Array<MarkerClass>;
+  _agentsMarkers_nearest: Array<MarkerClass>;
   // myPosition = new AgentTempClass('tele', this.Deg2Rad(this.latitude), this.Deg2Rad(this.longitude));
   agentsMarkers_numberOfNearest = 5;
 
@@ -62,6 +63,7 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
     this.activatedRoute.parent.url
       .takeWhile(() => this.alive)
       .subscribe(resp =>  this.userRole = resp['0'].path);
@@ -95,19 +97,22 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
         console.dir( response );
         if (+response.error === 0 && response.listAgents.length) {
           this.agentsMarkers_nearest = [];
-          let agentsMarkers_rest = [];
+          this._agentsMarkers_nearest = [];
+          let agentsMarkers_all = [];
           response.listAgents.forEach(item => {
-            this.agentsMarkers_nearest.push(new MarkerClass(+item.lattitude, +item.longitude,
+            agentsMarkers_all.push(new MarkerClass(+item.lattitude, +item.longitude,
                                             item.nom ? item.nom : '',
                                             item.prenom ? item.prenom : '',
                                             item.telephone ? item.telephone : '',
                                             ''));
           });
-          console.log(this.agentsMarkers_nearest);
+          console.log(agentsMarkers_all);
+          this.agentsMarkers_nearest = agentsMarkers_all.slice();
           this.userDataService.agentsMarkers_nearest = this.agentsMarkers_nearest;
-          this.status_agentsMarkers = true;
 
-          this.createAgentsTemp(this.agentsMarkers_nearest);
+
+          this._agentsMarkers_nearest = agentsMarkers_all.slice();
+          this.createAgentsTemp(agentsMarkers_all);
         } else {
           // this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
         }
@@ -119,32 +124,51 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
   }
 
   test() {
-    this.createAgentsTemp(this.agentsMarkers_nearest);
+    this.createAgentsTemp(this._agentsMarkers_nearest);
   }
 
+  public findClosestAgents() {
+
+    console.log(this.agentsMarkers_nearest);
+    console.log(this._agentsMarkers_nearest);
+    this.userDataService.agentsMarkers_nearest = this.agentsMarkers_nearest;
+    this.status_agentsMarkers = true;
+
+  }
   // =====================================================
 // Convert Degress to Radians
-  public Deg2Rad(deg: number): number {
-    return deg * Math.PI / 180;
-  }
-
-  createAgentsTemp(arr: Array<MarkerClass>) {
+  createAgentsTemp(_arr?: Array<MarkerClass>) {
+    let arr = (_arr && _arr.length) ? _arr : this._agentsMarkers_nearest;
     let agentsTemp = Array<AgentTempClass>(0);
     arr.forEach((marker) => {
       agentsTemp.push(new AgentTempClass(marker.telephone,
         this.Deg2Rad(marker.latitude),
         this.Deg2Rad(marker.longitude)));
     });
-    console.log(agentsTemp);
+    // console.log(agentsTemp);
     if (agentsTemp && agentsTemp.length) {
       this.UserLocation(agentsTemp);
     }
   }
 
+  public Deg2Rad(deg: number): number {
+    return deg * Math.PI / 180;
+  }
+
   // Callback function for asynchronous call to HTML5 geolocation
   public UserLocation(agentsTemp: Array<AgentTempClass>) {
-    const myPosition = new AgentTempClass('tele', this.Deg2Rad(this.latitude), this.Deg2Rad(this.longitude));
-    this.NearestCity(myPosition.lat, myPosition.lon, agentsTemp);
+    if (this.myCoord && Math.abs(this.myCoord.latitude) && Math.abs(this.myCoord.longitude)) {
+      let nearestAgent: MarkerClass;
+      const myPosition = new AgentTempClass('tele', this.Deg2Rad(this.myCoord.latitude), this.Deg2Rad(this.myCoord.longitude));
+      nearestAgent = this.NearestAgent(myPosition.lat, myPosition.lon, agentsTemp);
+      console.log(nearestAgent);
+      if (nearestAgent && +nearestAgent.telephone) {
+        console.log('hello');
+        this.agentsMarkers_nearest.push(nearestAgent);
+        console.log(this.agentsMarkers_nearest);
+        console.log(this._agentsMarkers_nearest);
+      }
+    }
   }
 
   // var lat = 20; // user's latitude
@@ -157,13 +181,15 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
   //   ["city4", 5, 80, "blah"]
   // ];
 
-  public NearestCity(latitude: number, longitude: number, agents: Array<AgentTempClass>) {
+  public NearestAgent(latitude: number, longitude: number, _agents: Array<AgentTempClass>): MarkerClass {
+    let agents = _agents;
     let mindif = 99999;
     let closest;
-    console.log('        NearestCity           ');
+    let agent_index: number;
+    let agent: MarkerClass;
+    console.log('        NearestAgent           ');
     for (let index = 0; index < agents.length; ++index) {
       let dif = this.PythagorasEquirectangular(latitude, longitude, agents[index].lat, agents[index].lon);
-      console.log(dif);
 
       if (dif < mindif) {
         closest = index;
@@ -172,8 +198,18 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
     }
 
     // echo the nearest cit
-    console.log(agents[closest]);
-    alert(agents[closest].tel);
+    // console.log(agents[closest]);
+
+    this._agentsMarkers_nearest.forEach((_agent, i) => {
+      if (+_agent.telephone === +agents[closest].tel) {
+        agent = _agent;
+        agent_index = i;
+        // console.log(agent);
+      }
+    });
+    this._agentsMarkers_nearest.splice(agent_index, 1);
+    console.log(this._agentsMarkers_nearest.length);
+    return agent;
   }
 
   PythagorasEquirectangular(_lat1: number, _lon1: number, _lat2: number, _lon2: number): number {
@@ -245,6 +281,7 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
         this.myCoord.longitude = this.longitude;
         // console.log(this.myCoord);
         this.geoloading = false;
+        this.createAgentsTemp();
       },
       (error) => {
         this.geoloading = false;
