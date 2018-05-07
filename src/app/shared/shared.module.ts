@@ -57,12 +57,12 @@ import {ShowNotifsWithoutIdPipe} from './pipes/showNotifsWithoutId.pipe';
 import { BeneficiaresComponent } from './components/forms/beneficiares/beneficiares.component';
 
 // my:
-const googleMapsCore = AgmCoreModule.forRoot({
-  apiKey : 'AIzaSyANslTyyPZtqYC0Vqbn3VMv3sCjQ0jE08s',
-});
 // const googleMapsCore = AgmCoreModule.forRoot({
-//   apiKey : 'AIzaSyBeqsJSFGJbb0h1WKapbwPQJONE2CVSeDc',
+//   apiKey : 'AIzaSyANslTyyPZtqYC0Vqbn3VMv3sCjQ0jE08s',
 // });
+const googleMapsCore = AgmCoreModule.forRoot({
+  apiKey : 'AIzaSyAL9O7JOfngHyywepueUsEUutZWQ2WO3lA',
+});
 // https://developers.google.com/maps/documentation/android-api/
 // https://developers.google.com/maps/ios/
 
