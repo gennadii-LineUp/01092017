@@ -210,6 +210,12 @@ header {
   }
 }
 
+@media (min-width: 768px) {
+  .full-width-cont {
+    width: 100%;
+    max-width: 100%;
+  }
+}
 @media (max-width: 1200px) {
   .unaut-header {
     font-size: 1.2rem;

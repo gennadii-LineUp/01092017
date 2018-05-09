@@ -1,6 +1,6 @@
 <div *ngIf="beneficiaries && beneficiaries.length">
   <div>
-    <h4>Nom Beneficiaire</h4>
+    <h4>Nom Bénéficiaire</h4>
     <select name="selectCompte" [(ngModel)]="activeSelect"  (change)="showNextBeneficiary(activeSelect)" id="selectCompte">
       <option *ngFor="let benef of beneficiaries" [value]="benef.id">
         {{benef.nom}}

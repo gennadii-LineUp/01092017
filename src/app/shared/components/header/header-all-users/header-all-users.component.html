@@ -1,5 +1,5 @@
 <header class="unaut-header">
-  <div class="container">
+  <div class="container full-width-cont">
     <div class="row">
       <div class="col-md-2">
         <a href="javascript:void(0);" [routerLink]="['/']">
@@ -8,18 +8,20 @@
         </a>
       </div>
 
-      <div class="col-md-8 col-lg-6 ml-md-auto mr-md-auto nav-left" style="padding-left: 0">
-        <a href="javascript:void(0);" routerLinkActive="link-active" [routerLink]="['/' +userRole+ '/about-us']">About us </a>
-        <a href="javascript:void(0);" routerLinkActive="link-active" [routerLink]="['/' +userRole+ '/terms-conditions']">Terms & Conditions</a>
+      <div class="col-md-8 col-lg-8 ml-md-auto mr-md-auto nav-left" style="padding-left: 0">
+        <a href="javascript:void(0);" routerLinkActive="link-active" [routerLink]="['/' +userRole+ '/about-us']">À propos de nous</a>
+        <a href="javascript:void(0);" routerLinkActive="link-active" [routerLink]="['/' +userRole+ '/terms-conditions']">Termes et Conditions</a>
         <a href="javascript:void(0);" routerLinkActive="link-active" [routerLink]="['/' +userRole+ '/faq']">FAQ</a>
-        <a href="javascript:void(0);" routerLinkActive="link-active" [routerLink]="['/' +userRole+ '/privacy-policy']">Privacy policy</a>
-        <a href="javascript:void(0);" routerLinkActive="link-active" [routerLink]="['/' +userRole+ '/cancellation-refund']">Cancellation & Refund</a>
+        <a href="javascript:void(0);" routerLinkActive="link-active" [routerLink]="['/' +userRole+ '/privacy-policy']">Politique de Confidentialité</a>
+        <a href="javascript:void(0);" routerLinkActive="link-active" [routerLink]="['/' +userRole+ '/cancellation-refund']">Annulation et Remboursement</a>
       </div>
       <div class="col-md-2 ml-md-auto aut-header__user pull-right">
         <span class="logo" style="background-image: url('../../../../../assets/img/logo.png')"></span>
         <span [routerLink]="['/' +userRole+ '/profile']">{{user.nom || nom}} {{user.prenom || prenom}}, {{user.profil || profil}}</span> <!--Username-->
       </div>
     </div>
+  </div>
+  <div class="container">
     <div class="row toolbar">
       <div class="col-md-10 col-lg-8 ml-md-auto mr-md-auto" style="width: 100%">
         <a href="" class="sprite-icon-services" routerLinkActive="user-menu-active" [routerLink]="['/' +userRole+ '/services']">
@@ -29,13 +31,13 @@
           <span class="sprite"></span><span>Notifications</span>
         </a>
         <a href="" class="sprite-icon-operation" routerLinkActive="user-menu-active" [routerLink]="['/' +userRole+ '/operations']">
-          <span class="sprite"></span><span>Beneficiaires</span>
+          <span class="sprite"></span><span>Bénéficiaires</span>
         </a>
         <a href="" class="sprite-icon-param" routerLinkActive="user-menu-active" [routerLink]="['/' +userRole+ '/parameters']">
           <span class="sprite"></span><span>QR code</span>
         </a>
         <a href="" class="sprite-icon-user" routerLinkActive="user-menu-active" [routerLink]="['/' +userRole+ '/profile']">
-          <span class="sprite"></span><span>Settings</span>
+          <span class="sprite"></span><span>Paramètres</span>
         </a>
       </div>
     </div>

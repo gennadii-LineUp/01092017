@@ -14,7 +14,8 @@
               <div >
                 <!--<div class="col-sm-8 col-md-6 col-lg-4">-->
                 <div class="dargent__wrapper">
-                  <div class="block__header">Choose your account</div>
+                  <div class="block__header">Choisissez votre compte
+                  </div>
                   <div *ngFor="let myAccount of userDataService.getMyAccounts()" class="consult-user"
                        (click)="fillReceiverInfoFunction(myAccount, $event); $event.stopPropagation()">
                     <!--<div class="logo" style="background-image: url('../../../../assets/img/user.png')"></div>-->
