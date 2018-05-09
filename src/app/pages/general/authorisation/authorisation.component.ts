@@ -15,8 +15,8 @@ export class GeneralAuthorisationComponent implements OnInit {
   show_slider = true;
   // authorisation = new AuthorisationClass('wari', 'wari', 'APP');
   // authorisation = new AuthorisationClass('agent1', '12345678', 'APP');
-  authorisation = new AuthorisationClass('7722222222', 'passer', 'APP'); // CITIZEN
-  // authorisation = new AuthorisationClass('tresor', 'tresor', 'APP');        // CUSTOMER = CLIENT
+  // authorisation = new AuthorisationClass('7722222222', 'passer', 'APP'); // CITIZEN
+  authorisation = new AuthorisationClass('tresor', 'tresor', 'APP');        // CUSTOMER = CLIENT
 
   alive = true;
 
