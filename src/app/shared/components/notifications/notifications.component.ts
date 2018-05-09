@@ -112,19 +112,16 @@ export class NotificationsComponent implements OnInit, OnDestroy {
         .takeWhile(() => this.alive)
         .subscribe(result => {
           const notifications = (this.commonServices.xmlResponseParcer_complex(result._body)).notifications;
-          if (calculateNotifsMode) {
+          console.log(notifications);
+          if (calculateNotifsMode && notifications && notifications.length) {
             this.notifs_lues_total = notifications.length;
           } else {
             this.status = 'lu';
             this.loading = false;
             // console.log(result);
-            if (notifications.length) {
-              this.notifications = (notifications.length) ? notifications : [];
-              this._notifications = this.notifications;
-              this.notifs_lues_total = this.notifications.length;
-            } else {
-              this.errorMessage = 'Error: ' + notifications.message.toLowerCase();
-            }
+            this.notifications = (notifications && notifications.length) ? notifications : [];
+            this._notifications = (this.notifications && this.notifications.length) ? this.notifications : [];
+            this.notifs_lues_total = (this.notifications && this.notifications.length) ? this.notifications.length : 0;
             // console.log(notifications);
           }
         }, (err) => {
@@ -142,6 +139,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
         .takeWhile(() => this.alive)
         .subscribe(result => {
           const notifications = (this.commonServices.xmlResponseParcer_complex(result._body)).notifications;
+          console.log(notifications);
           if (calculateNotifsMode) {
             this.notifs_nonLues_total = notifications.length;
           } else {

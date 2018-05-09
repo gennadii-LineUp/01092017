@@ -13,7 +13,7 @@
           <div class="consult-user accordionItemHeading">
             <div style="line-height: 25px">
               <div style="line-height: 19px">{{buttons_notification['0'].caption}}
-                <div *ngIf="notifs_nonLues_total" style="display: inline-block">({{notifs_nonLues_total}})</div>
+                <div *ngIf="notifs_nonLues_total>=0" style="display: inline-block">({{notifs_nonLues_total}})</div>
               </div>
             </div>
             <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -25,7 +25,7 @@
           <div class="consult-user accordionItemHeading">
             <div style="line-height: 25px">
               <div style="line-height: 19px">{{buttons_notification['1'].caption}}
-                <div *ngIf="notifs_lues_total" style="display: inline-block">({{notifs_lues_total}})</div>
+                <div *ngIf="notifs_lues_total>=0" style="display: inline-block">({{notifs_lues_total}})</div>
               </div>
             </div>
             <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -37,7 +37,7 @@
           <div class="consult-user accordionItemHeading">
             <div style="line-height: 25px">
               <div style="line-height: 19px">{{buttons_notification['2'].caption}}
-                <div *ngIf="notifs_toutes_total" style="display: inline-block">({{notifs_toutes_total}})</div>
+                <div *ngIf="notifs_toutes_total>=0" style="display: inline-block">({{notifs_toutes_total}})</div>
               </div>
             </div>
             <i class="fa fa-angle-right" aria-hidden="true"></i>

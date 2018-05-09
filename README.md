@@ -57,3 +57,5 @@ cordova run browser
 cordova emulate android
 
 cordova build
+
+cordova build android --release

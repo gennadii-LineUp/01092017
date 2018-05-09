@@ -116,7 +116,7 @@ const routes: Routes = [
         { path: 'notifications', component: ANotificationsPageComponent },
         { path: 'operations', component: AOperationsPageComponent },
         { path: 'parameters', component: AParametersPageComponent },
-        { path: 'settings', component: ASettingsPageComponent },
+        { path: 'profile', component: ASettingsPageComponent },
         { path: 'share', component: AMobileShareComponent },
     ]
   },
@@ -140,7 +140,7 @@ const routes: Routes = [
         { path: 'notifications', component: CNotificationsPageComponent },
         { path: 'operations', component: COperationsPageComponent },
         { path: 'parameters', component: CParametersPageComponent },
-        { path: 'settings', component: CSettingsPageComponent },
+        { path: 'profile', component: CSettingsPageComponent },
         { path: 'share', component: CMobileShareComponent },
     ]
   },
@@ -166,7 +166,7 @@ const routes: Routes = [
         { path: 'notifications', component: CustNotificationsPageComponent },
         { path: 'operations', component: CustOperationsPageComponent },
         { path: 'parameters', component: CustParametersPageComponent },
-        { path: 'settings', component: CustSettingsPageComponent },
+        { path: 'profile', component: CustSettingsPageComponent },
         { path: 'share', component: CustMobileShareComponent },
     ]
   },
