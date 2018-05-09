@@ -32,6 +32,13 @@
             <form style="display: flex; justify-content: center; align-items: center;">
               <div style="display: inline-block; width: 90%">
                 <!--class="col-sm-12 col-md-8 col-lg-6 ml-md-auto mr-md-auto wrapper"-->
+                <h4>Nom Beneficiaire</h4>
+                <div class="floating-block border-hover">
+                  <div class="floating-input">
+                    <input type="text" name="nom" id="nom" [(ngModel)]="beneficiary.nom"/>
+                  </div>
+                </div>
+
                 <h4>Banque</h4>
                 <div *ngIf="banques && banques.length" class="floating-block border-hover" style="margin-bottom:0">
                   <!--<div class="floating-input" >-->
@@ -42,21 +49,6 @@
                   </select>
                 </div>
 
-                <h4>Clé RIB</h4>
-                <div class="floating-block border-hover">
-                  <div class="floating-input">
-                    <input type="text" name="RIB" id="RIB" [(ngModel)]="beneficiary.rib"/>
-                  </div>
-                </div>
-
-                <!--<div>-->
-                <h4>Compte</h4>
-                <div class="floating-block border-hover">
-                  <div class="floating-input">
-                    <input type="text" name="Account" id="Account" [(ngModel)]="beneficiary.compte"/>
-                  </div>
-                </div>
-
                 <h4>Guichet</h4>
                 <div class="floating-block border-hover">
                   <div class="floating-input">
@@ -64,10 +56,17 @@
                   </div>
                 </div>
 
-                <h4>Nom Beneficiaire</h4>
+                <h4>Compte</h4>
                 <div class="floating-block border-hover">
                   <div class="floating-input">
-                    <input type="text" name="nom" id="nom" [(ngModel)]="beneficiary.nom"/>
+                    <input type="text" name="Account" id="Account" [(ngModel)]="beneficiary.compte"/>
+                  </div>
+                </div>
+
+                <h4>Clé RIB</h4>
+                <div class="floating-block border-hover">
+                  <div class="floating-input">
+                    <input type="text" name="RIB" id="RIB" [(ngModel)]="beneficiary.rib"/>
                   </div>
                 </div>
 
