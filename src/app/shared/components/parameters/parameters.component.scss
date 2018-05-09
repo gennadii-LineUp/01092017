@@ -97,6 +97,13 @@
 .container{
   padding: 0 15px 15px 15px !important;
 }
+
+@media (max-width: 800px) {
+  section .container{
+    padding: 0 15px 70px 15px !important;
+  }
+}
+
 @media (min-width: 800px) {
   h3.top-header{
     padding: 26px 0 12px 0;
