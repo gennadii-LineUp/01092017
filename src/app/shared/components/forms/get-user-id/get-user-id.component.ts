@@ -3,6 +3,7 @@ import {EnvoyeurClass} from '../../../../models/envoyeur-class';
 import {DatepickerClass} from '../../../../models/datepicker-class';
 import {CustomDatepickerI18n, I18n} from '../../../../models/datepicker-i18n';
 import {NgbDatepickerI18n} from '@ng-bootstrap/ng-bootstrap';
+import {PassportClass} from '../../../../models/passport-class';
 
 @Component({
   selector: 'app-get-user-id',
@@ -23,16 +24,23 @@ export class GetUserIdComponent implements OnInit {
   datepickerExpiration;
   minDate = {year: 1950, month: 1, day: 1};
   maxDate = {year: 2060, month: 1, day: 1};
+  _envoyeur_documents = Array<PassportClass>(0);
 
   @Output()
   userData = new EventEmitter<EnvoyeurClass>();
 
   @Input()
   set setDefaultUser(defaultEnvoyeur: EnvoyeurClass) {
+    console.log(defaultEnvoyeur);
     this.envoyeur = defaultEnvoyeur;
     this.datepickerDebut = new DatepickerClass(undefined, undefined, undefined);
     this.datepickerExpiration = new DatepickerClass(undefined, undefined, undefined);
     console.log(this.envoyeur);
+  }
+  @Input()
+  set envoyeur_documents(data: Array<PassportClass>) {
+    this._envoyeur_documents = data;
+    console.log(this._envoyeur_documents);
   }
 
 // ---------------

@@ -191,7 +191,9 @@
 
           <div style="padding: 0 18px">
             <!--<app-get-user-id [(envoyeur)]="envoyeur_default"></app-get-user-id>-->
-            <app-get-user-id (userData)="setEnvoyeurFromForm($event)" [setDefaultUser]="envoyeur_default">
+            <app-get-user-id (userData)="setEnvoyeurFromForm($event)"
+                             [setDefaultUser]="envoyeur_default"
+                             [envoyeur_documents]="envoyeur_documents">
                              <!--[setUserNom]="envoyeur_default.nom"-->
                              <!--[setUserPrenom]="envoyeur_default.prenom"-->
                              <!--[setUserCellulaire]="envoyeur_default.numTel">-->

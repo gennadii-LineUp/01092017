@@ -11,13 +11,16 @@ import {CurrencyParams} from '../../../../models/currency_params';
 import {RegistrationClass} from '../../../../models/registration-class';
 import {CreateNewAccountService} from '../../../../services/api/createNewAccount.service';
 import {GetCitizenByCellularService} from '../../../../services/api/getCitizenByCellular.service';
+import {GetIdentifiantsUOService} from '../../../../services/api/getIdentifiantsUO.service';
+import {PassportClass} from '../../../../models/passport-class';
 declare var $: any;
 
 @Component({
   selector: 'app-services-depot-citizen',
   templateUrl: './depot-citizen.component.html',
   styleUrls: ['./depot-citizen.component.scss'],
-  providers: [GetCommissionsTTCService, C2WDepotTransactionService, GetCitizenByCellularService, CreateNewAccountService]
+  providers: [GetCommissionsTTCService, C2WDepotTransactionService, GetCitizenByCellularService,
+              CreateNewAccountService, GetIdentifiantsUOService]
 })
 export class DepotCitizenComponent implements OnInit, OnDestroy {
   successMessage = '';
@@ -38,6 +41,7 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
   envoyeur = new EnvoyeurClass('KANE', 'MOMAR', '773151459', 'DAKAR', 'CNI', 'SEN', '1619198107350', '01/01/2016', '01/01/2017');
   envoyeur_default: EnvoyeurClass;
   _envoyeur_default = {};
+  envoyeur_documents = Array<PassportClass>(0);
   citizen_fromSelect2 = '';
   userRole = '';
   checkboxSameBenef = true;
@@ -54,7 +58,8 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
               private activateRoute: ActivatedRoute,
               public currencyParams: CurrencyParams,
               public getCitizenByCellularService: GetCitizenByCellularService,
-              public createNewAccountService: CreateNewAccountService) { }
+              public createNewAccountService: CreateNewAccountService,
+              public getIdentifiantsUOService: GetIdentifiantsUOService) { }
 
   ngOnInit() {
     this.firstStepMode();
@@ -158,7 +163,10 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
     this.clearSearch();
     // const beneficiaire = this.userDataService.getReceiverFromSelect2(this.citizen_fromSelect2);
     const addr = (this.beneficiaireFound.address) ? this.beneficiaireFound.address : undefined;
-    this.envoyeur_default = new EnvoyeurClass(this.beneficiaireFound.nom, this.beneficiaireFound.prenom, this.beneficiaireFound.numTel, addr, '', 'SEN', '', '', '');
+    this.envoyeur_default = new EnvoyeurClass(this.beneficiaireFound.nom,
+                                              this.beneficiaireFound.prenom,
+                                              this.beneficiaireFound.numTel,
+                                              addr, '', 'SEN', '', '', '');
     this._envoyeur_default = Object.assign({}, this.envoyeur_default);
     this.receiverStatus = (this.beneficiaireFound.nom) ? (this.beneficiaireFound.nom) : '';
     this.receiverStatus += (this.beneficiaireFound.prenom) ? (' ' + this.beneficiaireFound.prenom) : '';
@@ -225,8 +233,36 @@ console.log('------------------------------');
       .takeWhile(() => this.alive)
       .subscribe(result => {
         const response = this.commonServices.xmlResponseParcer_simple(result._body);
-        console.dir(response);
-        if (response.numTel && response.numTel.length) {
+        if (response && response.id) {
+          // ====================================
+          this.getIdentifiantsUOService.getIdentifiantsUOService(response.id)
+            .takeWhile(() => this.alive)
+            .subscribe(result1 => {
+              const response1 = this.commonServices.xmlResponseParcer_complex(result1._body);
+              console.dir(response1);
+
+              if (+response.error === 0) {
+                this.envoyeur_documents = response1.identifiant;
+                this.beneficiaireFound = {
+                      nom: (response.nom) ? response.nom : undefined,
+                      prenom: (response.prenom) ? response.prenom : undefined,
+                      numTel: response.numTel,
+                      id: (response.id) ? response.id : undefined
+                };
+                this.setBeneficiaryFunction({value: this.beneficiaireFound.numTel});
+              } else {
+                this.loading = false;
+                // this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
+                this.citizenDoesntExist = true;
+              }
+            }, (err) => {
+              this.loading = false;
+              console.log(err);
+              this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+            });
+
+          // ====================================
+        } else if (response.numTel && response.numTel.length) {
           this.beneficiaireFound = {nom: (response.nom) ? response.nom : undefined,
                                     prenom: (response.prenom) ? response.prenom : undefined,
                                     numTel: response.numTel,
