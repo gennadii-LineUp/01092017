@@ -6,7 +6,6 @@ import {GetCommissionsTTCService} from '../../../../services/api/getCommissionsT
 import {EnvoyeurClass} from '../../../../models/envoyeur-class';
 import {C2WDepotTransactionService} from '../../../../services/api/C2WDepotTransaction.service';
 import 'rxjs/add/operator/takeWhile';
-import {ReceiverClass} from '../../../../models/receiver-class';
 import {ActivatedRoute} from '@angular/router';
 import {CurrencyParams} from '../../../../models/currency_params';
 import {RegistrationClass} from '../../../../models/registration-class';
@@ -29,7 +28,7 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
   createNewReceiver_mobile_amount = true;
   receiverStatus = '';
   receiverToFind = '';
-  cellularToFind = '773151459';
+  cellularToFind = '7722222222';
   newReceiver = new RegistrationClass('', '', 221, '', 'AUTO', 'AUTO', 'AUTO', 'AUTO', true);
   beneficiaireFound: any;
   amount_depotCitizen: number;

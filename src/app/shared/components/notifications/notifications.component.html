@@ -67,7 +67,8 @@
                 [ngClass]="{'non-lu': isNonLu(notif.lu)}">
               <td class="text-center" style="vertical-align: middle !important"><span>{{i+1}}</span></td>
               <td class="text-center" style="vertical-align: middle !important; min-width: 60px; max-width: 120px">
-                <span class="errorTextClass">date, time</span>
+                <span>{{commonServices.fromServerDateMoment(notif.date)}}</span>
+                <span> {{commonServices.fromServerTimeMoment(notif.date)}}</span>
               </td>
               <td class="text-center" style="min-width: 80px; vertical-align: middle !important">
                 <div class="floating-block border-hover" style="margin-bottom:0">

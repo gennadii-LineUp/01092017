@@ -47,7 +47,6 @@ export class NotificationsComponent implements OnInit, OnDestroy {
               public getLuNotifService: GetLuNotifService,
               public getNonLuNotifService: GetNonLuNotifService) {
     userDataService.myAccounts$.subscribe((myAccounts) => {
-      // console.log(myAccounts);
       this.loadNonLuNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId, !this.calculateNotifsMode);
       this.loadLuNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId, this.calculateNotifsMode);
       this.loadAllNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId, this.calculateNotifsMode);
@@ -69,7 +68,6 @@ export class NotificationsComponent implements OnInit, OnDestroy {
 
     this.profil = ((<any>this.userDataService.getUser).profil) ? (<any>this.userDataService.getUser).profil :
       localStorage.getItem('profil');
-    // console.log(this.profil);
   }
 
   ngOnDestroy() {
@@ -84,18 +82,18 @@ export class NotificationsComponent implements OnInit, OnDestroy {
         .subscribe(result => {
           const notifications = (this.commonServices.xmlResponseParcer_complex(result._body)).notifications;
           if (calculateNotifsMode) {
-            this.notifs_toutes_total = notifications.length;
+            this.notifs_toutes_total = (notifications && notifications.length) ? notifications.length : 0;
           } else {
             this.status = 'all';
             this.loading = false;
-            // console.log(result);
-            if (notifications.length) {
+            if (notifications && notifications.length) {
               this.notifications = (notifications.length) ? notifications : [];
-              this._notifications = this.notifications;
+              this._notifications = this.notifications.slice();
             } else {
-              this.errorMessage = 'Error: ' + notifications.message.toLowerCase();
+              if (notifications && notifications.message) {
+                this.errorMessage = 'Error: ' + notifications.message.toLowerCase();
+              }
             }
-            // console.log(notifications);
           }
         }, (err) => {
           this.loading = false;
@@ -112,15 +110,14 @@ export class NotificationsComponent implements OnInit, OnDestroy {
         .takeWhile(() => this.alive)
         .subscribe(result => {
           const notifications = (this.commonServices.xmlResponseParcer_complex(result._body)).notifications;
-          console.log(notifications);
-          if (calculateNotifsMode && notifications && notifications.length) {
-            this.notifs_lues_total = notifications.length;
+          if (calculateNotifsMode) {
+            this.notifs_lues_total = (notifications && notifications.length) ? notifications.length : 0;
           } else {
             this.status = 'lu';
             this.loading = false;
             // console.log(result);
             this.notifications = (notifications && notifications.length) ? notifications : [];
-            this._notifications = (this.notifications && this.notifications.length) ? this.notifications : [];
+            this._notifications = (this.notifications && this.notifications.length) ? this.notifications.slice() : [];
             this.notifs_lues_total = (this.notifications && this.notifications.length) ? this.notifications.length : 0;
             // console.log(notifications);
           }
@@ -139,22 +136,21 @@ export class NotificationsComponent implements OnInit, OnDestroy {
         .takeWhile(() => this.alive)
         .subscribe(result => {
           const notifications = (this.commonServices.xmlResponseParcer_complex(result._body)).notifications;
-          console.log(notifications);
-          if (calculateNotifsMode) {
-            this.notifs_nonLues_total = notifications.length;
-          } else {
+          // console.log(notifications);
+          this.notifs_nonLues_total = (notifications && notifications.length) ? notifications.length : 0;
             this.status = 'non-lu';
             this.loading = false;
             // console.log(result);
-            if (notifications.length) {
+            if (notifications && notifications.length) {
               this.notifications = (notifications.length) ? notifications : [];
-              this._notifications = this.notifications;
+              this._notifications = this.notifications.slice();
               this.notifs_nonLues_total = this.notifications.length;
             } else {
-              this.errorMessage = 'Error: ' + notifications.message.toLowerCase();
+              if (notifications && notifications.message) {
+                this.errorMessage = 'Error: ' + notifications.message.toLowerCase();
+              }
             }
             // console.log(notifications);
-          }
         }, (err) => {
           this.loading = false;
           console.log(err);
@@ -189,7 +185,6 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   }
 
   markNotificationAsLu(id: string) {
-    // console.log(id);
     const notif_element = window.document.getElementById(id);
     if (notif_element && notif_element.classList && notif_element.classList.contains('non-lu')) {
       notif_element.classList.remove('non-lu');
@@ -216,9 +211,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
       .takeWhile(() => this.alive)
       .subscribe(result => {
         this.loading = false;
-        // console.log(result);
         const notifications = (this.commonServices.xmlResponseParcer_complex(result._body));
-        // console.log(notifications);
       }, (err) => {
         this.loading = false;
         console.log(err);
