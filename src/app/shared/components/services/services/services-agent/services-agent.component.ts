@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {CommonServices} from '../../../../../services/common.service';
 
 @Component({
@@ -6,12 +6,8 @@ import {CommonServices} from '../../../../../services/common.service';
   templateUrl: './services-agent.component.html',
   styleUrls: ['../services.component.scss']
 })
-export class ServicesAgentComponent implements OnInit {
+export class ServicesAgentComponent {
 
   constructor(public commonServices: CommonServices) { }
-
-  ngOnInit() {
-    // this.commonServices.removeEmptySelect2fromServices();
-  }
 
 }

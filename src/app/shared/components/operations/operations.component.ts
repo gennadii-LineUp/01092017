@@ -40,13 +40,6 @@ export class OperationsComponent implements OnInit, OnDestroy {
               public currencyParams: CurrencyParams,
               public listBanquesSicaService: ListBanquesSicaService,
               public newBeneficiaryService: NewBeneficiaryService) {
-    userDataService.myAccounts$.subscribe((myAccounts) => {
-      console.log(myAccounts);
-      console.log('hello');
-      // this.loadNonLuNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId);
-      // this.loadLuNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId);
-      // this.loadAllNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId);
-    });
   }
 
   ngOnInit() {

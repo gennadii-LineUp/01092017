@@ -1,11 +1,11 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 
 @Component({
   selector: 'app-slider',
   templateUrl: './slider.component.html',
   styleUrls: ['./slider.component.scss']
 })
-export class SliderComponent implements OnInit {
+export class SliderComponent {
   config: SwiperOptions = {
     pagination: '.swiper-pagination',
     paginationClickable: true,
@@ -13,12 +13,6 @@ export class SliderComponent implements OnInit {
   };
 
   @Output() showSlider = new EventEmitter<string>();
-
-  constructor() { }
-
-
-  ngOnInit() {
-  }
 
   public setSliderVisibility() {
     localStorage.setItem('show-slider', '1');

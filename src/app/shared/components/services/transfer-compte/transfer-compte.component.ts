@@ -65,16 +65,12 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
       .takeWhile(() => this.alive)
       .subscribe(resp =>  this.userRole = resp['0'].path);
 
-    if ((this.userDataService.getMyAccounts()).length) {
-      console.log('=== MyAccounts\' length ' + this.userDataService.getMyAccounts().length);
-    } else {
-      console.log('=== MyAccounts\' is empty ===');
+    if (!(this.userDataService.getMyAccounts()).length) {
       this.userDataService.setMyAccounts();
     }
 
     this.profil = ((<any>this.userDataService.getUser).profil) ? (<any>this.userDataService.getUser).profil :
                                                                   localStorage.getItem('profil');
-    console.log(this.profil);
 
     if (!this.userDataService.getClients().length) {this.userDataService.setClients(); }
     if (!this.userDataService.getCitizens().length) {this.userDataService.setCitizens(); }

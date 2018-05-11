@@ -16,14 +16,11 @@ export class PaginationComponent implements OnInit {
   end = this.start + this.tr_per_page;
 
   @Input() transactions_all = [];
-  // @Output() transactions_current = new EventEmitter<any>();
   @Output() transactions_current: EventEmitter<any> = new EventEmitter(true);
 
   next_step_pages: number;
   prev_step_pages: number;
 
-
-  constructor() { }
 
   ngOnInit() {
     this.setStartPages();

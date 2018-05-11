@@ -49,9 +49,7 @@ export class ParametersComponent implements OnInit, OnDestroy {
               public getCommissionsTTCService: GetCommissionsTTCService,
               public cd: ChangeDetectorRef) {
     userDataService.myAccounts$.subscribe((myAccounts) => {
-      // console.log(myAccounts);
-      // this.receiver_idAccount = +this.userDataService.getMyAccounts()['0'].id_account;
-    });
+     });
   }
 
   ngOnInit() {

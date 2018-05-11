@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, Input} from '@angular/core';
+import {Component, OnDestroy, Input} from '@angular/core';
 import {LoginService} from '../../../../services/api/login.service';
 import {UserDataService} from '../../../../models/user-data';
 import {ErrorMessageHandlerService} from '../../../../services/error-message-handler.service';
@@ -10,7 +10,7 @@ import {AuthorisationClass} from '../../../../models/authorisation-class';
   templateUrl: './authorisation-page.component.html',
   styleUrls: ['./authorisation-page.component.scss']
 })
-export class AuthorisationPageComponent implements OnInit, OnDestroy {
+export class AuthorisationPageComponent implements OnDestroy {
   errorMessage = '';
   loading = false;
   alive = true;
@@ -22,9 +22,6 @@ export class AuthorisationPageComponent implements OnInit, OnDestroy {
               public userDataService: UserDataService,
               public errorMessageHandlerService: ErrorMessageHandlerService,
               public commonServices: CommonServices) { }
-
-  ngOnInit() {
-  }
 
   ngOnDestroy() {
     this.alive = false;

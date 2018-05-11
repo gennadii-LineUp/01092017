@@ -1,11 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-mobile-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
 })
-export class MobileSettingsComponent implements OnInit {
+export class MobileSettingsComponent {
   mobile: boolean;
   ww = 0;
   hh = 0;
@@ -20,13 +20,10 @@ export class MobileSettingsComponent implements OnInit {
   ];
   @Input() userRole: string;
 
-
-
   constructor() {
     this.mobile = (Math.max(document.documentElement.clientWidth, window.innerWidth || 0) < 500) ? true : false;
   }
 
-  ngOnInit() {}
 
   getSize() {
     this.ww = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
