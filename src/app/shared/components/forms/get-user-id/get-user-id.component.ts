@@ -33,17 +33,16 @@ export class GetUserIdComponent implements OnInit {
 
   @Input()
   set setDefaultUser(defaultEnvoyeur: EnvoyeurClass) {
-    console.log(defaultEnvoyeur);
     this.envoyeur = defaultEnvoyeur;
     this.datepickerDebut = new DatepickerClass(undefined, undefined, undefined);
     this.datepickerExpiration = new DatepickerClass(undefined, undefined, undefined);
-    console.log(this.envoyeur);
   }
   @Input()
   set envoyeur_documents(data: Array<PassportClass>) {
-    this._envoyeur_documents = data;
-    console.log(this._envoyeur_documents);
-    this.select_id_type_values = data;
+    if (data && data.length) {
+      this.select_id_type_values = data;
+      this._envoyeur_documents = data;
+    }
   }
 
   constructor(public commonServices: CommonServices) {}
@@ -66,12 +65,11 @@ export class GetUserIdComponent implements OnInit {
   }
 
   public setDocumentType(data:string) {
-    console.log(data);
     this.select_id_type_values.forEach((document) => {
       if (document.type===data) {
-        console.log(document);
         this.envoyeur.id_type = document.type;
         this.envoyeur.id_valeur = document.valeur;
+        this.envoyeur.id_pays = document.pays;
         const dateDebut = this.commonServices.fromServerDateMoment(document.dateDebut);
         const dateFin = this.commonServices.fromServerDateMoment(document.dateFin);
         this.datepickerDebut = new DatepickerClass(+dateDebut.split('/')[2],
@@ -82,7 +80,6 @@ export class GetUserIdComponent implements OnInit {
                                                       +dateFin.split('/')[0]);
         this.transformDataToString(this.datepickerDebut, 'dpDebut');
         this.transformDataToString(this.datepickerExpiration, 'dpExpiration');
-        console.log(this.envoyeur);
       }
     });
   }
