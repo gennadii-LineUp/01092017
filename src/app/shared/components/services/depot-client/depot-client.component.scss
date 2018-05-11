@@ -107,7 +107,11 @@
   }
 }
 
-
+@media (max-width: 800px) {
+  .row {
+    margin-bottom: 50px !important;
+  }
+}
 @media (max-width: 800px) {
   .depot-sitizen {
     font-size: 18px;

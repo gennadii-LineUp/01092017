@@ -4,7 +4,7 @@
       <div class="back-button" [routerLink]="['/' +userRole+ '/services']">Back</div>
       Virements vers Banque
     </h3>
-    <div class="container">
+    <div class="container" style="margin-bottom: 0 !important;">
 
       <div class="row">
         <div class="col">
@@ -45,8 +45,8 @@
         </div>
       </div>
     </div>
-  </section>
 
-  <app-success-message [message_firstLine]="successMessage_1" [message_secondLine]="successMessage_2"></app-success-message>
+    <app-success-message [message_firstLine]="successMessage_1" [message_secondLine]="successMessage_2"></app-success-message>
+  </section>
 
 </main>

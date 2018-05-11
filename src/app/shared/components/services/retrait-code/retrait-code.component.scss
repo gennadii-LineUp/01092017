@@ -114,6 +114,11 @@
   }
 }
 
+@media (max-width: 800px) {
+  .row {
+    margin-bottom: 70px !important;
+  }
+}
 @media (max-width: 576px) {
   .retrail-code__content {
     .info-item {
