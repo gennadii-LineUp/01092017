@@ -27,10 +27,10 @@
     <h3>ID type</h3>
     <div class="floating-block border-hover">
       <div class="floating-input">
-          <select name="id_type" id="id_type" #id_type="ngModel" (ngModelChange)="sendData()"
-                  [(ngModel)]="envoyeur.id_type">
-            <option *ngFor="let type of select_id_type_values" [ngValue]="type.value">
-              {{type.display}}
+          <select name="id_type" id="id_type" #id_type="ngModel" (change)="setDocumentType(select_id_type_active)"
+                  [(ngModel)]="select_id_type_active">
+            <option *ngFor="let document of select_id_type_values" [ngValue]="document.type">
+              {{document.type}}
             </option>
           </select>
       </div>

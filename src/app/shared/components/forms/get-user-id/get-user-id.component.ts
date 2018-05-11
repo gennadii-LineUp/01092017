@@ -4,6 +4,7 @@ import {DatepickerClass} from '../../../../models/datepicker-class';
 import {CustomDatepickerI18n, I18n} from '../../../../models/datepicker-i18n';
 import {NgbDatepickerI18n} from '@ng-bootstrap/ng-bootstrap';
 import {PassportClass} from '../../../../models/passport-class';
+import {CommonServices} from '../../../../services/common.service';
 
 @Component({
   selector: 'app-get-user-id',
@@ -13,11 +14,12 @@ import {PassportClass} from '../../../../models/passport-class';
 })
 export class GetUserIdComponent implements OnInit {
   envoyeur = new EnvoyeurClass('', '', '', '', '', 'SEN', '', '', '');
-  select_id_type_values = [
-    { value: 'CARTE D\'IDENTITE',  display: 'CARTE D\'IDENTITE' },
-    { value: 'PASSEPORT', display: 'PASSEPORT' },
-    { value: 'PERMIS DE CONDUIRE', display: 'PERMIS DE CONDUIRE' },
-    { value: 'AUTRE', display: 'AUTRE'}
+  select_id_type_active: string;
+  select_id_type_values = <Array<PassportClass>>[
+    { type: 'CARTE D\'IDENTITE',  dateDebut: '', dateFin: '', pays: '', valeur: '' },
+    { type: 'PASSEPORT',          dateDebut: '', dateFin: '', pays: '', valeur: '' },
+    { type: 'PERMIS DE CONDUIRE', dateDebut: '', dateFin: '', pays: '', valeur: '' },
+    { type: 'AUTRE',              dateDebut: '', dateFin: '', pays: '', valeur: '' }
   ];
   date = '11/13/2016';
   datepickerDebut;
@@ -41,34 +43,10 @@ export class GetUserIdComponent implements OnInit {
   set envoyeur_documents(data: Array<PassportClass>) {
     this._envoyeur_documents = data;
     console.log(this._envoyeur_documents);
+    this.select_id_type_values = data;
   }
 
-// ---------------
-  // @Input() envoyeur: EnvoyeurClass;
-  // @Output() userData = new EventEmitter<EnvoyeurClass>();
-  //
-  // public clearEnvoyeur(field: string) {this.envoyeur[field] = undefined; }
-  //
-  // public sendData(model: EnvoyeurClass) {
-  //   this.envoyeur = model;
-  //   this.userData.emit(model);
-  //   console.dir(this.envoyeur);
-  // }
-// ---------------
-
-  // @Input()
-  // set setDefaultUser(defaultEnvoyeur: EnvoyeurClass) {this.envoyeur = defaultEnvoyeur; }
-
-  // @Input()
-  // set setUserNom(nom: string) {this.envoyeur.nom = nom; }
-  // @Input()
-  // set setUserPrenom(prenom: string) {this.envoyeur.prenom = prenom; }
-  // @Input()
-  // set setUserCellulaire(cellulaire: string) {this.envoyeur.cellulaire = cellulaire; console.log(cellulaire); }
-
-  // ('Piter', 'Pen', '773151459', 'Holywood', 'CNI', 'SEN', '1619198107350', '01/01/2016', '01/01/2017')
-
-  constructor() {}
+  constructor(public commonServices: CommonServices) {}
 
   ngOnInit() {
     this.sendData();
@@ -85,6 +63,28 @@ export class GetUserIdComponent implements OnInit {
       this.datepickerExpiration = new DatepickerClass(undefined, undefined, undefined);
     }
     this.sendData();
+  }
+
+  public setDocumentType(data:string) {
+    console.log(data);
+    this.select_id_type_values.forEach((document) => {
+      if (document.type===data) {
+        console.log(document);
+        this.envoyeur.id_type = document.type;
+        this.envoyeur.id_valeur = document.valeur;
+        const dateDebut = this.commonServices.fromServerDateMoment(document.dateDebut);
+        const dateFin = this.commonServices.fromServerDateMoment(document.dateFin);
+        this.datepickerDebut = new DatepickerClass(+dateDebut.split('/')[2],
+                                                  +dateDebut.split('/')[1],
+                                                  +dateDebut.split('/')[0]);
+        this.datepickerExpiration = new DatepickerClass(+dateFin.split('/')[2],
+                                                      +dateFin.split('/')[1],
+                                                      +dateFin.split('/')[0]);
+        this.transformDataToString(this.datepickerDebut, 'dpDebut');
+        this.transformDataToString(this.datepickerExpiration, 'dpExpiration');
+        console.log(this.envoyeur);
+      }
+    });
   }
 
   public transformDataToString(e: any, type: string) {

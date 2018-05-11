@@ -92,9 +92,6 @@ export class OperationsComponent implements OnInit, OnDestroy {
     console.log(this.activeBanque);
   }
 
-  _submitCreerBeneficiaryFunction() {
-    console.log(this.beneficiary);
-  }
   public submitCreerBeneficiaryFunction() {
     if (this.activeBanque && this.beneficiary.rib && this.beneficiary.compte && this.beneficiary.guichet && this.beneficiary.nom) {
       this.loading = true;
@@ -113,7 +110,10 @@ export class OperationsComponent implements OnInit, OnDestroy {
 
           this.successMessage_1 = '  ';
           this.successMessage_2 = 'Creation succès!';
-          // this.toggleAddNewBenef_mode();
+          setTimeout(() => {
+            this.ngOnInit();
+            this.toggleAddNewBenef_mode()}, 2000);
+          //
         }, (err) => {
           this.loading = false;
           this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
@@ -135,5 +135,7 @@ export class OperationsComponent implements OnInit, OnDestroy {
   public toggleAddNewBenef_mode() {
     this.beneficiary = new BeneficiaryClass('', '', '', '', '', '', '');
     this.addNewBenef_mode = !this.addNewBenef_mode;
+    this.successMessage_1 = '';
+    this.successMessage_2 = '';
   }
 }
