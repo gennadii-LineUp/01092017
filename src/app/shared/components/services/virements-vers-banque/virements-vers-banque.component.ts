@@ -17,6 +17,7 @@ import {BeneficiaryClass} from '../../../../models/beneficiary-class';
 })
 export class VirementsVersBanqueComponent implements OnInit, OnDestroy {
   loading = false;
+  requestIsSent = false;
   successMessage_1 = '';
   successMessage_2 = '';
   errorMessage = '';
@@ -68,7 +69,8 @@ export class VirementsVersBanqueComponent implements OnInit, OnDestroy {
 
 
   public submitVirementsVersBank() {
-    if (+this.amountToReceiver >= 0.01) {
+    if (!this.requestIsSent && +this.amountToReceiver >= 0.01) {
+      this.requestIsSent = true;
       this.clearAll();
       this.loading = true;
 
@@ -88,8 +90,10 @@ export class VirementsVersBanqueComponent implements OnInit, OnDestroy {
           setTimeout(() => {
             this.amountInput.nativeElement.focus();
           }, 10);
+          this.requestIsSent = false;
         }, (err) => {
           this.loading = false;
+          this.requestIsSent = false;
           this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
           if (!this.errorMessage) {
             this.errorMessage = this.errorMessageHandlerService._getMessageEquivalent(err._body);

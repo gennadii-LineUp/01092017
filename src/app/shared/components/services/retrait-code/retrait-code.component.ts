@@ -22,6 +22,7 @@ export class RetraitCodeComponent implements OnInit, OnDestroy {
   successMessage_1 = '';
   loading = false;
   loading_retrieve = false;
+  requestIsSent = false;
   amount_retraitCode: number;
   errorMessage = '';
   errorMessage_retrieve = '';
@@ -69,65 +70,73 @@ export class RetraitCodeComponent implements OnInit, OnDestroy {
   }
 
   public submitFunction() {
-    this.clearSearch();
-    this.loading = true;
+    if (!this.requestIsSent) {
+      this.clearSearch();
+      this.loading = true;
 
-    this.errorMessage = '';
-    this.errorMessage_retrieve = '';
+      this.errorMessage = '';
+      this.errorMessage_retrieve = '';
 
-    this.w2CCheckOrdreRetraitService.retraitCode(this.retraitCode)
-      .takeWhile(() => this.alive)
-      .subscribe(result => {
-        this.loading = false;
-        const response = this.commonServices.xmlResponseParcer_complex( result._body );
+      this.requestIsSent = true;
+      this.w2CCheckOrdreRetraitService.retraitCode(this.retraitCode)
+        .takeWhile(() => this.alive)
+        .subscribe(result => {
+          this.loading = false;
+          const response = this.commonServices.xmlResponseParcer_complex( result._body );
 
-        console.dir( response );
-        if (+response.error === 0) {
-          this.retraitCode_valid = true;
-          this.serverResponse['code'] = response.code;
-          this.serverResponse['date'] = response.date;
-          this.serverResponse['envoyeur'] = response.envoyeur[1];
-          this.serverResponse['beneficiaire'] = response.envoyeur[0];
-          this.serverResponse['message'] = response.errorMessage;
-          this.serverResponse['montant'] = response.montant;
-          this.amount_retraitCode = response.montant;
+          console.dir( response );
+          if (+response.error === 0) {
+            this.retraitCode_valid = true;
+            this.serverResponse['code'] = response.code;
+            this.serverResponse['date'] = response.date;
+            this.serverResponse['envoyeur'] = response.envoyeur[1];
+            this.serverResponse['beneficiaire'] = response.envoyeur[0];
+            this.serverResponse['message'] = response.errorMessage;
+            this.serverResponse['montant'] = response.montant;
+            this.amount_retraitCode = response.montant;
 
-          setTimeout(() => { this.secondInput.nativeElement.focus(); }, 1);
-          // ====================================
-          this.getUOByCellularService.getData(this.serverResponse.beneficiaire.cellulaire)
-            .takeWhile(() => this.alive)
-            .subscribe(result1 => {
-              const response1 = this.commonServices.xmlResponseParcer_complex(result1._body);
-              const beneficiaire_id = response1.uo["0"].id;
-              // **************************************
-              this.getIdentifiantsUOService.getIdentifiantsUOService(beneficiaire_id)
-                .takeWhile(() => this.alive)
-                .subscribe(result2 => {
-                  const response2 = this.commonServices.xmlResponseParcer_complex(result2._body);
-                  console.dir(response2);
+            setTimeout(() => { this.secondInput.nativeElement.focus(); }, 1);
+            // ====================================
+            this.getUOByCellularService.getData(this.serverResponse.beneficiaire.cellulaire)
+              .takeWhile(() => this.alive)
+              .subscribe(result1 => {
+                const response1 = this.commonServices.xmlResponseParcer_complex(result1._body);
+                const beneficiaire_id = response1.uo["0"].id;
+                // **************************************
+                this.getIdentifiantsUOService.getIdentifiantsUOService(beneficiaire_id)
+                  .takeWhile(() => this.alive)
+                  .subscribe(result2 => {
+                    const response2 = this.commonServices.xmlResponseParcer_complex(result2._body);
+                    console.dir(response2);
 
-                  this.envoyeur_documents = (response2 && response2.identifiant && (+response2.error === 0)) ? response2.identifiant : [];
-                }, (err) => {
-                  console.log(err);
-                });
-              // **************************************
-            }, (err) => {
-              console.log(err);
-            });
-          // ====================================
+                    this.envoyeur_documents = (response2 && response2.identifiant && (+response2.error === 0)) ? response2.identifiant : [];
+                    this.requestIsSent = false;
+                  }, (err) => {
+                    this.requestIsSent = false;
+                    console.log(err);
+                  });
+                // **************************************
+              }, (err) => {
+                this.requestIsSent = false;
+                console.log(err);
+              });
+            // ====================================
 
-        } else {
-          this.retraitCode_valid = false;
-          if (response.errorMessage) {this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.errorMessage); }
-          if (response.message) {this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message); }
-          this.clearSearch();
-        }
+          } else {
+            this.requestIsSent = false;
+            this.retraitCode_valid = false;
+            if (response.errorMessage) {this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.errorMessage); }
+            if (response.message) {this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message); }
+            this.clearSearch();
+          }
 
-      }, (err) => {
-        this.loading = false;
-        console.log(err);
-        this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
-      });
+        }, (err) => {
+          this.loading = false;
+          this.requestIsSent = false;
+          console.log(err);
+          this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+        });
+    }
   }
 
   public onChanged(beneficiaire: EnvoyeurClass) {

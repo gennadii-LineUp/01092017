@@ -23,6 +23,7 @@ export class ParametersComponent implements OnInit, OnDestroy {
   userRole = '';
   profil = '';
   loading = false;
+  requestIsSent = false;
   errorMessage = '';
   successMessage_1 = '';
   successMessage_2 = '';
@@ -122,7 +123,8 @@ export class ParametersComponent implements OnInit, OnDestroy {
   }
 
   public submitTransferCompteFunction() {
-    if (this.beneficiaryFromQR_idAccount && (+this.amountToReceiver >= 0.01)) {
+    if (!this.requestIsSent && this.beneficiaryFromQR_idAccount && (+this.amountToReceiver >= 0.01)) {
+        this.requestIsSent = true;
         // this.successMessage_1 = '';
         // this.successMessage_2 = '';
         this.errorMessage = '';
@@ -167,9 +169,10 @@ export class ParametersComponent implements OnInit, OnDestroy {
                         } else {
                           this.errorMessage += '  ' + this.errorMessageHandlerService.getMessageEquivalent(_response.message);
                         }
-
+                        this.requestIsSent = false;
                       }, (err) => {
                         this.loading = false;
+                        this.requestIsSent = false;
                         console.log(err);
                         this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
                         if (!this.errorMessage) {
@@ -188,6 +191,7 @@ export class ParametersComponent implements OnInit, OnDestroy {
                   // });
               } else {
                 this.loading = false;
+                this.requestIsSent = false;
                 this.errorMessage = response.message + ': ' + response.commission;
                 if (response.message) {
                   this.errorMessage += this.errorMessageHandlerService.getMessageEquivalent(response.message);
@@ -196,9 +200,10 @@ export class ParametersComponent implements OnInit, OnDestroy {
                   this.errorMessage += this.errorMessageHandlerService.getMessageEquivalent(response.statusText);
                 }
               }
-
+              this.requestIsSent = false;
             }, (err) => {
               this.loading = false;
+              this.requestIsSent = false;
               console.log(err);
               if (err._body.type) {
                 this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);

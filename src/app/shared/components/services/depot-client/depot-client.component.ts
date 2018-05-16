@@ -25,6 +25,7 @@ export class DepotClientComponent implements OnInit, OnDestroy {
   amount_depotClient: number;
   successMessage = '';
   loading = false;
+  requestIsSent = false;
   errorMessage = '';
   newReceiver = new RegistrationClass('', '', 221, '', 'AUTO', 'AUTO', 'AUTO', 'AUTO', true);
   receiverExist = false;
@@ -92,9 +93,10 @@ export class DepotClientComponent implements OnInit, OnDestroy {
   public clearAmount() {this.amount_depotClient = undefined; }
 
   public submitDepotClient() {
-    if ((+this.amount_depotClient >= 0.01)
-        && this.client_fromSelect2
-        && (this.envoyeur.id_fin && this.envoyeur.id_debut && this.envoyeur.nom && this.envoyeur.prenom && this.envoyeur.cellulaire
+    if (!this.requestIsSent
+          && (+this.amount_depotClient >= 0.01)
+          && this.client_fromSelect2
+          && (this.envoyeur.id_fin && this.envoyeur.id_debut && this.envoyeur.nom && this.envoyeur.prenom && this.envoyeur.cellulaire
           && this.envoyeur.id_type && this.envoyeur.id_pays && this.envoyeur.id_valeur)) {
       console.log(this.amount_depotClient + '  to send');
       console.dir(this.commonServices.getSelectedReceivers());
@@ -104,7 +106,7 @@ export class DepotClientComponent implements OnInit, OnDestroy {
       this.successMessage = '';
       this.errorMessage = '';
 
-      // console.log(this.myAccount);
+      this.requestIsSent = true;
       this.getCommissionsTTCService.getCommission(this.amount_depotClient, 'C2W')
         .takeWhile(() => this.alive)
         .subscribe(result => {
@@ -135,8 +137,10 @@ export class DepotClientComponent implements OnInit, OnDestroy {
                 } else {
                   this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(_response.message);
                 }
+                this.requestIsSent = false;
               }, (err) => {
                 this.loading = false;
+                this.requestIsSent = false;
                 console.log(err);
                 if (err._body.type) {
                   this.errorMessage += '  ' + this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
@@ -145,12 +149,14 @@ export class DepotClientComponent implements OnInit, OnDestroy {
 
             /////////////////////////////
           } else {
+            this.requestIsSent = false;
             this.loading = false;
             this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
           }
 
         }, (err) => {
           this.loading = false;
+          this.requestIsSent = false;
           console.log(err);
           this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
         });

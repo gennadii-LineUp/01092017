@@ -29,6 +29,7 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
   transfer_marchand = false;
   transfer_facture = false;
   profil = '';
+  requestIsSent = false;
 
   loading = false;
   myAccount: any;
@@ -171,44 +172,53 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
 
 
   public getPaiementsFactureFunction() {
-    this.getFacturiersPaysService.getPaiementFacture()
-      .takeWhile(() => this.alive)
-      .subscribe(result => {
-        const response = this.commonServices.xmlResponseParcer_complexReturn( result._body );
-        console.dir( response );
-        if (response.return && response.return.length) {
-          response.return.forEach(payement => {
-            this.factures.push(new ReceiverClass(
-              payement.nom, payement.prenom, payement.numTel, '', payement.id, '', '', '', '', payement.type, ''))
-          });
-        }
-
-      }, err => {
-        console.log(err);
-      });
+    if (!this.requestIsSent) {
+      this.requestIsSent = true;
+      this.getFacturiersPaysService.getPaiementFacture()
+        .takeWhile(() => this.alive)
+        .subscribe(result => {
+          const response = this.commonServices.xmlResponseParcer_complexReturn( result._body );
+          console.dir( response );
+          if (response.return && response.return.length) {
+            response.return.forEach(payement => {
+              this.factures.push(new ReceiverClass(
+                payement.nom, payement.prenom, payement.numTel, '', payement.id, '', '', '', '', payement.type, ''))
+            });
+          }
+          this.requestIsSent = false;
+        }, err => {
+          this.requestIsSent = false;
+          console.log(err);
+        });
+    }
   }
 
 
   public getPaiementMarchandFunction() {
-    this.getCommercantsPaysService.getPaiementMarchand()
-      .takeWhile(() => this.alive)
-      .subscribe(result => {
-        const response = this.commonServices.xmlResponseParcer_complexReturn( result._body );
-        console.dir( response );
-        if (response.return && response.return.length) {
-          response.return.forEach(payement => {
-            this.marchands.push(new ReceiverClass(
-              payement.nom, payement.prenom, payement.numTel, '', payement.id, '', '', '', '', payement.type, ''))
-          });
-        }
-
-      }, err => {
-        console.log(err);
-      })
+    if (!this.requestIsSent) {
+      this.requestIsSent = true;
+      this.getCommercantsPaysService.getPaiementMarchand()
+        .takeWhile(() => this.alive)
+        .subscribe(result => {
+          const response = this.commonServices.xmlResponseParcer_complexReturn( result._body );
+          console.dir( response );
+          if (response.return && response.return.length) {
+            response.return.forEach(payement => {
+              this.marchands.push(new ReceiverClass(
+                payement.nom, payement.prenom, payement.numTel, '', payement.id, '', '', '', '', payement.type, ''))
+            });
+          }
+          this.requestIsSent = false;
+        }, err => {
+          this.requestIsSent = false;
+          console.log(err);
+        })
+    }
   }
 
   public submitTransferCompteFunction() {
-    if (this.numTel_fromSelect2 && (+this.amountToReceiver >= 0.01)) {
+    if (!this.requestIsSent && this.numTel_fromSelect2 && (+this.amountToReceiver >= 0.01)) {
+      this.requestIsSent = true;
       if (!(this.numTel_fromSelect2 === 'undefined')) {
         let _numTel_fromSelect2: string;
         this.successMessage_1 = '';
@@ -266,9 +276,10 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
                         } else {
                           this.errorMessage += '  ' + this.errorMessageHandlerService.getMessageEquivalent(_response.message);
                         }
-
+                        this.requestIsSent = false;
                       }, (err) => {
                         this.loading = false;
+                        this.requestIsSent = false;
                         console.log(err);
                         this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
                         if (!this.errorMessage) {
@@ -278,6 +289,7 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
                     /////////////////////////////
                   }, (err) => {
                     this.loading = false;
+                    this.requestIsSent = false;
                     console.log(err);
                     this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
                     if (!this.errorMessage) {
@@ -286,6 +298,7 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
                   });
               } else {
                 this.loading = false;
+                this.requestIsSent = false;
                 this.errorMessage = response.message + ': ' + response.commission;
                 if (response.message) {
                   this.errorMessage += this.errorMessageHandlerService.getMessageEquivalent(response.message);
@@ -297,6 +310,7 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
 
             }, (err) => {
               this.loading = false;
+              this.requestIsSent = false;
               console.log(err);
               if (err._body.type) {
                 this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
@@ -307,6 +321,7 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
             });
         } else {
           this.loading = false;
+          this.requestIsSent = false;
           this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent('no cellulaire in the database');
         }
       } else {this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent('no cellulaire in the database'); }

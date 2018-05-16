@@ -20,6 +20,7 @@ export class OperationsComponent implements OnInit, OnDestroy {
   userRole = '';
   profil = '';
   loading = false;
+  requestIsSent = false;
   errorMessage = '';
   status = '';
   successMessage_1 = '';
@@ -64,6 +65,8 @@ export class OperationsComponent implements OnInit, OnDestroy {
   }
 
   loadListBanquesSicaFunction() {
+    if (!this.requestIsSent) {
+      this.requestIsSent = true;
       this.listBanquesSicaService.getListBanques()
         .takeWhile(() => this.alive)
         .subscribe(result => {
@@ -74,11 +77,13 @@ export class OperationsComponent implements OnInit, OnDestroy {
           } else {
             this.errorMessage = 'Error: no banques';
           }
-          console.log(this.banques);
+          this.requestIsSent = false;
         }, (err) => {
           console.log(err);
+          this.requestIsSent = false;
           this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
         });
+    }
   }
 
   showBanque() {
@@ -86,8 +91,10 @@ export class OperationsComponent implements OnInit, OnDestroy {
   }
 
   public submitCreerBeneficiaryFunction() {
-    if (this.activeBanque && this.beneficiary.rib && this.beneficiary.compte && this.beneficiary.guichet && this.beneficiary.nom) {
+    if (!this.requestIsSent
+      && this.activeBanque && this.beneficiary.rib && this.beneficiary.compte && this.beneficiary.guichet && this.beneficiary.nom) {
       this.loading = true;
+      this.requestIsSent = true;
 
       this.newBeneficiaryService
           .createNewBeneficiary(this.activeBanque,
@@ -106,9 +113,11 @@ export class OperationsComponent implements OnInit, OnDestroy {
           setTimeout(() => {
             this.ngOnInit();
             this.toggleAddNewBenef_mode()}, 2000);
+          this.requestIsSent = false;
           //
         }, (err) => {
           this.loading = false;
+          this.requestIsSent = false;
           this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
           if (!this.errorMessage) {
             this.errorMessage = this.errorMessageHandlerService._getMessageEquivalent(err._body);

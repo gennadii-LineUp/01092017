@@ -27,6 +27,7 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
   loading = false;
   errorMessage = '';
   receiverExist = false;
+  requestIsSent = false;
   createNewReceiver = true;
   createNewReceiver_mobile_amount = true;
   receiverStatus = '';
@@ -81,9 +82,10 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
 
 
   public submitDepotSitizen() {
-    if ((+this.amount_depotCitizen >= 0.01)
-      && this.citizen_fromSelect2
-      && (this.envoyeur.id_fin && this.envoyeur.id_debut && this.envoyeur.nom && this.envoyeur.prenom && this.envoyeur.cellulaire
+    if (!this.requestIsSent
+        &&(+this.amount_depotCitizen >= 0.01)
+        && this.citizen_fromSelect2
+        && (this.envoyeur.id_fin && this.envoyeur.id_debut && this.envoyeur.nom && this.envoyeur.prenom && this.envoyeur.cellulaire
         && this.envoyeur.id_type && this.envoyeur.id_pays && this.envoyeur.id_valeur)) {
       // console.log(this.amount_depotCitizen + '  to send');
       // console.dir(this.commonServices.getSelectedReceivers());
@@ -92,8 +94,7 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
       this.successMessage = '';
       this.errorMessage = '';
 
-      // const beneficiaire = this.userDataService.getReceiverFromSelect2(this.citizen_fromSelect2);
-      // console.log(this.myAccount);
+      this.requestIsSent = true;
       this.getCommissionsTTCService.getCommission(this.amount_depotCitizen, 'C2W')
         .takeWhile(() => this.alive)
         .subscribe(result => {
@@ -122,8 +123,10 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
                 } else {
                   this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(_response.message);
                 }
+                this.requestIsSent = false;
               }, (err) => {
                 this.loading = false;
+                this.requestIsSent = false;
                 console.log(err);
                 if (err._body.type) {
                   this.errorMessage += '  ' + this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
@@ -138,6 +141,7 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
 
         }, (err) => {
           this.loading = false;
+          this.requestIsSent = false;
           console.log(err);
           this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
         });

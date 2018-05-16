@@ -26,6 +26,7 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
   newReceiver = new RegistrationClass('', '', 221, '', 'AUTO', 'AUTO', 'AUTO', 'AUTO', true);
   amountToReceiver: number;
   showReceiverInfo = false;
+  requestIsSent = false;
   successMessage_1 = '';
   successMessage_2 = '';
   errorMessage = '';
@@ -138,34 +139,39 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
   }
 
   public findReceiverByTelephone() {
-    this.loading = true;
-    this.getUOByCellularService.getData(this.cellularToFind)
-      .takeWhile(() => this.alive)
-      .subscribe(result => {
-        const response = this.commonServices.xmlResponseParcer_simple(result._body);
-        console.dir(response);
-        this.loading = false;
-        if (response.numTel && response.numTel.length) {
-          this.beneficiaireFound = {nom: (response.nom) ? response.nom : undefined,
-            prenom: (response.prenom) ? response.prenom : undefined,
-            numTel: response.numTel,
-            id: (response.id) ? response.id : undefined
-          };
-          this.newReceiver.nom = (response.nom) ? response.nom : undefined;
-          this.newReceiver.prenom = (response.prenom) ? response.prenom : undefined;
-          this.newReceiver.telephone = response.numTel;
-          this.setBeneficiaryFunction({value: this.beneficiaireFound.numTel});
-          console.log(this.beneficiaireFound);
-          this.citizenExist = true;
-        } else {
-          // this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
-          this.createNew = true;
-        }
-      }, (err) => {
-        this.loading = false;
-        console.log(err);
-        this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
-      });
+    if (!this.requestIsSent) {
+      this.requestIsSent = true;
+      this.loading = true;
+      this.getUOByCellularService.getData(this.cellularToFind)
+        .takeWhile(() => this.alive)
+        .subscribe(result => {
+          const response = this.commonServices.xmlResponseParcer_simple(result._body);
+          console.dir(response);
+          this.loading = false;
+          if (response.numTel && response.numTel.length) {
+            this.beneficiaireFound = {nom: (response.nom) ? response.nom : undefined,
+              prenom: (response.prenom) ? response.prenom : undefined,
+              numTel: response.numTel,
+              id: (response.id) ? response.id : undefined
+            };
+            this.newReceiver.nom = (response.nom) ? response.nom : undefined;
+            this.newReceiver.prenom = (response.prenom) ? response.prenom : undefined;
+            this.newReceiver.telephone = response.numTel;
+            this.setBeneficiaryFunction({value: this.beneficiaireFound.numTel});
+            console.log(this.beneficiaireFound);
+            this.citizenExist = true;
+          } else {
+            // this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
+            this.createNew = true;
+          }
+          this.requestIsSent = false;
+        }, (err) => {
+          this.loading = false;
+          this.requestIsSent = false;
+          console.log(err);
+          this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+        });
+    }
   }
 
   public clearNumTel() {this.cellularToFind = undefined; }
@@ -178,7 +184,8 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
 
 
   public submitTransferDargentFunction() {
-    if (+this.amountToReceiver >= 0.01) {
+    if (!this.requestIsSent && +this.amountToReceiver >= 0.01) {
+      this.requestIsSent = true;
       if (!this.createNew && this.numTel_fromSelect2) {
         this.makeTransaction();
       }
@@ -196,8 +203,10 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
                 } else {
                   this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
                 }
+                this.requestIsSent = false;
               }, (err) => {
                 this.loading = false;
+                this.requestIsSent = false;
                 console.log(err);
                 this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
                 if (!this.errorMessage) {
@@ -209,49 +218,53 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
   }
 
   public makeTransaction() {
-    this.loading = true;
-    this.successMessage_1 = '';
-    this.successMessage_2 = '';
-    this.errorMessage = '';
-    let beneficiaire: any;
-    // if (!this.createNew) {
-    //   beneficiaire = <ReceiverClass>this.userDataService.getReceiverFromSelect2(this.numTel_fromSelect2);
-    //   console.log(beneficiaire);
-    // } else {
+    if (!this.requestIsSent) {
+      this.requestIsSent = true;
+      this.loading = true;
+      this.successMessage_1 = '';
+      this.successMessage_2 = '';
+      this.errorMessage = '';
+      let beneficiaire: any;
+      // if (!this.createNew) {
+      //   beneficiaire = <ReceiverClass>this.userDataService.getReceiverFromSelect2(this.numTel_fromSelect2);
+      //   console.log(beneficiaire);
+      // } else {
       beneficiaire = new ReceiverClass(this.newReceiver.nom, this.newReceiver.prenom, this.newReceiver.telephone,
-                                      'AUTO', 0, '', this.newReceiver.telephone, this.newReceiver.telephone, '', '', '');
+        'AUTO', 0, '', this.newReceiver.telephone, this.newReceiver.telephone, '', '', '');
       this.numTel_fromSelect2 = this.newReceiver.telephone;
-    // }
-    // console.log(this.numTel_fromSelect2);
-    // console.log(beneficiaire);
+      // }
+      // console.log(this.numTel_fromSelect2);
+      // console.log(beneficiaire);
 
-    if (this.numTel_fromSelect2) {
-      this.w2COrdreRetraitService.transferDargent(this.myAccount.telephone, this.amountToReceiver, beneficiaire)
-        .takeWhile(() => this.alive)
-        .subscribe(result => {
-          this.loading = false;
-          // console.log(result._body);
-          const response = this.commonServices.xmlResponseParcer_simple(result._body);
+      if (this.numTel_fromSelect2) {
+        this.w2COrdreRetraitService.transferDargent(this.myAccount.telephone, this.amountToReceiver, beneficiaire)
+          .takeWhile(() => this.alive)
+          .subscribe(result => {
+            this.loading = false;
+            // console.log(result._body);
+            const response = this.commonServices.xmlResponseParcer_simple(result._body);
 
-          console.dir(response);
-          if (+response.error === 0) {
-            this.showReceiverInfo = false;
-            this.clearSearch();
-            this.successMessage_1 = response.message + ';';
-            this.successMessage_2 = 'code: ' + response.code;
-            this.discardReceiverInfoFunction();
-          } else {
-            this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
-          }
-
-        }, (err) => {
-          this.loading = false;
-          console.log(err);
-          this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
-        });
-    } else {
-      this.loading = false;
-      this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent('no cellulaire in the database');
+            console.dir(response);
+            if (+response.error === 0) {
+              this.showReceiverInfo = false;
+              this.clearSearch();
+              this.successMessage_1 = response.message + ';';
+              this.successMessage_2 = 'code: ' + response.code;
+              this.discardReceiverInfoFunction();
+            } else {
+              this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
+            }
+            this.requestIsSent = false;
+          }, (err) => {
+            this.loading = false;
+            this.requestIsSent = false;
+            console.log(err);
+            this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+          });
+      } else {
+        this.loading = false;
+        this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent('no cellulaire in the database');
+      }
     }
   }
 
