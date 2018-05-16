@@ -1,4 +1,4 @@
-<form #agent_envoyeurDataId="ngForm" novalidate>
+<form #agent_envoyeurDataId="ngForm" novalidate (click)="dpDebut.close(); dpExpiration.close();">
   <div class="content" style="padding-bottom: 0">
     <h3 style="margin-top: 16px">Firstname</h3>
     <div class="floating-block border-hover">
@@ -46,7 +46,8 @@
     <h3>DATE DELIVRANCE</h3>
     <div class="floating-block border-hover">
       <div class="floating-input" style="font-size: 24px !important;">
-        <input readonly class="form-control" placeholder="yyyy-mm-dd" (click)="dpExpiration.close(); dpDebut.toggle()"
+        <input readonly class="form-control" placeholder="dd-mm-yyyy"
+               (click)="dpExpiration.close(); dpDebut.toggle(); $event.stopPropagation()"
                (ngModelChange)="transformDataToString($event, 'dpDebut')"
                style="background-color: #fff"
                [minDate]="minDate"
@@ -57,7 +58,8 @@
     <h3>DATE EXPIRATION</h3>
     <div class="floating-block border-hover">
       <div class="floating-input">
-        <input readonly class="form-control" placeholder="yyyy-mm-dd" (click)="dpDebut.close(); dpExpiration.toggle()"
+        <input readonly class="form-control" placeholder="dd-mm-yyyy"
+               (click)="dpDebut.close(); dpExpiration.toggle(); $event.stopPropagation()"
                (ngModelChange)="transformDataToString($event, 'dpExpiration')"
                style="background-color: #fff"
                [minDate]="minDate" [maxDate]="maxDate"
