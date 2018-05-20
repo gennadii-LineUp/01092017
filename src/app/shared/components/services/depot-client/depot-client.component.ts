@@ -13,13 +13,15 @@ import {RegistrationClass} from '../../../../models/registration-class';
 import {CreateNewAccountService} from '../../../../services/api/createNewAccount.service';
 import {GetCustomerByCellularService} from '../../../../services/api/getCustomerByCellular.service';
 import {GetContactOfCustomerService} from '../../../../services/api/getContactOfCustomer.service';
+import {PassportClass} from '../../../../models/passport-class';
+import {GetIdentifiantsUOService} from '../../../../services/api/getIdentifiantsUO.service';
 
 @Component({
   selector: 'app-services-depot-client',
   templateUrl: './depot-client.component.html',
   styleUrls: ['./depot-client.component.scss'],
   providers: [GetCommissionsTTCService, V2WDepotClientTransactionService, GetCustomerByCellularService,
-              CreateNewAccountService, GetContactOfCustomerService]
+              CreateNewAccountService, GetContactOfCustomerService, GetIdentifiantsUOService]
 })
 export class DepotClientComponent implements OnInit, OnDestroy {
   amount_depotClient: number;
@@ -38,6 +40,7 @@ export class DepotClientComponent implements OnInit, OnDestroy {
   receiverToFind = '';
   successMessage_1 = '';
   successMessage_2 = '';
+  additionalCaption = '  (enregistré)';
   client = {id: undefined, nom: undefined, prenom: undefined, numTel: undefined};
   commission = [];
   envoyeur = new EnvoyeurClass('KANE', 'MOMAR', '773151459', 'DAKAR', 'CNI', 'SEN', '1619198107350', '01/01/2016', '01/01/2017');
@@ -48,6 +51,7 @@ export class DepotClientComponent implements OnInit, OnDestroy {
               new ReceiverClass('Ann', 'Hattaway', '+38(123)4567890', '2', 2, 'citizen', '', '', '', '', ''),
               new ReceiverClass('Bon', 'Jovi', '12-345-67-89', '24', 3, 'citizen', '', '', '', '', '')];
   client_fromSelect2 = '';
+  envoyeur_documents = Array<PassportClass>(0);
   userRole = '';
   alive = true;
 
@@ -63,7 +67,8 @@ export class DepotClientComponent implements OnInit, OnDestroy {
               public currencyParams: CurrencyParams,
               public getCustomerByCellularService: GetCustomerByCellularService,
               public createNewAccountService: CreateNewAccountService,
-              public getContactOfCustomerService: GetContactOfCustomerService) { }
+              public getContactOfCustomerService: GetContactOfCustomerService,
+              public getIdentifiantsUOService: GetIdentifiantsUOService) { }
 
   ngOnInit() {
     this.firstStepMode();
@@ -175,14 +180,30 @@ export class DepotClientComponent implements OnInit, OnDestroy {
         this.client.nom = (response.nom) ? (response.nom) : '';
         this.client.prenom = (response.prenom) ? (response.prenom) : '';
         this.client.numTel = (response.numTel) ? (response.numTel) : '';
-        if (response.id) {
-          this.findContactsOfClient(response.id);
-          // this.beneficiaireFound = {nom: (response.nom) ? response.nom : undefined,
-          //   prenom: (response.prenom) ? response.prenom : undefined,
-          //   numTel: response.numTel,
-          //   id: (response.id) ? response.id : undefined
-          // };
-          // this.setBeneficiaryFunction({value: this.beneficiaireFound.numTel});
+
+        if (response && response.id) {
+          // ====================================
+          this.getIdentifiantsUOService.getIdentifiantsUOService(response.id)
+            .takeWhile(() => this.alive)
+            .subscribe(result1 => {
+              const response1 = this.commonServices.xmlResponseParcer_complex(result1._body);
+              console.dir(response1);
+              this.findContactsOfClient(response.id);
+
+              if (+response1.error === 0 && response1.identifiant && response1.identifiant.length) {
+                this.envoyeur_documents = response1.identifiant;
+                // this.setBeneficiaryFunction({value: this.beneficiaireFound.numTel});
+              } else {
+                this.loading = false;
+                // this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
+                // this.clientDoesntExist = true;
+              }
+            }, (err1) => {
+              this.loading = false;
+              console.log(err1);
+              this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err1._body.type);
+            });
+          // ====================================
         } else {
           this.loading = false;
           this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
@@ -290,6 +311,7 @@ export class DepotClientComponent implements OnInit, OnDestroy {
 
   private setEnvoyeurFromForm(envoyeur: EnvoyeurClass) {
     this.envoyeur = envoyeur;
+    this.envoyeur.id_type = (this.envoyeur.id_type.split(this.additionalCaption))[0];
     console.log(this.envoyeur);
     console.log(this.envoyeur.nom + ' - ' + (<EnvoyeurClass>this._envoyeur_default).nom);
     console.log(this.envoyeur.prenom + ' - ' + (<EnvoyeurClass>this._envoyeur_default).prenom);

@@ -27,7 +27,8 @@
     <h3>ID type</h3>
     <div class="floating-block border-hover">
       <div class="floating-input">
-          <select name="id_type" id="id_type" #id_type="ngModel" (change)="setDocumentType(select_id_type_active)"
+          <select name="id_type" id="id_type" #id_type="ngModel"
+                  (change)="setDocumentType(select_id_type_active)"
                   [(ngModel)]="select_id_type_active">
             <option *ngFor="let document of select_id_type_values" [ngValue]="document.type">
               {{document.type}}

@@ -25,6 +25,7 @@ export class GetUserIdComponent implements OnInit {
   ];
   date = '11/13/2016';
   datepickerDebut;
+  additionalCaption = '  (enregistré)';
   datepickerExpiration;
   minDate = {year: 1950, month: 1, day: 1};
   maxDate = {year: 2060, month: 1, day: 1};
@@ -43,8 +44,26 @@ export class GetUserIdComponent implements OnInit {
   @Input()
   set envoyeur_documents(data: Array<PassportClass>) {
     if (data && data.length) {
-      this.select_id_type_values = data;
-      this._envoyeur_documents = data;
+      let envoyeurDocuments = data.slice();
+      let emptyDocuments = this.select_id_type_values.slice();
+
+      emptyDocuments.forEach((emptyDocument, i) => {
+        envoyeurDocuments.forEach((document) => {
+          if (emptyDocument.type === document.type) {
+            emptyDocument.type = document.type + this.additionalCaption;
+            emptyDocument.pays = document.pays;
+            emptyDocument.dateFin = document.dateFin;
+            emptyDocument.dateDebut = document.dateDebut;
+            emptyDocument.valeur = document.valeur;
+          }
+        });
+      });
+
+      this.select_id_type_values = [];
+      this._envoyeur_documents = [];
+      this.select_id_type_values = emptyDocuments.slice();
+      this._envoyeur_documents = emptyDocuments.slice();
+      console.log(this.select_id_type_values);
     }
   }
 

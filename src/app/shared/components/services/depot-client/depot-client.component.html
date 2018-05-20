@@ -181,15 +181,9 @@
           </div>
 
           <div style="padding: 0 18px">
-            <!--<app-get-user-id [(envoyeur)]="envoyeur_default"></app-get-user-id>-->
             <app-get-user-id (userData)="setEnvoyeurFromForm($event)"
-                             [setDefaultUser]="envoyeur_default">
-              <!--[setUserNom]="''"-->
-              <!--[setUserPrenom]="''"-->
-              <!--[setUserCellulaire]="''"-->
-                             <!--[setUserNom]="envoyeur_default.nom"-->
-                             <!--[setUserPrenom]="envoyeur_default.prenom"-->
-                             <!--[setUserCellulaire]="envoyeur_default.numTel"-->
+                             [setDefaultUser]="envoyeur_default"
+                             [envoyeur_documents]="envoyeur_documents">
             </app-get-user-id>
           </div>
         </div>
@@ -279,12 +273,9 @@
           </div>
 
           <div style="padding: 0 18px">
-            <!--<app-get-user-id [(envoyeur)]="envoyeur_default"></app-get-user-id>-->
-            <app-get-user-id (userData)="setEnvoyeurFromForm($event)" [setDefaultUser]="envoyeur_default">
-              <!--[setUserNom]="envoyeur_default.nom"-->
-              <!--[setUserPrenom]="envoyeur_default.prenom"-->
-              <!--[setUserCellulaire]="envoyeur_default.numTel">-->
-
+            <app-get-user-id (userData)="setEnvoyeurFromForm($event)"
+                             [setDefaultUser]="envoyeur_default"
+                             [envoyeur_documents]="envoyeur_documents">
             </app-get-user-id>
             <div *ngIf="createNewReceiver" class="row only-mobile">
               <div class="col-md-12 col-lg-8 blue-button__wrapper">

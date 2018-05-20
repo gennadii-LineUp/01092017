@@ -44,6 +44,7 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
   _envoyeur_default = {};
   envoyeur_documents = Array<PassportClass>(0);
   citizen_fromSelect2 = '';
+  additionalCaption = '  (enregistré)';
   userRole = '';
   checkboxSameBenef = true;
   citizenDoesntExist = false;
@@ -186,6 +187,7 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
 
   private setEnvoyeurFromForm(envoyeur: EnvoyeurClass) {
     this.envoyeur = envoyeur;
+    this.envoyeur.id_type = (this.envoyeur.id_type.split(this.additionalCaption))[0];
     console.log(this.envoyeur);
     console.log(this.envoyeur.nom + ' - ' + (<EnvoyeurClass>this._envoyeur_default).nom);
     console.log(this.envoyeur.prenom + ' - ' + (<EnvoyeurClass>this._envoyeur_default).prenom);
