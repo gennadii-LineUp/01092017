@@ -49,15 +49,12 @@ export class OperationsComponent implements OnInit, OnDestroy {
       .subscribe(resp =>  this.userRole = resp['0'].path);
 
     this.loadListBanquesSicaFunction();
-    if ((this.userDataService.getMyAccounts()).length) {
-      // this.loadNonLuNotificationsFunction(this.userDataService.getMyAccounts()['0'].uoId);
-    } else {
+    if (!(this.userDataService.getMyAccounts()).length) {
       this.userDataService.setMyAccounts();
     }
 
     this.profil = ((<any>this.userDataService.getUser).profil) ? (<any>this.userDataService.getUser).profil :
       localStorage.getItem('profil');
-    console.log(this.profil);
   }
 
   ngOnDestroy() {

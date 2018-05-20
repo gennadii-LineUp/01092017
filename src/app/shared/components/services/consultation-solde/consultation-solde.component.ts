@@ -45,10 +45,7 @@ export class ConsultationSoldeComponent implements OnInit, OnDestroy {
       .takeWhile(() => this.alive)
       .subscribe(resp =>  this.userRole = resp['0'].path);
 
-    if ((this.userDataService.getMyAccounts()).length) {
-      console.log('=== MyAccounts\' length ' + this.userDataService.getMyAccounts().length);
-    } else {
-      console.log('=== MyAccounts\' is empty ===');
+    if (!(this.userDataService.getMyAccounts()).length) {
       this.userDataService.setMyAccounts();
     }
   }

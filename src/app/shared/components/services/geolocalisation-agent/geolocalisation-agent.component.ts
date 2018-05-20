@@ -66,7 +66,6 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
     this.activatedRoute.parent.url
       .takeWhile(() => this.alive)
       .subscribe(resp =>  this.userRole = resp['0'].path);
-    // this.loadMap();
     this.loadAgentsCoordonees();
 
     if ((this.userDataService.getMyAccounts()).length) {
@@ -74,11 +73,8 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
       this.phone = (this.userDataService.getMyAccounts()['0'].telephone)
         ? (this.userDataService.getMyAccounts()['0'].telephone)
         : localStorage.getItem('telephone');
-      console.log(this.phone);
       this.startGettingMyCoordTouch();
-      // this.getMyCoordonees(this.phone + '');
     } else {
-      console.log('=== MyAccounts\' is empty ===');
       this.userDataService.setMyAccounts();
     }
   }

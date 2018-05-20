@@ -39,10 +39,7 @@ export class ContractsListComponent implements OnInit {
       .takeWhile(() => this.alive)
       .subscribe(resp =>  this.userRole = resp['0'].path);
 
-    if ((this.userDataService.getMyAccounts()).length) {
-      console.log('=== MyAccounts\' length ' + this.userDataService.getMyAccounts().length);
-    } else {
-      console.log('=== MyAccounts\' is empty ===');
+    if (!(this.userDataService.getMyAccounts()).length) {
       this.userDataService.setMyAccounts();
     }
     this.setAllContracts();
@@ -74,21 +71,8 @@ export class ContractsListComponent implements OnInit {
               }
             }
           }
-          console.log('=== from LS MyAccounts:');
-          // console.log(this.getMyAccounts());
-          // if (!this.user.nom || !this.user.prenom || !this.user.telephone || !this.user.id_account) {
-          //   this.setUser(localStorage.nom || 'add a nom',
-          //     localStorage.prenom || 'add a prenom',
-          //     localStorage.profil || 'add a profil',
-          //     localStorage.telephone || 'add a phone');
-          //   console.log(this.myAccounts);
-          //   this.setUserId(this.myAccounts['0'].id_account, this.myAccounts['0'].uoId);
-          //   console.log('=== from LS User:');
-          //   console.log(this.getUser());
-          // }
         }, (err) => {
           console.log(err);
-          // this.setErrorMessage(err);
         });
     } else {
       // this.logOut();
@@ -123,7 +107,6 @@ export class ContractsListComponent implements OnInit {
                 .subscribe(result => {
                   const response = (this.commonServices.xmlResponseParcer_complex(result._body)).contract;
                   if (response) {
-                    console.log(response);
                     this.allContracts = response;
                     this.setContractsForSelect2(response);
                   }
@@ -136,7 +119,6 @@ export class ContractsListComponent implements OnInit {
           }
         }, (err) => {
           console.log(err);
-          // this.setErrorMessage(err);
         });
     }
   }
@@ -157,26 +139,20 @@ export class ContractsListComponent implements OnInit {
         this.contractsForSelect2.push(new Select2optionClass(id, text));
         this._contractsForSelect2.push(new Select2optionClass(id, _text));
       });
-      // console.log(this.contractsForSelect2);
-      // console.log(this._contractsForSelect2);
     }
 
   }
   public chooseContractFunction(contract: Select2optionClass) {
-    console.log(contract);
     this.contract_defined.emit(contract);
   }
   public _chooseContractFunction(text: any) {
     let temp: any;
-    console.log(this.contractsForSelect2);
     this.contractsForSelect2.forEach((x) => {
       if (~(x.text.indexOf(text))) {temp = x; }
     });
-    console.log(temp);
     this.obj_select.value = '' + temp.id;
     this.obj_select.data[0].id = '' + temp.id;
     this.obj_select.data[0].text = temp.text;
-    console.log(this.obj_select);
     this.contract_defined.emit(this.obj_select);
   }
 

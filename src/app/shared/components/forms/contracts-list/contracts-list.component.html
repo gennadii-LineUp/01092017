@@ -4,7 +4,7 @@
     <!--<div class="back-button" [routerLink]="['/client/services']">Back</div>-->
     Insert customer’s information
   </h3>
-  <div *ngIf="(contractsForSelect2 && (contractsForSelect2.length > 0))" class="content">
+  <div class="content">
     <h4>Select a contract of the connected customer</h4>
     <div class="floating-block border-hover">
       <div class="floating-input" >
@@ -16,47 +16,6 @@
         </select>
       </div>
     </div>
-
-    <!--<ng-select2 name="select2_contracts" class="only-desktop"-->
-                <!--[(ngModel)]="contract_fromSelect2"-->
-                <!--[data]="contractsForSelect2"-->
-                <!--[placeholder]="'Please select...'"-->
-                <!--(valueChanged)="chooseContractFunction($event)">-->
-    <!--</ng-select2>-->
-
-  <!--{{contractsForSelect2 | json}}-->
-
-    <!--<div class="floating-block border-hover">-->
-    <!--<div class="orange-angle" style="display: block" (click)="findContractFunction()">-->
-    <!--<i class="fa fa-angle-right" aria-hidden="true"></i>-->
-    <!--</div>-->
-    <!--<div class="floating-input">-->
-    <!--<input id="contract_number_1" name="contract_number_1" placeholder="contract number" required-->
-    <!--type="text" [(ngModel)]="contract_number"-->
-    <!--(keyup.enter)="findContractFunction()">-->
-    <!--</div>-->
-
-    <!--</div>-->
-
-    <!--<p *ngIf="!errorMessage_contract" style="margin: 0; text-align: center; height: 16px"><img *ngIf="loading_contract" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></p>-->
-
-    <!-- C O N T R A C T S -->
-    <!--<div>-->
-    <!--<div class="virements-multiples__choose">-->
-    <!--<div class="virements-multiples__header">-->
-    <!--Сhoose contract:-->
-    <!--&lt;!&ndash;<div class="blue-angle">Choose</div>&ndash;&gt;-->
-    <!--</div>-->
-    <!--<div *ngFor="let contract of userDataService.getAllContracts()" class="virements-multiples__choose-item"-->
-    <!--(click)="chooseContractFunction(contract)">-->
-    <!--<div>-->
-    <!--Contract reference: {{contract.reference}}, from {{contract.dateCreation | dateFromServerMoment}}.<br>-->
-    <!--<span>Valid from {{contract.debut | dateFromServerMoment}}. Type - {{contract.type}}. {{contract.statut}}.</span>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!-- end  C O N T R A C T S -->
 
   </div>
   <div class="content">

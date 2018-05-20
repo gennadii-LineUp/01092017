@@ -84,7 +84,6 @@ export class GMapComponent implements OnInit, OnDestroy {
       // this.setDefaultCoord();
       this.loadAgentsCoordonees();
     } else {
-      console.log('=== MyAccounts\' is empty ===');
       this.userDataService.setMyAccounts();
     }
   }

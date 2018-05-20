@@ -59,15 +59,12 @@ export class ParametersComponent implements OnInit, OnDestroy {
       .subscribe(resp =>  this.userRole = resp['0'].path);
 
     this.goto_choseAccount_mode();
-    if ((this.userDataService.getMyAccounts()).length) {
-      // this.receiver_idAccount = +this.userDataService.getMyAccounts()['0'].id_account;
-    } else {
+    if (!(this.userDataService.getMyAccounts()).length) {
       this.userDataService.setMyAccounts();
     }
 
     this.profil = ((<any>this.userDataService.getUser).profil) ? (<any>this.userDataService.getUser).profil :
       localStorage.getItem('profil');
-    // console.log(this.profil);
   }
 
   ngOnDestroy() {

@@ -76,14 +76,8 @@ export class DepotClientComponent implements OnInit, OnDestroy {
     this.activateRoute.parent.url
       .takeWhile(() => this.alive)
       .subscribe(resp =>  this.userRole = resp['0'].path);
-    // const select2 = <HTMLCollection>window.document.getElementsByClassName('select2-container select2-container--default');
-    // if (select2 && select2['0'] && select2['0'].style) {
-    //   select2['0'].style.cssText = 'select2-container select2-container--default select2-container--close';
-    // }
-    if ((this.userDataService.getMyAccounts()).length) {
-      console.log('=== MyAccounts\' length ' + this.userDataService.getMyAccounts().length);
-    } else {
-      console.log('=== MyAccounts\' is empty ===');
+
+    if (!(this.userDataService.getMyAccounts()).length) {
       this.userDataService.setMyAccounts();
     }
 
@@ -91,7 +85,6 @@ export class DepotClientComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.alive = false;
-    // this.commonServices.removeEmptySelect2OnDestroy();
   }
 
 

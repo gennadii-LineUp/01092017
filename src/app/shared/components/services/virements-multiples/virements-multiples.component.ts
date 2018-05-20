@@ -55,12 +55,8 @@ export class VirementsMultiplesComponent implements OnInit, OnDestroy {
 
     const profil = ((<any>this.userDataService.getUser).profil) ? (<any>this.userDataService.getUser).profil :
       localStorage.getItem('profil');
-    console.log(profil);
 
-    if ((this.userDataService.getMyAccounts()).length) {
-      console.log('=== MyAccounts\' length ' + this.userDataService.getMyAccounts().length);
-    } else {
-      console.log('=== MyAccounts\' is empty ===');
+    if (!(this.userDataService.getMyAccounts()).length) {
       this.userDataService.setMyAccounts();
     }
   }
