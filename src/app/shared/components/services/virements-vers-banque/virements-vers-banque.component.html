@@ -35,7 +35,7 @@
             <!--</div>-->
 
             <button class="blue-button orange-button" type="submit"
-                    [disabled]="!(+amountToReceiver >= 0.01)"
+                    [disabled]="!(+amountToReceiver >= 0.01) && requestIsSent"
                     (click)="submitVirementsVersBank()">Valider l’ordre</button>
 
             <div *ngIf="errorMessage" class="errorTextClass">{{errorMessage}}</div>
