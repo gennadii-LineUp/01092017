@@ -5,6 +5,8 @@ import {CustomDatepickerI18n, I18n} from '../../../../models/datepicker-i18n';
 import {NgbDatepickerI18n} from '@ng-bootstrap/ng-bootstrap';
 import {PassportClass} from '../../../../models/passport-class';
 import {CommonServices} from '../../../../services/common.service';
+import { NgbDatepicker, NgbInputDatepicker } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-get-user-id',
@@ -31,6 +33,7 @@ export class GetUserIdComponent implements OnInit {
   @Output()
   userData = new EventEmitter<EnvoyeurClass>();
 
+  @Input() closeDatepickerOnClick: boolean = true;
   @Input()
   set setDefaultUser(defaultEnvoyeur: EnvoyeurClass) {
     this.envoyeur = defaultEnvoyeur;
@@ -49,6 +52,7 @@ export class GetUserIdComponent implements OnInit {
 
   ngOnInit() {
     this.sendData();
+
   }
 
   public clearEnvoyeur(field: string) {this.envoyeur[field] = undefined; }
@@ -89,17 +93,17 @@ export class GetUserIdComponent implements OnInit {
     let _datepickerExpiration = '';
     if (type === 'dpDebut') {
       if (e && e.year && e.month && e.day) {
-        _datepickerDebut = '' + e.year + '-'
+        _datepickerDebut = '' + ((('' + e.day).length > 1) ? e.day : ('0' + e.day)) + '-'
           + ((('' + e.month).length > 1) ? e.month : ('0' + e.month)) + '-'
-          + ((('' + e.day).length > 1) ? e.day : ('0' + e.day));
+          + e.year;
       }
       this.envoyeur.id_debut = (_datepickerDebut.length > 0) ? _datepickerDebut : undefined;
     }
     if (type === 'dpExpiration') {
       if (e && e.year && e.month && e.day) {
-        _datepickerExpiration = '' + e.year + '-'
+        _datepickerExpiration = '' + ((('' + e.day).length > 1) ? e.day : ('0' + e.day)) + '-'
           + ((('' + e.month).length > 1) ? e.month : ('0' + e.month)) + '-'
-          + ((('' + e.day).length > 1) ? e.day : ('0' + e.day));
+          + e.year;
       }
       this.envoyeur.id_fin = (_datepickerExpiration.length > 0) ? _datepickerExpiration : undefined;
     }

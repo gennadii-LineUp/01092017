@@ -85,8 +85,9 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
     if (!this.requestIsSent
         &&(+this.amount_depotCitizen >= 0.01)
         && this.citizen_fromSelect2
-        && (this.envoyeur.id_fin && this.envoyeur.id_debut && this.envoyeur.nom && this.envoyeur.prenom && this.envoyeur.cellulaire
-        && this.envoyeur.id_type && this.envoyeur.id_pays && this.envoyeur.id_valeur)) {
+        // && (this.envoyeur.id_fin && this.envoyeur.id_debut
+        // && this.envoyeur.id_type && this.envoyeur.id_pays && this.envoyeur.id_valeur)
+        && this.envoyeur.nom && this.envoyeur.prenom && this.envoyeur.cellulaire) {
       // console.log(this.amount_depotCitizen + '  to send');
       // console.dir(this.commonServices.getSelectedReceivers());
 
@@ -245,7 +246,7 @@ console.log('------------------------------');
               const response1 = this.commonServices.xmlResponseParcer_complex(result1._body);
               console.dir(response1);
 
-              if (+response.error === 0) {
+              if (+response1.error === 0 && response1.identifiant && response1.identifiant.length) {
                 this.envoyeur_documents = response1.identifiant;
                 this.beneficiaireFound = {
                       nom: (response.nom) ? response.nom : undefined,

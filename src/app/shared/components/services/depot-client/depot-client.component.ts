@@ -96,8 +96,9 @@ export class DepotClientComponent implements OnInit, OnDestroy {
     if (!this.requestIsSent
           && (+this.amount_depotClient >= 0.01)
           && this.client_fromSelect2
-          && (this.envoyeur.id_fin && this.envoyeur.id_debut && this.envoyeur.nom && this.envoyeur.prenom && this.envoyeur.cellulaire
-          && this.envoyeur.id_type && this.envoyeur.id_pays && this.envoyeur.id_valeur)) {
+          // && this.envoyeur.id_fin && this.envoyeur.id_debut
+          // && this.envoyeur.id_type && this.envoyeur.id_pays && this.envoyeur.id_valeur
+          && this.envoyeur.nom && this.envoyeur.prenom && this.envoyeur.cellulaire) {
       console.log(this.amount_depotClient + '  to send');
       console.dir(this.commonServices.getSelectedReceivers());
       // const beneficiaire = this.userDataService.getReceiverFromSelect2(this.client_fromSelect2);
