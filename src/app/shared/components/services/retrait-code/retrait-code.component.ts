@@ -22,7 +22,8 @@ export class RetraitCodeComponent implements OnInit, OnDestroy {
   successMessage_1 = '';
   loading = false;
   loading_retrieve = false;
-  requestIsSent = false;
+  requestIsSent_send = false;
+  requestIsSent_retirer = false;
   amount_retraitCode: number;
   errorMessage = '';
   errorMessage_retrieve = '';
@@ -30,7 +31,7 @@ export class RetraitCodeComponent implements OnInit, OnDestroy {
   retraitCode_errorMessage = false;
   setAmountAndBeneficiareId = false;
   envoyeur_documents = Array<PassportClass>(0);
-  retraitCode = '146022074'; // '192075136'; // string;
+  retraitCode = '628492399'; // '192075136'; // string;
   serverResponse = {
     code: '',
     date: '',
@@ -70,6 +71,8 @@ export class RetraitCodeComponent implements OnInit, OnDestroy {
   }
 
   public submitFunction() {
+    if (!this.requestIsSent_send) {
+      this.requestIsSent_send = true;
       this.clearSearch();
       this.loading = true;
 
@@ -104,20 +107,24 @@ export class RetraitCodeComponent implements OnInit, OnDestroy {
                 this.getIdentifiantsUOService.getIdentifiantsUOService(beneficiaire_id)
                   .takeWhile(() => this.alive)
                   .subscribe(result2 => {
+                    this.requestIsSent_send = false;
                     const response2 = this.commonServices.xmlResponseParcer_complex(result2._body);
                     console.dir(response2);
 
                     this.envoyeur_documents = (response2 && response2.identifiant && (+response2.error === 0)) ? response2.identifiant : [];
                   }, (err) => {
                     console.log(err);
+                    this.requestIsSent_send = false;
                   });
                 // **************************************
               }, (err) => {
                 console.log(err);
+                this.requestIsSent_send = false;
               });
             // ====================================
 
           } else {
+            this.requestIsSent_send = false;
             this.retraitCode_valid = false;
             if (response.errorMessage) {this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.errorMessage); }
             if (response.message) {this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message); }
@@ -126,9 +133,11 @@ export class RetraitCodeComponent implements OnInit, OnDestroy {
 
         }, (err) => {
           this.loading = false;
+          this.requestIsSent_send = false;
           console.log(err);
           this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
         });
+    }
   }
 
   public onChanged(beneficiaire: EnvoyeurClass) {
@@ -143,19 +152,23 @@ export class RetraitCodeComponent implements OnInit, OnDestroy {
   }
 
   public retrieveCashFunction() {
-    if (this.amount_retraitCode && this.beneficiaire.nom && this.beneficiaire.prenom
+    if (!this.requestIsSent_retirer
+      && this.amount_retraitCode && this.beneficiaire.nom && this.beneficiaire.prenom
       && this.beneficiaire.cellulaire && this.beneficiaire.id_type
       && this.beneficiaire.id_valeur && this.beneficiaire.id_debut) {
+      this.requestIsSent_retirer = true;
       this.loading_retrieve = true;
       this.w2CRetraitTransactionService.retrieveCash(this.serverResponse.code, this.amount_retraitCode, 0, this.beneficiaire)
         .takeWhile(() => this.alive)
         .subscribe(result => {
           this.loading_retrieve = false;
+          this.requestIsSent_retirer = false;
           const response = this.commonServices.xmlResponseParcer_complex(result._body);
           this.retraitCode_valid = false;
           this.successMessage_1 = response.message;
         }, (err) => {
           this.loading_retrieve = false;
+          this.requestIsSent_retirer = false;
           console.log(err);
           this.errorMessage_retrieve = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
         });
