@@ -215,7 +215,6 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
   }
 
   public makeTransaction() {
-    if (!this.requestIsSent) {
       this.requestIsSent = true;
       this.loading = true;
       this.successMessage_1 = '';
@@ -262,7 +261,6 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
         this.loading = false;
         this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent('no cellulaire in the database');
       }
-    }
   }
 
   public clearReceiver(field: string) {this.newReceiver[field] = undefined; }

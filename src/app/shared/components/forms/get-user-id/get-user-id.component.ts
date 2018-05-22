@@ -130,7 +130,13 @@ export class GetUserIdComponent implements OnInit {
   }
 
   public sendData() {
-    this.userData.emit(this.envoyeur);
-    console.dir(this.envoyeur);
+    let _envoyeur = new EnvoyeurClass(this.envoyeur.nom, this.envoyeur.prenom, this.envoyeur.cellulaire,
+                                      this.envoyeur.addresse, this.envoyeur.id_type, this.envoyeur.id_pays,
+                                      this.envoyeur.id_valeur, this.envoyeur.id_debut, this.envoyeur.id_fin);
+    _envoyeur.id_type = (this.envoyeur && this.envoyeur.id_type)
+                        ? (this.envoyeur.id_type.split(this.additionalCaption))[0]
+                        : _envoyeur.id_type;
+    this.userData.emit(_envoyeur);
+    console.dir(_envoyeur);
   }
 }

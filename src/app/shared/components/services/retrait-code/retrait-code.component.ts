@@ -30,7 +30,7 @@ export class RetraitCodeComponent implements OnInit, OnDestroy {
   retraitCode_errorMessage = false;
   setAmountAndBeneficiareId = false;
   envoyeur_documents = Array<PassportClass>(0);
-  retraitCode = '217449606'; // '192075136'; // string;
+  retraitCode = '146022074'; // '192075136'; // string;
   serverResponse = {
     code: '',
     date: '',
@@ -70,14 +70,12 @@ export class RetraitCodeComponent implements OnInit, OnDestroy {
   }
 
   public submitFunction() {
-    if (!this.requestIsSent) {
       this.clearSearch();
       this.loading = true;
 
       this.errorMessage = '';
       this.errorMessage_retrieve = '';
 
-      this.requestIsSent = true;
       this.w2CCheckOrdreRetraitService.retraitCode(this.retraitCode)
         .takeWhile(() => this.alive)
         .subscribe(result => {
@@ -110,20 +108,16 @@ export class RetraitCodeComponent implements OnInit, OnDestroy {
                     console.dir(response2);
 
                     this.envoyeur_documents = (response2 && response2.identifiant && (+response2.error === 0)) ? response2.identifiant : [];
-                    this.requestIsSent = false;
                   }, (err) => {
-                    this.requestIsSent = false;
                     console.log(err);
                   });
                 // **************************************
               }, (err) => {
-                this.requestIsSent = false;
                 console.log(err);
               });
             // ====================================
 
           } else {
-            this.requestIsSent = false;
             this.retraitCode_valid = false;
             if (response.errorMessage) {this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.errorMessage); }
             if (response.message) {this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message); }
@@ -132,11 +126,9 @@ export class RetraitCodeComponent implements OnInit, OnDestroy {
 
         }, (err) => {
           this.loading = false;
-          this.requestIsSent = false;
           console.log(err);
           this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
         });
-    }
   }
 
   public onChanged(beneficiaire: EnvoyeurClass) {
