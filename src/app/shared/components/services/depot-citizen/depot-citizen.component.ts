@@ -36,6 +36,7 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
   cellularToFind = '776316281';
   newReceiver = new RegistrationClass('', '', 221, '', 'AUTO', 'AUTO', 'AUTO', 'AUTO', true);
   beneficiaireFound: any;
+  _beneficiaireFound: any;
   amount_depotCitizen: number;
   successMessage_1 = '';
   successMessage_2 = '';
@@ -259,13 +260,13 @@ console.log('------------------------------');
                 // this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
                 this.citizenDoesntExist = true;
               }
-              this.beneficiaireFound = {
+              this._beneficiaireFound = {
                 nom: (response.nom) ? response.nom : undefined,
                 prenom: (response.prenom) ? response.prenom : undefined,
                 numTel: response.numTel,
                 id: (response.id) ? response.id : undefined
               };
-              this.setBeneficiaryFunction({value: this.beneficiaireFound.numTel});
+              // this.setBeneficiaryFunction({value: this.beneficiaireFound.numTel});
             }, (err) => {
               this.loading = false;
               console.log(err);
@@ -300,21 +301,21 @@ console.log('------------------------------');
         this.loading = false;
         const response = this.commonServices.xmlResponseParcer_simple(result._body);
         console.dir(response);
-        // if (+response.error === 0) {
-        //   this.beneficiaireFound = {nom: (response.nomContact) ? response.nomContact : undefined,
-        //     prenom: (response.prenomContact) ? response.prenomContact : undefined,
-        //     numTel: response.telephoneContact ? response.telephoneContact : undefined,
-        //     id: (response.id) ? response.id : undefined
-        //   };
-        //   console.log(this.beneficiaireFound);
-        //   // if (this.beneficiaireFound.numTel) {
-        //     this.setBeneficiaryFunction({value: this.beneficiaireFound.numTel});
-        //   // }
-        // } else {
-        //   this.loading = false;
-        //   // this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
-        //   // this.clientDoesntExist = true;
-        // }
+        if (+response.error === 0) {
+          this.beneficiaireFound = {nom: (response.nomContact) ? response.nomContact : this._beneficiaireFound.nom,
+            prenom: (response.prenomContact) ? response.prenomContact : this._beneficiaireFound.prenom,
+            numTel: response.telephoneContact ? response.telephoneContact : this._beneficiaireFound.numTel,
+            id: (response.id) ? response.id : this._beneficiaireFound.id
+          };
+          console.log(this.beneficiaireFound);
+          // if (this.beneficiaireFound.numTel) {
+            this.setBeneficiaryFunction({value: this.beneficiaireFound.numTel});
+          // }
+        } else {
+          this.loading = false;
+          // this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
+          // this.clientDoesntExist = true;
+        }
       }, (err) => {
         this.loading = false;
         console.log(err);
