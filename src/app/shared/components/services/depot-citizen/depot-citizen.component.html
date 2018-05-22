@@ -206,8 +206,9 @@
                 <input id="firstname_mobile" name="firstname_mobile" placeholder="Type here" readonly
                        style="border-bottom: 2px solid white; padding-left: 15px"
                        type="text" [(ngModel)]="receiverToFind">
-                  <span class="blue-angle" style="padding-bottom:1px; float:right; position:absolute; right: 4px; bottom: 20%"
-                       (click)="firstStepMode()">Change1</span>
+                  <span class="blue-angle"
+                        style="padding-bottom:1px; float:right; position:absolute; right: 4px; bottom: 20%"
+                       (click)="firstStepMode()">Change</span>
               </div>
             </div>
             <!--<div class="help">It seems we don’t have this number in the citizen database.-->
@@ -280,7 +281,7 @@
                              [setDefaultUser]="envoyeur_default"
                              [envoyeur_documents]="envoyeur_documents">
             </app-get-user-id>
-            <div *ngIf="createNewReceiver" class="row  only-mobile">
+            <div *ngIf="createNewReceiver" class="row  only-mobile" style="margin-bottom: 50px">
               <div class="col-md-12 col-lg-8 blue-button__wrapper">
                 <button class="orange-button blue-button" style="margin-top: 8px"
                         [disabled]="!((+amount_depotCitizen >= 0.01)
@@ -294,7 +295,7 @@
                 <!--&& envoyeur.prenom && envoyeur.cellulaire-->
                 <!--&& envoyeur.id_type && envoyeur.id_pays && envoyeur.id_valeur))"-->
               </div>
-          </div>
+            </div>
           </div>
         </div>
 

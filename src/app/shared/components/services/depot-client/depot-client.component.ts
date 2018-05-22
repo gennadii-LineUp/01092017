@@ -211,16 +211,16 @@ export class DepotClientComponent implements OnInit, OnDestroy {
 
   public findContactsOfClient(uoId: string) {
     // this.loading = true;
-    this.getContactOfCustomerService.getContactOfCustomer(this.userDataService.getMyAccounts()[0].uoId)
+    this.getContactOfCustomerService.getContactOfCustomer(uoId)
       .takeWhile(() => this.alive)
       .subscribe(result => {
         this.loading = false;
         const response = this.commonServices.xmlResponseParcer_simple(result._body);
         console.dir(response);
-        if (response.nomContact && response.telephoneContact) {
+        if (+response.error === 0) {
           this.beneficiaireFound = {nom: (response.nomContact) ? response.nomContact : undefined,
             prenom: (response.prenomContact) ? response.prenomContact : undefined,
-            numTel: response.telephoneContact,
+            numTel: response.telephoneContact ? response.telephoneContact : undefined,
             id: (response.id) ? response.id : undefined
           };
           this.setBeneficiaryFunction({value: this.beneficiaireFound.numTel});

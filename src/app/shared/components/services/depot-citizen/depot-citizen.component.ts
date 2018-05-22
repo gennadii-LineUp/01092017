@@ -13,6 +13,7 @@ import {CreateNewAccountService} from '../../../../services/api/createNewAccount
 import {GetCitizenByCellularService} from '../../../../services/api/getCitizenByCellular.service';
 import {GetIdentifiantsUOService} from '../../../../services/api/getIdentifiantsUO.service';
 import {PassportClass} from '../../../../models/passport-class';
+import {GetContactOfCustomerService} from '../../../../services/api/getContactOfCustomer.service';
 declare var $: any;
 
 @Component({
@@ -20,7 +21,7 @@ declare var $: any;
   templateUrl: './depot-citizen.component.html',
   styleUrls: ['./depot-citizen.component.scss'],
   providers: [GetCommissionsTTCService, C2WDepotTransactionService, GetCitizenByCellularService,
-              CreateNewAccountService, GetIdentifiantsUOService]
+              CreateNewAccountService, GetIdentifiantsUOService, GetContactOfCustomerService]
 })
 export class DepotCitizenComponent implements OnInit, OnDestroy {
   successMessage = '';
@@ -32,7 +33,7 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
   createNewReceiver_mobile_amount = true;
   receiverStatus = '';
   receiverToFind = '';
-  cellularToFind = '7722222222';
+  cellularToFind = '776316281';
   newReceiver = new RegistrationClass('', '', 221, '', 'AUTO', 'AUTO', 'AUTO', 'AUTO', true);
   beneficiaireFound: any;
   amount_depotCitizen: number;
@@ -61,7 +62,8 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
               public currencyParams: CurrencyParams,
               public getCitizenByCellularService: GetCitizenByCellularService,
               public createNewAccountService: CreateNewAccountService,
-              public getIdentifiantsUOService: GetIdentifiantsUOService) { }
+              public getIdentifiantsUOService: GetIdentifiantsUOService,
+              public getContactOfCustomerService: GetContactOfCustomerService) { }
 
   ngOnInit() {
     this.firstStepMode();
@@ -152,7 +154,7 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
 
   public setBeneficiaryFunction(beneficiary: any) {
     // console.log(beneficiary);
-    this.citizen_fromSelect2 = beneficiary.value;
+    this.citizen_fromSelect2 = beneficiary.value ? beneficiary.value : this.cellularToFind;
     this.receiverToFind = this.citizen_fromSelect2;
     // console.log(this.citizen_fromSelect2);
     this.secondStepMode();
@@ -239,6 +241,8 @@ console.log('------------------------------');
       .takeWhile(() => this.alive)
       .subscribe(result => {
         const response = this.commonServices.xmlResponseParcer_simple(result._body);
+        console.log(response);
+
         if (response && response.id) {
           // ====================================
           this.getIdentifiantsUOService.getIdentifiantsUOService(response.id)
@@ -246,21 +250,22 @@ console.log('------------------------------');
             .subscribe(result1 => {
               const response1 = this.commonServices.xmlResponseParcer_complex(result1._body);
               console.dir(response1);
+              this.findContactsOfClient(response.id);
 
               if (+response1.error === 0 && response1.identifiant && response1.identifiant.length) {
                 this.envoyeur_documents = response1.identifiant;
-                this.beneficiaireFound = {
-                      nom: (response.nom) ? response.nom : undefined,
-                      prenom: (response.prenom) ? response.prenom : undefined,
-                      numTel: response.numTel,
-                      id: (response.id) ? response.id : undefined
-                };
-                this.setBeneficiaryFunction({value: this.beneficiaireFound.numTel});
               } else {
                 this.loading = false;
                 // this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
                 this.citizenDoesntExist = true;
               }
+              this.beneficiaireFound = {
+                nom: (response.nom) ? response.nom : undefined,
+                prenom: (response.prenom) ? response.prenom : undefined,
+                numTel: response.numTel,
+                id: (response.id) ? response.id : undefined
+              };
+              this.setBeneficiaryFunction({value: this.beneficiaireFound.numTel});
             }, (err) => {
               this.loading = false;
               console.log(err);
@@ -280,6 +285,36 @@ console.log('------------------------------');
           // this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
           this.citizenDoesntExist = true;
         }
+      }, (err) => {
+        this.loading = false;
+        console.log(err);
+        this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
+      });
+  }
+
+  public findContactsOfClient(uoId: string) {
+    // this.loading = true;
+    this.getContactOfCustomerService.getContactOfCustomer(uoId)
+      .takeWhile(() => this.alive)
+      .subscribe(result => {
+        this.loading = false;
+        const response = this.commonServices.xmlResponseParcer_simple(result._body);
+        console.dir(response);
+        // if (+response.error === 0) {
+        //   this.beneficiaireFound = {nom: (response.nomContact) ? response.nomContact : undefined,
+        //     prenom: (response.prenomContact) ? response.prenomContact : undefined,
+        //     numTel: response.telephoneContact ? response.telephoneContact : undefined,
+        //     id: (response.id) ? response.id : undefined
+        //   };
+        //   console.log(this.beneficiaireFound);
+        //   // if (this.beneficiaireFound.numTel) {
+        //     this.setBeneficiaryFunction({value: this.beneficiaireFound.numTel});
+        //   // }
+        // } else {
+        //   this.loading = false;
+        //   // this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
+        //   // this.clientDoesntExist = true;
+        // }
       }, (err) => {
         this.loading = false;
         console.log(err);
