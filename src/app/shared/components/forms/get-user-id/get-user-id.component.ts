@@ -112,17 +112,17 @@ export class GetUserIdComponent implements OnInit {
     let _datepickerExpiration = '';
     if (type === 'dpDebut') {
       if (e && e.year && e.month && e.day) {
-        _datepickerDebut = '' + ((('' + e.day).length > 1) ? e.day : ('0' + e.day)) + '-'
+        _datepickerDebut = '' + e.year + '-'
           + ((('' + e.month).length > 1) ? e.month : ('0' + e.month)) + '-'
-          + e.year;
+          + ((('' + e.day).length > 1) ? e.day : ('0' + e.day));
       }
       this.envoyeur.id_debut = (_datepickerDebut.length > 0) ? _datepickerDebut : undefined;
     }
     if (type === 'dpExpiration') {
       if (e && e.year && e.month && e.day) {
-        _datepickerExpiration = '' + ((('' + e.day).length > 1) ? e.day : ('0' + e.day)) + '-'
+        _datepickerExpiration = '' + e.year + '-'
           + ((('' + e.month).length > 1) ? e.month : ('0' + e.month)) + '-'
-          + e.year;
+          + ((('' + e.day).length > 1) ? e.day : ('0' + e.day));
       }
       this.envoyeur.id_fin = (_datepickerExpiration.length > 0) ? _datepickerExpiration : undefined;
     }

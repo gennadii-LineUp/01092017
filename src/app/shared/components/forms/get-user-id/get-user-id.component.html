@@ -47,7 +47,7 @@
     <h3>DATE DELIVRANCE</h3>
     <div class="floating-block border-hover">
       <div class="floating-input" style="font-size: 24px !important;">
-        <input readonly class="form-control" placeholder="dd-mm-yyyy"
+        <input  class="form-control" placeholder="yyyy-mm-dd"
                (click)="dpExpiration.close(); dpDebut.toggle()"
                (ngModelChange)="transformDataToString($event, 'dpDebut')"
                style="background-color: #fff"
@@ -59,7 +59,7 @@
     <h3>DATE EXPIRATION</h3>
     <div class="floating-block border-hover">
       <div class="floating-input">
-        <input readonly class="form-control" placeholder="dd-mm-yyyy"
+        <input  class="form-control" placeholder="yyyy-mm-dd"
                (click)="dpDebut.close(); dpExpiration.toggle()"
                (ngModelChange)="transformDataToString($event, 'dpExpiration')"
                style="background-color: #fff"
