@@ -12,6 +12,7 @@
   "dependencies": {
     "cordova-android": "^6.3.0",
     "cordova-browser": "^5.0.1",
+    "cordova-call": "^1.1.5",
     "cordova-ios": "^4.5.4",
     "cordova-plugin-geolocation": "^4.0.1",
     "cordova-plugin-googlemaps": "^2.2.8",
@@ -31,7 +32,8 @@
         "ANDROID_SUPPORT_V4_VERSION": "24.1.0",
         "LOCATION_WHEN_IN_USE_DESCRIPTION": "This app wants to get your location while this app runs only.",
         "LOCATION_ALWAYS_USAGE_DESCRIPTION": "This app wants to get your location always, even this app runs in background."
-      }
+      },
+      "cordova-call": {}
     },
     "platforms": [
       "browser",

@@ -41,6 +41,7 @@
         <variable name="LOCATION_WHEN_IN_USE_DESCRIPTION" value="This app wants to get your location while this app runs only." />
         <variable name="LOCATION_ALWAYS_USAGE_DESCRIPTION" value="This app wants to get your location always, even this app runs in background." />
     </plugin>
+    <plugin name="cordova-call" spec="^1.1.5" />
     <engine name="browser" spec="^5.0.1" />
     <engine name="ios" spec="^4.5.4" />
     <engine name="android" spec="^6.3.0" />

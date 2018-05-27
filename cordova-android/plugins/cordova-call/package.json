@@ -1,0 +1,55 @@
+{
+  "_from": "cordova-call",
+  "_id": "cordova-call@1.1.5",
+  "_inBundle": false,
+  "_integrity": "sha512-Q+7SVZx4+Uqf2RvZWQFYI641O6xNfmsh2sBi4F4SaciIMPfqCPePKzgC5Fug5eodXrBpJq7ZKlP/UFDsVru33g==",
+  "_location": "/cordova-call",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "cordova-call",
+    "name": "cordova-call",
+    "escapedName": "cordova-call",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-call/-/cordova-call-1.1.5.tgz",
+  "_shasum": "b860ec5c94b0365ac6a5c85c08eee5d2f48792cd",
+  "_spec": "cordova-call",
+  "_where": "C:\\gena\\cash-tr\\cordova-android",
+  "author": {
+    "name": "David Marcus"
+  },
+  "bugs": {
+    "url": "https://github.com/WebsiteBeaver/CordovaCall/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-call",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "deprecated": false,
+  "description": "Cordova plugin that lets you use iOS CallKit UI and Android ConnectionService UI",
+  "homepage": "https://github.com/WebsiteBeaver/CordovaCall",
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "license": "MIT",
+  "name": "cordova-call",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WebsiteBeaver/CordovaCall.git"
+  },
+  "version": "1.1.5"
+}

@@ -49,5 +49,13 @@
       "API_KEY_FOR_ANDROID": "AIzaSyADq0CfJs5enConBc6PXP2OWdt6761dKsw",
       "API_KEY_FOR_IOS": "AIzaSyC2vAfEsYE0K1pNwfKbFxF1gDvAdPsTAYc"
     }
+  },
+  "cordova-call": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-call"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }
