@@ -157,6 +157,7 @@ export class GMapComponent implements OnInit, OnDestroy {
   public markerClicked(title: any) {
     console.log(title);
     console.dir(title);
+    console.log(111122222);
   }
 
   public setMyCoordonneesFromCellular(data: CoordonneeClass) {

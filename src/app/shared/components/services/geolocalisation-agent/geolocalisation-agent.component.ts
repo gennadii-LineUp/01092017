@@ -190,7 +190,6 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
       }
     });
     this._agentsMarkers_nearest.splice(agent_index, 1);
-    console.log(this._agentsMarkers_nearest.length);
     return agent;
   }
 
@@ -310,7 +309,35 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
         (<HTMLDivElement>els[i]).classList.remove('activeAgentClass');
       }
     }
-    (<HTMLDivElement>$event.target).classList.toggle('activeAgentClass');
+    const clickedNode = $event.target;
+    console.log(clickedNode);
+    if (clickedNode.classList.contains('search__user')) {
+      clickedNode.classList.toggle('activeAgentClass');
+    } else {
+      const parent1 = clickedNode.parentElement;
+      console.log(parent1);
+      if (parent1.classList.contains('search__user')) {
+        parent1.classList.toggle('activeAgentClass');
+      } else {
+        const parent2 = parent1.parentElement;
+        console.log(parent2);
+        if (parent2.classList.contains('search__user')) {
+          parent2.classList.toggle('activeAgentClass');
+        } else {
+          const parent3 = parent2.parentElement;
+          console.log(parent3);
+          if (parent3.classList.contains('search__user')) {
+            parent3.classList.toggle('activeAgentClass');
+          } else {
+            const parent4 = parent3.parentElement;
+            console.log(parent4);
+            if (parent4.classList.contains('search__user')) {
+              parent4.classList.toggle('activeAgentClass');
+            }
+          }
+        }
+      }
+    }
   }
 
   showError(error) {
@@ -329,5 +356,9 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
         element.innerHTML = 'An unknown error occurred.';
         break;
     }
+  }
+
+  public sendCall(phoneNumber: string) {
+    console.log(phoneNumber);
   }
 }
