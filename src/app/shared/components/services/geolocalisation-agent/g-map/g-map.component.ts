@@ -8,6 +8,9 @@ import {MarkerClass} from '../../../../../models/marker-class';
 import {SetCoordonneesByCellularService} from '../../../../../services/api/setCoordonneesByCellular.service';
 import {CoordonneeClass} from '../../../../../models/coordonnee-class';
 
+declare var navigator: any;
+declare var cordova: any;
+
 @Component({
   selector: 'app-g-map',
   templateUrl: './g-map.component.html',
@@ -58,14 +61,10 @@ export class GMapComponent implements OnInit, OnDestroy {
               public commonServices: CommonServices,
               public errorMessageHandlerService: ErrorMessageHandlerService,
               public setCoordonneesByCellularService: SetCoordonneesByCellularService) {
-    console.log('constructor');
     userDataService.myAccounts$.subscribe((myAccounts) => {
-      console.log(myAccounts);
-      console.log('hello');
-      this.phone = (this.userDataService.getMyAccounts()['0'].telephone)
+       this.phone = (this.userDataService.getMyAccounts()['0'].telephone)
                   ? (this.userDataService.getMyAccounts()['0'].telephone)
                   : localStorage.getItem('telephone');
-      console.log(this.phone);
       this.getMyCoordonees(this.phone + '');
       // this.setDefaultCoord();
       this.loadAgentsCoordonees();
@@ -73,13 +72,10 @@ export class GMapComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log('ngOnInit');
     if ((this.userDataService.getMyAccounts()).length) {
-      console.log('=== MyAccounts\' length ' + this.userDataService.getMyAccounts().length);
       this.phone = (this.userDataService.getMyAccounts()['0'].telephone)
                   ? (this.userDataService.getMyAccounts()['0'].telephone)
                   : localStorage.getItem('telephone');
-      console.log(this.phone);
       this.getMyCoordonees(this.phone + '');
       // this.setDefaultCoord();
       this.loadAgentsCoordonees();
@@ -93,8 +89,7 @@ export class GMapComponent implements OnInit, OnDestroy {
   }
 
   setDefaultCoord() {
-    console.log('setDefaultCoord');
-    this.myself = new MarkerClass(this._lat,
+     this.myself = new MarkerClass(this._lat,
                                   this._lng,
                                   this.userDataService.getMyAccounts()['0'].nom,
                                   this.userDataService.getMyAccounts()['0'].prenom,
@@ -108,7 +103,6 @@ export class GMapComponent implements OnInit, OnDestroy {
       .subscribe(result => {
         // this.loading = false;
         const response = this.commonServices.xmlResponseParcer_simple( result._body );
-        console.dir( response );
         if (+response.error === 0) {
           this.myself = new MarkerClass(+response.lattitude,
                                         +response.longitude,
@@ -116,8 +110,7 @@ export class GMapComponent implements OnInit, OnDestroy {
                                         this.userDataService.getMyAccounts()['0'].prenom,
                                         this.userDataService.getMyAccounts()['0'].telephone,
                                         this.marker_myself);
-          console.log(this._lat + '  ' + this._lng);
-        } else {
+         } else {
           this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
         }
       }, (err) => {
@@ -133,7 +126,6 @@ export class GMapComponent implements OnInit, OnDestroy {
     //   .subscribe(result => {
     //     // this.loading = false;
     //     const response = this.commonServices.xmlResponseParcer___complex( result._body );
-    //     console.dir( response );
     //     if (+response.error === 0 && response.listAgents.length) {
     //       // this.markers = [];
     //       // response.listAgents.forEach(item => {
@@ -155,9 +147,19 @@ export class GMapComponent implements OnInit, OnDestroy {
   }
 
   public markerClicked(title: any) {
-    console.log(title);
-    console.dir(title);
-    console.log(111122222);
+    // try {
+    //   if (cordova) {
+    //     cordova.plugins.CordovaCall.sendCall('Daniel Marcus');
+    //
+    //     //simulate your friend answering the call 5 seconds after you call
+    //     setTimeout(function(){
+    //       cordova.plugins.CordovaCall.connectCall();
+    //     }, 5000);
+    //
+    //   }
+    // } catch (e) {
+    //   console.log(e);
+    // }
   }
 
   public setMyCoordonneesFromCellular(data: CoordonneeClass) {
@@ -165,7 +167,6 @@ export class GMapComponent implements OnInit, OnDestroy {
       .takeWhile(() => this.alive)
       .subscribe(result => {
         const response = this.commonServices.xmlResponseParcer_complex( result._body );
-        console.dir( response.message );
       }, (err) => {
         // this.loading = false;
         console.log(err);

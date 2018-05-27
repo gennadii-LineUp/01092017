@@ -85,7 +85,6 @@ export class RetraitCodeComponent implements OnInit, OnDestroy {
           this.loading = false;
           const response = this.commonServices.xmlResponseParcer_complex( result._body );
 
-          console.dir( response );
           if (+response.error === 0) {
             this.retraitCode_valid = true;
             this.serverResponse['code'] = response.code;
@@ -109,7 +108,6 @@ export class RetraitCodeComponent implements OnInit, OnDestroy {
                   .subscribe(result2 => {
                     this.requestIsSent_send = false;
                     const response2 = this.commonServices.xmlResponseParcer_complex(result2._body);
-                    console.dir(response2);
 
                     this.envoyeur_documents = (response2 && response2.identifiant && (+response2.error === 0)) ? response2.identifiant : [];
                   }, (err) => {

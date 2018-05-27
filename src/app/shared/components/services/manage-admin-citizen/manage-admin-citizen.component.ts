@@ -73,7 +73,6 @@ export class ManageAdminCitizenComponent implements OnInit, OnDestroy {
           const response = (this.commonServices.xmlResponseParcer_complex(result._body)).uos;
           this.citizens = (response.length) ? response : [];
           this._citizens = this.citizens;
-          console.log(this.citizens);
           this.userDataService.setReceiversForSelect2(this.citizens);
         }, (err) => {
           console.log(err);
@@ -112,7 +111,6 @@ export class ManageAdminCitizenComponent implements OnInit, OnDestroy {
     this.editableRow.i = undefined;
     this.editableRow.name = undefined;
     setTimeout(() => { this.loading_nom = false; }, 1000);
-    console.log(name, i);
   }
 
 }

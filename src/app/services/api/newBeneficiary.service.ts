@@ -29,8 +29,7 @@ export class NewBeneficiaryService {
          </soapenv:Body>
       </soapenv:Envelope>`;
 
-    console.log(body);
-    return this.backendService.post(UrlParams.backendUrl, body);
+     return this.backendService.post(UrlParams.backendUrl, body);
   }
 
 

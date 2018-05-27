@@ -23,7 +23,6 @@ export class GetAllCitizenService {
          </soapenv:Body>
       </soapenv:Envelope>`;
 
-    console.log(body);
     return this.backendService.post(UrlParams.backendUrl, body);
   }
 

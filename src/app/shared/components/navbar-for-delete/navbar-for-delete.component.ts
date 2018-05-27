@@ -12,16 +12,13 @@ export class NavbarForDeleteComponent {
   }
 
   public showLS() {
-    console.log(localStorage);
   }
 
   public clearSS() {
     sessionStorage.clear();
-    console.log(sessionStorage);
   }
 
   public showSS() {
-    console.log(sessionStorage);
   }
 
 }

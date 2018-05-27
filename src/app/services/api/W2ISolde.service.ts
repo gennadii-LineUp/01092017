@@ -22,7 +22,6 @@ export class W2ISoldeService {
           </soapenv:Body>
       </soapenv:Envelope>`;
 
-    console.log(body);
     return this.backendService.post(UrlParams.backendUrl, body);
   }
 
@@ -39,7 +38,6 @@ export class W2ISoldeService {
             </soapenv:Body>
         </soapenv:Envelope>`;
 
-    console.log(body);
     return this.backendService.post(UrlParams.backendUrl, body);
   }
 

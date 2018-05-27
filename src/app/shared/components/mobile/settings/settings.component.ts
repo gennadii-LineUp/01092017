@@ -27,7 +27,6 @@ export class MobileSettingsComponent {
 
   getSize() {
     this.ww = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-    console.log(document.documentElement.clientWidth + '  ' + window.innerWidth);
     this.hh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
   }
 }

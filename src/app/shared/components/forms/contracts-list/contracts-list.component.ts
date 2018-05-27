@@ -87,7 +87,6 @@ export class ContractsListComponent implements OnInit {
         .subscribe(result => {
           const response = (this.commonServices.xmlResponseParcer_complex(result._body)).contract;
           if (response) {
-            console.log(response);
             this.allContracts = response;
             this.setContractsForSelect2(response);
           }

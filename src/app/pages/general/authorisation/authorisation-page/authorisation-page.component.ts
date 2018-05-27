@@ -37,7 +37,6 @@ export class AuthorisationPageComponent implements OnDestroy {
         this.loading = false;
         const response = this.commonServices.xmlResponseParcer_simple( result._body );
 
-        console.dir( response );
         if (+response.error === 0
           && response.message === 'Authentification success'
           && response.profil) {

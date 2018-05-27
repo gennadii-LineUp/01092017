@@ -58,7 +58,6 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
 
     const profil = ((<any>this.userDataService.getUser).profil) ? (<any>this.userDataService.getUser).profil :
       localStorage.getItem('profil');
-    console.log(profil);
 
     switch (profil) {
       case 'citizen': {
@@ -103,14 +102,11 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
 
   public setNewCitizen(newReceiver: RegistrationClass) {
     this.newReceiver = newReceiver;
-    console.log(this.newReceiver );
   }
 
   public fillReceiverInfoFunction(myAccount: any, e: any) {
-    // this.showReceiverInfo = false;
     this.clearSearch();
     this.myAccount = myAccount;
-    // console.log(myAccount);
     const allItems: NodeListOf<Element> = window.document.querySelectorAll('div.consult-user');
     for (let i = 0; i < allItems.length; i++) {
       allItems[i].className = 'consult-user';
@@ -124,7 +120,6 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
 
   public setSenderFunction(sender: any) {
     this.sender.push(sender);
-    console.log(this.sender);
     this.profileAsAgent = false;
   }
 
@@ -143,7 +138,6 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
         .takeWhile(() => this.alive)
         .subscribe(result => {
           const response = this.commonServices.xmlResponseParcer_simple(result._body);
-          console.dir(response);
           this.loading = false;
           if (response.numTel && response.numTel.length) {
             this.beneficiaireFound = {nom: (response.nom) ? response.nom : undefined,
@@ -155,7 +149,6 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
             this.newReceiver.prenom = (response.prenom) ? response.prenom : undefined;
             this.newReceiver.telephone = response.numTel;
             this.setBeneficiaryFunction({value: this.beneficiaireFound.numTel});
-            console.log(this.beneficiaireFound);
             this.citizenExist = true;
           } else {
             // this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
@@ -174,9 +167,7 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
   public clearNumTel() {this.cellularToFind = undefined; }
 
   public setBeneficiaryFunction(beneficiary: any) {
-    console.log(beneficiary);
     this.numTel_fromSelect2 = beneficiary.value;
-    console.log(this.numTel_fromSelect2);
   }
 
 
@@ -188,14 +179,11 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
       }
       if (this.createNew && this.newReceiver.nom && this.newReceiver.prenom && this.newReceiver.telephone) {
         this.newReceiver.mail = this.newReceiver.telephone;
-        console.log(this.newReceiver);
             this.createNewAccountService.createNewAccount(this.newReceiver)
               .subscribe(result => {
                 const response = this.commonServices.xmlResponseParcer_simple( result._body );
-                console.dir( response );
                 if (+response.error === 0
                   && response.message === 'Succès ! creation compte effectuée') {
-                  console.log = response.message;
                   this.makeTransaction();
                 } else {
                   this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
@@ -221,26 +209,17 @@ export class TransferDargentComponent implements OnInit, OnDestroy {
       this.successMessage_2 = '';
       this.errorMessage = '';
       let beneficiaire: any;
-      // if (!this.createNew) {
-      //   beneficiaire = <ReceiverClass>this.userDataService.getReceiverFromSelect2(this.numTel_fromSelect2);
-      //   console.log(beneficiaire);
-      // } else {
       beneficiaire = new ReceiverClass(this.newReceiver.nom, this.newReceiver.prenom, this.newReceiver.telephone,
         'AUTO', 0, '', this.newReceiver.telephone, this.newReceiver.telephone, '', '', '');
       this.numTel_fromSelect2 = this.newReceiver.telephone;
-      // }
-      // console.log(this.numTel_fromSelect2);
-      // console.log(beneficiaire);
 
       if (this.numTel_fromSelect2) {
         this.w2COrdreRetraitService.transferDargent(this.myAccount.telephone, this.amountToReceiver, beneficiaire)
           .takeWhile(() => this.alive)
           .subscribe(result => {
             this.loading = false;
-            // console.log(result._body);
             const response = this.commonServices.xmlResponseParcer_simple(result._body);
 
-            console.dir(response);
             if (+response.error === 0) {
               this.showReceiverInfo = false;
               this.clearSearch();

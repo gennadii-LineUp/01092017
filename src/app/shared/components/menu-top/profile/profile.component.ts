@@ -56,7 +56,6 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this._user = this.userDataService.getUser();
     this.user = new RegistrationClass(this._user.nom, this._user.prenom, 33, this._user.telephone, '', '', '', this._user.profil, true);
-    console.log(this.user);
     if (!this.user.nom) {this.user.nom = localStorage.nom; }
     if (!this.user.prenom) {this.user.prenom = localStorage.prenom; }
     if (!this.user.profil) {this.user.profil = localStorage.profil; }
@@ -66,25 +65,21 @@ export class ProfileComponent implements OnInit {
   public submitNomFunction() {
     this.loading_nom = true;
     setTimeout(() => { this.loading_nom = false; }, 1000);
-    console.log(this.user.nom);
   }
 
   public submitPrenomFunction() {
     this.loading_prenom = true;
     setTimeout(() => { this.loading_prenom = false; }, 1000);
-    console.log(this.user.prenom);
   }
 
   public submitMailFunction() {
     this.loading_mail = true;
     setTimeout(() => { this.loading_mail = false; }, 1000);
-    console.log(this.user.mail);
   }
 
   public submitPhoneFunction() {
     this.loading_phone = true;
     setTimeout(() => { this.loading_phone = false; }, 1000);
-    console.log(this.user.telephone);
   }
 
   public submitNewPassowordFunction() {
@@ -94,7 +89,6 @@ export class ProfileComponent implements OnInit {
       this.newPassword = new NewPasswordClass('', undefined, '');
       this.commonServices.accordionCloseAllItemsFunction();
     }, 1000);
-    console.log(this.newPassword);
   }
 
 

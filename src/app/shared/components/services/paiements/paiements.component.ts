@@ -37,7 +37,6 @@ export class PaiementsComponent implements OnInit, OnDestroy {
 
     const profil = ((<any>this.userDataService.getUser).profil) ? (<any>this.userDataService.getUser).profil :
       localStorage.getItem('profil');
-    console.log(profil);
 
     if (!(this.userDataService.getMyAccounts()).length) {
       this.userDataService.setMyAccounts();
@@ -50,11 +49,8 @@ export class PaiementsComponent implements OnInit, OnDestroy {
 
   public chooseContractFunction(contract: any) {
     const contracts = this.userDataService.getAllContracts();
-    console.log(contract);
-    console.log(contracts);
     this.contract_current = (contract.data['0'].text).split('.')['0'];
     // this.contract_current = (contracts.filter(x => x.id === contract.value))['0'];
-    console.log(this.contract_current);
     if (contract.data && contract.data['0'].id) {
       this.paiementsRecusFunction((this.userDataService.getMyAccounts()['0']).id_account, contract.data['0'].id);
     }
@@ -69,8 +65,7 @@ export class PaiementsComponent implements OnInit, OnDestroy {
       .subscribe(result => {
         this.loading = false;
         const response = this.commonServices.xmlResponseParcer_complex(result._body);
-        console.log(response);
-         if (+response.error === 0) {
+          if (+response.error === 0) {
            this.operations = response.operation;
          }
       }, err => {

@@ -22,7 +22,6 @@ export class ListBanquesSicaService {
          </soapenv:Body>
       </soapenv:Envelope>`;
 
-    console.log(body);
     return this.backendService.post(UrlParams.backendUrl, body);
   }
 

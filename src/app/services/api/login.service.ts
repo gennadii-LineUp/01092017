@@ -34,13 +34,11 @@ export class LoginService {
    </soapenv:Body>
    </soapenv:Envelope>`;
 
-    console.log(body);
     return this.backendService.login(UrlParams.backendUrl, body);
   }
 
 
   public usersRouting(profil: string) {
-    console.log(profil);
       switch (profil) {
 
         case 'citizen': this.router.navigate(['/citizen/services']);

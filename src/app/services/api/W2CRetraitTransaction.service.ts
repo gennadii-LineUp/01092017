@@ -41,20 +41,6 @@ export class W2CRetraitTransactionService {
           </soapenv:Body>
       </soapenv:Envelope>`;
 
-    console.log(body);
     return this.backendService.post(UrlParams.backendUrl, body);
   }
-
-// <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-//     <soap:Body>
-//         <soap:Fault>
-//             <faultcode>soap:Client</faultcode>
-//             <faultstring>
-//               Error reading XMLStreamReader: Unexpected EOF in prolog
-//                           at [row,col {unknown-source}]: [1,0]
-//             </faultstring>
-//             </soap:Fault>
-//     </soap:Body>
-// </soap:Envelope>
-
 }

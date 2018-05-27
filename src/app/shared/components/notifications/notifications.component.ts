@@ -115,11 +115,9 @@ export class NotificationsComponent implements OnInit, OnDestroy {
           } else {
             this.status = 'lu';
             this.loading = false;
-            // console.log(result);
             this.notifications = (notifications && notifications.length) ? notifications : [];
             this._notifications = (this.notifications && this.notifications.length) ? this.notifications.slice() : [];
             this.notifs_lues_total = (this.notifications && this.notifications.length) ? this.notifications.length : 0;
-            // console.log(notifications);
           }
         }, (err) => {
           this.loading = false;
@@ -136,11 +134,9 @@ export class NotificationsComponent implements OnInit, OnDestroy {
         .takeWhile(() => this.alive)
         .subscribe(result => {
           const notifications = (this.commonServices.xmlResponseParcer_complex(result._body)).notifications;
-          // console.log(notifications);
           this.notifs_nonLues_total = (notifications && notifications.length) ? notifications.length : 0;
             this.status = 'non-lu';
             this.loading = false;
-            // console.log(result);
             if (notifications && notifications.length) {
               this.notifications = (notifications.length) ? notifications : [];
               this._notifications = this.notifications.slice();
@@ -150,7 +146,6 @@ export class NotificationsComponent implements OnInit, OnDestroy {
                 this.errorMessage = 'Error: ' + notifications.message.toLowerCase();
               }
             }
-            // console.log(notifications);
         }, (err) => {
           this.loading = false;
           console.log(err);

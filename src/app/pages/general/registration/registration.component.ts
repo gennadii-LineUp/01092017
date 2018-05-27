@@ -37,8 +37,7 @@ export class GeneralRegistrationComponent implements OnInit {
   }
 
   public registrationSubmitFunction() {
-    console.log(this.registration);
-    this.loading = true;
+     this.loading = true;
     this.errorMessage = '';
 
 
@@ -47,7 +46,6 @@ export class GeneralRegistrationComponent implements OnInit {
         this.loading = false;
         const response = this.commonServices.xmlResponseParcer_simple( result._body );
 
-        console.dir( response );
         if (+response.error === 0
           && response.message === 'Succès ! creation compte effectuée') {
           this.successMessage = response.message;

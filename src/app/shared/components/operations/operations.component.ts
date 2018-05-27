@@ -84,7 +84,6 @@ export class OperationsComponent implements OnInit, OnDestroy {
   }
 
   showBanque() {
-    console.log(this.activeBanque);
   }
 
   public submitCreerBeneficiaryFunction() {
@@ -100,9 +99,7 @@ export class OperationsComponent implements OnInit, OnDestroy {
         .takeWhile(() => this.alive)
         .subscribe((result) => {
           this.loading = false;
-          console.log(result._body);
           const response = this.commonServices.xmlResponseParcer_complex(result._body);
-          console.log(response);
           this.beneficiary = new BeneficiaryClass('', '', '', '', '', '', '');
 
           this.successMessage_1 = '  ';
@@ -128,7 +125,6 @@ export class OperationsComponent implements OnInit, OnDestroy {
   }
   public showBeneficiary(value: BeneficiaryClass) {
     this.beneficiary = value;
-    console.log(this.beneficiary);
   }
 
   public toggleAddNewBenef_mode() {

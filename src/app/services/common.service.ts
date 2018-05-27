@@ -141,21 +141,17 @@ export class CommonServices {
     const store_value = [];
     const arr_objects = [];
     let arr_field = '';
-    // console.log(arr);
 
     for (let i = 0; i < arr.length; i++) {
 
       if ((arr[i]).split('>').length === 1) {
         arr_field = arr[i];
         const ind_last = (arr.slice(i)).indexOf('/' + arr_field);
-        // console.log(ind_last);
         _arr = arr.splice(i, ind_last);
         _arr.shift();
         store_name.push(arr_field);
         store_value.push(_arr);
 
-        // console.log(_arr);
-        // console.log(arr);
       } else {
         const name = ((arr[i]).split('>'))[0];
         const value = ((((arr[i]).split('<'))[0]).split('>'))[1];
@@ -170,15 +166,12 @@ export class CommonServices {
           const value = ((((_store[j]).split('<'))[0]).split('>'))[1];
           small_obj[name] = value;
           if (j === (_store.length - 1)) {
-            // console.log(small_obj);
             arr_objects.push(small_obj);
             small_obj = {};
           }
         }
     }
     result[arr_field] = arr_objects;
-    // console.dir(arr_objects);
-    // console.dir(store_value);
     return result;
   }
 
@@ -197,21 +190,17 @@ export class CommonServices {
     const store_value = [];
     const arr_objects = [];
     let arr_field = '';
-    // console.log(arr);
 
     for (let i = 0; i < arr.length; i++) {
 
       if ((arr[i]).split('>').length === 1) {
         arr_field = arr[i];
         const ind_last = (arr.slice(i)).indexOf('/' + arr_field);
-        // console.log(ind_last);
         _arr = arr.splice(i, ind_last);
         _arr.shift();
         store_name.push(arr_field);
         store_value.push(_arr);
 
-        // console.log(_arr);
-        // console.log(arr);
       } else {
         const name = ((arr[i]).split('>'))[0];
         const value = ((((arr[i]).split('<'))[0]).split('>'))[1];
@@ -226,15 +215,12 @@ export class CommonServices {
         const value = ((((_store[j]).split('<'))[0]).split('>'))[1];
         small_obj[name] = value;
         if (j === (_store.length - 1)) {
-          // console.log(small_obj);
           arr_objects.push(small_obj);
           small_obj = {};
         }
       }
     }
     result[arr_field] = arr_objects;
-    // console.dir(arr_objects);
-    // console.dir(store_value);
     return result;
   }
 
@@ -254,21 +240,17 @@ export class CommonServices {
     const store_value = [];
     const arr_objects = [];
     let arr_field = '';
-    // console.log(arr);
 
     for (let i = 0; i < arr.length; i++) {
 
       if ((arr[i]).split('>').length === 1) {
         arr_field = arr[i];
         const ind_last = (arr.slice(i)).indexOf('/' + arr_field);
-        // console.log(ind_last);
         _arr = arr.splice(i, ind_last);
         _arr.shift();
         store_name.push(arr_field);
         store_value.push(_arr);
 
-        // console.log(_arr);
-        // console.log(arr);
       } else {
         const name = ((arr[i]).split('>'))[0];
         const value = ((((arr[i]).split('<'))[0]).split('>'))[1];
@@ -283,15 +265,12 @@ export class CommonServices {
         const value = ((((_store[j]).split('<'))[0]).split('>'))[1];
         small_obj[name] = value;
         if (j === (_store.length - 1)) {
-          // console.log(small_obj);
           arr_objects.push(small_obj);
           small_obj = {};
         }
       }
     }
     result[arr_field] = arr_objects;
-    // console.dir(arr_objects);
-    // console.dir(store_value);
     return result;
   }
 
@@ -311,21 +290,17 @@ export class CommonServices {
     let store_value = [];
     let arr_objects = [];
     let arr_field = '';
-     // console.dir(arr);
 
     for (let i = 0; i < arr.length; i++) {
 
       if ((arr[i]).split('>').length === 1) {
         arr_field = arr[i];
         const ind_last = (arr.slice(i)).indexOf('/' + arr_field);
-        // console.log(ind_last);
         _arr = arr.splice(i, ind_last);
         _arr.shift();
         store_name.push(arr_field);
         store_value.push(_arr);
 
-        // console.log(_arr);
-        // console.log(arr);
       } else {
         const name = ((arr[i]).split('>'))[0];
         const value = ((((arr[i]).split('<'))[0]).split('>'))[1];
@@ -337,18 +312,14 @@ export class CommonServices {
       for (let j = 0; j < _store.length; j++) {
         const name = ((_store[j]).split('>'))[0];
         const value = ((((_store[j]).split('<'))[0]).split('>'))[1];
-        // console.log(name, value);
         small_obj[name] = value;
         if (j === (_store.length - 1)) {
-          // console.log(small_obj);
           arr_objects.push(small_obj);
           small_obj = {};
         }
       }
     }
     result[arr_field] = arr_objects;
-    // console.dir(store_value);
-    // console.dir(result);
     return result;
   }
 
@@ -393,26 +364,22 @@ export class CommonServices {
 
   public removeEmptySelect2OnDestroy() {
     const select2 = <HTMLCollection>window.document.getElementsByClassName('select2-container');
-    console.log(select2.length);
     if (select2 && select2.length > 0) {
       for (let i = 0; i < select2.length; i++) {
         if (select2[i] && select2[i].classList.contains('select2-container--open')) {
           select2[i].classList.remove('select2-container--open');
-          console.log('removed');
         }
       }
     }
   }
   public removeEmptySelect2fromServices() {
     const select2 = <HTMLCollection>window.document.getElementsByClassName('select2-container');
-    console.log('SERVICES: count select2 --> ' + select2.length);
     if (select2 && select2.length > 0) {
       for (let i = 0; i < select2.length; i++) {
         window.document.body.removeChild(select2[i]);
       }
     }
     const _select2 = <HTMLCollection>window.document.getElementsByClassName('select2-container');
-    console.log('SERVICES: after rmv - count select2 --> ' + _select2.length);
   }
 
 

@@ -48,12 +48,10 @@ export class SelectSenderComponent implements OnInit {
       .subscribe(result1 => {
         const response1 = (this.commonServices.xmlResponseParcer_complex(result1._body)).uos;
         clients = (response1.length) ? response1 : [];
-        console.log('=== CUSTOMERs created ===');
         this.getAllCitizenService.getAllCitizens()
           .subscribe(result2 => {
             const response2 = (this.commonServices.xmlResponseParcer_complex(result2._body)).uos;
             citizens = (response2.length) ? response2 : [];
-            console.log('=== CITIZENs created ===');
 
             this.citizensClients = (clients).concat(citizens);
             this.userDataService.setCitizensClients(this.citizensClients);
@@ -66,9 +64,7 @@ export class SelectSenderComponent implements OnInit {
     const clients = await this.setClients();
     const citizens = await this.setCitizens();
 
-    console.log(clients, citizens);
     this.citizensClients = (clients).concat(citizens);
-    console.log(this.citizensClients);
   }
 
   public setClients(): Promise<any> {
@@ -80,8 +76,6 @@ export class SelectSenderComponent implements OnInit {
             const response = (this.commonServices.xmlResponseParcer_complex(result._body)).uos;
             this.clients = (response.length) ? response : [];
             // this.receivers = this.clients;
-            console.log('=== CUSTOMERs created ===');
-            console.log(this.clients);
           }, (err) => {console.log(err); });
       // }
       reslove(this.clients);
@@ -97,8 +91,6 @@ export class SelectSenderComponent implements OnInit {
             const response = (this.commonServices.xmlResponseParcer_complex(result._body)).uos;
             this.citizens = (response.length) ? response : [];
             // this.receivers = this.citizens;
-            console.log('=== CITIZENs created ===');
-            console.log(this.citizens);
           }, (err) => {console.log(err); });
       // }
       reslove(this.citizens);
@@ -106,8 +98,6 @@ export class SelectSenderComponent implements OnInit {
   }
 
   public findFunction() {
-    console.log(this.sender_to_find);
-
   }
 
 

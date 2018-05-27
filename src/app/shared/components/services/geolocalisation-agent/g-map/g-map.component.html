@@ -17,6 +17,23 @@
       </sebm-google-map-info-window>
     </sebm-google-map-marker>
 
+      <sebm-google-map-marker *ngFor="let m of markers"
+                              [latitude]="m.latitude"
+                              [longitude]="m.longitude"
+                              [title]="m.nom + ' ' + m.prenom"
+                              [iconUrl]="marker_agent"
+                              class="only-mobile">
+        <sebm-google-map-info-window>
+          <a class="map_content" (click)="markerClicked(m)">
+            <img src="{{m.iconUrl}}" alt="">
+            <div>
+              <h3>{{m.nom}} {{m.prenom}}</h3>
+              <p><i class="fa fa-phone" aria-hidden="true"></i>{{m.telephone}}</p>
+            </div>
+          </a>
+        </sebm-google-map-info-window>
+      </sebm-google-map-marker>
+
     <sebm-google-map-marker *ngFor="let m of markers"
                             [latitude]="m.latitude"
                             [longitude]="m.longitude"

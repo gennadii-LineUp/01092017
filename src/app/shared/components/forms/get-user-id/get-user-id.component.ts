@@ -63,7 +63,6 @@ export class GetUserIdComponent implements OnInit {
       this._envoyeur_documents = [];
       this.select_id_type_values = emptyDocuments.slice();
       this._envoyeur_documents = emptyDocuments.slice();
-      console.log(this.select_id_type_values);
     }
   }
 
@@ -137,6 +136,5 @@ export class GetUserIdComponent implements OnInit {
                         ? (this.envoyeur.id_type.split(this.additionalCaption))[0]
                         : _envoyeur.id_type;
     this.userData.emit(_envoyeur);
-    console.dir(_envoyeur);
   }
 }

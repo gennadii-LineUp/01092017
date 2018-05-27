@@ -68,17 +68,14 @@ export class VirementsMultiplesComponent implements OnInit, OnDestroy {
 
 
   public findContractFunction() {
-    console.log(this.contract_number);
     setTimeout(() => {this.gotoContractFoundFunction()}, 100)
   }
 
   public clearAmount() {this.amount_virementsMultiples = undefined; }
   public clearIndividualAmount(e: any) {
     e.target.previousElementSibling.value = '';
-    console.dir(e.target.previousElementSibling.value); return;
   }
   public chooseContractFunction(contract: any) {
-    console.log(contract);
     this.clearSearch();
     // "C201751015198 de 10.06.2017. Valide à partir de 29.05.2017. VALIDE. BICIS banque."
     this.contract_number = (contract.data['0'].text).split('.')['0'];
@@ -117,7 +114,6 @@ export class VirementsMultiplesComponent implements OnInit, OnDestroy {
       const _id = (this.contractsCustomer.filter(x => x.id === name))['0'].__id;
       this.beneficiaryToSend.push({beneficiary_id: name, montant: value, __id: _id, beneficiary_about: beneficiary_about});
     });
-    console.log(this.beneficiaryToSend);
   }
 
   public getContractsCustomerFunction(idContract: number) {
@@ -127,17 +123,13 @@ export class VirementsMultiplesComponent implements OnInit, OnDestroy {
       .subscribe((result) => {
         const response = this.commonServices.xmlResponseParcer_complex( result._body );
         this.contractsCustomer = response.citizen;
-        console.log(this.contractsCustomer);
         if (this.contractsCustomer && (this.contractsCustomer.length > 0)) {
           this.contractsCustomer.forEach(customer => {
             this.getAllListAccountService.getMyAccounts(customer.numTel)
               .takeWhile(() => this.alive)
               .subscribe(result1 => {
                 const response1 = this.commonServices.xmlResponseParcer_complex(result1._body);
-                console.log(response1);
-                // const uoId = response1.accounts['0'].uoId;
                 const id = response1.accounts['0'].id;
-                console.log('id => ' + id);
                 customer['__id'] = id;
               }, err1 => {console.log(err1); });
           })
@@ -151,14 +143,11 @@ export class VirementsMultiplesComponent implements OnInit, OnDestroy {
     if (this.commonServices.getSelectedReceivers().length) {
       this.loading_virements = true;
 
-      // console.log(this.userDataService.getMyAccounts());
       this.w2XWalletService.virementsMultiplesW2XW(+((this.userDataService.getMyAccounts())['0'].id_account), this.beneficiaryToSend)
         .takeWhile(() => this.alive)
         .subscribe((result) => {
             this.loading_virements = false;
-            console.log(result._body);
             const response = this.commonServices.xmlResponseParcer_simple(result._body);
-            console.dir(response);
             if (+response.error === 0) {
               this.successMessage_1 = 'Bravo !';
               this.successMessage_2 = response.message;
@@ -181,7 +170,6 @@ export class VirementsMultiplesComponent implements OnInit, OnDestroy {
   }
 
   public setNewAmounttoAll() {
-    console.log(this.amount_virementsMultiples);
     this.contractsCustomer.forEach((obj) => {
       obj.lastlastAmountContract = this.amount_virementsMultiples;
     });

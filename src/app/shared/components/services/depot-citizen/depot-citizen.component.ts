@@ -71,17 +71,10 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
     this.activateRoute.parent.url
       .takeWhile(() => this.alive)
       .subscribe(resp =>  this.userRole = resp['0'].path);
-    // const select2 = <HTMLCollection>window.document.getElementsByClassName('select2-container select2-container--default');
-    // if (select2 && select2['0'] && select2['0'].style) {
-    //   select2['0'].style.cssText = 'select2-container select2-container--default select2-container--close';
-    // }
-
-    // console.log($);
   }
 
   ngOnDestroy() {
     this.alive = false;
-    // this.commonServices.removeEmptySelect2OnDestroy();
   }
 
 
@@ -89,11 +82,7 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
     if (!this.requestIsSent
         &&(+this.amount_depotCitizen >= 0.01)
         && this.citizen_fromSelect2
-        // && (this.envoyeur.id_fin && this.envoyeur.id_debut
-        // && this.envoyeur.id_type && this.envoyeur.id_pays && this.envoyeur.id_valeur)
         && this.envoyeur.nom && this.envoyeur.prenom && this.envoyeur.cellulaire) {
-      // console.log(this.amount_depotCitizen + '  to send');
-      // console.dir(this.commonServices.getSelectedReceivers());
 
       this.loading = true;
       this.successMessage = '';
@@ -103,23 +92,18 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
       this.getCommissionsTTCService.getCommission(this.amount_depotCitizen, 'C2W')
         .takeWhile(() => this.alive)
         .subscribe(result => {
-          console.log(result._body);
           const response = this.commonServices.xmlResponseParcer_simple(result._body);
 
-          console.dir(response);
           if (+response.error === 0) {
             // this.errorMessage = response.message + ': ' + response.commission;
             this.commission.push(+response.commission);
-            console.log(this.commission);
             /////////////////////////////
             this.c2WDepotTransactionService.makeDepotSitizen(this.beneficiaireFound.numTel,
               +this.amount_depotCitizen, +response.commission, this.envoyeur)
               .subscribe(_result => {
                 this.loading = false;
-                console.log(_result._body);
                 const _response = this.commonServices.xmlResponseParcer_simple(_result._body);
 
-                console.dir(_response);
                 if (+_response.error === 0) {
                   this.successMessage_1 = response.message + ': ' + response.commission +
                     ' pour le montant ' + this.amount_depotCitizen + ' ' + this.currencyParams.curXOF();
@@ -154,10 +138,8 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
   }
 
   public setBeneficiaryFunction(beneficiary: any) {
-    // console.log(beneficiary);
     this.citizen_fromSelect2 = beneficiary.value ? beneficiary.value : this.cellularToFind;
     this.receiverToFind = this.citizen_fromSelect2;
-    // console.log(this.citizen_fromSelect2);
     this.secondStepMode();
   }
 
@@ -190,22 +172,15 @@ export class DepotCitizenComponent implements OnInit, OnDestroy {
 
   private setEnvoyeurFromForm(envoyeur: EnvoyeurClass) {
     this.envoyeur = envoyeur;
-    console.log(this.envoyeur);
-    console.log(this.envoyeur.nom + ' - ' + (<EnvoyeurClass>this._envoyeur_default).nom);
-    console.log(this.envoyeur.prenom + ' - ' + (<EnvoyeurClass>this._envoyeur_default).prenom);
-    console.log(this.envoyeur.cellulaire + ' - ' + (<EnvoyeurClass>this._envoyeur_default).cellulaire);
     if (this.envoyeur.nom === (<EnvoyeurClass>this._envoyeur_default).nom
       && this.envoyeur.prenom === (<EnvoyeurClass>this._envoyeur_default).prenom
       && this.envoyeur.cellulaire === (<EnvoyeurClass>this._envoyeur_default).cellulaire) {
       this.checkboxSameBenef = true;
-      console.log(this.checkboxSameBenef);
-    } else {this.checkboxSameBenef = false; console.log(this.checkboxSameBenef); }
-console.log('------------------------------');
+    } else {this.checkboxSameBenef = false; }
   }
 
   public setNewCitizen(newReceiver: RegistrationClass) {
     this.newReceiver = newReceiver;
-    console.log(this.newReceiver );
   }
 
   public createNewCitizenFunction() {
@@ -213,10 +188,8 @@ console.log('------------------------------');
       this.createNewAccountService.createNewAccount(this.newReceiver)
         .subscribe(result => {
           const response = this.commonServices.xmlResponseParcer_simple( result._body );
-          console.dir( response );
           if (+response.error === 0
             && response.message === 'Succès ! creation compte effectuée') {
-            console.log = response.message;
             this.beneficiaireFound = {nom: (this.newReceiver.nom) ? this.newReceiver.nom : undefined,
                                       prenom: (this.newReceiver.prenom) ? this.newReceiver.prenom : undefined,
                                       numTel: this.newReceiver.telephone,
@@ -242,7 +215,6 @@ console.log('------------------------------');
       .takeWhile(() => this.alive)
       .subscribe(result => {
         const response = this.commonServices.xmlResponseParcer_simple(result._body);
-        console.log(response);
 
         if (response && response.id) {
           // ====================================
@@ -250,8 +222,7 @@ console.log('------------------------------');
             .takeWhile(() => this.alive)
             .subscribe(result1 => {
               const response1 = this.commonServices.xmlResponseParcer_complex(result1._body);
-              console.dir(response1);
-              this.findContactsOfClient(response.id);
+               this.findContactsOfClient(response.id);
 
               if (+response1.error === 0 && response1.identifiant && response1.identifiant.length) {
                 this.envoyeur_documents = response1.identifiant;
@@ -300,17 +271,13 @@ console.log('------------------------------');
       .subscribe(result => {
         this.loading = false;
         const response = this.commonServices.xmlResponseParcer_simple(result._body);
-        console.dir(response);
         if (+response.error === 0) {
           this.beneficiaireFound = {nom: (response.nomContact) ? response.nomContact : this._beneficiaireFound.nom,
             prenom: (response.prenomContact) ? response.prenomContact : this._beneficiaireFound.prenom,
             numTel: response.telephoneContact ? response.telephoneContact : this._beneficiaireFound.numTel,
             id: (response.id) ? response.id : this._beneficiaireFound.id
           };
-          console.log(this.beneficiaireFound);
-          // if (this.beneficiaireFound.numTel) {
             this.setBeneficiaryFunction({value: this.beneficiaireFound.numTel});
-          // }
         } else {
           this.loading = false;
           // this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(response.message);
@@ -325,7 +292,6 @@ console.log('------------------------------');
 
   public setDeposantSameAsBeneficiary(e) {
     this.checkboxSameBenef = !this.checkboxSameBenef;
-    console.log(this.checkboxSameBenef);
     this.envoyeur = new EnvoyeurClass('', '', '', '', '', 'SEN', '', '', '');
     if (this.checkboxSameBenef) {
       this.envoyeur_default = new EnvoyeurClass((<EnvoyeurClass>this._envoyeur_default).nom,
@@ -345,18 +311,12 @@ console.log('------------------------------');
     } else {
       this.envoyeur_default = new EnvoyeurClass('', '', '', '', '', 'SEN', '', '', '');
     }
-    // console.log(this._envoyeur_default);
-    console.log(this.envoyeur);
   }
   public clearAmount() {this.amount_depotCitizen = undefined; }
   public clearNumTel() {this.cellularToFind = undefined; }
   public clearEnvoyeur(field: string) {this.envoyeur[field] = undefined; }
 
   public clearSearch() {
-    // this.amount_depotCitizen = undefined;
-    // this.receivers = [];
-    // this.receiverToFind = '';
-    // this.newReceiver = new ReceiverClass('', '', '', '', 0, '', '', '', '', '', '');
     this.receiverExist = false;
     this.createNewReceiver = false;
     this.receiverStatus = '';

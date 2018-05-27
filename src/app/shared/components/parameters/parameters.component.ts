@@ -76,11 +76,9 @@ export class ParametersComponent implements OnInit, OnDestroy {
     this.successMessage_1 = '';
     this.successMessage_2 = '';
     this.errorMessage = '';
-    console.log('touchend');
     cordova.plugins.barcodeScanner.scan(
       (result) => {
         const s = 'Result: ' + result.text + '<br/>';
-        console.log(result.text);
         setTimeout(this.showQRdata(result.text), 100);
       },
       function (error) {
@@ -91,12 +89,10 @@ export class ParametersComponent implements OnInit, OnDestroy {
 
   showQRdata(data: string) {
     const qr_data = data.split(';');
-    console.log(qr_data);
     let nom = (qr_data[1] && qr_data[1].length) ? qr_data[1] : ' ';
     let prenom = (qr_data[2] && qr_data[2].length) ? qr_data[2] : ' ';
     this.beneficiaryFromQR_idAccount = +qr_data[0];
 
-    // console.log('from QR - beneficiaryFromQR_idAccount: ', this.beneficiaryFromQR_idAccount);
     this.beneficiaryFromQR_nomPrenom = '' + nom + ' ' + prenom;
     this.cd.detectChanges();
   }
@@ -107,8 +103,6 @@ export class ParametersComponent implements OnInit, OnDestroy {
     this.myAccount = myAccount;
     this.receiver_idAccount = +myAccount.id_account;
     this.receiver_nomPrenom = myAccount.nom + ';' + myAccount.prenom;
-    // console.log(this.receiver_nomPrenom);
-    console.log(myAccount);
     const allItems: NodeListOf<Element> = window.document.querySelectorAll('div.consult-user');
     for (let i = 0; i < allItems.length; i++) {
       allItems[i].className = 'consult-user';
@@ -131,21 +125,8 @@ export class ParametersComponent implements OnInit, OnDestroy {
             .takeWhile(() => this.alive)
             .subscribe(result => {
               const response = this.commonServices.xmlResponseParcer_simple(result._body);
-              console.dir(response);
               if (+response.error === 0) {
                 this.commission.push(+response.commission);
-                console.log(response.commission);
-
-                // this.getAllListAccountService.getMyAccounts(_numTel_fromSelect2)
-                //   .takeWhile(() => this.alive)
-                //   .subscribe(result1 => {
-                //     const response1 = this.commonServices.xmlResponseParcer_complex(result1._body);
-                //     const _accounts = response1.accounts;
-                //     let receiver_id: number;
-                //     if (_accounts && _accounts.length) {
-                //       receiver_id = _accounts['0'].id;
-                //       console.log(receiver_id);
-                //     }
 
                     /////////////////////////////
                     this.w2WVirementAccountService
@@ -158,7 +139,6 @@ export class ParametersComponent implements OnInit, OnDestroy {
                         this.loading = false;
                         const _response = this.commonServices.xmlResponseParcer_simple(result2._body);
 
-                        console.dir(_response);
                         if (+_response.error === 0) {
                           this.errorMessage = '';
                           this.successMessage_1 = response.message + ': ' + response.commission;
@@ -178,14 +158,6 @@ export class ParametersComponent implements OnInit, OnDestroy {
                       });
                     /////////////////////////////
 
-                  // }, (err) => {
-                  //   this.loading = false;
-                  //   console.log(err);
-                  //   this.errorMessage = this.errorMessageHandlerService.getMessageEquivalent(err._body.type);
-                  //   if (!this.errorMessage) {
-                  //     this.errorMessage = this.errorMessageHandlerService._getMessageEquivalent(err._body);
-                  //   }
-                  // });
               } else {
                 this.loading = false;
                 this.requestIsSent = false;

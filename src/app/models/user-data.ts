@@ -42,13 +42,9 @@ export class UserDataService {
     //   myAccount.telephone = (this.getUser().telephone) ?  this.getUser().telephone : localStorage.telephone;
     // });
     if (localStorage.telephone && localStorage.token) {
-        // if (localStorage.nom === 'wari') {
-        //   localStorage.setItem('telephone', '776666666');
-        // }
         this.getAllListAccountService.getMyAccounts(localStorage.telephone)
           .subscribe(result1 => {
             const response1 = this.commonServices.xmlResponseParcer_complex(result1._body);
-            console.log(response1);
             const accounts = response1.accounts;
             if (accounts && accounts.length) {
               if (accounts['0'].status === 'ACTIF') {
@@ -69,17 +65,12 @@ export class UserDataService {
                 }
               }
             }
-            console.log('=== from LS MyAccounts:');
-            console.log(this.getMyAccounts());
             if (!this.user.nom || !this.user.prenom || !this.user.telephone || !this.user.id_account) {
               this.setUser(localStorage.nom || 'add a nom',
                           localStorage.prenom || 'add a prenom',
                           localStorage.profil || 'add a profil',
                           localStorage.telephone || 'add a phone');
-              console.log(this.myAccounts);
               this.setUserId(this.myAccounts['0'].id_account, this.myAccounts['0'].uoId);
-              console.log('=== from LS User:');
-              console.log(this.getUser());
               this._myAccounts.next(this.getMyAccounts());
             }
           }, (err) => {
@@ -97,21 +88,17 @@ export class UserDataService {
 
   set agentsMarkers_nearest(value: Array<MarkerClass>) {
     this._agentsMarkers_nearest = value;
-    console.log('setted');
   }
 
   get agentsMarkers_nearest(): Array<MarkerClass> {
-    console.log('Getted');
     return this._agentsMarkers_nearest;
   }
 
   set agentsMarkers_rest(value: Array<MarkerClass>) {
     this._agentsMarkers_rest = value;
-    console.log('setted');
   }
 
   get agentsMarkers_rest(): Array<MarkerClass> {
-    console.log('Getted');
     return this._agentsMarkers_rest;
   }
 
@@ -122,7 +109,6 @@ export class UserDataService {
         .subscribe(result => {
           const response = (this.commonServices.xmlResponseParcer_complex(result._body)).contract;
           if (response) {
-            console.log(response);
             this.allContracts = response;
             this.setContractsForSelect2(response);
           }
@@ -138,7 +124,6 @@ export class UserDataService {
                     .subscribe(result => {
                       const response = (this.commonServices.xmlResponseParcer_complex(result._body)).contract;
                       if (response) {
-                        console.log(response);
                         this.allContracts = response;
                         this.setContractsForSelect2(response);
                       }
@@ -156,28 +141,16 @@ export class UserDataService {
     return this.allContracts;
   }
 
-  // public publishData(data: Object) {
-  //   this.caseNumber.next(data);
-  // }
-
   public setUser(nom: string, prenom: string, profil: string, telephone: string) {
-    // this.user['nom'] = nom;
-    // this.user['prenom'] = prenom;
-    // this.user['profil'] = profil;
-    // this.user['telephone'] = telephone;
     this.user.nom = nom;
     this.user.prenom = prenom;
     this.user.profil = profil;
     this.user.telephone = telephone;
-    // console.log(this.user);
-    // this.publishData(this.user);
-    // this.setMyAccounts();
   }
   public setUserId(id_account: string, uoId: string) {
     this.user.id_account = +id_account;
     this.user.uoId = uoId;
-    console.log(this.user);
-  }
+   }
 
   public getUser(): ReceiverClass {
     return this.user;
@@ -191,8 +164,6 @@ export class UserDataService {
           const response = (this.commonServices.xmlResponseParcer_complex(result._body)).uos;
           this.citizens = (response.length) ? response : [];
           this.receivers = this.citizens;
-          console.log('=== CITIZENs created ===');
-          console.log(this.citizens);
         }, (err) => {console.log(err); this.setErrorMessage(err); });
   }
   public getCitizens(): any {
@@ -214,7 +185,6 @@ export class UserDataService {
 
       this.receiversForSelect2.push(new Select2optionClass(id, text));
     });
-    console.log(this.receiversForSelect2);
   }
   public getReceiversForSelect2(): Array<Select2optionClass> {
     return this.receiversForSelect2;
@@ -234,7 +204,6 @@ export class UserDataService {
 
         this.contractsForSelect2.push(new Select2optionClass(id, text));
       });
-      console.log(this.contractsForSelect2);
     }
 
   }
@@ -250,8 +219,7 @@ export class UserDataService {
         receiver = this.getReceivers()[key];
       }
     });
-    console.log(receiver);
-    return receiver;
+   return receiver;
   }
 
 
@@ -263,9 +231,9 @@ export class UserDataService {
         const response = (this.commonServices.xmlResponseParcer_complex(result._body)).uos;
         this.clients = (response.length) ? response : [];
         this.receivers = this.clients;
-        console.log('=== CUSTOMERs created ===');
-        console.log(this.clients);
-      }, (err) => {console.log(err); this.setErrorMessage(err); });
+       }, (err) => {
+        console.log(err);
+        this.setErrorMessage(err); });
   }
   public getClients(): any {
     return this.clients;
@@ -289,17 +257,6 @@ export class UserDataService {
         } break;
       }
       case 'agent': {
-        // if (!this.citizensClients.length) {
-        //   if (!this.clients.length) { this.setClients(); }
-        //   if (!this.citizens.length) { this.setCitizens(); }
-        //   setTimeout(() => {
-        //     this.citizensClients = (this.clients).concat(this.citizens);
-        //     this.receivers = this.citizensClients;
-        //     console.log('=== CITIZENs+CUSTOMERs created ===');
-        //     console.log(this.citizensClients);
-        //   }, 1000);
-        //
-        // }
         break;
       }
 
@@ -313,16 +270,10 @@ export class UserDataService {
 
   public setCitizensClients(citizensClients: any) {
     this.citizensClients = citizensClients;
-    console.log(this.citizensClients);
-  }
+   }
   public getCitizensClients(): any {
     return this.citizensClients;
   }
-
-  // public getSender_default(): any {
-  //   return this.sender_default;
-  // }
-
 
   public checkUserRole(): boolean {
     const active_profil = this.user.profil;

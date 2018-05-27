@@ -159,14 +159,10 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
     this.transfer_facture = true;
     this.numTel_fromSelect2 = '';
     this.amountToReceiver = undefined;
-    // if (!this.receivers.length) {
-    //   this.receivers = this.userDataService.getReceivers();
-    // }
   }
 
   public setSenderFunction(sender: any) {
     this.sender.push(sender);
-    console.log(this.sender);
     this.profileAsAgent = false;
   }
 
@@ -178,7 +174,6 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
         .takeWhile(() => this.alive)
         .subscribe(result => {
           const response = this.commonServices.xmlResponseParcer_complexReturn( result._body );
-          console.dir( response );
           if (response.return && response.return.length) {
             response.return.forEach(payement => {
               this.factures.push(new ReceiverClass(
@@ -201,7 +196,6 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
         .takeWhile(() => this.alive)
         .subscribe(result => {
           const response = this.commonServices.xmlResponseParcer_complexReturn( result._body );
-          console.dir( response );
           if (response.return && response.return.length) {
             response.return.forEach(payement => {
               this.marchands.push(new ReceiverClass(
@@ -226,27 +220,21 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
         this.errorMessage = '';
         this.loading = true;
 
-        console.log(this.myAccount);
-        console.log(this.numTel_fromSelect2);
         if (~(this.numTel_fromSelect2.indexOf(' '))) {
           _numTel_fromSelect2 = this.numTel_fromSelect2.split(', ')[1];
         } else {
           _numTel_fromSelect2 = this.numTel_fromSelect2;
         }
-        console.log(_numTel_fromSelect2);
 
         const beneficiaire = <ReceiverClass>this.userDataService.getReceiverFromSelect2(_numTel_fromSelect2);
-        console.log(beneficiaire);
 
         if (_numTel_fromSelect2) {
           this.getCommissionsTTCService.getCommission(this.amountToReceiver, 'W2W')
             .takeWhile(() => this.alive)
             .subscribe(result => {
               const response = this.commonServices.xmlResponseParcer_simple(result._body);
-              console.dir(response);
               if (+response.error === 0) {
                 this.commission.push(+response.commission);
-                console.log(response.commission);
 
                 this.getAllListAccountService.getMyAccounts(_numTel_fromSelect2)
                   .takeWhile(() => this.alive)
@@ -256,7 +244,6 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
                     let receiver_id: number;
                     if (_accounts && _accounts.length) {
                       receiver_id = _accounts['0'].id;
-                      console.log(receiver_id);
                     }
                     /////////////////////////////
                     this.w2WVirementAccountService.transferCompteStandart(this.amountToReceiver,
@@ -268,7 +255,6 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
                         this.loading = false;
                         const _response = this.commonServices.xmlResponseParcer_simple(result2._body);
 
-                        console.dir(_response);
                         if (+_response.error === 0) {
                           this.errorMessage = '';
                           this.successMessage_1 = response.message + ': ' + response.commission;
@@ -343,8 +329,6 @@ export class TransferCompteComponent implements OnInit, OnDestroy {
     // this.showReceiverInfo = false;
     this.clearSearch();
     this.myAccount = myAccount;
-    console.log('=== sender\'s account: ');
-    console.log(this.myAccount);
     const allItems: NodeListOf<Element> = window.document.querySelectorAll('div.consult-user');
     for (let i = 0; i < allItems.length; i++) {
       allItems[i].className = 'consult-user';

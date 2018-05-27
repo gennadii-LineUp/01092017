@@ -16,7 +16,6 @@ export class NewReceiverSmallComponent {
   constructor() { }
 
   onChanged() {
-    // console.log((this.newReceiver));
     this.receiver_defined.emit(this.newReceiver);
   }
   public clearReceiver(field: string) {this.newReceiver[field] = undefined; }

@@ -21,7 +21,6 @@ export class SelectClientComponent implements OnInit {
   }
 
   public setBeneficiaryFunction(beneficiary: any) {
-    console.log(beneficiary);
     this.beneficiary_defined.emit(beneficiary);
   }
 

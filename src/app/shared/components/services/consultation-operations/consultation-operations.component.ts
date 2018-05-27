@@ -62,12 +62,10 @@ export class ConsultationOperationsComponent implements OnInit, OnDestroy {
         .subscribe(result => {
           this.loading = false;
           const history = this.commonServices.xmlResponseParcer_complex( result._body );
-          console.dir( history );
 
           if (+history.error === 0 && history.total) {
             if (history.operation && +history.total > 0) {
               this.transactions_all = this.removeElementsWithEmptyAmount( history.operation );
-              console.log(this.transactions_all);
               this.totalOperations = this.transactions_all.length;
               this.solde = history.operation[0].soldeCompte;
             }
@@ -102,7 +100,6 @@ export class ConsultationOperationsComponent implements OnInit, OnDestroy {
 
   public setSenderFunction(sender: any) {
     this.sender.push(sender);
-    console.log(this.sender);
     this.profileAsAgent = false;
   }
 
@@ -111,7 +108,6 @@ export class ConsultationOperationsComponent implements OnInit, OnDestroy {
       this.commonServices.accordionCloseAllItemsFunction();
       this.clearAll();
       this.currentAccount = currentAccount;
-      console.log(this.currentAccount);
     }
 
 
@@ -131,8 +127,6 @@ export class ConsultationOperationsComponent implements OnInit, OnDestroy {
 
 
     public setTransactionsCurrentFunction(transactions_current_obs: Observable<any>): void {
-       // console.log(transactions_current);
-       // this.transactions_current = transactions_current;
       this.transactions_current = [];
       transactions_current_obs.subscribe((data) => {
         this.transactions_current.push(data);

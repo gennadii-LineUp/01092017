@@ -51,12 +51,9 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
               public commonServices: CommonServices,
               public errorMessageHandlerService: ErrorMessageHandlerService) {
     userDataService.myAccounts$.subscribe((myAccounts) => {
-      console.log(myAccounts);
-      console.log('hello');
       this.phone = (this.userDataService.getMyAccounts()['0'].telephone)
         ? (this.userDataService.getMyAccounts()['0'].telephone)
         : localStorage.getItem('telephone');
-      console.log(this.phone);
       this.startGettingMyCoordTouch();
     });
   }
@@ -69,7 +66,6 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
     this.loadAgentsCoordonees();
 
     if ((this.userDataService.getMyAccounts()).length) {
-      console.log('=== MyAccounts\' length ' + this.userDataService.getMyAccounts().length);
       this.phone = (this.userDataService.getMyAccounts()['0'].telephone)
         ? (this.userDataService.getMyAccounts()['0'].telephone)
         : localStorage.getItem('telephone');
@@ -89,7 +85,6 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
       .subscribe(result => {
         // this.loading = false;
         const response = this.commonServices.xmlResponseParcer___complex( result._body );
-        console.dir( response );
         if (+response.error === 0 && response.listAgents.length) {
           this.agentsMarkers_nearest = [];
           this._agentsMarkers_nearest = [];
@@ -101,7 +96,6 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
                                             item.telephone ? item.telephone : '',
                                             ''));
           });
-          console.log(agentsMarkers_all);
 
           this._agentsMarkers_nearest = agentsMarkers_all.slice();
           this.findClosestAgents();
@@ -132,8 +126,6 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
         }
       }
     this.agentsMarkers_nearest = agentsMarkers_nearest;
-    console.log(this.agentsMarkers_nearest);
-    console.log(this._agentsMarkers_nearest);
     this.userDataService.agentsMarkers_nearest = this.agentsMarkers_nearest;
     this.status_agentsMarkers = true;
 
@@ -161,8 +153,7 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
       let nearestAgent: MarkerClass;
       const myPosition = new AgentTempClass('tele', this.Deg2Rad(this.myCoord.latitude), this.Deg2Rad(this.myCoord.longitude));
       nearestAgent = this.NearestAgent(myPosition.lat, myPosition.lon, agentsTemp);
-      // console.log(nearestAgent);
-      if (nearestAgent && +nearestAgent.telephone) {
+       if (nearestAgent && +nearestAgent.telephone) {
         return nearestAgent;
       }
     }
@@ -207,10 +198,6 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
   // =====================================================
 
   public loadMap() {
-    // console.log('loadMap');
-    // console.log(navigator);
-    // console.log(cordova);
-    // console.log(cordova.plugins);
     const div = document.getElementById('map_canvas');
 
     // Initialize the map view
@@ -223,41 +210,21 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
   }
 
   public onMapReady() {
-    console.log('map is ready');
 }
 
   public map_buttonClick() {
-    console.log('map_buttonClick');
   }
 
   public setAgentsMarkersFunction(markers: Array<MarkerClass>) {
     this.agentsMarkers_nearest = markers;
-    console.log(this.agentsMarkers_nearest);
   }
 
   public startGettingMyCoordTouch() {
     this.geoloading = true;
-    console.log('startGettingMyCoord  touchend');
-    // try {
-    //   console.log(cordova);
-    // } catch (e) {
-    //   console.log(e);
-    // }
-    // try {
-    //   console.log(navigator);
-    // } catch (e) {
-    //   console.log(e);
-    // }
 
     navigator.geolocation.getCurrentPosition((position) => {
-        // const element = document.getElementById('geolocation');
-        // element.innerHTML = 'Latitude: '  + position.coords.latitude + '<br />' +
-        //                     'Longitude: ' + position.coords.longitude + '<br />';
-        console.log(position.coords);
-
         this.latitude = +position.coords.latitude;
         this.longitude = +position.coords.longitude;
-        console.log('touchend:  latitude', this.latitude, this.longitude);
         this.myCoord.latitude = this.latitude;
         this.myCoord.longitude = this.longitude;
         this.geoloading = false;
@@ -276,17 +243,13 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
 
   public startGettingMyCoordClick() {
     this.geoloading = true;
-    console.log('startGettingMyCoord  CLICK');
     navigator.geolocation.getCurrentPosition((position) => {
-        console.log(position.coords);
 
         this.latitude = +position.coords.latitude;
         this.longitude = +position.coords.longitude;
-        console.log('position.coords.latitude', position.coords.latitude, position.coords.longitude);
         this.myCoord.latitude = this.latitude;
         this.myCoord.longitude = this.longitude;
         this.geoloading = false;
-        console.log(this.myCoord);
        },
       (error) => {
         this.geoloading = false;
@@ -310,27 +273,22 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
       }
     }
     const clickedNode = $event.target;
-    console.log(clickedNode);
     if (clickedNode.classList.contains('search__user')) {
       clickedNode.classList.toggle('activeAgentClass');
     } else {
       const parent1 = clickedNode.parentElement;
-      console.log(parent1);
       if (parent1.classList.contains('search__user')) {
         parent1.classList.toggle('activeAgentClass');
       } else {
         const parent2 = parent1.parentElement;
-        console.log(parent2);
         if (parent2.classList.contains('search__user')) {
           parent2.classList.toggle('activeAgentClass');
         } else {
           const parent3 = parent2.parentElement;
-          console.log(parent3);
           if (parent3.classList.contains('search__user')) {
             parent3.classList.toggle('activeAgentClass');
           } else {
             const parent4 = parent3.parentElement;
-            console.log(parent4);
             if (parent4.classList.contains('search__user')) {
               parent4.classList.toggle('activeAgentClass');
             }
@@ -358,7 +316,20 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
     }
   }
 
-  public sendCall(phoneNumber: string) {
-    console.log(phoneNumber);
+  testCall(n: string) {
+    try {
+      if (cordova) {
+        cordova.plugins.CordovaCall.sendCall('1122233444');
+
+        //simulate your friend answering the call 5 seconds after you call
+        setTimeout(function(){
+          cordova.plugins.CordovaCall.connectCall();
+        }, 5000);
+
+      }
+    } catch (e) {
+      console.log(e);
+    }
+
   }
 }

@@ -59,9 +59,7 @@ export class VirementsVersBanqueComponent implements OnInit, OnDestroy {
 
 
   public showNextBeneficiary(userChoice: string) {
-    console.log(userChoice);
     this.beneficiary = this.beneficiaries.find(x => x.id === userChoice);
-    console.log(this.beneficiary);
   }
 
 
@@ -77,9 +75,7 @@ export class VirementsVersBanqueComponent implements OnInit, OnDestroy {
         .takeWhile(() => this.alive)
         .subscribe((result) => {
           this.loading = false;
-          console.log(result._body);
           const response = this.commonServices.xmlResponseParcer_complex(result._body);
-          console.log(response);
 
           this.successMessage_1 = 'Confirmation de succès pour le montant ' + response.montant + this.currencyParams.curXOF() + ' !';
           this.successMessage_2 = '' + this.commonServices.fromServerDateMoment(response.dateTransaction) + ' à '
@@ -104,8 +100,7 @@ export class VirementsVersBanqueComponent implements OnInit, OnDestroy {
   }
   public showBeneficiary(value: BeneficiaryClass) {
     this.beneficiary = value;
-    console.log(this.beneficiary);
-  }
+   }
 
   public clearAmount() {this.amountToReceiver = undefined; }
 
