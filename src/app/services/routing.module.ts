@@ -82,7 +82,6 @@ import {CustServicesGeolocalisationAgentPageComponent} from '../pages/customer/m
 import {CustServicesVirementsVersBankPageComponent} from '../pages/customer/menu-user/cust-services-page/items/cust-services-virements-vers-bank-page.component';
 
 const routes: Routes = [
-  // { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '', component: (window.innerWidth < 800) ? GeneralAuthorisationComponent : LoginStartPageComponent},
   { path: 'about-us', component: GeneralAboutUsPageComponent},
   { path: 'terms-conditions', component: GeneralTermsPageComponent },
@@ -105,7 +104,6 @@ const routes: Routes = [
             { path: 'services/depot-client', component: AServicesDepotClientPageComponent },
             { path: 'services/retrait-code', component: AServicesRetraitCodePageComponent },
             { path: 'services/manage-admin-citizen', component: AServicesManageAdminCitizenPageComponent },
-            /////menu-user-->services://///////////////////////
             { path: 'services/transfer-dargent', component: AServicesTransferDargentPageComponent },
             { path: 'services/transfer-compte', component: AServicesTransferComptePageComponent },
             { path: 'services/consultation-solde', component: AServicesConsultationSoldePageComponent },
@@ -129,7 +127,6 @@ const routes: Routes = [
       { path: 'cancellation-refund', component: CitizenCancellationRefundPageComponent },
       { path: 'profile', component: CitizenProfilePageComponent },
         { path: 'services', component: CServicesPageComponent },
-            /////menu-user-->services://///////////////////////
             { path: 'services/transfer-dargent', component: CServicesTransferDargentPageComponent },
             { path: 'services/transfer-compte', component: CServicesTransferComptePageComponent },
             { path: 'services/consultation-solde', component: CServicesConsultationSoldePageComponent },
@@ -153,7 +150,6 @@ const routes: Routes = [
       { path: 'cancellation-refund', component: CustomerCancellationRefundPageComponent },
       { path: 'profile', component: CustomerProfilePageComponent },
         { path: 'services', component: CustServicesPageComponent },
-            /////menu-user-->services://///////////////////////
             { path: 'services/transfer-dargent', component: CustServicesTransferDargentPageComponent },
             { path: 'services/transfer-compte', component: CustServicesTransferComptePageComponent },
             { path: 'services/consultation-solde', component: CustServicesConsultationSoldePageComponent },

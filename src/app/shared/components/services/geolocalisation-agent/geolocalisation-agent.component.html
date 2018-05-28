@@ -36,6 +36,14 @@
                   <span class="tel"><i class="fa fa-phone" aria-hidden="true"></i>{{agent.telephone}}</span>
                 </div>
               </div>
+              <button class="orange-button blue-button only-mobile" style="margin-top: 1px; margin-bottom: 2px"
+                      (click)="callAgent(agent.telephone)">
+                      <span class="tel">
+                        <i class="fa fa-phone" aria-hidden="true"
+                           style="font-size: 4rem; position: relative; top: 0.8rem"></i>
+                      </span>
+                      Call
+              </button>
               <div class="chat">
                 <img src="../../../../../assets/img/icon-chat.png" alt="Chat">
                 Chat message

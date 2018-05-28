@@ -316,15 +316,13 @@ export class GeolocalisationAgentComponent implements OnInit, OnDestroy {
     }
   }
 
-  testCall(n: string) {
+  callAgent(telephone: string) {
+    // used next plugin:
+    // https://www.npmjs.com/package/cordova-call
+    // works for android 6+
     try {
       if (cordova) {
-        cordova.plugins.CordovaCall.sendCall('1122233444');
-
-        //simulate your friend answering the call 5 seconds after you call
-        setTimeout(function(){
-          cordova.plugins.CordovaCall.connectCall();
-        }, 5000);
+        cordova.plugins.CordovaCall.sendCall(telephone);
 
       }
     } catch (e) {
